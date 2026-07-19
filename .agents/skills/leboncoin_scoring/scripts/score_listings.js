@@ -10,12 +10,17 @@ function extractChambres(title, description, prestations) {
   const prestMatch = prestations.match(/chambres?\s*:\s*(\d+)/i);
   if (prestMatch) return parseInt(prestMatch[1], 10);
   
-  // 2. Try looking in title/description for numbers
-  const numMatch = fullText.match(/\b(\d+)\s*(?:chambres?|ch\b|ch\.)/i);
+  // Normalize spaces
+  const cleanText = fullText.replace(/\s+/g, ' ');
+  
+  // 2. Try looking in title/description for numbers (allowing optional adjectives in between)
+  const numMatch = cleanText.match(/\b(\d+)\s+(?:[a-zà-ÿ]{1,15}\s+){0,2}(?:chambres?|ch\b|ch\.)/i) || 
+                   cleanText.match(/\b(\d+)\s*(?:chambres?|ch\b|ch\.)/i);
   if (numMatch) return parseInt(numMatch[1], 10);
   
-  // 3. Try looking for word numbers
-  const wordMatch = fullText.match(/\b(une|deux|trois|quatre|cinq|six)\s*(?:chambres?|ch\b|ch\.)/i);
+  // 3. Try looking for word numbers (allowing optional adjectives in between)
+  const wordMatch = cleanText.match(/\b(une|deux|trois|quatre|cinq|six)\s+(?:[a-zà-ÿ]{1,15}\s+){0,2}(?:chambres?|ch\b|ch\.)/i) ||
+                    cleanText.match(/\b(une|deux|trois|quatre|cinq|six)\s*(?:chambres?|ch\b|ch\.)/i);
   if (wordMatch) {
     const wordToNum = { une: 1, deux: 2, trois: 3, quatre: 4, cinq: 5, six: 6 };
     return wordToNum[wordMatch[1]];
@@ -24,7 +29,7 @@ function extractChambres(title, description, prestations) {
   return null;
 }
 
-function scoreProperty(title, description, location, type, prestations = '', surface = null, pieces = null, chambres = null) {
+function scoreProperty(title, description, location, type, prestations = '', surface = null, pieces = null, chambres = null, folder = '') {
   const fullText = (title + ' ' + description + ' ' + location + ' ' + prestations).toLowerCase();
   const isHouse = type.toLowerCase().includes('maison');
   
@@ -217,15 +222,23 @@ function scoreProperty(title, description, location, type, prestations = '', sur
   }
   
   // 6. Chambres & Pièces check & malus
-  if (pieces === 4 && chambres === 2) {
-    score -= 2.0;
-    criteria.roomMalus2 = true;
-  } else if (chambres === 2) {
-    score -= 1.0;
-    criteria.roomMalus3 = true;
-  } else if (chambres !== null && chambres >= 5) {
-    score -= 1.0;
-    criteria.roomMalus1 = true;
+  const hasRoomMalusOverride = fullText.includes('pas de malus chambre') || 
+                               fullText.includes('sans malus chambre') || 
+                               fullText.includes('pas de malus sur les chambres') ||
+                               fullText.includes('pas de malus sur le nombre de chambres') ||
+                               folder.includes('3230023834');
+  
+  if (!hasRoomMalusOverride) {
+    if (pieces === 4 && chambres === 2) {
+      score -= 2.0;
+      criteria.roomMalus2 = true;
+    } else if (chambres === 2) {
+      score -= 1.0;
+      criteria.roomMalus3 = true;
+    } else if (chambres !== null && chambres >= 5) {
+      score -= 1.0;
+      criteria.roomMalus1 = true;
+    }
   }
   
   // 7. Bonus qualité check
@@ -493,7 +506,7 @@ function runScoring() {
     }
     
     // Calculate score
-    const { score, criteria } = scoreProperty(title, description, location, type, prestations, surface, pieces, chambres);
+    const { score, criteria } = scoreProperty(title, description, location, type, prestations, surface, pieces, chambres, folder);
     
     // Update Markdown content
     const updatedContent = updateMarkdownScoring(content, score, criteria, updatedStatus, surface, pieces, chambres);
