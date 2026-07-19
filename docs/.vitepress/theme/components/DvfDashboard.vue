@@ -171,13 +171,13 @@ const sortFields = [
 
 onMounted(async () => {
   try {
-    const meta = await fetch('/dvf/metadata.json').then(r => r.json())
+    const meta = await fetch(`${import.meta.env.BASE_URL}dvf/metadata.json`).then(r => r.json())
     metadata.value = meta
     selectedYear.value = meta.years[meta.years.length - 1]
 
     // Load all years
     for (const y of meta.years) {
-      const data = await fetch(`/dvf/brest_${y}.json`).then(r => r.json())
+      const data = await fetch(`${import.meta.env.BASE_URL}dvf/brest_${y}.json`).then(r => r.json())
       dataByYear.value[y] = data
     }
     // Set price slider max

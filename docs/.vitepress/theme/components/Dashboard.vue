@@ -182,7 +182,7 @@
           <div class="card-image-container">
             <img 
               v-if="item.hasScreenshot" 
-              :src="`/screenshots/${item.folder}.png`" 
+              :src="`${baseUrl}screenshots/${item.folder}.png`" 
               alt="Aperçu"
               class="card-image"
               loading="lazy"
@@ -237,7 +237,7 @@
 
           <!-- Card Footer Buttons -->
           <div class="card-footer">
-            <a :href="`/biens/${item.folder}.html`" class="btn-local">Fiche locale</a>
+            <a :href="`${baseUrl}biens/${item.folder}.html`" class="btn-local">Fiche locale</a>
             <a :href="item.url" target="_blank" rel="noopener" class="btn-external">Annonce originale ↗</a>
           </div>
         </div>
@@ -252,6 +252,7 @@ import { ref, computed, onMounted } from 'vue'
 export default {
   name: 'Dashboard',
   setup() {
+    const baseUrl = import.meta.env.BASE_URL
     const listings = ref([])
     const updateDate = ref('')
     const loading = ref(true)
@@ -284,7 +285,7 @@ export default {
     // Fetch data
     onMounted(async () => {
       try {
-        const response = await fetch('/listings_data.json')
+        const response = await fetch(`${baseUrl}listings_data.json`)
         if (response.ok) {
           const data = await response.json()
           listings.value = data.listings || []
@@ -485,6 +486,7 @@ export default {
     }
 
     return {
+      baseUrl,
       listings,
       updateDate,
       loading,
