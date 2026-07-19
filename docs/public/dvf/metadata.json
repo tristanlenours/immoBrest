@@ -1,0 +1,74 @@
+{
+  "commune": "Brest",
+  "code_commune": "29019",
+  "last_fetch": "2026-07-19T20:41:48.376Z",
+  "years": [
+    2021,
+    2022,
+    2023,
+    2024,
+    2025
+  ],
+  "stats_by_year": {
+    "2021": {
+      "total": 3638,
+      "appartements": 2701,
+      "maisons": 734,
+      "garages": 203,
+      "prixMedian": 121000,
+      "prixMedianAppart": 112000,
+      "prixMedianMaison": 209500,
+      "prixM2MedianAppart": 1631,
+      "prixM2MedianMaison": 2243,
+      "surfaceMedianeAppart": 74
+    },
+    "2022": {
+      "total": 3470,
+      "appartements": 2545,
+      "maisons": 718,
+      "garages": 207,
+      "prixMedian": 131528,
+      "prixMedianAppart": 122950,
+      "prixMedianMaison": 227325,
+      "prixM2MedianAppart": 1841,
+      "prixM2MedianMaison": 2445,
+      "surfaceMedianeAppart": 70.18
+    },
+    "2023": {
+      "total": 2788,
+      "appartements": 1982,
+      "maisons": 604,
+      "garages": 202,
+      "prixMedian": 131500,
+      "prixMedianAppart": 122000,
+      "prixMedianMaison": 225000,
+      "prixM2MedianAppart": 1656,
+      "prixM2MedianMaison": 2399,
+      "surfaceMedianeAppart": 78
+    },
+    "2024": {
+      "total": 2377,
+      "appartements": 1731,
+      "maisons": 498,
+      "garages": 148,
+      "prixMedian": 131690,
+      "prixMedianAppart": 121300,
+      "prixMedianMaison": 226225,
+      "prixM2MedianAppart": 1686,
+      "prixM2MedianMaison": 2335,
+      "surfaceMedianeAppart": 77
+    },
+    "2025": {
+      "total": 2785,
+      "appartements": 1979,
+      "maisons": 619,
+      "garages": 187,
+      "prixMedian": 135000,
+      "prixMedianAppart": 125000,
+      "prixMedianMaison": 230000,
+      "prixM2MedianAppart": 1728,
+      "prixM2MedianMaison": 2402,
+      "surfaceMedianeAppart": 79
+    }
+  }
+}

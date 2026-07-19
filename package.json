@@ -1,0 +1,19 @@
+{
+  "name": "immoBrest",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "generate": "node .agents/skills/leboncoin_generate_site/scripts/generate_site.js",
+    "dev": "npm run generate && vitepress dev docs",
+    "build": "npm run generate && vitepress build docs",
+    "preview": "vitepress preview docs"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "vitepress": "^1.6.4",
+    "vue": "^3.5.40"
+  }
+}
