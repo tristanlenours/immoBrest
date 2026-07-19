@@ -173,8 +173,118 @@ async function captureScreenshotInTab(webSocketDebuggerUrl) {
     
     await sleep(2500); // Wait for images & styles to settle
     
+    let clipParams = undefined;
+    try {
+      const evalClip = await sendCommand('Runtime.evaluate', {
+        expression: `(() => {
+          if (!window.location.href.includes('leboncoin.fr')) return null;
+          
+          let photosEl = null;
+          const els = Array.from(document.querySelectorAll('*'));
+          
+          const photoBtn = els.find(el => {
+            const txt = el.textContent.trim();
+            return /Voir les \\d+ photos/i.test(txt) && el.children.length === 0;
+          });
+          
+          if (photoBtn) {
+            let curr = photoBtn;
+            while (curr && curr !== document.body) {
+              const rect = curr.getBoundingClientRect();
+              if (rect.height > 200 && rect.width > 300) {
+                photosEl = curr;
+                break;
+              }
+              curr = curr.parentElement;
+            }
+          }
+          
+          if (!photosEl) {
+            const selectors = [
+              'div[data-testid="adview-gallery"]',
+              'section[class*="gallery"]',
+              'div[class*="gallery"]',
+              '.adview-gallery',
+              '[data-testid="gallery-container"]'
+            ];
+            for (const sel of selectors) {
+              const el = document.querySelector(sel);
+              if (el) {
+                photosEl = el;
+                break;
+              }
+            }
+          }
+          
+          if (!photosEl) {
+            const imgs = Array.from(document.querySelectorAll('img')).filter(img => {
+              const rect = img.getBoundingClientRect();
+              return rect.width > 300 && rect.height > 200;
+            });
+            if (imgs.length > 0) {
+              photosEl = imgs[0].parentElement;
+            }
+          }
+          
+          if (!photosEl) return null;
+          
+          const photosRect = photosEl.getBoundingClientRect();
+          
+          const h1El = document.querySelector('h1');
+          let infoBoxRect = null;
+          
+          if (h1El) {
+            let curr = h1El;
+            while (curr && curr !== document.body) {
+              const rect = curr.getBoundingClientRect();
+              if (rect.height > 100 && curr.textContent.includes('€')) {
+                infoBoxRect = rect;
+                break;
+              }
+              curr = curr.parentElement;
+            }
+            if (!infoBoxRect) {
+              infoBoxRect = h1El.getBoundingClientRect();
+            }
+          }
+          
+          const x = photosRect.x;
+          const y = photosRect.y;
+          const width = photosRect.width;
+          let height = photosRect.height;
+          
+          if (infoBoxRect) {
+            const bottom = infoBoxRect.bottom;
+            if (bottom > y) {
+              height = (bottom - y) + 20;
+            }
+          }
+          
+          return {
+            x: Math.max(0, Math.floor(x)),
+            y: Math.max(0, Math.floor(y)),
+            width: Math.max(100, Math.floor(width)),
+            height: Math.max(100, Math.floor(height)),
+            scale: 1
+          };
+        })()`,
+        returnByValue: true
+      });
+      
+      if (evalClip && evalClip.result && evalClip.result.value) {
+        clipParams = evalClip.result.value;
+        console.log('Calculated crop coordinates for Leboncoin screenshot:', clipParams);
+      }
+    } catch (e) {
+      console.warn('Could not calculate crop coordinates:', e.message);
+    }
+    
     console.log('Capturing screenshot...');
-    const result = await sendCommand('Page.captureScreenshot', { format: 'png' });
+    const captureParams = { format: 'png' };
+    if (clipParams) {
+      captureParams.clip = clipParams;
+    }
+    const result = await sendCommand('Page.captureScreenshot', captureParams);
     ws.close();
     return Buffer.from(result.data, 'base64');
   } catch (err) {
