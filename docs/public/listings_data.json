@@ -497,7 +497,7 @@
       "title": "appartement récent(e) Capucins - vue Rade, terrasse",
       "price": "439 000 €",
       "priceVal": 439000,
-      "score": 6,
+      "score": 7,
       "status": "Actif",
       "location": "Brest",
       "url": "https://www.leboncoin.fr/ad/ventes_immobilieres/3217417284",
@@ -505,13 +505,12 @@
       "surface": "97 m²",
       "surfaceVal": 97,
       "pieces": "- Pièces : 5 pièces",
-      "prestations": "Double vitrage FenÂªtre aluminium Volets roulants électriques Abri de voiture Accès PMR Ascenseur Fibre optique Vidéo surveillance Vidéophone",
+      "prestations": "Double vitrage FenÂªtre aluminium Volets roulants électriques Abri de voiture Accès PMR Ascenseur Fibre optique Vidéo surveillance Vidéophone, Chambres: 3",
       "dateFirst": "21 juin 2026 à 23h52",
       "dateLast": "19 juillet 2026 à 16h18",
       "dateVal": 1784470680000,
       "maluses": [
         "Localisation : -2.0 Tiers 2",
-        "Malus chambres (2 chambres) (-1.0)",
         "Bonus qualité : rare, vue mer, magnifique, baignée de lumière, suite parentale (+1.0)",
         "Pas dernier ni seul à l'étage (-2.0)"
       ],

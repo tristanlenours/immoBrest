@@ -845,7 +845,7 @@ async function scrapeLeboncoin(pagesToScan = 3, lastSearchTime = 0) {
           surface: (ad.attributes && ad.attributes.find(a => a.key === 'square')) ? ad.attributes.find(a => a.key === 'square').value_label : '',
           pieces: (ad.attributes && ad.attributes.find(a => a.key === 'rooms')) ? ad.attributes.find(a => a.key === 'rooms').value_label : '',
           floor: (ad.attributes && ad.attributes.find(a => a.key === 'floor_number')) ? ad.attributes.find(a => a.key === 'floor_number').value_label : '',
-          prestations: ''
+          prestations: (ad.attributes && ad.attributes.find(a => a.key === 'bedrooms')) ? `Chambres: ${ad.attributes.find(a => a.key === 'bedrooms').value_label}` : ''
         }
       });
       continue;
@@ -969,7 +969,7 @@ async function scrapeLeboncoin(pagesToScan = 3, lastSearchTime = 0) {
             surface: surfaceNum + ' m²',
             pieces,
             floor,
-            prestations: ''
+            prestations: (ad.attributes && ad.attributes.find(a => a.key === 'bedrooms')) ? `Chambres: ${ad.attributes.find(a => a.key === 'bedrooms').value_label}` : ''
           },
           screenshotBuffer,
           quickScore: score
