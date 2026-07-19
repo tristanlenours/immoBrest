@@ -1141,7 +1141,7 @@
       "title": "appartement Triangle d'Or - seul à l'étage",
       "price": "474 750 €",
       "priceVal": 474750,
-      "score": 9,
+      "score": 7,
       "status": "Actif",
       "location": "Brest 29200 Centre-ville - Triangle d'Or",
       "url": "https://www.leboncoin.fr/ad/ventes_immobilieres/3230023834",
@@ -1155,6 +1155,7 @@
       "dateVal": 1784470680000,
       "maluses": [
         "Pas de terrasse/jardin (-2.0)",
+        "Malus chambres (4 pièces, 2 chambres) (-2.0)",
         "Bonus qualité : rare, exceptionnel, vue mer, privilégié, beaux volumes, privatif, matériaux de qualité, baignée de lumière, confort (+1.0)"
       ],
       "hasScreenshot": true,

@@ -225,8 +225,7 @@ function scoreProperty(title, description, location, type, prestations = '', sur
   const hasRoomMalusOverride = fullText.includes('pas de malus chambre') || 
                                fullText.includes('sans malus chambre') || 
                                fullText.includes('pas de malus sur les chambres') ||
-                               fullText.includes('pas de malus sur le nombre de chambres') ||
-                               folder.includes('3230023834');
+                               fullText.includes('pas de malus sur le nombre de chambres');
   
   if (!hasRoomMalusOverride) {
     if (pieces === 4 && chambres === 2) {
