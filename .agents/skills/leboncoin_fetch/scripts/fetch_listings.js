@@ -748,6 +748,11 @@ async function scrapeLeboncoin(pagesToScan = 3, lastSearchTime = 0) {
     
     const sourceKey = 'leboncoin';
     const propDir = path.join(OUTPUT_DIR, `${sourceKey}_${adId}`);
+    const corbeilleDir = path.join(path.dirname(OUTPUT_DIR), 'corbeille', `${sourceKey}_${adId}`);
+    if (fs.existsSync(corbeilleDir)) {
+      console.log(`[SKIPPED - TRASHED] ${sourceKey}_${adId} is in corbeille`);
+      continue;
+    }
     
     let latestMdFile = null;
     let latestPrice = null;
@@ -1714,6 +1719,25 @@ async function saveOrUpdateProperty(p) {
   
   let targetFolder = `${sourceKey}_${id}`;
   let targetFolderPath = path.join(OUTPUT_DIR, targetFolder);
+  
+  const checkFolders = [
+    `${sourceKey}_${id}`,
+    `leboncoin_${id}`,
+    `henry_${id}`,
+    `luxior_${id}`,
+    `barraine_${id}`,
+    `human_${id}`
+  ];
+  if (dup) {
+    checkFolders.push(dup.folder);
+  }
+  for (const f of checkFolders) {
+    if (fs.existsSync(path.join(path.dirname(OUTPUT_DIR), 'corbeille', f))) {
+      console.log(`[SKIPPED - TRASHED] Property is in corbeille (${f})`);
+      return null;
+    }
+  }
+  
   let latestMdFile = null;
   let latestPrice = null;
   let existingLinks = {};
