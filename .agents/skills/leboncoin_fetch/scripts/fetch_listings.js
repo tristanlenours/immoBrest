@@ -230,21 +230,39 @@ async function captureScreenshotInTab(webSocketDebuggerUrl) {
           
           const photosRect = photosEl.getBoundingClientRect();
           
-          const h1El = document.querySelector('h1');
+          // Find info box
+          let infoBoxEl = document.querySelector('section[class*="overlapContentBlock"]') || 
+                          document.querySelector('section[class*="OverlapContentBlock"]') ||
+                          document.querySelector('[class*="OverlapContentBlock_overlapContentBlock"]');
+                          
           let infoBoxRect = null;
-          
-          if (h1El) {
-            let curr = h1El;
-            while (curr && curr !== document.body) {
-              const rect = curr.getBoundingClientRect();
-              if (rect.height > 100 && curr.textContent.includes('€')) {
-                infoBoxRect = rect;
-                break;
+          if (infoBoxEl) {
+            infoBoxRect = infoBoxEl.getBoundingClientRect();
+          } else {
+            for (const el of els) {
+              const rect = el.getBoundingClientRect();
+              if (rect.height > 80 && rect.height < 450 && rect.width > 200 && rect.width < 800) {
+                const text = el.textContent.trim();
+                if (text.includes('€') && el.tagName === 'SECTION') {
+                  infoBoxRect = rect;
+                  break;
+                }
               }
-              curr = curr.parentElement;
             }
-            if (!infoBoxRect) {
-              infoBoxRect = h1El.getBoundingClientRect();
+          }
+          
+          if (!infoBoxRect) {
+            const h1El = document.querySelector('h1');
+            if (h1El) {
+              let curr = h1El;
+              while (curr && curr !== document.body) {
+                const rect = curr.getBoundingClientRect();
+                if (rect.height > 100 && curr.textContent.includes('€')) {
+                  infoBoxRect = rect;
+                  break;
+                }
+                curr = curr.parentElement;
+              }
             }
           }
           
@@ -256,7 +274,7 @@ async function captureScreenshotInTab(webSocketDebuggerUrl) {
           if (infoBoxRect) {
             const bottom = infoBoxRect.bottom;
             if (bottom > y) {
-              height = (bottom - y) + 20;
+              height = (bottom - y) + 16;
             }
           }
           
