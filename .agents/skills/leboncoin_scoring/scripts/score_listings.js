@@ -576,6 +576,28 @@ function runScoring() {
       continue;
     }
     
+    // Eliminatory: colocation
+    const fullTextLower = (title + ' ' + description + ' ' + location).toLowerCase();
+    if (fullTextLower.includes('colocation') || fullTextLower.includes('co-location')) {
+      console.log(`[MOVED TO CORBEILLE - COLOCATION] Property "${title}" in folder ${folder} mentions colocation.`);
+      const CORBEILLE_DIR = path.resolve(__dirname, '../../../../corbeille');
+      if (!fs.existsSync(CORBEILLE_DIR)) fs.mkdirSync(CORBEILLE_DIR, { recursive: true });
+      const destPath = path.join(CORBEILLE_DIR, folder);
+      if (fs.existsSync(destPath)) {
+        fs.rmSync(destPath, { recursive: true, force: true });
+      }
+      try {
+        fs.renameSync(folderPath, destPath);
+      } catch (e) {
+        console.error(`Error moving ${folder} to corbeille:`, e.message);
+      }
+      const docPage = path.resolve(__dirname, `../../../../docs/biens/${folder}.md`);
+      if (fs.existsSync(docPage)) {
+        try { fs.unlinkSync(docPage); } catch (e) {}
+      }
+      continue;
+    }
+    
     // Extract prestations
     const prestLine = lines.find(l => l.includes('Prestations :'));
     const prestations = prestLine ? prestLine.replace(/.*Prestations\s*:\s*/i, '').trim() : '';

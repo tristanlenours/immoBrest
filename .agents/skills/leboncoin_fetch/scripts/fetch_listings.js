@@ -380,7 +380,7 @@ function isExcluded(title, description, location) {
     }
   }
   
-  // Specific exclusions: lambezellec, lambezelec, kervao, bohars, saint pierre, quatre moulins, croix-rouge, kergaradec, europe, kerbonne, bellevue, saint-marc, fontaine margot
+  // Specific exclusions: lambezellec, lambezelec, kervao, bohars, saint pierre, quatre moulins, croix-rouge, kergaradec, europe, kerbonne, bellevue, saint-marc, fontaine margot, colocation
   const specificExclusions = [
     'lambezellec', 'lambezelec', 'kervao', 'bohars',
     'saint pierre', 'saint-pierre', 'st-pierre', 'st pierre', 'sait pierre',
@@ -389,7 +389,8 @@ function isExcluded(title, description, location) {
     'kergaradec', 'europe', 'kerbonne', 'bellevue',
     'saint-marc', 'saint marc', 'st-marc', 'st marc',
     'fontaine margot', 'fontaine-margot',
-    'jardins de la falaise', 'jardin de la falaise', 'les jardins de la falaise'
+    'jardins de la falaise', 'jardin de la falaise', 'les jardins de la falaise',
+    'colocation', 'co-location'
   ];
   
   const normTitle = normalizeString(title);
