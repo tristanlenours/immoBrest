@@ -14,7 +14,8 @@ Use this skill when the user asks to:
 ## Scoring System Criteria (Deductive starting from 10/10)
 All properties start with a default score of **10.0/10** and accumulate penalties (maluses) for missing criteria:
 
-*   **Location Maluses**:
+*   **Location Maluses & Strict Exclusions**:
+    - **No Identified Quartier** → Automatically excluded and moved to `corbeille/`.
     - **Tiers 1** (Siam, Triangle d'Or, Place Wilson, Saint-Louis, Gare, Cours Dajot, Château, Jardin des Explorateurs) → No penalty (0.0).
     - **Tiers 2** (Saint-Michel, Gambetta, Fac de médecine, Centre-ville, Pasteur, Saint-Martin, Linois, Capucins, Branda, Liberté) → Penalty of **-2.0 points**.
     - **Tiers 3** (Others, e.g., Guelmeur, Saint-Marc, Lanrédec, Kérinou) → Penalty of **-4.0 points**.

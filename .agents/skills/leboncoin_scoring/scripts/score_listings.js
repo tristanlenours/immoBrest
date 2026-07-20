@@ -61,6 +61,46 @@ function extractChambres(title, description, prestations, pieces = null) {
   return null;
 }
 
+function normalizeString(str) {
+  if (!str) return '';
+  return str.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]/g, ' ').replace(/\s+/g, ' ').trim();
+}
+
+function hasIdentifiedQuartier(title, description, location, url = '') {
+  const fullText = normalizeString(title + ' ' + description + ' ' + location + ' ' + url);
+  
+  const recognizedQuartiers = [
+    'siam',
+    'triangle d or', "triangle d'or", 'triangle',
+    'saint-louis', 'saint louis', 'st-louis', 'st louis',
+    'wilson', 'place wilson',
+    'gare',
+    'cours dajot', "cours d ajot",
+    'chateau', 'château',
+    'jardin des explorateurs',
+    'saint-michel', 'saint michel', 'st-michel', 'st michel',
+    'gambetta',
+    'fac de medecine', 'fac de médecine', 'faculte de medecine', 'faculté de médecine', 'faculte', 'faculté', 'facultes', 'facultés',
+    'yves collet', 'yves-collet',
+    'pasteur',
+    'saint-martin', 'saint martin', 'st-martin', 'st martin',
+    'linois',
+    'capucins', 'capucin',
+    'branda',
+    'liberte', 'liberté',
+    'recouvrance',
+    'kerinou', 'kérinou',
+    'lanredec', 'lanrédec',
+    'harteloire',
+    'pilier rouge', 'pilier-rouge',
+    'port de commerce',
+    'guelmeur',
+    'corniche', 'la corniche'
+  ];
+
+  return recognizedQuartiers.some(q => fullText.includes(normalizeString(q)));
+}
+
 function scoreProperty(title, description, location, type, prestations = '', surface = null, pieces = null, chambres = null, folder = '') {
   const fullText = (title + ' ' + description + ' ' + location + ' ' + prestations).toLowerCase();
   const isHouse = type.toLowerCase().includes('maison');
@@ -507,6 +547,27 @@ function runScoring() {
       }
     }
     const description = descLines.join('\n');
+    
+    // Check if an identified recognized quartier is present
+    if (!hasIdentifiedQuartier(title, description, location, url)) {
+      console.log(`[MOVED TO CORBEILLE - NO QUARTIER] Property "${title}" in folder ${folder} has no recognized quartier.`);
+      const CORBEILLE_DIR = path.resolve(__dirname, '../../../../corbeille');
+      if (!fs.existsSync(CORBEILLE_DIR)) fs.mkdirSync(CORBEILLE_DIR, { recursive: true });
+      const destPath = path.join(CORBEILLE_DIR, folder);
+      if (fs.existsSync(destPath)) {
+        fs.rmSync(destPath, { recursive: true, force: true });
+      }
+      try {
+        fs.renameSync(folderPath, destPath);
+      } catch (e) {
+        console.error(`Error moving ${folder} to corbeille:`, e.message);
+      }
+      const docPage = path.resolve(__dirname, `../../../../docs/biens/${folder}.md`);
+      if (fs.existsSync(docPage)) {
+        try { fs.unlinkSync(docPage); } catch (e) {}
+      }
+      continue;
+    }
     
     // Extract prestations
     const prestLine = lines.find(l => l.includes('Prestations :'));

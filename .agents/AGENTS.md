@@ -6,6 +6,8 @@ Ce document regroupe les règles de formatage et de naming à appliquer sur les 
 
 > [!IMPORTANT]
 > Pour chaque annonce immobilière, le titre de la fiche markdown **doit inclure la localisation précise** (le quartier ou secteur) dès qu'il est identifiable dans le titre d'origine, la description ou les métadonnées. Il ne faut pas se contenter de la mention générique "Brest".
+> 
+> **Exclusion stricte pour absence de quartier** : Toute annonce pour laquelle **aucun quartier reconnu ne peut être identifié** est **strictement éliminée**. Elle est ignorée au fetch (`fetch_listings.js`) et déplacée automatiquement en `corbeille/` lors du scoring (`score_listings.js`).
 
 ### Quartiers reconnus et prioritaires
 Les quartiers suivants doivent être extraits et insérés au centre du titre :

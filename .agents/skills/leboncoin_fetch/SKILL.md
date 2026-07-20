@@ -15,6 +15,7 @@ Use this skill when the user asks to:
 *   **Surface Area**: Strictly between **85 m² and 150 m²** (inclusive).
 *   **Price**: Strictly between **300 000 € and 600 000 €** (inclusive) OR listed as **"Prix sur demande"**.
 *   **Exclusion**: Any listing located outside Brest, or mentioning:
+    - **No identified quartier** (Listings without any specific recognized neighborhood identified in title, description, location, or URL are strictly excluded).
     - **Lambezellec** (or `lambezelec`)
     - **Kervao**
     - **Bohars**

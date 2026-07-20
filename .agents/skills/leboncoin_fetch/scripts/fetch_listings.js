@@ -425,7 +425,47 @@ function isExcluded(title, description, location) {
     }
   }
   
+  // Strict check: must have an identified recognized quartier
+  if (!hasIdentifiedQuartier(title, description, location)) {
+    return true;
+  }
+  
   return false;
+}
+
+function hasIdentifiedQuartier(title, description, location, url = '') {
+  const fullText = normalizeString(title + ' ' + description + ' ' + location + ' ' + url);
+  
+  const recognizedQuartiers = [
+    'siam',
+    'triangle d or', "triangle d'or", 'triangle',
+    'saint-louis', 'saint louis', 'st-louis', 'st louis',
+    'wilson', 'place wilson',
+    'gare',
+    'cours dajot', "cours d ajot",
+    'chateau', 'château',
+    'jardin des explorateurs',
+    'saint-michel', 'saint michel', 'st-michel', 'st michel',
+    'gambetta',
+    'fac de medecine', 'fac de médecine', 'faculte de medecine', 'faculté de médecine', 'faculte', 'faculté', 'facultes', 'facultés',
+    'yves collet', 'yves-collet',
+    'pasteur',
+    'saint-martin', 'saint martin', 'st-martin', 'st martin',
+    'linois',
+    'capucins', 'capucin',
+    'branda',
+    'liberte', 'liberté',
+    'recouvrance',
+    'kerinou', 'kérinou',
+    'lanredec', 'lanrédec',
+    'harteloire',
+    'pilier rouge', 'pilier-rouge',
+    'port de commerce',
+    'guelmeur',
+    'corniche', 'la corniche'
+  ];
+
+  return recognizedQuartiers.some(q => fullText.includes(normalizeString(q)));
 }
 
 // Quick in-memory scorer used ONLY to determine if screenshot should be captured
@@ -1438,7 +1478,7 @@ function areDuplicates(p1, p2) {
   
   const pc1 = p1.specs.pieces ? parseInt(p1.specs.pieces, 10) : null;
   const pc2 = p2.specs.pieces ? parseInt(p2.specs.pieces, 10) : null;
-  if (pc1 && pc2 && pc1 !== pc2) return false;
+  if (pc1 && pc2 && Math.abs(pc1 - pc2) > 1) return false;
   
   const d1 = normalizeForDup(p1.description);
   const d2 = normalizeForDup(p2.description);
@@ -1471,11 +1511,13 @@ function areDuplicates(p1, p2) {
     const loc2 = normalizeString(p2.location);
     const desc1 = normalizeString(p1.description);
     const desc2 = normalizeString(p2.description);
+    const url1 = p1.url ? normalizeString(p1.url) : '';
+    const url2 = p2.url ? normalizeString(p2.url) : '';
     
-    const locations = ['siam', 'wilson', 'saint-louis', 'saint louis', 'saint-michel', 'saint michel', 'gambetta', 'pasteur', 'saint-martin', 'saint martin', 'linois', 'saint-marc', 'saint marc', 'guelmeur', 'capucin', 'kerinou', 'lanredec'];
+    const locations = ['siam', 'triangle', 'wilson', 'saint-louis', 'saint louis', 'saint-michel', 'saint michel', 'gambetta', 'pasteur', 'saint-martin', 'saint martin', 'linois', 'saint-marc', 'saint marc', 'guelmeur', 'capucin', 'branda', 'liberte', 'liberté', 'kerinou', 'lanredec', 'harteloire', 'pilier rouge', 'port de commerce', 'recouvrance'];
     for (const loc of locations) {
-      const p1Match = loc1.includes(loc) || desc1.includes(loc);
-      const p2Match = loc2.includes(loc) || desc2.includes(loc);
+      const p1Match = loc1.includes(loc) || desc1.includes(loc) || url1.includes(loc);
+      const p2Match = loc2.includes(loc) || desc2.includes(loc) || url2.includes(loc);
       if (p1Match && p2Match) {
         return true;
       }
