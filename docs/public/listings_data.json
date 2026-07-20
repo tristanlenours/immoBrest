@@ -603,7 +603,7 @@
       "title": "appartement Triangle d'Or - 4 pièces 114m²",
       "price": "335 000 €",
       "priceVal": 335000,
-      "score": 3.5,
+      "score": 4.5,
       "status": "Actif",
       "location": "Brest (29200) Centre-ville - Triangle d'Or",
       "url": "https://www.leboncoin.fr/ad/ventes_immobilieres/3193625225",
@@ -611,7 +611,7 @@
       "surface": "114 m²",
       "surfaceVal": 114,
       "pieces": "- Pièces : 4 pièces",
-      "prestations": "Cave, Vendeur: Professionnel (SARL IROISE IMMOBILIER)",
+      "prestations": "Cuisine équipée, Cave, Chauffage individuel gaz",
       "dateFirst": "21 juin 2026 à 23:28",
       "dateLast": "21 juin 2026 à 23:28",
       "dateVal": 0,
@@ -620,10 +620,10 @@
         "Pas d'ascenseur (-1.0)",
         "Pas de parking/garage (-1.5)",
         "Bonus qualité (+0.0)",
-        "Pas dernier ni seul à l'étage (-2.0)"
+        "Pas dernier étage (-1.0)"
       ],
       "hasScreenshot": true,
-      "description": "Leboncoin - Appartement 4 pièces · 114 m² (Triangle d'Or) situé à Brest (29200) Centre-ville - Triangle d'Or. Caractéristiques : 4 pièces, 114 m². Cave, Vendeur: Professionnel (SARL IROISE IMMOBILIER)."
+      "description": "BREST CENTRE ST LOUIS\n\nAu coeur du triangle d'or , au deuxième étage seul sur le palier d'une petite copropriété de 3 appartements, vaste appartement de 114m² en parfait état. Cet appartement se compose : d'une vaste pièce de vie de 45 m² avec cuisine ouverte aménagée et équipée (four, plaques, hotte, réfrigérateur, lave-vaisselle), d'un dégagement avec placards, de 3 chambres spacieuses de 11, 15 et 22m² (dont 2 avec placards), salle de bain, wc. Pour les amoureux du centre ville. EXCLUSIVITÉ IROISE IMMOBILIER."
     },
     {
       "folder": "leboncoin_3225954101",
