@@ -1729,7 +1729,11 @@ function generatePersonalizedTitle(type, title, description, location, surface, 
   if (!isHouse) {
     if (fullText.includes('rooftop')) {
       features.push('rooftop');
-    } else if (fullText.includes('seul') && (fullText.includes('étage') || fullText.includes('etage'))) {
+    } else if (
+      (fullText.includes('seul') && (fullText.includes('étage') || fullText.includes('etage'))) ||
+      /seul[e]?\s+sur\s+(le\s+)?palier/.test(fullText) ||
+      /seul[e]?\s+au\s+palier/.test(fullText)
+    ) {
       features.push("seul à l'étage");
     } else if (fullText.includes('dernier étage') || fullText.includes('dernier etage')) {
       features.push('dernier étage');

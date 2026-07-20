@@ -228,9 +228,16 @@ function scoreProperty(title, description, location, type, prestations = '', sur
       criteria.dernierEtage = true;
     }
     
-    // Seul à l'étage check
+    // Seul à l'étage check (synonyms: seul sur le palier, seul au palier, seul au niveau)
     const fullTextDecoded = fullText.replace(/&#0*39;/g, "'").replace(/&rsquo;/g, "'").replace(/&lsquo;/g, "'").replace(/&apos;/g, "'");
-    if (/seul[e]?\s+[aà]\s+l'?\s*[eé]tage/i.test(fullTextDecoded) || fullTextDecoded.includes('seul au')) {
+    if (
+      /seul[e]?\s+[aà]\s+l'?\s*[eé]tage/i.test(fullTextDecoded) ||
+      fullTextDecoded.includes('seul au') ||
+      /seul[e]?\s+sur\s+(le\s+)?palier/i.test(fullTextDecoded) ||
+      /seul[e]?\s+au\s+palier/i.test(fullTextDecoded) ||
+      /seul[e]?\s+au\s+niveau/i.test(fullTextDecoded) ||
+      /seul[e]?\s+[aà]\s+son\s+[eé]tage/i.test(fullTextDecoded)
+    ) {
       criteria.seulEtage = true;
     }
     
