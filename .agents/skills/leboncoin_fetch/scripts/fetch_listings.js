@@ -380,14 +380,15 @@ function isExcluded(title, description, location) {
     }
   }
   
-  // Specific exclusions: lambezellec, lambezelec, kervao, bohars, saint pierre, quatre moulins, croix-rouge, kergaradec, europe, kerbonne, bellevue, saint-marc
+  // Specific exclusions: lambezellec, lambezelec, kervao, bohars, saint pierre, quatre moulins, croix-rouge, kergaradec, europe, kerbonne, bellevue, saint-marc, fontaine margot
   const specificExclusions = [
     'lambezellec', 'lambezelec', 'kervao', 'bohars',
     'saint pierre', 'saint-pierre', 'st-pierre', 'st pierre', 'sait pierre',
     '4 moulins', 'quatre moulins', 'quatre-moulins',
     'croix-rouge', 'croix rouge', 'la croix rouge',
     'kergaradec', 'europe', 'kerbonne', 'bellevue',
-    'saint-marc', 'saint marc', 'st-marc', 'st marc'
+    'saint-marc', 'saint marc', 'st-marc', 'st marc',
+    'fontaine margot', 'fontaine-margot'
   ];
   
   const normTitle = normalizeString(title);
@@ -411,6 +412,14 @@ function isExcluded(title, description, location) {
       normDesc.includes('secteur ' + cleanExc) ||
       normDesc.includes('sur ' + cleanExc)
     ) {
+      return true;
+    }
+  }
+  
+  // Rive Droite exclusion (unless explicitly Capucins or Recouvrance)
+  const normFull = normTitle + ' ' + normDesc + ' ' + normLoc;
+  if (normFull.includes('rive droite') || normFull.includes('rive-droite')) {
+    if (!normFull.includes('capucins') && !normFull.includes('recouvrance')) {
       return true;
     }
   }
@@ -1413,9 +1422,10 @@ async function scrapeHuman() {
 }
 
 async function scrapeCastorus() {
-  console.log('--- SCRAPING CASTORUS ---');
-  const searchUrl = 'https://www.castorus.com/recherche/brest-29200?surface-min=85&surface-max=150&prix-min=300000&prix-max=600000';
-  const results = [];
+  console.log('--- SCRAPING CASTORUS (DISABLED) ---');
+  console.log('[Castorus] Castorus scraping disabled: Castorus is an aggregator, not an original portal.');
+  return [];
+}
 
   try {
     const res = await fetch(searchUrl, {
@@ -1525,6 +1535,18 @@ async function scrapeCastorus() {
 
       const finalUrl = originalPortalUrl || castorusUrl;
       const otherLinks = originalPortalUrl ? { castorus: castorusUrl } : {};
+
+      // Re-check exclusion with full description
+      if (isExcluded(title, fullDescription, location)) {
+        console.log(`[EXCLUDED - LOCATION] Skipped Castorus listing "${title}" in "${location}" (found in description)`);
+        continue;
+      }
+
+      // Reject listings with dummy or insufficient description (< 80 chars or fallback text)
+      if (!fullDescription || fullDescription.startsWith('Annonce Castorus') || fullDescription.trim().length < 80) {
+        console.log(`[EXCLUDED - SHORT DESCRIPTION] Skipped Castorus listing "${title}" (${castorusUrl}) due to insufficient description.`);
+        continue;
+      }
 
       results.push({
         source: 'Castorus',

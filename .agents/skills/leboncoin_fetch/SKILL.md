@@ -1,6 +1,6 @@
 ---
 name: Leboncoin, Agence Henry, Luxior, Human & Castorus Real Estate Fetch
-description: Scrapes Brest real estate listings on Leboncoin, Agence Henry, Luxior, Human Immobilier, and Castorus (published <= 30 days), filtering them strictly based on surface (85-150m²), price (300k-600k€), and Brest boundaries, excluding Lambezellec, Kervao, Bohars, Saint-Pierre, Quatre Moulins, Kerbonne, Bellevue, Saint-Marc, and La Croix-Rouge.
+description: Scrapes Brest real estate listings on Leboncoin, Agence Henry, Luxior, Human Immobilier, and Castorus (published <= 30 days), filtering them strictly based on surface (85-150m²), price (300k-600k€), and Brest boundaries, excluding Lambezellec, Kervao, Bohars, Saint-Pierre, Quatre Moulins, Kerbonne, Bellevue, Saint-Marc, La Croix-Rouge, and Fontaine Margot.
 ---
 # Leboncoin, Agence Henry, Luxior, Human & Castorus Real Estate Fetch Skill
 
@@ -11,10 +11,9 @@ Use this skill when the user asks to:
 * Search for new houses or apartments in Brest across Leboncoin, Agence Henry, Luxior, Human Immobilier, and Castorus.
 * Run a fetch session to update the repository with new listings, check for price changes, or check for sold properties.
 
-## Search Filters Enforced
+*   **Sources**: Leboncoin, Agence Henry, Luxior, Human Immobilier (Castorus est désactivé car agrégateur).
 *   **Surface Area**: Strictly between **85 m² and 150 m²** (inclusive).
 *   **Price**: Strictly between **300 000 € and 600 000 €** (inclusive) OR listed as **"Prix sur demande"**.
-*   **Castorus Age**: Listings published within the last **30 days**.
 *   **Exclusion**: Any listing located outside Brest, or mentioning:
     - **Lambezellec** (or `lambezelec`)
     - **Kervao**
@@ -28,6 +27,8 @@ Use this skill when the user asks to:
     - **Kerbonne**
     - **Bellevue**
     - **Saint-Marc** (or `saint marc`, `st-marc`, `st marc`)
+    - **Fontaine Margot** (or `fontaine-margot`)
+    - **Rive Droite** (unless explicitly mentioning `Capucins` or `Recouvrance`)
 
 
 ## How to Execute
