@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 
 const OUTPUT_DIR = path.resolve(__dirname, '../../../../leboncoin_searches');
+const SAS_DIR = path.resolve(__dirname, '../../../../leboncoin_sas');
 
 // Parse command line arguments manually
 const args = process.argv.slice(2);
@@ -15,11 +16,14 @@ const options = {
   minScore: 0,
   maxPrice: Infinity,
   minSurface: 0,
-  format: 'markdown' // markdown, json
+  format: 'markdown', // markdown, json
+  sas: false
 };
 
 for (const arg of args) {
-  if (arg.startsWith('--limit=')) {
+  if (arg === '--sas') {
+    options.sas = true;
+  } else if (arg.startsWith('--limit=')) {
     options.limit = parseInt(arg.split('=')[1], 10);
   } else if (arg.startsWith('--sort=')) {
     options.sort = arg.split('=')[1].toLowerCase();
@@ -180,16 +184,21 @@ function extractMaluses(lines) {
 }
 
 function displayListings() {
-  if (!fs.existsSync(OUTPUT_DIR)) {
-    console.error(`Error: Directory ${OUTPUT_DIR} does not exist.`);
+  const targetDir = options.sas ? SAS_DIR : OUTPUT_DIR;
+  if (!fs.existsSync(targetDir)) {
+    if (options.sas) {
+      console.log('Le sas d\'attente est vide ou n\'existe pas encore.');
+      return;
+    }
+    console.error(`Error: Directory ${targetDir} does not exist.`);
     return;
   }
   
-  const folders = fs.readdirSync(OUTPUT_DIR).filter(f => fs.statSync(path.join(OUTPUT_DIR, f)).isDirectory());
+  const folders = fs.readdirSync(targetDir).filter(f => fs.statSync(path.join(targetDir, f)).isDirectory());
   const listings = [];
   
   for (const folder of folders) {
-    const folderPath = path.join(OUTPUT_DIR, folder);
+    const folderPath = path.join(targetDir, folder);
     const files = fs.readdirSync(folderPath).filter(f => f.endsWith('.md'));
     
     let latestMdFile = null;

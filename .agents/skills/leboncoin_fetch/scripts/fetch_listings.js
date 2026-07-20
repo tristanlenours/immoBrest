@@ -4,6 +4,8 @@ const fs = require('node:fs');
 const path = require('node:path');
 
 const OUTPUT_DIR = path.resolve(__dirname, '../../../../leboncoin_searches');
+const SAS_DIR = path.resolve(__dirname, '../../../../leboncoin_sas');
+const CORBEILLE_DIR = path.resolve(__dirname, '../../../../corbeille');
 
 function normalizeString(str) {
   return (str || '')
@@ -61,13 +63,19 @@ function formatPrice(price) {
 
 const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
-async function waitForPort(port, maxRetries = 10, delay = 1000) {
+const { exec } = require('child_process');
+
+async function waitForPort(port, maxRetries = 15, delay = 1000) {
   for (let i = 0; i < maxRetries; i++) {
     try {
       const res = await fetch(`http://127.0.0.1:${port}/json`);
       const data = await res.json();
       return data;
     } catch (e) {
+      if (i === 0) {
+        console.log(`Chrome port ${port} not active. Attempting to start Chrome in debugging mode...`);
+        exec('start "" "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe" --remote-debugging-port=9222 "--user-data-dir=C:\\Users\\trist\\AppData\\Local\\Google\\Chrome\\User Data\\TempProfile"');
+      }
       if (i < maxRetries - 1) {
         await sleep(delay);
       }
@@ -372,13 +380,13 @@ function isExcluded(title, description, location) {
     }
   }
   
-  // Specific exclusions: lambezellec, lambezelec, kervao, bohars, saint pierre, quatre moulins, croix-rouge, kergaradec, europe
+  // Specific exclusions: lambezellec, lambezelec, kervao, bohars, saint pierre, quatre moulins, croix-rouge, kergaradec, europe, kerbonne
   const specificExclusions = [
     'lambezellec', 'lambezelec', 'kervao', 'bohars',
     'saint pierre', 'saint-pierre', 'st-pierre', 'st pierre', 'sait pierre',
     '4 moulins', 'quatre moulins', 'quatre-moulins',
     'croix-rouge', 'croix rouge', 'la croix rouge',
-    'kergaradec', 'europe'
+    'kergaradec', 'europe', 'kerbonne', 'bellevue'
   ];
   
   const normTitle = normalizeString(title);
@@ -1403,6 +1411,145 @@ async function scrapeHuman() {
   return results;
 }
 
+async function scrapeCastorus() {
+  console.log('--- SCRAPING CASTORUS ---');
+  const searchUrl = 'https://www.castorus.com/recherche/brest-29200?surface-min=85&surface-max=150&prix-min=300000&prix-max=600000';
+  const results = [];
+
+  try {
+    const res = await fetch(searchUrl, {
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
+      }
+    });
+
+    if (!res.ok) {
+      console.error(`Castorus HTTP error: ${res.status}`);
+      return [];
+    }
+
+    const html = await res.text();
+    const rawCookies = res.headers.getSetCookie ? res.headers.getSetCookie() : [res.headers.get('set-cookie')].filter(Boolean);
+    const cookieHeader = rawCookies.map(c => c.split(';')[0]).join('; ');
+
+    const trRegex = /<tr[^>]*data-js=["']([^"']+)["'][^>]*>([\s\S]*?)<\/tr>/gi;
+    let match;
+
+    while ((match = trRegex.exec(html)) !== null) {
+      const rawJson = match[1].replace(/&quot;/g, '"');
+      const rowContent = match[2];
+      let data;
+      try {
+        data = JSON.parse(rawJson);
+      } catch (e) {
+        continue;
+      }
+
+      // Filter: strictly publication age <= 30 days
+      const dureeDays = parseInt(data.sort_duree, 10);
+      if (isNaN(dureeDays) || dureeDays > 30) {
+        continue;
+      }
+
+      const surface = parseFloat(data.sort_superficie || '0');
+      const price = parseFloat(data.sort_prix || '0');
+
+      if (surface < 85 || surface > 150) continue;
+      if (price < 300000 || price > 600000) continue;
+
+      const refMatch = rowContent.match(/href=["'](\/annonce\/brest-29200\/ref\d+)["']/i);
+      if (!refMatch) continue;
+
+      const castorusPath = refMatch[1];
+      const castorusUrl = 'https://www.castorus.com' + castorusPath;
+
+      const title = data.sort_titre || 'Bien immobilier';
+      const rawVille = data.sort_ville || '';
+      const location = rawVille ? `Brest (${rawVille})` : 'Brest';
+      const type = title.toLowerCase().includes('maison') ? 'Maison' : 'Appartement';
+
+      // Exclusion check
+      if (isExcluded(title, '', location)) {
+        console.log(`[EXCLUDED - LOCATION] Skipped Castorus listing "${title}" in "${location}"`);
+        continue;
+      }
+
+      let originalPortalUrl = null;
+      let fullDescription = `Annonce Castorus détectée il y a ${dureeDays} jour(s). Titre : ${title}. Prix : ${formatPrice(price)}. Surface : ${surface}m².`;
+
+      // Fetch detail page to get /go/ link and description
+      try {
+        const detailRes = await fetch(castorusUrl, {
+          headers: {
+            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+            'Accept-Language': 'fr-FR,fr;q=0.9,en-US;q=0.8,en;q=0.7',
+            'Cookie': cookieHeader
+          }
+        });
+        if (detailRes.ok) {
+          const detailHtml = await detailRes.text();
+          
+          // Extract description from prop-desc or meta tag
+          const descMatch = detailHtml.match(/<p[^>]*class=["'][^"']*prop-desc[^"']*["'][^>]*>([\s\S]*?)<\/p>/i) ||
+                            detailHtml.match(/<div[^>]*class=["'][^"']*prop-desc[^"']*["'][^>]*>([\s\S]*?)<\/div>/i);
+          if (descMatch) {
+            const cleanDesc = descMatch[1].replace(/<[^>]+>/g, '').trim();
+            if (cleanDesc.length > 30) {
+              fullDescription = cleanDesc;
+            }
+          }
+
+          // Resolve /go/ link to original portal URL
+          const goMatch = detailHtml.match(/href=["'](\/go\/[^"']+)["']/i);
+          if (goMatch) {
+            const goUrl = 'https://www.castorus.com' + goMatch[1];
+            const goRes = await fetch(goUrl, {
+              headers: {
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+                'Cookie': cookieHeader
+              }
+            });
+            if (goRes.ok) {
+              const goHtml = await goRes.text();
+              const origMatch = goHtml.match(/window\.location\.href\s*=\s*["']([^"']+)["']/i);
+              if (origMatch && origMatch[1] && !origMatch[1].includes('castorus.com')) {
+                originalPortalUrl = origMatch[1];
+              }
+            }
+          }
+        }
+      } catch (dErr) {
+        console.warn(`[Castorus] Could not fetch detail page for ${castorusUrl}:`, dErr.message);
+      }
+
+      const finalUrl = originalPortalUrl || castorusUrl;
+      const otherLinks = originalPortalUrl ? { castorus: castorusUrl } : {};
+
+      results.push({
+        source: 'Castorus',
+        title: title,
+        url: finalUrl,
+        otherLinks: otherLinks,
+        price: formatPrice(price),
+        type: type,
+        location: location,
+        description: fullDescription,
+        prestations: '',
+        specs: {
+          surface: `${surface} m²`,
+          pieces: data.sort_piece && data.sort_piece !== '0' ? `${data.sort_piece} pièces` : ''
+        }
+      });
+    }
+
+    console.log(`[Castorus] ${results.length} valid listings found (published <= 30 days).`);
+  } catch (err) {
+    console.error('Error scraping Castorus:', err.message);
+  }
+
+  return results;
+}
+
 function areDuplicates(p1, p2) {
   if (p1.type !== p2.type) return false;
   
@@ -1523,6 +1670,7 @@ const getLinks = (content) => {
   const luxiorMatch = content.match(/- \*\*Lien additionnel \(Luxior\)\*\* : \[Consulter l'annonce\]\(([^)]+)\)/);
   const lbcMatch = content.match(/- \*\*Lien additionnel \(Leboncoin\)\*\* : \[Consulter l'annonce\]\(([^)]+)\)/);
   const barraineMatch = content.match(/- \*\*Lien additionnel \(Barraine\)\*\* : \[Consulter l'annonce\]\(([^)]+)\)/);
+  const castorusMatch = content.match(/- \*\*Lien additionnel \(Castorus\)\*\* : \[Consulter l'annonce\]\(([^)]+)\)/);
   
   if (mainMatch) {
     const url = mainMatch[1];
@@ -1530,76 +1678,86 @@ const getLinks = (content) => {
     else if (url.includes('agence-henry.com')) links.henry = url;
     else if (url.includes('luxior-immobilier.com')) links.luxior = url;
     else if (url.includes('barraine-immo.com')) links.barraine = url;
+    else if (url.includes('castorus.com')) links.castorus = url;
   }
   if (henryMatch) links.henry = henryMatch[1];
   if (luxiorMatch) links.luxior = luxiorMatch[1];
   if (lbcMatch) links.leboncoin = lbcMatch[1];
   if (barraineMatch) links.barraine = barraineMatch[1];
+  if (castorusMatch) links.castorus = castorusMatch[1];
   return links;
 };
 
-// Search all repository subdirectories to find a duplicate of the property
+// Search all repository subdirectories (active, sas, corbeille) to find a duplicate of the property
 function findDuplicateFolder(p) {
-  if (!fs.existsSync(OUTPUT_DIR)) return null;
-  const folders = fs.readdirSync(OUTPUT_DIR).filter(f => fs.statSync(path.join(OUTPUT_DIR, f)).isDirectory());
-  for (const folder of folders) {
-    const folderPath = path.join(OUTPUT_DIR, folder);
-    const files = fs.readdirSync(folderPath).filter(f => f.endsWith('.md'));
-    let latestMdFile = null;
-    let latestMtime = 0;
-    for (const file of files) {
-      const stat = fs.statSync(path.join(folderPath, file));
-      if (stat.mtimeMs > latestMtime) {
-        latestMtime = stat.mtimeMs;
-        latestMdFile = file;
-      }
-    }
-    if (latestMdFile) {
-      const content = fs.readFileSync(path.join(folderPath, latestMdFile), 'utf8');
-      const lines = content.split(/\r?\n/);
-      
-      const titleLine = lines.find(l => l.startsWith('# '));
-      const titleMatch = titleLine ? titleLine.match(/#\s*\[([^\]]+)\]\s*-\s*(.*?)(?:\s*\(Score:\s*.*?\))?$/) : null;
-      const existingTitle = titleMatch ? titleMatch[2] : '';
-      
-      const locLine = lines.find(l => l.includes('- **Localisation** :'));
-      const existingLoc = locLine ? locLine.replace(/- \*\*Localisation\*\* :/i, '').trim() : '';
-      
-      const typeLine = lines.find(l => l.includes('Type de bien :'));
-      const existingType = typeLine ? typeLine.replace(/.*Type de bien\s*:\s*/i, '').trim() : '';
-      
-      const surfaceLine = lines.find(l => l.includes('Surface :'));
-      const existingSurface = surfaceLine ? surfaceLine.replace(/.*Surface\s*:\s*/i, '').trim() : '';
-      
-      const piecesLine = lines.find(l => l.includes('Pièces :'));
-      const existingPieces = piecesLine ? piecesLine.replace(/.*Pièces\s*:\s*/i, '').trim() : '';
-      
-      const priceLine = lines.find(l => l.includes('- **Prix** :'));
-      const existingPrice = priceLine ? priceLine.replace(/- \*\*Prix\*\* :/i, '').trim() : '';
-      
-      const descLines = [];
-      let inDesc = false;
-      for (const line of lines) {
-        if (line.trim() === '```text') { inDesc = true; continue; }
-        if (inDesc && line.trim() === '```') { inDesc = false; break; }
-        if (inDesc) { descLines.push(line); }
-      }
-      const existingDesc = descLines.join('\n');
-      
-      const existingP = {
-        title: existingTitle,
-        type: existingType,
-        location: existingLoc,
-        description: existingDesc,
-        price: existingPrice,
-        specs: {
-          surface: existingSurface,
-          pieces: existingPieces
+  const dirs = [
+    { name: 'active', path: OUTPUT_DIR },
+    { name: 'sas', path: SAS_DIR },
+    { name: 'corbeille', path: CORBEILLE_DIR }
+  ];
+
+  for (const d of dirs) {
+    if (!fs.existsSync(d.path)) continue;
+    const folders = fs.readdirSync(d.path).filter(f => fs.statSync(path.join(d.path, f)).isDirectory());
+    for (const folder of folders) {
+      const folderPath = path.join(d.path, folder);
+      const files = fs.readdirSync(folderPath).filter(f => f.endsWith('.md'));
+      let latestMdFile = null;
+      let latestMtime = 0;
+      for (const file of files) {
+        const stat = fs.statSync(path.join(folderPath, file));
+        if (stat.mtimeMs > latestMtime) {
+          latestMtime = stat.mtimeMs;
+          latestMdFile = file;
         }
-      };
-      
-      if (areDuplicates(p, existingP)) {
-        return { folder, folderPath, latestMdFile, fileContent: content };
+      }
+      if (latestMdFile) {
+        const content = fs.readFileSync(path.join(folderPath, latestMdFile), 'utf8');
+        const lines = content.split(/\r?\n/);
+        
+        const titleLine = lines.find(l => l.startsWith('# '));
+        const titleMatch = titleLine ? titleLine.match(/#\s*\[([^\]]+)\]\s*-\s*(.*?)(?:\s*\(Score:\s*.*?\))?$/) : null;
+        const existingTitle = titleMatch ? titleMatch[2] : '';
+        
+        const locLine = lines.find(l => l.includes('- **Localisation** :'));
+        const existingLoc = locLine ? locLine.replace(/- \*\*Localisation\*\* :/i, '').trim() : '';
+        
+        const typeLine = lines.find(l => l.includes('Type de bien :'));
+        const existingType = typeLine ? typeLine.replace(/.*Type de bien\s*:\s*/i, '').trim() : '';
+        
+        const surfaceLine = lines.find(l => l.includes('Surface :'));
+        const existingSurface = surfaceLine ? surfaceLine.replace(/.*Surface\s*:\s*/i, '').trim() : '';
+        
+        const piecesLine = lines.find(l => l.includes('Pièces :'));
+        const existingPieces = piecesLine ? piecesLine.replace(/.*Pièces\s*:\s*/i, '').trim() : '';
+        
+        const priceLine = lines.find(l => l.includes('- **Prix** :'));
+        const existingPrice = priceLine ? priceLine.replace(/- \*\*Prix\*\* :/i, '').trim() : '';
+        
+        const descLines = [];
+        let inDesc = false;
+        for (const line of lines) {
+          if (line.trim() === '```text') { inDesc = true; continue; }
+          if (inDesc && line.trim() === '```') { inDesc = false; break; }
+          if (inDesc) { descLines.push(line); }
+        }
+        const existingDesc = descLines.join('\n');
+        
+        const existingP = {
+          title: existingTitle,
+          type: existingType,
+          location: existingLoc,
+          description: existingDesc,
+          price: existingPrice,
+          specs: {
+            surface: existingSurface,
+            pieces: existingPieces
+          }
+        };
+        
+        if (areDuplicates(p, existingP)) {
+          return { folder, folderPath, latestMdFile, fileContent: content, dirName: d.name, dirPath: d.path };
+        }
       }
     }
   }
@@ -1623,6 +1781,8 @@ function generatePersonalizedTitle(type, title, description, location, surface, 
   else if (fullText.includes('st martin') || fullText.includes('saint martin') || fullText.includes('saint-martin')) quartier = 'Saint-Martin';
   else if (fullText.includes('kerinou') || fullText.includes('kérinou')) quartier = 'Kérinou';
   else if (fullText.includes('lanredec') || fullText.includes('lanrédec')) quartier = 'Lanrédec';
+  else if (fullText.includes('fac de médecine') || fullText.includes('fac de medecine') || fullText.includes('faculte') || fullText.includes('faculté') || fullText.includes('facultes') || fullText.includes('facultés')) quartier = 'Fac de Médecine';
+  else if (fullText.includes('yves collet') || fullText.includes('yves-collet')) quartier = 'Yves Collet';
   else if (fullText.includes('pasteur')) quartier = 'Pasteur';
   else if (fullText.includes('linois')) quartier = 'Linois';
   else if (fullText.includes('branda')) quartier = 'Branda';
@@ -1633,6 +1793,7 @@ function generatePersonalizedTitle(type, title, description, location, surface, 
   else if (fullText.includes('harteloire')) quartier = 'Harteloire';
   else if (fullText.includes('port de commerce')) quartier = 'Port de Commerce';
   
+  const isHouse = type.toLowerCase().includes('maison');
   const features = [];
   if (fullText.includes('années 30') || fullText.includes('annees 30') || fullText.includes('1930')) {
     features.push('années 30');
@@ -1644,12 +1805,14 @@ function generatePersonalizedTitle(type, title, description, location, surface, 
     features.push('récent(e)');
   }
   
-  if (fullText.includes('rooftop')) {
-    features.push('rooftop');
-  } else if (fullText.includes('seul') && (fullText.includes('étage') || fullText.includes('etage'))) {
-    features.push("seul à l'étage");
-  } else if (fullText.includes('dernier étage') || fullText.includes('dernier etage')) {
-    features.push('dernier étage');
+  if (!isHouse) {
+    if (fullText.includes('rooftop')) {
+      features.push('rooftop');
+    } else if (fullText.includes('seul') && (fullText.includes('étage') || fullText.includes('etage'))) {
+      features.push("seul à l'étage");
+    } else if (fullText.includes('dernier étage') || fullText.includes('dernier etage')) {
+      features.push('dernier étage');
+    }
   }
   
   if (fullText.includes('vue rade') || fullText.includes('vue mer')) {
@@ -1693,10 +1856,10 @@ function generatePersonalizedTitle(type, title, description, location, surface, 
 }
 
 async function saveOrUpdateProperty(p) {
-  const sourceKey = p.source === 'Agence Henry' ? 'henry' : (p.source === 'Luxior' ? 'luxior' : (p.source === 'Barraine' ? 'barraine' : (p.source === 'Human' ? 'human' : 'leboncoin')));
+  const sourceKey = p.source === 'Agence Henry' ? 'henry' : (p.source === 'Luxior' ? 'luxior' : (p.source === 'Barraine' ? 'barraine' : (p.source === 'Human' ? 'human' : (p.source === 'Castorus' ? 'castorus' : 'leboncoin'))));
   const url = p.url;
   
-  const match = url.match(/\/(\d+)(?:\.htm)?$/) || url.match(/\/(\d+)\/?$/) || url.match(/\+(\d+)/) || url.match(/\/bien\/([^\/]+)\/?$/) || url.match(/_(\d+-\d+)\/?$/) || url.match(/annonce-(\d+)/);
+  const match = url.match(/\/(\d+)(?:\.htm)?$/) || url.match(/\/(\d+)\/?$/) || url.match(/\+(\d+)/) || url.match(/\/bien\/([^\/]+)\/?$/) || url.match(/_(\d+-\d+)\/?$/) || url.match(/annonce-(\d+)/) || url.match(/ref(\d+)/);
   const id = match ? match[1] : 'unknown';
   
   const now = new Date();
@@ -1714,11 +1877,17 @@ async function saveOrUpdateProperty(p) {
   const priceNum = p.price.replace(/[^\d]/g, '');
   const priceKey = priceNum ? priceNum : 'sur_demande';
   
-  // Look for duplicate folder in the repo
+  // Look for duplicate folder in the repo (active, sas, or corbeille)
   const dup = findDuplicateFolder(p);
   
+  if (dup && dup.dirName === 'corbeille') {
+    console.log(`[SKIPPED - TRASHED] Property is in corbeille (${dup.folder})`);
+    return null;
+  }
+  
   let targetFolder = `${sourceKey}_${id}`;
-  let targetFolderPath = path.join(OUTPUT_DIR, targetFolder);
+  let baseDir = dup ? dup.dirPath : SAS_DIR;
+  let targetFolderPath = path.join(baseDir, targetFolder);
   
   const checkFolders = [
     `${sourceKey}_${id}`,
@@ -1726,13 +1895,14 @@ async function saveOrUpdateProperty(p) {
     `henry_${id}`,
     `luxior_${id}`,
     `barraine_${id}`,
-    `human_${id}`
+    `human_${id}`,
+    `castorus_${id}`
   ];
   if (dup) {
     checkFolders.push(dup.folder);
   }
   for (const f of checkFolders) {
-    if (fs.existsSync(path.join(path.dirname(OUTPUT_DIR), 'corbeille', f))) {
+    if (fs.existsSync(path.join(CORBEILLE_DIR, f))) {
       console.log(`[SKIPPED - TRASHED] Property is in corbeille (${f})`);
       return null;
     }
@@ -1757,7 +1927,7 @@ async function saveOrUpdateProperty(p) {
     // Merge folder to Leboncoin if the new source is Leboncoin and the current folder is not leboncoin
     if (p.source === 'Leboncoin' && !targetFolder.startsWith('leboncoin_')) {
       const newFolder = `leboncoin_${id}`;
-      const newFolderPath = path.join(OUTPUT_DIR, newFolder);
+      const newFolderPath = path.join(baseDir, newFolder);
       console.log(`Migrating duplicate folder from ${targetFolder} to ${newFolder} (Leboncoin is primary)`);
       try {
         fs.renameSync(targetFolderPath, newFolderPath);
@@ -1767,6 +1937,8 @@ async function saveOrUpdateProperty(p) {
         console.error(`Folder migration failed:`, err.message);
       }
     }
+  } else {
+    console.log(`[NEW PROPERTY - SAS STAGING] Property "${p.title}" placed in SAS: ${targetFolder}`);
   }
   
   if (!fs.existsSync(targetFolderPath)) {
@@ -1803,7 +1975,7 @@ async function saveOrUpdateProperty(p) {
   
   const getMdContent = (firstSeenDate, lastSeenDate, currentPrice, status = 'Actif', linksObj = {}) => {
     const allLinks = { ...linksObj, ...p.otherLinks, [sourceKey]: p.url };
-    const primaryLink = allLinks.leboncoin || allLinks.henry || allLinks.luxior || allLinks.barraine || allLinks.human;
+    const primaryLink = allLinks.leboncoin || allLinks.henry || allLinks.luxior || allLinks.barraine || allLinks.human || allLinks.castorus;
     
     let linksLines = `- **Lien de l'annonce** : [Consulter l'annonce](${primaryLink})`;
     if (allLinks.leboncoin && primaryLink !== allLinks.leboncoin) {
@@ -1820,6 +1992,9 @@ async function saveOrUpdateProperty(p) {
     }
     if (allLinks.human && primaryLink !== allLinks.human) {
       linksLines += `\n- **Lien additionnel (Human)** : [Consulter l'annonce](${allLinks.human})`;
+    }
+    if (allLinks.castorus && primaryLink !== allLinks.castorus) {
+      linksLines += `\n- **Lien additionnel (Castorus)** : [Consulter l'annonce](${allLinks.castorus})`;
     }
     
     // Choose appropriate title tag source prefix
@@ -1953,6 +2128,12 @@ async function run() {
   if (!fs.existsSync(OUTPUT_DIR)) {
     fs.mkdirSync(OUTPUT_DIR, { recursive: true });
   }
+  if (!fs.existsSync(SAS_DIR)) {
+    fs.mkdirSync(SAS_DIR, { recursive: true });
+  }
+  if (!fs.existsSync(CORBEILLE_DIR)) {
+    fs.mkdirSync(CORBEILLE_DIR, { recursive: true });
+  }
   
   const configPath = path.join(OUTPUT_DIR, 'last_search_info.json');
   let lastSearchTime = 0;
@@ -1989,8 +2170,9 @@ async function run() {
   const luxiorResults = await scrapeLuxior();
   const barraineResults = await scrapeBarraine();
   const humanResults = await scrapeHuman();
+  const castorusResults = await scrapeCastorus();
   
-  const allResults = [...henryResults, ...lbcResults, ...luxiorResults, ...barraineResults, ...humanResults];
+  const allResults = [...henryResults, ...lbcResults, ...luxiorResults, ...barraineResults, ...humanResults, ...castorusResults];
   
   // Deduplicate
   const uniqueResults = [];
@@ -2003,7 +2185,7 @@ async function run() {
         
         // Merge links
         if (!u.otherLinks) u.otherLinks = {};
-        const pSourceKey = p.source === 'Agence Henry' ? 'henry' : (p.source === 'Luxior' ? 'luxior' : (p.source === 'Barraine' ? 'barraine' : (p.source === 'Human' ? 'human' : 'leboncoin')));
+        const pSourceKey = p.source === 'Agence Henry' ? 'henry' : (p.source === 'Luxior' ? 'luxior' : (p.source === 'Barraine' ? 'barraine' : (p.source === 'Human' ? 'human' : (p.source === 'Castorus' ? 'castorus' : 'leboncoin'))));
         u.otherLinks[pSourceKey] = p.url;
         if (p.otherLinks) {
           u.otherLinks = { ...u.otherLinks, ...p.otherLinks };
@@ -2048,6 +2230,16 @@ async function run() {
     console.log(`Date de recherche sauvegardée : ${config.last_search_date_str}`);
   } catch (err) {
     console.error('Error saving last_search_info.json:', err.message);
+  }
+  
+  // Run scoring on active & staged listings
+  try {
+    console.log('\nRunning automated scoring on active and staged listings...');
+    const { execSync } = require('node:child_process');
+    const scoringScript = path.resolve(__dirname, '../../leboncoin_scoring/scripts/score_listings.js');
+    execSync(`node "${scoringScript}"`, { stdio: 'inherit' });
+  } catch (err) {
+    console.error('Error running automated scoring:', err.message);
   }
   
   console.log('\nFetch completed successfully.');

@@ -2,8 +2,9 @@ const fs = require('node:fs');
 const path = require('node:path');
 
 const OUTPUT_DIR = path.resolve(__dirname, '../../../../leboncoin_searches');
+const SAS_DIR = path.resolve(__dirname, '../../../../leboncoin_sas');
 
-function extractChambres(title, description, prestations) {
+function extractChambres(title, description, prestations, pieces = null) {
   const fullText = (title + ' ' + description + ' ' + prestations).toLowerCase();
   
   // 1. Try prestations / details field first (often structured like "Chambres: 4" or "chambres: 3")
@@ -24,6 +25,37 @@ function extractChambres(title, description, prestations) {
   if (wordMatch) {
     const wordToNum = { une: 1, deux: 2, trois: 3, quatre: 4, cinq: 5, six: 6 };
     return wordToNum[wordMatch[1]];
+  }
+  
+  // 4. Try to infer from "T3", "F3", "3 pièces" style notation
+  const tfMatch = cleanText.match(/\b([tf])(\d)\b/i);
+  if (tfMatch) {
+    const typeNum = parseInt(tfMatch[2], 10);
+    if (typeNum >= 2 && typeNum <= 6) {
+      return typeNum - 1;
+    }
+  }
+
+  const roomCountMatch = cleanText.match(/\b(\d+)\s*pi[èe]ces?\b/i);
+  if (roomCountMatch) {
+    const rooms = parseInt(roomCountMatch[1], 10);
+    if (rooms >= 2 && rooms <= 6) {
+      return rooms - 1;
+    }
+  }
+
+  const roomWordMatch = cleanText.match(/\b(une|deux|trois|quatre|cinq|six)\s*pi[èe]ces?\b/i);
+  if (roomWordMatch) {
+    const wordToNum = { une: 1, deux: 2, trois: 3, quatre: 4, cinq: 5, six: 6 };
+    const rooms = wordToNum[roomWordMatch[1]];
+    if (rooms >= 2 && rooms <= 6) {
+      return rooms - 1;
+    }
+  }
+
+  // 5. Fallback to pieces if available
+  if (pieces !== null && pieces >= 2 && pieces <= 6) {
+    return pieces - 1;
   }
   
   return null;
@@ -80,6 +112,8 @@ function scoreProperty(title, description, location, type, prestations = '', sur
     fullText.includes('gambetta') ||
     fullText.includes('fac de médecine') || fullText.includes('fac de medecine') ||
     fullText.includes('faculte de medecine') || fullText.includes('faculté de médecine') ||
+    fullText.includes('facultes') || fullText.includes('facultés') || fullText.includes('faculte') || fullText.includes('faculté') ||
+    fullText.includes('yves collet') || fullText.includes('yves-collet') ||
     fullText.includes('centre-ville') || fullText.includes('centre ville') ||
     fullText.includes('pasteur') ||
     fullText.includes('saint-martin') || fullText.includes('saint martin') ||
@@ -391,18 +425,27 @@ ${locLine}`;
 
 function runScoring() {
   console.log('Starting Brest real estate scoring...');
-  if (!fs.existsSync(OUTPUT_DIR)) {
-    console.log(`Error: Output directory ${OUTPUT_DIR} does not exist.`);
-    return;
+  const dirs = [
+    { label: 'Active', path: OUTPUT_DIR },
+    { label: 'Sas', path: SAS_DIR }
+  ];
+
+  const targetFolders = [];
+  for (const d of dirs) {
+    if (!fs.existsSync(d.path)) continue;
+    const subfolders = fs.readdirSync(d.path).filter(f => fs.statSync(path.join(d.path, f)).isDirectory());
+    for (const sf of subfolders) {
+      targetFolders.push({ folder: sf, folderPath: path.join(d.path, sf), label: d.label });
+    }
   }
-  
-  const folders = fs.readdirSync(OUTPUT_DIR).filter(f => fs.statSync(path.join(OUTPUT_DIR, f)).isDirectory());
-  console.log(`Found ${folders.length} property folders to process.`);
-  
+
+  console.log(`Found ${targetFolders.length} property folders to process across active database and sas.`);
+
   const scoredListings = [];
-  
-  for (const folder of folders) {
-    const folderPath = path.join(OUTPUT_DIR, folder);
+
+  for (const item of targetFolders) {
+    const folder = item.folder;
+    const folderPath = item.folderPath;
     const files = fs.readdirSync(folderPath).filter(f => f.endsWith('.md'));
     
     let latestMdFile = null;
@@ -496,7 +539,7 @@ function runScoring() {
     }
     
     // Extract chambres
-    const chambres = extractChambres(title, description, prestations);
+    const chambres = extractChambres(title, description, prestations, pieces);
     
     // Automatically exclude if surface <= 63m²
     let updatedStatus = status;
