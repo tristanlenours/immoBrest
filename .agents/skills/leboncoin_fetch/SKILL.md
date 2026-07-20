@@ -1,17 +1,16 @@
+name: Leboncoin, Agence Henry, Luxior & Human Real Estate Fetch
+description: Scrapes Brest real estate listings on Leboncoin, Agence Henry, Luxior, and Human Immobilier (published <= 30 days), filtering them strictly based on surface (85-150m²), price (300k-600k€), and Brest boundaries, excluding Lambezellec, Kervao, Bohars, Saint-Pierre, Quatre Moulins, Kerbonne, Bellevue, Saint-Marc, La Croix-Rouge, and Fontaine Margot.
 ---
-name: Leboncoin, Agence Henry, Luxior, Human & Castorus Real Estate Fetch
-description: Scrapes Brest real estate listings on Leboncoin, Agence Henry, Luxior, Human Immobilier, and Castorus (published <= 30 days), filtering them strictly based on surface (85-150m²), price (300k-600k€), and Brest boundaries, excluding Lambezellec, Kervao, Bohars, Saint-Pierre, Quatre Moulins, Kerbonne, Bellevue, Saint-Marc, La Croix-Rouge, and Fontaine Margot.
----
-# Leboncoin, Agence Henry, Luxior, Human & Castorus Real Estate Fetch Skill
+# Leboncoin, Agence Henry, Luxior & Human Real Estate Fetch Skill
 
-This skill searches Brest real estate listings on Leboncoin, Agence Henry, Luxior Immobilier, Human Immobilier, and Castorus (recent <= 30 days), filters them based on strict criteria, deduplicates/merges matching properties across sites, and saves them to the local repository.
+This skill searches Brest real estate listings on Leboncoin, Agence Henry, Luxior Immobilier, and Human Immobilier (recent <= 30 days), filters them based on strict criteria, deduplicates/merges matching properties across sites, and saves them to the local repository.
 
 ## When to Use
 Use this skill when the user asks to:
-* Search for new houses or apartments in Brest across Leboncoin, Agence Henry, Luxior, Human Immobilier, and Castorus.
+* Search for new houses or apartments in Brest across Leboncoin, Agence Henry, Luxior, and Human Immobilier.
 * Run a fetch session to update the repository with new listings, check for price changes, or check for sold properties.
 
-*   **Sources**: Leboncoin, Agence Henry, Luxior, Human Immobilier (Castorus est désactivé car agrégateur).
+*   **Sources**: Leboncoin, Agence Henry, Luxior, Human Immobilier.
 *   **Surface Area**: Strictly between **85 m² and 150 m²** (inclusive).
 *   **Price**: Strictly between **300 000 € and 600 000 €** (inclusive) OR listed as **"Prix sur demande"**.
 *   **Exclusion**: Any listing located outside Brest, or mentioning:

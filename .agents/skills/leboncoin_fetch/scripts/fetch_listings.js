@@ -1464,11 +1464,6 @@ async function scrapeHuman() {
   return results;
 }
 
-async function scrapeCastorus() {
-  console.log('--- SCRAPING CASTORUS (DISABLED) ---');
-  console.log('[Castorus] Castorus scraping disabled: Castorus is an aggregator, not an original portal.');
-  return [];
-}
 
 function areDuplicates(p1, p2) {
   if (p1.type !== p2.type) return false;
@@ -1592,7 +1587,6 @@ const getLinks = (content) => {
   const luxiorMatch = content.match(/- \*\*Lien additionnel \(Luxior\)\*\* : \[Consulter l'annonce\]\(([^)]+)\)/);
   const lbcMatch = content.match(/- \*\*Lien additionnel \(Leboncoin\)\*\* : \[Consulter l'annonce\]\(([^)]+)\)/);
   const barraineMatch = content.match(/- \*\*Lien additionnel \(Barraine\)\*\* : \[Consulter l'annonce\]\(([^)]+)\)/);
-  const castorusMatch = content.match(/- \*\*Lien additionnel \(Castorus\)\*\* : \[Consulter l'annonce\]\(([^)]+)\)/);
   
   if (mainMatch) {
     const url = mainMatch[1];
@@ -1600,13 +1594,11 @@ const getLinks = (content) => {
     else if (url.includes('agence-henry.com')) links.henry = url;
     else if (url.includes('luxior-immobilier.com')) links.luxior = url;
     else if (url.includes('barraine-immo.com')) links.barraine = url;
-    else if (url.includes('castorus.com')) links.castorus = url;
   }
   if (henryMatch) links.henry = henryMatch[1];
   if (luxiorMatch) links.luxior = luxiorMatch[1];
   if (lbcMatch) links.leboncoin = lbcMatch[1];
   if (barraineMatch) links.barraine = barraineMatch[1];
-  if (castorusMatch) links.castorus = castorusMatch[1];
   return links;
 };
 
@@ -1782,7 +1774,7 @@ function generatePersonalizedTitle(type, title, description, location, surface, 
 }
 
 async function saveOrUpdateProperty(p) {
-  const sourceKey = p.source === 'Agence Henry' ? 'henry' : (p.source === 'Luxior' ? 'luxior' : (p.source === 'Barraine' ? 'barraine' : (p.source === 'Human' ? 'human' : (p.source === 'Castorus' ? 'castorus' : 'leboncoin'))));
+  const sourceKey = p.source === 'Agence Henry' ? 'henry' : (p.source === 'Luxior' ? 'luxior' : (p.source === 'Barraine' ? 'barraine' : (p.source === 'Human' ? 'human' : 'leboncoin')));
   const url = p.url;
   
   const match = url.match(/\/(\d+)(?:\.htm)?$/) || url.match(/\/(\d+)\/?$/) || url.match(/\+(\d+)/) || url.match(/\/bien\/([^\/]+)\/?$/) || url.match(/_(\d+-\d+)\/?$/) || url.match(/annonce-(\d+)/) || url.match(/ref(\d+)/);
@@ -1821,8 +1813,7 @@ async function saveOrUpdateProperty(p) {
     `henry_${id}`,
     `luxior_${id}`,
     `barraine_${id}`,
-    `human_${id}`,
-    `castorus_${id}`
+    `human_${id}`
   ];
   if (dup) {
     checkFolders.push(dup.folder);
@@ -1901,7 +1892,7 @@ async function saveOrUpdateProperty(p) {
   
   const getMdContent = (firstSeenDate, lastSeenDate, currentPrice, status = 'Actif', linksObj = {}) => {
     const allLinks = { ...linksObj, ...p.otherLinks, [sourceKey]: p.url };
-    const primaryLink = allLinks.leboncoin || allLinks.henry || allLinks.luxior || allLinks.barraine || allLinks.human || allLinks.castorus;
+    const primaryLink = allLinks.leboncoin || allLinks.henry || allLinks.luxior || allLinks.barraine || allLinks.human;
     
     let linksLines = `- **Lien de l'annonce** : [Consulter l'annonce](${primaryLink})`;
     if (allLinks.leboncoin && primaryLink !== allLinks.leboncoin) {
@@ -1918,9 +1909,6 @@ async function saveOrUpdateProperty(p) {
     }
     if (allLinks.human && primaryLink !== allLinks.human) {
       linksLines += `\n- **Lien additionnel (Human)** : [Consulter l'annonce](${allLinks.human})`;
-    }
-    if (allLinks.castorus && primaryLink !== allLinks.castorus) {
-      linksLines += `\n- **Lien additionnel (Castorus)** : [Consulter l'annonce](${allLinks.castorus})`;
     }
     
     // Choose appropriate title tag source prefix
@@ -2104,9 +2092,8 @@ async function run() {
   const luxiorResults = await scrapeLuxior();
   const barraineResults = await scrapeBarraine();
   const humanResults = await scrapeHuman();
-  const castorusResults = await scrapeCastorus();
   
-  const allResults = [...henryResults, ...lbcResults, ...luxiorResults, ...barraineResults, ...humanResults, ...castorusResults];
+  const allResults = [...henryResults, ...lbcResults, ...luxiorResults, ...barraineResults, ...humanResults];
   
   // Deduplicate
   const uniqueResults = [];
@@ -2119,7 +2106,7 @@ async function run() {
         
         // Merge links
         if (!u.otherLinks) u.otherLinks = {};
-        const pSourceKey = p.source === 'Agence Henry' ? 'henry' : (p.source === 'Luxior' ? 'luxior' : (p.source === 'Barraine' ? 'barraine' : (p.source === 'Human' ? 'human' : (p.source === 'Castorus' ? 'castorus' : 'leboncoin'))));
+        const pSourceKey = p.source === 'Agence Henry' ? 'henry' : (p.source === 'Luxior' ? 'luxior' : (p.source === 'Barraine' ? 'barraine' : (p.source === 'Human' ? 'human' : 'leboncoin')));
         u.otherLinks[pSourceKey] = p.url;
         if (p.otherLinks) {
           u.otherLinks = { ...u.otherLinks, ...p.otherLinks };

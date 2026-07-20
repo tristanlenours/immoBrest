@@ -1,18 +1,18 @@
 ---
-title: "[Leboncoin] maison années 30 Triangle d'Or - vue Rade"
+title: "[Luxior] maison de charme Saint-Michel - jardin"
 outline: deep
 ---
 
-# maison années 30 Triangle d'Or - vue Rade
+# maison de charme Saint-Michel - jardin
 
 <div class="detail-header-panel">
   <div class="detail-header-left">
-    <span class="detail-source-badge">Leboncoin</span>
-    <span class="detail-status-badge status-actif" style="margin-left: 8px;">Actif</span>
+    <span class="detail-source-badge">Luxior</span>
+    <span class="detail-status-badge status-vendu" style="margin-left: 8px;">Vendu</span>
   </div>
   <div class="detail-header-right">
-    <div class="detail-score-circle score-medium">
-      5.9<span>/10</span>
+    <div class="detail-score-circle score-high">
+      7.6<span>/10</span>
     </div>
   </div>
 </div>
@@ -25,22 +25,22 @@ outline: deep
   <div class="grid-stat-card">
     <div class="card-icon">💰</div>
     <div class="card-label">Prix</div>
-    <div class="card-val">520 000 €</div>
+    <div class="card-val">Prix sur demande</div>
   </div>
   <div class="grid-stat-card">
     <div class="card-icon">📐</div>
     <div class="card-label">Surface</div>
-    <div class="card-val">130 m²</div>
+    <div class="card-val">93.25 m²</div>
   </div>
   <div class="grid-stat-card">
     <div class="card-icon">🚪</div>
     <div class="card-label">Pièces / Type</div>
-    <div class="card-val">- Pièces : 6 (Maison)</div>
+    <div class="card-val">- Pièces : 5 (Maison)</div>
   </div>
   <div class="grid-stat-card">
     <div class="card-icon">📍</div>
     <div class="card-label">Localisation</div>
-    <div class="card-val">Brest 29200 Centre-ville - Triangle d'Or</div>
+    <div class="card-val">BREST</div>
   </div>
 </div>
 
@@ -48,54 +48,41 @@ outline: deep
 
 ## Critères de Scoring et Correspondance
 
-- **Score de correspondance** : 5.9/10
-  - [x] Siam / Triangle d'Or / Place Wilson / Saint-Louis / Gare / Cours Dajot / Château / Jardin des Explorateurs (Tiers 1)
+- **Score de correspondance** : 7.6/10
+  - [ ] Siam / Triangle d'Or / Place Wilson / Saint-Louis / Gare / Cours Dajot / Château / Jardin des Explorateurs (Tiers 1) (-2.0 pour Tiers 2)
   - [x] Dernier étage (ou Maison)
   - [x] Seul à l'étage (ou Maison)
-  - [ ] Terrasse (ou Jardin pour une Maison) (-1.0)
+  - [x] Terrasse (ou Jardin pour une Maison)
   - [x] Ascenseur (ou Maison)
-  - [ ] Parking / Garage (-1.5)
-  - [x] Malus chambres (2 chambres) (-1.0)
-  - [x] Malus qualité (travaux à prévoir) (-1.0)
-  - [x] Bonus qualité : exceptionnel, vue mer (+0.4)
+  - [x] Parking / Garage
+  - [x] Malus surface (< 95m²) (-1.0)
+  - [x] Bonus qualité : privatif, cachet, confort (+0.6)
 
 ---
 
 ## Description de l'Annonce
 
 ```text
-Maison 6 pièces 130 m²
-
-REFERENCE ANNONCE : 11414 - Maison à vendre Brest CENTRE, situé dans un cadre exceptionnel avec une très jolie vue sur la rade, cette maison des années 30 vous propose un séjour double au rez-de chaussée, à l'étage, 2 chambres et une salle d'eau et 2 chambres au second et un bureau au troisième. Toiture et isolation des combles récentes, fenÂªtres PVC, Travaux à prévoir.
-
-Les informations sur les risques auxquels ce bien est expose sont disponibles sur le site Georisques €Â¦
-
-Voir plus
+A Brest au centre ville &#8211; quartier Saint-Michel &#8211; Keruscun Maison de charme d&rsquo;avant 1950 &#8211; 93 m² environ Jardin, sous-sol et garage Cette ravissante maison d&rsquo;avant 1950, d&rsquo;environ 93 m², séduit par son cachet de l&rsquo;ancien subtilement allié à une rénovation complète réalisée en 2023, offrant un cadre de vie confortable et chaleureux. Le rez-de-chaussée propose une grande cuisine aménagée et équipée, idéale pour les moments de convivialité, ainsi qu&rsquo;un salon-séjour lumineux avec accès direct au jardin, parfait pour profiter des beaux jours. A l&rsquo;étage, l&rsquo;espace nuit se compose de deux chambres, dont une avec salle d&rsquo;eau privative, d&rsquo;une salle de bains et d&rsquo;un WC séparé. Le dernier niveau accueille une troisième chambre, un coin bureau, ainsi qu&rsquo;un espace de rangement pouvant être aménagé en dressing ou quatrième chambre selon les besoins. Un sous-sol complète l&rsquo;ensemble, offrant des espaces de stockage appréciables. En fond de jardin, un garage indépendant vient parfaire les prestations. Une maison pleine de charme, idéale pour une vie de famille, alliant authenticité, fonctionnalité et confort moderne. REFERENCE LUXIOR 26456JM (5.13 % honoraires TTC à la charge de l&rsquo;acquéreur.)
 ```
 
 ---
 
 ## Prestations et Infos de Suivi
 
-* **Prestations supplémentaires** : Non spécifiées
-* **Date de première vue** : 18 juillet 2026 à 21h54
+* **Prestations supplémentaires** : Chambres: 3, Garage: , Cave:
+* **Date de première vue** : 20 juillet 2026 à 20h38
 * **Dernière vue** : 20 juillet 2026 à 20h38
-* **Durée de référencement** : 1 jour(s) et 22 heure(s)
+* **Durée de référencement** : 0 heure(s) et 0 minute(s)
 
 
-
----
-
-## Capture d'Écran de l'Annonce
-
-![Capture d'Écran de l'Annonce](/screenshots/leboncoin_3005528482.png)
 
 
 ---
 
 <div class="detail-actions">
   <a href="/" class="action-btn back-btn">← Retour au Dashboard</a>
-  <a href="https://www.leboncoin.fr/ad/ventes_immobilieres/3005528482" target="_blank" rel="noopener" class="action-btn original-btn">Consulter sur Leboncoin ↗</a>
+  <a href="https://luxior-immobilier.com/bien/maison-3-chambres-jardin-garage-a-vendre-a-brest-saint-michel-keruscun/#cmplz-manage-consent-container" target="_blank" rel="noopener" class="action-btn original-btn">Consulter sur Luxior ↗</a>
 </div>
 
 <style>

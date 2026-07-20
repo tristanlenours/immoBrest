@@ -29,6 +29,16 @@ Exemples :
 - `# [Leboncoin] - appartement - 3 pièces 100m² (La Corniche) (Score: 2.4/10)`
 - `# [Agence Henry] - grand appartement Branda Gare - seul à l'étage avec ascenseur (Score: 6.7/10)`
 
+## Restitution des Résultats du Fetch
+
+> [!IMPORTANT]
+> Après chaque exécution du script de fetch (`fetch_listings.js`), l'agent doit **systématiquement et explicitement** présenter à l'utilisateur la liste des nouvelles annonces découvertes et placées dans le sas d'attente (`leboncoin_sas/`).
+> Pour chaque annonce découverte, il convient d'indiquer :
+> - La source (Leboncoin, Agence Henry, Luxior, Barraine, Human)
+> - Le type de bien, quartier, surface, prix (ou "Prix sur demande")
+> - Le score calculé automatiquement
+> - Le lien de l'annonce (si disponible)
+
 ---
 
 # Architecture, Mécanismes et Skills ImmoBrest
@@ -38,7 +48,7 @@ Ce document décrit le fonctionnement global de la plateforme d'analyse et de re
 ## 1. Ce que propose l'application ImmoBrest
 
 ImmoBrest est une plateforme automatisée de recherche, d'évaluation et de consultation de biens immobiliers sur Brest centre. Elle permet de :
-- **Agréger les annonces** issues de plusieurs sources (Leboncoin, Agence Henry, Luxior, Barraine, Human Immobilier ; Castorus désactivé car agrégateur).
+- **Agréger les annonces** issues de plusieurs sources (Leboncoin, Agence Henry, Luxior, Barraine, Human Immobilier).
 - **Filtrer strictement** selon la surface (85–150m²) et le budget (300k–600k€).
 - **Dédoublonner automatiquement** les annonces publiées sur plusieurs portails.
 - **Sécuriser la base active via un Sas d'attente** afin de vérifier les nouvelles annonces avant publication.
