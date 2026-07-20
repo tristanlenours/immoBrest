@@ -388,7 +388,8 @@ function isExcluded(title, description, location) {
     'croix-rouge', 'croix rouge', 'la croix rouge',
     'kergaradec', 'europe', 'kerbonne', 'bellevue',
     'saint-marc', 'saint marc', 'st-marc', 'st marc',
-    'fontaine margot', 'fontaine-margot'
+    'fontaine margot', 'fontaine-margot',
+    'jardins de la falaise', 'jardin de la falaise', 'les jardins de la falaise'
   ];
   
   const normTitle = normalizeString(title);
@@ -1204,7 +1205,8 @@ async function scrapeBarraine() {
         || detailHtml.match(/<div[^>]*class="[^"]*description[^"]*"[^>]*>([\s\S]*?)<\/div>/i);
       let description = '';
       if (descContainerMatch) {
-        description = decodeHtmlEntities(descContainerMatch[1].replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim());
+        let rawDescContainer = descContainerMatch[1].replace(/<meta[^>]*>/gi, '');
+        description = decodeHtmlEntities(rawDescContainer.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim());
         description = description.replace(/^Description\s+/i, '');
       } else {
         // Fallback: og:description meta
@@ -1425,152 +1427,6 @@ async function scrapeCastorus() {
   console.log('--- SCRAPING CASTORUS (DISABLED) ---');
   console.log('[Castorus] Castorus scraping disabled: Castorus is an aggregator, not an original portal.');
   return [];
-}
-
-  try {
-    const res = await fetch(searchUrl, {
-      headers: {
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36'
-      }
-    });
-
-    if (!res.ok) {
-      console.error(`Castorus HTTP error: ${res.status}`);
-      return [];
-    }
-
-    const html = await res.text();
-    const rawCookies = res.headers.getSetCookie ? res.headers.getSetCookie() : [res.headers.get('set-cookie')].filter(Boolean);
-    const cookieHeader = rawCookies.map(c => c.split(';')[0]).join('; ');
-
-    const trRegex = /<tr[^>]*data-js=["']([^"']+)["'][^>]*>([\s\S]*?)<\/tr>/gi;
-    let match;
-
-    while ((match = trRegex.exec(html)) !== null) {
-      const rawJson = match[1].replace(/&quot;/g, '"');
-      const rowContent = match[2];
-      let data;
-      try {
-        data = JSON.parse(rawJson);
-      } catch (e) {
-        continue;
-      }
-
-      // Filter: strictly publication age <= 30 days
-      const dureeDays = parseInt(data.sort_duree, 10);
-      if (isNaN(dureeDays) || dureeDays > 30) {
-        continue;
-      }
-
-      const surface = parseFloat(data.sort_superficie || '0');
-      const price = parseFloat(data.sort_prix || '0');
-
-      if (surface < 85 || surface > 150) continue;
-      if (price < 300000 || price > 600000) continue;
-
-      const refMatch = rowContent.match(/href=["'](\/annonce\/brest-29200\/ref\d+)["']/i);
-      if (!refMatch) continue;
-
-      const castorusPath = refMatch[1];
-      const castorusUrl = 'https://www.castorus.com' + castorusPath;
-
-      const title = data.sort_titre || 'Bien immobilier';
-      const rawVille = data.sort_ville || '';
-      const location = rawVille ? `Brest (${rawVille})` : 'Brest';
-      const type = title.toLowerCase().includes('maison') ? 'Maison' : 'Appartement';
-
-      // Exclusion check
-      if (isExcluded(title, '', location)) {
-        console.log(`[EXCLUDED - LOCATION] Skipped Castorus listing "${title}" in "${location}"`);
-        continue;
-      }
-
-      let originalPortalUrl = null;
-      let fullDescription = `Annonce Castorus détectée il y a ${dureeDays} jour(s). Titre : ${title}. Prix : ${formatPrice(price)}. Surface : ${surface}m².`;
-
-      // Fetch detail page to get /go/ link and description
-      try {
-        const detailRes = await fetch(castorusUrl, {
-          headers: {
-            'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-            'Accept-Language': 'fr-FR,fr;q=0.9,en-US;q=0.8,en;q=0.7',
-            'Cookie': cookieHeader
-          }
-        });
-        if (detailRes.ok) {
-          const detailHtml = await detailRes.text();
-          
-          // Extract description from prop-desc or meta tag
-          const descMatch = detailHtml.match(/<p[^>]*class=["'][^"']*prop-desc[^"']*["'][^>]*>([\s\S]*?)<\/p>/i) ||
-                            detailHtml.match(/<div[^>]*class=["'][^"']*prop-desc[^"']*["'][^>]*>([\s\S]*?)<\/div>/i);
-          if (descMatch) {
-            const cleanDesc = descMatch[1].replace(/<[^>]+>/g, '').trim();
-            if (cleanDesc.length > 30) {
-              fullDescription = cleanDesc;
-            }
-          }
-
-          // Resolve /go/ link to original portal URL
-          const goMatch = detailHtml.match(/href=["'](\/go\/[^"']+)["']/i);
-          if (goMatch) {
-            const goUrl = 'https://www.castorus.com' + goMatch[1];
-            const goRes = await fetch(goUrl, {
-              headers: {
-                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
-                'Cookie': cookieHeader
-              }
-            });
-            if (goRes.ok) {
-              const goHtml = await goRes.text();
-              const origMatch = goHtml.match(/window\.location\.href\s*=\s*["']([^"']+)["']/i);
-              if (origMatch && origMatch[1] && !origMatch[1].includes('castorus.com')) {
-                originalPortalUrl = origMatch[1];
-              }
-            }
-          }
-        }
-      } catch (dErr) {
-        console.warn(`[Castorus] Could not fetch detail page for ${castorusUrl}:`, dErr.message);
-      }
-
-      const finalUrl = originalPortalUrl || castorusUrl;
-      const otherLinks = originalPortalUrl ? { castorus: castorusUrl } : {};
-
-      // Re-check exclusion with full description
-      if (isExcluded(title, fullDescription, location)) {
-        console.log(`[EXCLUDED - LOCATION] Skipped Castorus listing "${title}" in "${location}" (found in description)`);
-        continue;
-      }
-
-      // Reject listings with dummy or insufficient description (< 80 chars or fallback text)
-      if (!fullDescription || fullDescription.startsWith('Annonce Castorus') || fullDescription.trim().length < 80) {
-        console.log(`[EXCLUDED - SHORT DESCRIPTION] Skipped Castorus listing "${title}" (${castorusUrl}) due to insufficient description.`);
-        continue;
-      }
-
-      results.push({
-        source: 'Castorus',
-        title: title,
-        url: finalUrl,
-        otherLinks: otherLinks,
-        price: formatPrice(price),
-        type: type,
-        location: location,
-        description: fullDescription,
-        prestations: '',
-        specs: {
-          surface: `${surface} m²`,
-          pieces: data.sort_piece && data.sort_piece !== '0' ? `${data.sort_piece} pièces` : ''
-        }
-      });
-    }
-
-    console.log(`[Castorus] ${results.length} valid listings found (published <= 30 days).`);
-  } catch (err) {
-    console.error('Error scraping Castorus:', err.message);
-  }
-
-  return results;
 }
 
 function areDuplicates(p1, p2) {
@@ -2090,6 +1946,14 @@ ${linksLines}
       linksLines += `\n- **Lien additionnel (Human)** : [Consulter l'annonce](${allLinks.human})`;
     }
     
+    // Update description if newly fetched description is longer/better
+    const currentDescMatch = content.match(/- \*\*Description\*\* :\r?\n```text\r?\n([\s\S]*?)\r?\n```/);
+    const currentDesc = currentDescMatch ? currentDescMatch[1].trim() : '';
+    if (p.description && (p.description.length > currentDesc.length + 20 || currentDesc.endsWith('et') || currentDesc.endsWith('...'))) {
+      content = content.replace(/- \*\*Description\*\* :\r?\n```text\r?\n[\s\S]*?\r?\n```/, `- **Description** :\n\`\`\`text\n${p.description}\n\`\`\``);
+      console.log(`[UPDATED DESCRIPTION] ${p.title} | Updated description in ${targetFolder}`);
+    }
+
     content = content.replace(/- \*\*Lien de l'annonce\*\* : [\s\S]*/, linksLines);
     
     fs.writeFileSync(filePath, content, 'utf8');

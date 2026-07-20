@@ -40,7 +40,7 @@ ImmoBrest est une plateforme automatisée de recherche, d'évaluation et de cons
 - **Filtrer strictement** selon la surface (85–150m²) et le budget (300k–600k€).
 - **Dédoublonner automatiquement** les annonces publiées sur plusieurs portails.
 - **Sécuriser la base active via un Sas d'attente** afin de vérifier les nouvelles annonces avant publication.
-- **Évaluer et noter chaque bien sur 10 points** selon une grille multicritères (Tiers 1: Siam/Wilson/Gare..., Tiers 2: Saint-Michel/Gambetta/Fac de médecine/Facultés/Yves Collet/Capucins..., Tiers 3: Autres). Exclusions strictes: Croix-Rouge, Bellevue, Saint-Marc, Lambézellec, Bohars, Saint-Pierre, Quatre Moulins, Kerbonne, Fontaine Margot, Rive Droite (hors Capucins/Recouvrance).
+- **Évaluer et noter chaque bien sur 10 points** selon une grille multicritères (Tiers 1: Siam/Wilson/Gare..., Tiers 2: Saint-Michel/Gambetta/Fac de médecine/Facultés/Yves Collet/Capucins..., Tiers 3: Autres). Exclusions strictes: Croix-Rouge, Bellevue, Saint-Marc, Lambézellec, Bohars, Saint-Pierre, Quatre Moulins, Kerbonne, Fontaine Margot, Les Jardins de la Falaise, Rive Droite (hors Capucins/Recouvrance).
 - **Croiser avec les ventes réelles DVF (DGFiP)** géolocalisées sur Brest.
 - **Générer un site statique dynamique VitePress** proposant un tableau de bord interactif, des filtres et des fiches détaillées avec historique des prix.
 

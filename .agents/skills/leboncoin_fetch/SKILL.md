@@ -28,6 +28,7 @@ Use this skill when the user asks to:
     - **Bellevue**
     - **Saint-Marc** (or `saint marc`, `st-marc`, `st marc`)
     - **Fontaine Margot** (or `fontaine-margot`)
+    - **Les Jardins de la Falaise** (or `jardins de la falaise`)
     - **Rive Droite** (unless explicitly mentioning `Capucins` or `Recouvrance`)
 
 
