@@ -380,13 +380,14 @@ function isExcluded(title, description, location) {
     }
   }
   
-  // Specific exclusions: lambezellec, lambezelec, kervao, bohars, saint pierre, quatre moulins, croix-rouge, kergaradec, europe, kerbonne
+  // Specific exclusions: lambezellec, lambezelec, kervao, bohars, saint pierre, quatre moulins, croix-rouge, kergaradec, europe, kerbonne, bellevue, saint-marc
   const specificExclusions = [
     'lambezellec', 'lambezelec', 'kervao', 'bohars',
     'saint pierre', 'saint-pierre', 'st-pierre', 'st pierre', 'sait pierre',
     '4 moulins', 'quatre moulins', 'quatre-moulins',
     'croix-rouge', 'croix rouge', 'la croix rouge',
-    'kergaradec', 'europe', 'kerbonne', 'bellevue'
+    'kergaradec', 'europe', 'kerbonne', 'bellevue',
+    'saint-marc', 'saint marc', 'st-marc', 'st marc'
   ];
   
   const normTitle = normalizeString(title);

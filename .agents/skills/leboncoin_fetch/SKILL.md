@@ -1,6 +1,6 @@
 ---
 name: Leboncoin, Agence Henry, Luxior, Human & Castorus Real Estate Fetch
-description: Scrapes Brest real estate listings on Leboncoin, Agence Henry, Luxior, Human Immobilier, and Castorus (published <= 30 days), filtering them strictly based on surface (85-150m²), price (300k-600k€), and Brest boundaries, excluding Lambezellec, Kervao, Bohars, Saint-Pierre, Quatre Moulins, Kerbonne, Bellevue, and La Croix-Rouge.
+description: Scrapes Brest real estate listings on Leboncoin, Agence Henry, Luxior, Human Immobilier, and Castorus (published <= 30 days), filtering them strictly based on surface (85-150m²), price (300k-600k€), and Brest boundaries, excluding Lambezellec, Kervao, Bohars, Saint-Pierre, Quatre Moulins, Kerbonne, Bellevue, Saint-Marc, and La Croix-Rouge.
 ---
 # Leboncoin, Agence Henry, Luxior, Human & Castorus Real Estate Fetch Skill
 
@@ -27,6 +27,7 @@ Use this skill when the user asks to:
     - **Saint-Renan** (or `saint renan`, `st renan`, `saint-renan`)
     - **Kerbonne**
     - **Bellevue**
+    - **Saint-Marc** (or `saint marc`, `st-marc`, `st marc`)
 
 
 ## How to Execute

@@ -13,7 +13,7 @@ Les quartiers suivants doivent être extraits et insérés au centre du titre :
 - **Place Wilson** / **Gare** / **Branda**
 - **Saint-Michel** / **Gambetta** / **Pasteur**
 - **Capucins** / **Recouvrance** / **Kerbonne** / **La Corniche**
-- **Saint-Marc** / **Guelmeur** / **Saint-Martin**
+- **Saint-Marc** (Hors secteur) / **Guelmeur** / **Saint-Martin**
 - **Kérinou** / **Lanrédec** / **Linois**
 - **Harteloire** / **Bellevue** / **Pilier Rouge**
 - **Port de Commerce**
@@ -40,7 +40,7 @@ ImmoBrest est une plateforme automatisée de recherche, d'évaluation et de cons
 - **Filtrer strictement** selon la surface (85–150m²), le budget (300k–600k€) et la date de parution (<= 30 jours pour Castorus).
 - **Dédoublonner automatiquement** les annonces publiées sur plusieurs portails.
 - **Sécuriser la base active via un Sas d'attente** afin de vérifier les nouvelles annonces avant publication.
-- **Évaluer et noter chaque bien sur 10 points** selon une grille multicritères (Tiers 1: Siam/Wilson/Gare..., Tiers 2: Saint-Michel/Gambetta/Fac de médecine/Facultés/Yves Collet/Capucins..., Tiers 3: Autres). Exclusions strictes: Croix-Rouge, Bellevue, etc.
+- **Évaluer et noter chaque bien sur 10 points** selon une grille multicritères (Tiers 1: Siam/Wilson/Gare..., Tiers 2: Saint-Michel/Gambetta/Fac de médecine/Facultés/Yves Collet/Capucins..., Tiers 3: Autres). Exclusions strictes: Croix-Rouge, Bellevue, Saint-Marc, Lambézellec, Bohars, Saint-Pierre, Quatre Moulins, Kerbonne.
 - **Croiser avec les ventes réelles DVF (DGFiP)** géolocalisées sur Brest.
 - **Générer un site statique dynamique VitePress** proposant un tableau de bord interactif, des filtres et des fiches détaillées avec historique des prix.
 
