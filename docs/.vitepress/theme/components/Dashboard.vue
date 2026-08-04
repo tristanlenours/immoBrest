@@ -208,6 +208,9 @@
             
             <div class="card-meta">
               <span class="meta-price">{{ formatPrice(item.priceVal) }}</span>
+              <span v-if="getPriceDrop(item)" class="price-drop-badge" :title="`Prix initial : ${formatPrice(item.priceHistory[0].priceVal)}`">
+                ▼ -{{ formatPrice(getPriceDrop(item)) }}
+              </span>
               <span class="meta-separator">•</span>
               <span class="meta-surface">{{ item.surface }}</span>
               <span class="meta-separator">•</span>
@@ -485,6 +488,16 @@ export default {
       }).length
     }
 
+    const getPriceDrop = (item) => {
+      if (!item.priceHistory || item.priceHistory.length <= 1) return null
+      const initial = item.priceHistory[0].priceVal
+      const current = item.priceVal || item.priceHistory[item.priceHistory.length - 1].priceVal
+      if (initial > current && current > 0) {
+        return initial - current
+      }
+      return null
+    }
+
     return {
       baseUrl,
       listings,
@@ -504,7 +517,8 @@ export default {
       isBonus,
       currentTab,
       isArchived,
-      countStatus
+      countStatus,
+      getPriceDrop
     }
   }
 }
@@ -748,6 +762,18 @@ export default {
   border: 1px dashed var(--vp-c-gutter);
   color: var(--vp-c-text-2);
   font-size: 1.1rem;
+}
+
+.price-drop-badge {
+  background: rgba(16, 185, 129, 0.15);
+  color: #10b981;
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 10px;
+  margin-left: 6px;
+  display: inline-flex;
+  align-items: center;
 }
 
 .listings-grid {

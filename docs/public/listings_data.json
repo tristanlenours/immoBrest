@@ -7,6 +7,14 @@
       "title": "appartement Kérinou - seul à l'étage",
       "price": "314 900 €",
       "priceVal": 314900,
+      "priceHistory": [
+        {
+          "date": "18 juillet 2026",
+          "dateTs": 1784411872000,
+          "price": "314 900 €",
+          "priceVal": 314900
+        }
+      ],
       "score": 5.2,
       "status": "Actif",
       "location": "Brest",
@@ -35,6 +43,14 @@
       "title": "appartement Gare - 5 pièces 118.95m²",
       "price": "336 900 €",
       "priceVal": 336900,
+      "priceHistory": [
+        {
+          "date": "18 juillet 2026",
+          "dateTs": 1784411872000,
+          "price": "336 900 €",
+          "priceVal": 336900
+        }
+      ],
       "score": 6.9,
       "status": "Actif",
       "location": "Brest - BRANDA",
@@ -61,6 +77,14 @@
       "title": "appartement Kérinou - 4 pièces 121m²",
       "price": "333 900 €",
       "priceVal": 333900,
+      "priceHistory": [
+        {
+          "date": "18 juillet 2026",
+          "dateTs": 1784411872000,
+          "price": "333 900 €",
+          "priceVal": 333900
+        }
+      ],
       "score": 5,
       "status": "Actif",
       "location": "Brest - KERINOU",
@@ -87,6 +111,14 @@
       "title": "appartement Gare - seul à l'étage",
       "price": "304 500 €",
       "priceVal": 304500,
+      "priceHistory": [
+        {
+          "date": "4 août 2026",
+          "dateTs": 1785877913000,
+          "price": "304 500 €",
+          "priceVal": 304500
+        }
+      ],
       "score": 5.5,
       "status": "Actif",
       "location": "Brest - CENTRE VILLE",
@@ -115,6 +147,14 @@
       "title": "appartement Siam - dernier étage",
       "price": "468 000 €",
       "priceVal": 468000,
+      "priceHistory": [
+        {
+          "date": "21 juin 2026",
+          "dateTs": 1782078734000,
+          "price": "468 000 €",
+          "priceVal": 468000
+        }
+      ],
       "score": 5.9,
       "status": "Vendu ou retiré de la vente",
       "location": "Brest",
@@ -142,6 +182,14 @@
       "title": "appartement - vue Rade",
       "price": "358 000 €",
       "priceVal": 358000,
+      "priceHistory": [
+        {
+          "date": "22 juin 2026",
+          "dateTs": 1782079388000,
+          "price": "358 000 €",
+          "priceVal": 358000
+        }
+      ],
       "score": 3.8,
       "status": "Vendu ou retiré de la vente",
       "location": "Brest",
@@ -170,6 +218,14 @@
       "title": "appartement Gare - seul à l'étage",
       "price": "309 900 €",
       "priceVal": 309900,
+      "priceHistory": [
+        {
+          "date": "22 juin 2026",
+          "dateTs": 1782079384000,
+          "price": "309 900 €",
+          "priceVal": 309900
+        }
+      ],
       "score": 6.7,
       "status": "Actif",
       "location": "Brest",
@@ -197,6 +253,14 @@
       "title": "appartement récent(e) - vue Rade, jardin",
       "price": "440 000 €",
       "priceVal": 440000,
+      "priceHistory": [
+        {
+          "date": "19 juillet 2026",
+          "dateTs": 1784449055000,
+          "price": "440 000 €",
+          "priceVal": 440000
+        }
+      ],
       "score": 7,
       "status": "Vendu",
       "location": "Brest",
@@ -224,6 +288,14 @@
       "title": "appartement Siam - dernier étage, terrasse",
       "price": "Prix sur demande",
       "priceVal": 0,
+      "priceHistory": [
+        {
+          "date": "21 juin 2026",
+          "dateTs": 1782078727000,
+          "price": "Prix sur demande",
+          "priceVal": 0
+        }
+      ],
       "score": 9.6,
       "status": "Vendu ou retiré de la vente",
       "location": "Brest",
@@ -249,6 +321,14 @@
       "title": "appartement Siam - 7 pièces 150m²",
       "price": "445 000 €",
       "priceVal": 445000,
+      "priceHistory": [
+        {
+          "date": "19 juillet 2026",
+          "dateTs": 1784449051000,
+          "price": "445 000 €",
+          "priceVal": 445000
+        }
+      ],
       "score": 5.4,
       "status": "Vendu",
       "location": "Brest",
@@ -277,6 +357,14 @@
       "title": "appartement Gare - 4 pièces 105m²",
       "price": "326 500 €",
       "priceVal": 326500,
+      "priceHistory": [
+        {
+          "date": "18 juillet 2026",
+          "dateTs": 1784407777000,
+          "price": "326 500 €",
+          "priceVal": 326500
+        }
+      ],
       "score": 4.7,
       "status": "Actif",
       "location": "Brest",
@@ -304,6 +392,14 @@
       "title": "récent(e) Siam - terrasse",
       "price": "294 000 €",
       "priceVal": 294000,
+      "priceHistory": [
+        {
+          "date": "21 juin 2026",
+          "dateTs": 1782078730000,
+          "price": "294 000 €",
+          "priceVal": 294000
+        }
+      ],
       "score": 5.6,
       "status": "Vendu ou retiré de la vente",
       "location": "Brest",
@@ -331,6 +427,14 @@
       "title": "appartement Saint-Martin - seul à l'étage, terrasse",
       "price": "319 900 €",
       "priceVal": 319900,
+      "priceHistory": [
+        {
+          "date": "22 juin 2026",
+          "dateTs": 1782079377000,
+          "price": "319 900 €",
+          "priceVal": 319900
+        }
+      ],
       "score": 6.4,
       "status": "Actif",
       "location": "Brest",
@@ -358,6 +462,20 @@
       "title": "appartement récent(e) Capucins - vue Rade, terrasse",
       "price": "427 000 €",
       "priceVal": 427000,
+      "priceHistory": [
+        {
+          "date": "21 juin 2026",
+          "dateTs": 1782077932000,
+          "price": "439 000 €",
+          "priceVal": 439000
+        },
+        {
+          "date": "4 août 2026",
+          "dateTs": 1785877909000,
+          "price": "427 000 €",
+          "priceVal": 427000
+        }
+      ],
       "score": 6,
       "status": "Actif",
       "location": "Brest",
@@ -385,6 +503,14 @@
       "title": "maison années 30 Pilier Rouge - jardin",
       "price": "389 000 €",
       "priceVal": 389000,
+      "priceHistory": [
+        {
+          "date": "18 juillet 2026",
+          "dateTs": 1784401875000,
+          "price": "389 000 €",
+          "priceVal": 389000
+        }
+      ],
       "score": 5.7,
       "status": "Actif",
       "location": "Brest",
@@ -412,6 +538,14 @@
       "title": "maison Kérinou - jardin",
       "price": "389 500 €",
       "priceVal": 389500,
+      "priceHistory": [
+        {
+          "date": "19 juillet 2026",
+          "dateTs": 1784470686000,
+          "price": "389 500 €",
+          "priceVal": 389500
+        }
+      ],
       "score": 7,
       "status": "Vendu ou retiré de la vente",
       "location": "Brest",
@@ -437,6 +571,14 @@
       "title": "appartement Siam - 5 pièces 139m²",
       "price": "470 000 €",
       "priceVal": 470000,
+      "priceHistory": [
+        {
+          "date": "18 juillet 2026",
+          "dateTs": 1784404448000,
+          "price": "470 000 €",
+          "priceVal": 470000
+        }
+      ],
       "score": 6.4,
       "status": "Actif",
       "location": "Brest 29200 Centre-ville - Triangle d'Or",
@@ -464,6 +606,14 @@
       "title": "maison années 30 Triangle d'Or - vue Rade",
       "price": "520 000 €",
       "priceVal": 520000,
+      "priceHistory": [
+        {
+          "date": "18 juillet 2026",
+          "dateTs": 1784404448000,
+          "price": "520 000 €",
+          "priceVal": 520000
+        }
+      ],
       "score": 5.9,
       "status": "Actif",
       "location": "Brest 29200 Centre-ville - Triangle d'Or",
@@ -492,6 +642,14 @@
       "title": "appartement Triangle d'Or - rooftop, terrasse",
       "price": "449 800 €",
       "priceVal": 449800,
+      "priceHistory": [
+        {
+          "date": "18 juillet 2026",
+          "dateTs": 1784402156000,
+          "price": "449 800 €",
+          "priceVal": 449800
+        }
+      ],
       "score": 5.9,
       "status": "Actif",
       "location": "Brest 29200 Centre-ville - Triangle d'Or",
@@ -519,6 +677,14 @@
       "title": "appartement rénové(e) Siam - 7 pièces 138m²",
       "price": "598 000 €",
       "priceVal": 598000,
+      "priceHistory": [
+        {
+          "date": "18 juillet 2026",
+          "dateTs": 1784404448000,
+          "price": "598 000 €",
+          "priceVal": 598000
+        }
+      ],
       "score": 3.7,
       "status": "Actif",
       "location": "Brest 29200 Centre-ville - Triangle d'Or",
@@ -547,6 +713,14 @@
       "title": "appartement Saint-Michel - 5 pièces 123m²",
       "price": "305 000 €",
       "priceVal": 305000,
+      "priceHistory": [
+        {
+          "date": "21 juin 2026",
+          "dateTs": 1782077311000,
+          "price": "305 000 €",
+          "priceVal": 305000
+        }
+      ],
       "score": 1.5,
       "status": "Vendu ou retiré de la vente",
       "location": "Brest (29200) Saint-Michel",
@@ -576,6 +750,14 @@
       "title": "appartement Triangle d'Or - terrasse",
       "price": "590 000 €",
       "priceVal": 590000,
+      "priceHistory": [
+        {
+          "date": "19 juillet 2026",
+          "dateTs": 1784449068000,
+          "price": "590 000 €",
+          "priceVal": 590000
+        }
+      ],
       "score": 6.6,
       "status": "Actif",
       "location": "Brest 29200 Centre-ville - Triangle d'Or",
@@ -603,6 +785,14 @@
       "title": "appartement Siam - 6 pièces 122m²",
       "price": "478 000 €",
       "priceVal": 478000,
+      "priceHistory": [
+        {
+          "date": "18 juillet 2026",
+          "dateTs": 1784403974000,
+          "price": "478 000 €",
+          "priceVal": 478000
+        }
+      ],
       "score": 2.9,
       "status": "Actif",
       "location": "Brest 29200 Centre-ville - Triangle d'Or",
@@ -632,6 +822,14 @@
       "title": "appartement Triangle d'Or - 4 pièces 114m²",
       "price": "335 000 €",
       "priceVal": 335000,
+      "priceHistory": [
+        {
+          "date": "21 juin 2026",
+          "dateTs": 1782077311000,
+          "price": "335 000 €",
+          "priceVal": 335000
+        }
+      ],
       "score": 4.5,
       "status": "Vendu ou retiré de la vente",
       "location": "Brest (29200) Centre-ville - Triangle d'Or",
@@ -660,6 +858,14 @@
       "title": "appartement Capucins - terrasse",
       "price": "595 000 €",
       "priceVal": 595000,
+      "priceHistory": [
+        {
+          "date": "18 juillet 2026",
+          "dateTs": 1784402156000,
+          "price": "595 000 €",
+          "priceVal": 595000
+        }
+      ],
       "score": 5.8,
       "status": "Actif",
       "location": "Brest 29200 Recouvrance - Capucins",
@@ -687,6 +893,14 @@
       "title": "appartement récent(e) Capucins - vue Rade, terrasse",
       "price": "439 000 €",
       "priceVal": 439000,
+      "priceHistory": [
+        {
+          "date": "18 juillet 2026",
+          "dateTs": 1784402156000,
+          "price": "439 000 €",
+          "priceVal": 439000
+        }
+      ],
       "score": 6.4,
       "status": "Actif",
       "location": "Brest 29200 Recouvrance - Capucins",
@@ -713,6 +927,14 @@
       "title": "appartement Triangle d'Or - seul à l'étage",
       "price": "474 750 €",
       "priceVal": 474750,
+      "priceHistory": [
+        {
+          "date": "18 juillet 2026",
+          "dateTs": 1784403000000,
+          "price": "474 750 €",
+          "priceVal": 474750
+        }
+      ],
       "score": 7,
       "status": "Actif",
       "location": "Brest 29200 Centre-ville - Triangle d'Or",
@@ -739,6 +961,14 @@
       "title": "maison de charme Saint-Michel - jardin",
       "price": "Prix sur demande",
       "priceVal": 0,
+      "priceHistory": [
+        {
+          "date": "20 juillet 2026",
+          "dateTs": 1784572724000,
+          "price": "Prix sur demande",
+          "priceVal": 0
+        }
+      ],
       "score": 7.6,
       "status": "Vendu",
       "location": "BREST",

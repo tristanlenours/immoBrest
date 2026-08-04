@@ -1523,58 +1523,117 @@ function areDuplicates(p1, p2) {
   return false;
 }
 
+function parseFrenchDate(dateStr) {
+  if (!dateStr) return 0;
+  const months = {
+    janvier: 0, février: 1, mars: 2, avril: 3, mai: 4, juin: 5,
+    juillet: 6, août: 7, septembre: 8, octobre: 9, novembre: 10, décembre: 11
+  };
+  const match = dateStr.match(/(\d+)\s+([a-zéûû\s]+)\s+(\d+)\s+à\s+(\d+)h(\d+)/i);
+  if (!match) return 0;
+  const day = parseInt(match[1], 10);
+  const monthName = match[2].trim().toLowerCase();
+  const month = months[monthName] !== undefined ? months[monthName] : 0;
+  const year = parseInt(match[3], 10);
+  const hour = parseInt(match[4], 10);
+  const minute = parseInt(match[5], 10);
+  return new Date(year, month, day, hour, minute).getTime();
+}
+
+async function checkUrlIs404(url) {
+  if (!url || url.includes('leboncoin.fr')) return false;
+  try {
+    const res = await fetch(url, {
+      method: 'GET',
+      headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)' }
+    });
+    if (res.status === 404) return true;
+    return false;
+  } catch (e) {
+    return false;
+  }
+}
+
 async function markSoldProperties(seenIds) {
   console.log('\nChecking for sold/removed properties...');
   if (!fs.existsSync(OUTPUT_DIR)) return;
   
   const folders = fs.readdirSync(OUTPUT_DIR).filter(f => fs.statSync(path.join(OUTPUT_DIR, f)).isDirectory());
-  const thirtyDaysAgo = Date.now() - 30 * 24 * 60 * 60 * 1000;
+  const fourteenDaysAgo = Date.now() - 14 * 24 * 60 * 60 * 1000; // 2 semaines (14 jours)
   
   for (const folder of folders) {
     if (seenIds.has(folder)) continue;
     
     const folderPath = path.join(OUTPUT_DIR, folder);
     const files = fs.readdirSync(folderPath).filter(f => f.endsWith('.md'));
-    let latestMdFile = null;
-    let latestMtime = 0;
-    
-    for (const file of files) {
-      const stat = fs.statSync(path.join(folderPath, file));
-      if (stat.mtimeMs > latestMtime) {
-        latestMtime = stat.mtimeMs;
-        latestMdFile = file;
-      }
-    }
+    const sortedFiles = [...files].sort();
+    let latestMdFile = sortedFiles.length > 0 ? sortedFiles[sortedFiles.length - 1] : null;
     
     if (latestMdFile) {
-      let isOlderThan30Days = false;
+      const filePath = path.join(folderPath, latestMdFile);
+      let content = fs.readFileSync(filePath, 'utf8');
+      
+      if (content.includes('**Statut** : Vendu ou retiré de la vente')) {
+        continue;
+      }
+      
+      let shouldMarkSold = false;
+      let reason = '';
+      
+      // 1. Check if older than 14 days (2 weeks)
+      let fileDateTs = 0;
       const match = latestMdFile.match(/^(\d{4})(\d{2})(\d{2})_\d{6}/);
       if (match) {
-        const fileDate = new Date(parseInt(match[1]), parseInt(match[2]) - 1, parseInt(match[3]));
-        if (fileDate.getTime() < thirtyDaysAgo) {
-          isOlderThan30Days = true;
-        }
+        fileDateTs = new Date(parseInt(match[1]), parseInt(match[2]) - 1, parseInt(match[3])).getTime();
       } else {
-        if (latestMtime < thirtyDaysAgo) {
-          isOlderThan30Days = true;
+        const stat = fs.statSync(filePath);
+        fileDateTs = stat.mtimeMs;
+      }
+      
+      const lastSeenMatch = content.match(/- \*\*Dernière vue\*\* : ([^\n]+)/);
+      if (lastSeenMatch) {
+        const parsedTs = parseFrenchDate(lastSeenMatch[1].trim());
+        if (parsedTs > 0) fileDateTs = parsedTs;
+      }
+      
+      if (fileDateTs < fourteenDaysAgo) {
+        shouldMarkSold = true;
+        reason = 'non vu depuis plus de 2 semaines (14 jours)';
+      }
+      
+      // 2. Check HTTP 404 for agency URLs if not seen in current run
+      if (!shouldMarkSold) {
+        const links = getLinks(content);
+        const mainMatch = content.match(/- \*\*Lien de l'annonce\*\* : \[Consulter l'annonce\]\(([^)]+)\)/);
+        const primaryUrl = mainMatch ? mainMatch[1] : null;
+        
+        const urlsToCheck = new Set();
+        if (primaryUrl && !primaryUrl.includes('leboncoin.fr')) urlsToCheck.add(primaryUrl);
+        if (links.henry) urlsToCheck.add(links.henry);
+        if (links.barraine) urlsToCheck.add(links.barraine);
+        if (links.luxior) urlsToCheck.add(links.luxior);
+        if (links.human) urlsToCheck.add(links.human);
+        
+        for (const url of urlsToCheck) {
+          const is404 = await checkUrlIs404(url);
+          if (is404) {
+            shouldMarkSold = true;
+            reason = `page 404 sur ${url}`;
+            break;
+          }
         }
       }
       
-      if (isOlderThan30Days) {
-        const filePath = path.join(folderPath, latestMdFile);
-        let content = fs.readFileSync(filePath, 'utf8');
-        
-        if (!content.includes('**Statut** : Vendu ou retiré de la vente')) {
-          if (content.includes('**Statut** :')) {
-            content = content.replace(/- \*\*Statut\*\* : [^\n]*/, '- **Statut** : Vendu ou retiré de la vente');
-          } else {
-            const lines = content.split('\n');
-            lines.splice(1, 0, '- **Statut** : Vendu ou retiré de la vente');
-            content = lines.join('\n');
-          }
-          fs.writeFileSync(filePath, content, 'utf8');
-          console.log(`[MARKED SOLD] Property in folder ${folder} marked as sold/removed.`);
+      if (shouldMarkSold) {
+        if (content.includes('**Statut** :')) {
+          content = content.replace(/- \*\*Statut\*\* : [^\n]*/, '- **Statut** : Vendu ou retiré de la vente');
+        } else {
+          const lines = content.split('\n');
+          lines.splice(1, 0, '- **Statut** : Vendu ou retiré de la vente');
+          content = lines.join('\n');
         }
+        fs.writeFileSync(filePath, content, 'utf8');
+        console.log(`[MARKED SOLD] Property in folder ${folder} marked as sold/removed (${reason}).`);
       }
     }
   }

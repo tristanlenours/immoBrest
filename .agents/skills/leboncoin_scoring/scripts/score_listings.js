@@ -495,16 +495,8 @@ function runScoring() {
     const folderPath = item.folderPath;
     const files = fs.readdirSync(folderPath).filter(f => f.endsWith('.md'));
     
-    let latestMdFile = null;
-    let latestMtime = 0;
-    
-    for (const file of files) {
-      const stat = fs.statSync(path.join(folderPath, file));
-      if (stat.mtimeMs > latestMtime) {
-        latestMtime = stat.mtimeMs;
-        latestMdFile = file;
-      }
-    }
+    const sortedFiles = [...files].sort();
+    const latestMdFile = sortedFiles.length > 0 ? sortedFiles[sortedFiles.length - 1] : null;
     
     if (!latestMdFile) {
       console.log(`No markdown file found in folder ${folder}. Skipping.`);
