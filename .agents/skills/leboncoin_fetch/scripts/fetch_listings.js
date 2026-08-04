@@ -1698,6 +1698,14 @@ function findDuplicateFolder(p) {
       }
       if (latestMdFile) {
         const content = fs.readFileSync(path.join(folderPath, latestMdFile), 'utf8');
+        
+        // Direct URL match check
+        const existingLinks = getLinks(content);
+        const allExistingUrls = Object.values(existingLinks);
+        if (p.url && allExistingUrls.some(u => u === p.url)) {
+          return { folder, folderPath, latestMdFile, fileContent: content, dirName: d.name, dirPath: d.path };
+        }
+
         const lines = content.split(/\r?\n/);
         
         const titleLine = lines.find(l => l.startsWith('# '));
