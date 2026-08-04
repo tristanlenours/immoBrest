@@ -61,6 +61,14 @@ function formatPrice(price) {
   return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + ' €';
 }
 
+function formatLeboncoinDate(dateStr) {
+  if (!dateStr) return null;
+  const d = new Date(dateStr.replace(' ', 'T'));
+  if (isNaN(d.getTime())) return null;
+  return d.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }) + 
+    ' à ' + String(d.getHours()).padStart(2, '0') + 'h' + String(d.getMinutes()).padStart(2, '0');
+}
+
 const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
 const { exec } = require('child_process');
@@ -879,7 +887,9 @@ async function scrapeLeboncoin(pagesToScan = 3, lastSearchTime = 0) {
         durationStr = `${diffHours} heure(s) et ${diffMins} minute(s)`;
       }
       
-      content = content.replace(/- \*\*Dernière vue\*\* : [^\n]*/, `- **Dernière vue** : ${dateStr}`);
+      const pubDateStr = formatLeboncoinDate(ad.index_date || ad.published_date || ad.first_publication_date) || dateStr;
+      
+      content = content.replace(/- \*\*Dernière vue\*\* : [^\n]*/, `- **Dernière vue** : ${pubDateStr}`);
       content = content.replace(/- \*\*Durée de référencement\*\* : [^\n]*/, `- **Durée de référencement** : ${durationStr}`);
       
       fs.writeFileSync(filePath, content, 'utf8');
@@ -901,6 +911,7 @@ async function scrapeLeboncoin(pagesToScan = 3, lastSearchTime = 0) {
         location: city,
         description,
         type,
+        publicationDate: pubDateStr,
         specs: {
           surface: (ad.attributes && ad.attributes.find(a => a.key === 'square')) ? ad.attributes.find(a => a.key === 'square').value_label : '',
           pieces: (ad.attributes && ad.attributes.find(a => a.key === 'rooms')) ? ad.attributes.find(a => a.key === 'rooms').value_label : '',
@@ -1025,6 +1036,7 @@ async function scrapeLeboncoin(pagesToScan = 3, lastSearchTime = 0) {
           location,
           description,
           type,
+          publicationDate: formatLeboncoinDate(ad.index_date || ad.published_date || ad.first_publication_date),
           specs: {
             surface: surfaceNum + ' m²',
             pieces,
@@ -2017,7 +2029,8 @@ ${linksLines}
     const filePath = path.join(targetFolderPath, latestMdFile);
     let content = fs.readFileSync(filePath, 'utf8');
     
-    content = content.replace(/- \*\*Dernière vue\*\* : [^\n]*/, `- **Dernière vue** : ${dateStr}`);
+    const lastSeenDate = p.publicationDate || dateStr;
+    content = content.replace(/- \*\*Dernière vue\*\* : [^\n]*/, `- **Dernière vue** : ${lastSeenDate}`);
     content = content.replace(/- \*\*Durée de référencement\*\* : [^\n]*/, `- **Durée de référencement** : ${durationStr}`);
     
     const allLinks = { ...existingLinks, ...p.otherLinks, [sourceKey]: p.url };
@@ -2081,7 +2094,8 @@ ${linksLines}
       }
     }
     
-    const mdContent = getMdContent(firstSeenDate, dateStr, p.price, status, existingLinks);
+    const lastSeenDate = p.publicationDate || dateStr;
+    const mdContent = getMdContent(firstSeenDate, lastSeenDate, p.price, status, existingLinks);
     fs.writeFileSync(filePath, mdContent, 'utf8');
     
     if (screenshotBuffer) {
