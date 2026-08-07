@@ -8,7 +8,7 @@ outline: deep
 <div class="detail-header-panel">
   <div class="detail-header-left">
     <span class="detail-source-badge">Luxior</span>
-    <span class="detail-status-badge status-vendu" style="margin-left: 8px;">Vendu</span>
+    <span class="detail-status-badge status-vendu-ou-retiré-de-la-vente" style="margin-left: 8px;">Vendu ou retiré de la vente</span>
   </div>
   <div class="detail-header-right">
     <div class="detail-score-circle score-high">
