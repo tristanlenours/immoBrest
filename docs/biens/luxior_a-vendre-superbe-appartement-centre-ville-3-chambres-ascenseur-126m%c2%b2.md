@@ -1,13 +1,13 @@
 ---
-title: "[Leboncoin] appartement Capucins - terrasse"
+title: "[Luxior] appartement rénové(e) Liberté - seul à l'étage"
 outline: deep
 ---
 
-# appartement Capucins - terrasse
+# appartement rénové(e) Liberté - seul à l'étage
 
 <div class="detail-header-panel">
   <div class="detail-header-left">
-    <span class="detail-source-badge">Leboncoin</span>
+    <span class="detail-source-badge">Luxior</span>
     <span class="detail-status-badge status-actif" style="margin-left: 8px;">Actif</span>
   </div>
   <div class="detail-header-right">
@@ -25,22 +25,22 @@ outline: deep
   <div class="grid-stat-card">
     <div class="card-icon">💰</div>
     <div class="card-label">Prix</div>
-    <div class="card-val">595 000 €</div>
+    <div class="card-val">385 000 €</div>
   </div>
   <div class="grid-stat-card">
     <div class="card-icon">📐</div>
     <div class="card-label">Surface</div>
-    <div class="card-val">124 m²</div>
+    <div class="card-val">126 m²</div>
   </div>
   <div class="grid-stat-card">
     <div class="card-icon">🚪</div>
     <div class="card-label">Pièces / Type</div>
-    <div class="card-val">- Pièces : 6 (Appartement)</div>
+    <div class="card-val">- Pièces : 5 (Appartement)</div>
   </div>
   <div class="grid-stat-card">
     <div class="card-icon">📍</div>
     <div class="card-label">Localisation</div>
-    <div class="card-val">Brest 29200 Recouvrance - Capucins</div>
+    <div class="card-val">BREST</div>
   </div>
 </div>
 
@@ -50,113 +50,38 @@ outline: deep
 
 - **Score de correspondance** : 5.6/10
   - [ ] Siam / Triangle d'Or / Place Wilson / Saint-Louis / Gare / Cours Dajot / Château / Jardin des Explorateurs (Tiers 1) (-2.0 pour Tiers 2)
-  - [ ] Dernier étage (ou Maison) (-2.0 pour non dernier & non seul)
-  - [ ] Seul à l'étage (ou Maison)
-  - [x] Terrasse (ou Jardin pour une Maison)
+  - [ ] Dernier étage (ou Maison) (-1.0)
+  - [x] Seul à l'étage (ou Maison)
+  - [ ] Terrasse (ou Jardin pour une Maison) (-2.0)
   - [x] Ascenseur (ou Maison)
   - [x] Parking / Garage
-  - [x] Malus chambres (6 chambres) (-1.0)
-  - [x] Bonus qualité : rare, exceptionnel, privatif (+0.6)
+  - [x] Bonus qualité : rare, dalle béton, confort (+0.6)
 
 ---
 
 ## Description de l'Annonce
 
 ```text
-Appartement 6 pièces 124 m²
-
-BRETAGNE-FINISTÈRE-BREST-LES CAPUCINS
-
-Appartement d'exception T6 ? Terrasse panoramique de 65 m² ? Quartier des Capucins
-
-Au coeur du très recherché quartier des Capucins, découvrez ce remarquable appartement T6 situé au 5? étage d'une résidence sécurisée. Issu de la réunion de deux appartements, ce bien rare séduit par ses volumes exceptionnels, sa luminosité et son agencement parfaitement pensé.
-Dès l'entrée, vous serez conquis par une vaste pièce de vie baignée d…
-
-Voir plus
-Passer la liste des médias
-Liste des médias
-Photos (15)
-Les informations clés
-
-Type de bien
-
-Appartement
-
-Surface habitable
-
-124 m²
-
-Nombre de pièces
-
-6
-
-Nombre de chambres
-
-3 ch.
-
-Nombre de salles de bain
-
-1
-
-Nombre de salles d'eau
-
-1
-
-Caractéristiques
-
-Avec garage ou place de parking, Cuisine équipée, Cave, Plusieurs toilettes, Interphone
-
-Type de chauffage
-
-Collectif
-
-Voir les 9 critères supplémentaires
-Diagnostics
-
-Classe énergie
-
-A
-B
-C
-D
-E
-F
-G
-
-GES
-
-A
-B
-C
-D
-E
-F
-G
+Nouveauté Luxior. En plein coeur de Brest, à deux pas de la place de la Liberté, découvrez ce superbe appartement de 126 m² entièrement rénové, situé au 4e étage avec ascenseur et seul sur son palier. Dès l&rsquo;entrée, il séduit par ses volumes remarquables, sa luminosité et la qualité de ses prestations. La pièce maîtresse : près de 58 m² de pièce de vie, avec une cuisine ouverte entièrement équipée et parfaitement intégrée à l&rsquo;ensemble. Un espace généreux et chaleureux, prolongé par une arrière-cuisine et une buanderie. La partie nuit offre trois belles chambres, de nombreux rangements et menuiseries sur mesure, ainsi qu&rsquo;une salle de bains avec baignoire et douche. Décoration aboutie, belles finitions, double vitrage, dalle béton, cave : un appartement clé en main où chaque détail a été pensé pour conjuguer esthétique, confort et fonctionnalité. Un bien rare en centre-ville, aussi agréable à vivre qu&rsquo;à regarder. REFERENCE LUXIOR IMMOBILIER 26657BH (4.05 % honoraires TTC à la charge de l&rsquo;acquéreur.) Copropriété de 6 lots &#8211; dont 5 lots habitation. (Pas de procédure en cours).Charges annuelles : 1800 euros.
 ```
 
 ---
 
 ## Prestations et Infos de Suivi
 
-* **Prestations supplémentaires** : Ascenseur, parkings privatifs souterrains, cave
-* **Date de première vue** : 18 juillet 2026 à 21h15
-* **Dernière vue** : 19 septembre 2026 à 15h14
-* **Durée de référencement** : 
+* **Prestations supplémentaires** : Chambres: 3, Garage: 0, Cave: 1
+* **Date de première vue** : 23 septembre 2026 à 21h00
+* **Dernière vue** : 23 septembre 2026 à 21h00
+* **Durée de référencement** : 0 heure(s) et 0 minute(s)
 
 
-
----
-
-## Capture d'Écran de l'Annonce
-
-![Capture d'Écran de l'Annonce](/screenshots/leboncoin_3225954101.png)
 
 
 ---
 
 <div class="detail-actions">
   <a href="/" class="action-btn back-btn">← Retour au Dashboard</a>
-  <a href="https://www.leboncoin.fr/ad/ventes_immobilieres/3225954101" target="_blank" rel="noopener" class="action-btn original-btn">Consulter sur Leboncoin ↗</a>
+  <a href="https://luxior-immobilier.com/bien/a-vendre-superbe-appartement-centre-ville-3-chambres-ascenseur-126m%c2%b2/" target="_blank" rel="noopener" class="action-btn original-btn">Consulter sur Luxior ↗</a>
 </div>
 
 <style>
