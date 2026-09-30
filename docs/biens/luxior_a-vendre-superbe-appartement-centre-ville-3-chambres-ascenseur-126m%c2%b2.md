@@ -71,8 +71,8 @@ Nouveauté Luxior. En plein coeur de Brest, à deux pas de la place de la Libert
 
 * **Prestations supplémentaires** : Chambres: 3, Garage: 0, Cave: 1
 * **Date de première vue** : 23 septembre 2026 à 21h00
-* **Dernière vue** : 23 septembre 2026 à 21h00
-* **Durée de référencement** : 0 heure(s) et 0 minute(s)
+* **Dernière vue** : 30 septembre 2026 à 21h34
+* **Durée de référencement** : 7 jour(s) et 0 heure(s)
 
 
 
