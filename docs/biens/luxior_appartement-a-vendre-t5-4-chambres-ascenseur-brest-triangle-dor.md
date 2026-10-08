@@ -1,18 +1,18 @@
 ---
-title: "[Barraine] appartement Kérinou - seul à l'étage"
+title: "[Luxior] appartement Triangle d'Or - seul à l'étage"
 outline: deep
 ---
 
-# appartement Kérinou - seul à l'étage
+# appartement Triangle d'Or - seul à l'étage
 
 <div class="detail-header-panel">
   <div class="detail-header-left">
-    <span class="detail-source-badge">Barraine</span>
+    <span class="detail-source-badge">Luxior</span>
     <span class="detail-status-badge status-actif" style="margin-left: 8px;">Actif</span>
   </div>
   <div class="detail-header-right">
-    <div class="detail-score-circle score-medium">
-      5.2<span>/10</span>
+    <div class="detail-score-circle score-high">
+      7<span>/10</span>
     </div>
   </div>
 </div>
@@ -25,12 +25,12 @@ outline: deep
   <div class="grid-stat-card">
     <div class="card-icon">💰</div>
     <div class="card-label">Prix</div>
-    <div class="card-val">314 900 €</div>
+    <div class="card-val">400 000 €</div>
   </div>
   <div class="grid-stat-card">
     <div class="card-icon">📐</div>
     <div class="card-label">Surface</div>
-    <div class="card-val">132 m²</div>
+    <div class="card-val">144 m²</div>
   </div>
   <div class="grid-stat-card">
     <div class="card-icon">🚪</div>
@@ -40,7 +40,7 @@ outline: deep
   <div class="grid-stat-card">
     <div class="card-icon">📍</div>
     <div class="card-label">Localisation</div>
-    <div class="card-val">Brest</div>
+    <div class="card-val">BREST</div>
   </div>
 </div>
 
@@ -48,32 +48,32 @@ outline: deep
 
 ## Critères de Scoring et Correspondance
 
-- **Score de correspondance** : 5.2/10
-  - [ ] Siam / Triangle d'Or / Place Wilson / Saint-Louis / Gare / Cours Dajot / Château / Jardin des Explorateurs (Tiers 1) (-2.0 pour Tiers 2)
+- **Score de correspondance** : 7/10
+  - [x] Siam / Triangle d'Or / Place Wilson / Saint-Louis / Gare / Cours Dajot / Château / Jardin des Explorateurs (Tiers 1)
   - [ ] Dernier étage (ou Maison) (-1.0)
   - [x] Seul à l'étage (ou Maison)
-  - [x] Terrasse (ou Jardin pour une Maison)
-  - [ ] Ascenseur (ou Maison) (-1.0)
+  - [ ] Terrasse (ou Jardin pour une Maison) (-2.0)
+  - [x] Ascenseur (ou Maison)
   - [x] Parking / Garage
   - [x] Malus surface (> 130m²) (-1.0)
-  - [x] Bonus qualité : exceptionnel (+0.2)
+  - [x] Bonus qualité : exceptionnel, privilégié, beaux volumes, dalle béton, environnement calme, confort (+1.0)
 
 ---
 
 ## Description de l'Annonce
 
 ```text
-A VENDRE BREST CENTRE VILLE – proche FAC DE MEDECINE et marché de KERINOU . Découvrez cet appartement exceptionnel de 132 m², situé seul à l étage d'un immeuble bien entretenu. Dès les premiers instants vous serez séduit par la répartition des pièces et sa luminosité. Le bien se présente comme suit : entrée avec placards, séjour salon cuisine de 47m², arrière cuisine, 4 confortables chambres de 10 à 13m², une salle de bains, une salle d'eau, WC, dressing. Nombreux rangements. Plusieurs balcons sont accessibles de l'appartement. Idéalement situé, vous serez à proximité de nombreux points d'intérêt. Profitez également de la proximité de parcs pour vos moments de détente, ainsi que de plusieurs restaurants et boulangeries pour vos repas et douceurs du quotidien. Pour la pratique vous profiterez d'une grande cave. D'une place de parking et d'un garage. L'appartement a profité d'une rénovation permettant ainsi un emménagement rapide et sans travaux. Très bonne isolation. DPE en C. Ne laissez pas passer cette chance de devenir propriétaire dans un quartier dynamique et agréable. Contactez dès maintenant l'Agence Barraine IMMO pour organiser une visite ! (4.97 % honoraires TTC à la charge de l'acquéreur.) * 314 900 € honoraires inclus dont à la charge de l'acquéreur : 14 900 € - Prix hors honoraires : 300 000 €.
+Au coeur du centre-ville de Brest, dans le très recherché Triangle d&rsquo;Or de la ville du Ponant, découvrez cet élégant appartement de 144 m², situé au 2ème étage avec ascenseur d&rsquo;un immeuble bourgeois en dalle béton.A deux pas des commerces, des écoles, des restaurants et du Cours Dajot, seul appartement à l&rsquo;étage, il bénéficie d&rsquo;une configuration particulièrement privilégiée, avec une entrée principale et une entrée de service, offrant à la fois confort, intimité et fonctionnalité.Dès l&rsquo;entrée, les beaux volumes et les éléments de caractère donnent le ton. Vous serez séduit par sa belle hauteur sous plafond, son parquet à bâtons rompus, sa distribution harmonieuse et les proportions généreuses de chacune des pièces.Traversant et au calme, l&rsquo;appartement profite d&rsquo;une agréable luminosité et d&rsquo;une atmosphère sereine, tout en bénéficiant d&rsquo;un emplacement exceptionnel au coeur de la ville.L&rsquo;espace familial se compose de quatre chambres, d&rsquo;une salle de bains et d&rsquo;une salle d&rsquo;eau. Une vaste entrée avec placards assure une distribution fluide et élégante de l&rsquo;ensemble.La grande cuisine, prolongée par une loggia, complète cet espace de vie et offre de belles possibilités d&rsquo;aménagement selon vos envies.Le confort est complété par un chauffage individuel au gaz de ville ainsi qu&rsquo;une grande cave en sous-sol, apportant un espace de rangement appréciable.Nécessitant une modernisation, ce bien offre un potentiel remarquable pour qui saura révéler ses volumes, préserver ses éléments anciens et lui insuffler une nouvelle élégance. Uniquement chez Luxior Immobilier REFERENCE LUXIOR IMMOBILIER 26656oc(5.26 % honoraires TTC à la charge de l&rsquo;acquéreur.)
 ```
 
 ---
 
 ## Prestations et Infos de Suivi
 
-* **Prestations supplémentaires** : Non spécifiées
-* **Date de première vue** : 18 juillet 2026 à 23h57
+* **Prestations supplémentaires** : Chambres: 4, Garage: 0, Cave: 1
+* **Date de première vue** : 8 octobre 2026 à 21h05
 * **Dernière vue** : 8 octobre 2026 à 21h05
-* **Durée de référencement** : 81 jour(s) et 21 heure(s)
+* **Durée de référencement** : 0 heure(s) et 0 minute(s)
 
 
 
@@ -82,7 +82,7 @@ A VENDRE BREST CENTRE VILLE – proche FAC DE MEDECINE et marché de KERINOU . D
 
 <div class="detail-actions">
   <a href="/" class="action-btn back-btn">← Retour au Dashboard</a>
-  <a href="https://www.barraine-immo.com/achat/annonce-58615772/" target="_blank" rel="noopener" class="action-btn original-btn">Consulter sur Barraine ↗</a>
+  <a href="https://luxior-immobilier.com/bien/appartement-a-vendre-t5-4-chambres-ascenseur-brest-triangle-dor/" target="_blank" rel="noopener" class="action-btn original-btn">Consulter sur Luxior ↗</a>
 </div>
 
 <style>
