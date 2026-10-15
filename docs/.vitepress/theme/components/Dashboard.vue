@@ -215,6 +215,12 @@
               <span class="meta-surface">{{ item.surface }}</span>
               <span class="meta-separator">•</span>
               <span class="meta-pieces">{{ item.pieces }}</span>
+              <template v-if="isArchived(item.status) && item.dateLast">
+                <span class="meta-separator">•</span>
+                <span class="meta-exit-date" :title="`Dernière vue / sortie : ${item.dateLast}`">
+                  Sortie : {{ formatDateShort(item.dateLast) }}
+                </span>
+              </template>
             </div>
 
             <div class="card-location">
@@ -250,7 +256,7 @@
 </template>
 
 <script>
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, watch } from 'vue'
 
 export default {
   name: 'Dashboard',
@@ -284,6 +290,23 @@ export default {
     })
 
     const currentTab = ref('active') // 'active', 'archived', 'all'
+
+    // Watch tab changes to set default sort:
+    // - Active offers: default to score desc
+    // - Archives & Vendus: default to exit date desc (most recent first)
+    watch(currentTab, (newTab) => {
+      if (newTab === 'archived') {
+        sort.value = {
+          field: 'date',
+          order: 'desc'
+        }
+      } else if (newTab === 'active') {
+        sort.value = {
+          field: 'score',
+          order: 'desc'
+        }
+      }
+    })
 
     // Fetch data
     onMounted(async () => {
@@ -441,9 +464,14 @@ export default {
         case 'score': return 'Score'
         case 'price': return 'Prix'
         case 'surface': return 'Surface'
-        case 'date': return 'Date d\'ajout'
+        case 'date': return currentTab.value === 'archived' ? 'Date de sortie' : 'Date de vue'
         default: return field
       }
+    }
+
+    const formatDateShort = (str) => {
+      if (!str) return ''
+      return str.split(' à ')[0]
     }
 
     // Formatting helpers
@@ -510,6 +538,7 @@ export default {
       filteredListings,
       setSort,
       translateField,
+      formatDateShort,
       formatPrice,
       getScoreClass,
       cleanMalusText,
@@ -909,6 +938,7 @@ export default {
   align-items: center;
   gap: 8px;
   margin-bottom: 12px;
+  flex-wrap: wrap;
 }
 
 .meta-price {
@@ -925,6 +955,15 @@ export default {
   font-size: 0.95rem;
   font-weight: 500;
   color: var(--vp-c-text-2);
+}
+
+.meta-exit-date {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #dc2626;
+  background: rgba(239, 68, 68, 0.1);
+  padding: 2px 7px;
+  border-radius: 4px;
 }
 
 .card-location {
