@@ -551,7 +551,9 @@ async function scrapeHenry() {
   for (let page = 1; page <= 10; page++) {
     try {
       console.log(`Fetching Agence Henry page ${page}...`);
-      const res = await fetch(`https://agence-henry.com/fr/ventes?page=${page}`);
+      const res = await fetch(`https://agence-henry.com/fr/ventes?page=${page}`, {
+        headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36' }
+      });
       const html = await res.text();
       
       const liRegex = /<li[^>]*class="[^"]*property[^"]*"[^>]*data-property-id="(\d+)"[^>]*>([\s\S]*?)<\/li>/g;
@@ -588,7 +590,9 @@ async function scrapeHenry() {
     try {
       await sleep(500); // Polite delay
       
-      const res = await fetch(item.url);
+      const res = await fetch(item.url, {
+        headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36' }
+      });
       const detailHtml = await res.text();
       
       const titleMatch = detailHtml.match(/<h1[^>]*class="[^"]*property-title[^"]*"[^>]*>([\s\S]*?)<\/h1>/i) || detailHtml.match(/<title>([^<]+)<\/title>/i);
@@ -748,8 +752,13 @@ async function scrapeLeboncoin(pagesToScan = 3, lastSearchTime = 0) {
         .replace(/&&+/g, '&')
         .replace(/[&?]$/, '');
     } else {
-      console.log('Could not find a saved search named "brest cher" on the page.');
+      console.log('Could not find a saved search named "brest cher" on the page. Using direct search fallback...');
+      cleanUrl = 'https://www.leboncoin.fr/recherche?category=9&locations=Brest_29200&price=300000-600000&square=85-150';
     }
+  }
+
+  if (cleanUrl.includes('/my-searches') || cleanUrl.includes('/recherches')) {
+    cleanUrl = 'https://www.leboncoin.fr/recherche?category=9&locations=Brest_29200&price=300000-600000&square=85-150';
   }
   
   // Extract listing URLs and ads from all requested pages
@@ -1098,7 +1107,9 @@ async function scrapeLuxior() {
     try {
       await sleep(500); // Polite delay
       console.log(`Fetching Luxior property: ${url}`);
-      const res = await fetch(url);
+      const res = await fetch(url, {
+        headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36' }
+      });
       if (res.status !== 200) {
         console.error(`Error fetching Luxior property ${url}: Status ${res.status}`);
         continue;

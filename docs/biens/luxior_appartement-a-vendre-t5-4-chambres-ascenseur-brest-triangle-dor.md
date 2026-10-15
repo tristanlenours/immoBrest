@@ -72,8 +72,8 @@ Au coeur du centre-ville de Brest, dans le très recherché Triangle d&rsquo;Or 
 
 * **Prestations supplémentaires** : Chambres: 4, Garage: 0, Cave: 1
 * **Date de première vue** : 8 octobre 2026 à 21h05
-* **Dernière vue** : 8 octobre 2026 à 21h05
-* **Durée de référencement** : 0 heure(s) et 0 minute(s)
+* **Dernière vue** : 15 octobre 2026 à 21h12
+* **Durée de référencement** : 7 jour(s) et 0 heure(s)
 
 
 
