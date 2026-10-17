@@ -125,7 +125,7 @@
         <span class="sort-label">Trier par :</span>
         <div class="sort-buttons">
           <button 
-            v-for="field in ['score', 'price', 'surface', 'date']" 
+            v-for="field in ['score', 'price', 'prixM2', 'surface', 'date']" 
             :key="field"
             @click="setSort(field)"
             :class="['sort-btn', { active: sort.field === field }]"
@@ -150,6 +150,12 @@
           Offres Actives <span class="tab-count">{{ countStatus('active') }}</span>
         </button>
         <button 
+          @click="currentTab = 'sas'" 
+          :class="['tab-btn', { active: currentTab === 'sas', 'has-sas-items': sasListings.length > 0 }]"
+        >
+          ⏳ Sas d'attente <span :class="['tab-count', { 'sas-alert': sasListings.length > 0 }]">{{ sasListings.length }}</span>
+        </button>
+        <button 
           @click="currentTab = 'archived'" 
           :class="['tab-btn', { active: currentTab === 'archived' }]"
         >
@@ -164,19 +170,34 @@
       </div>
 
       <div class="section-header">
-        <h2>{{ currentTab === 'active' ? 'Offres Actives' : currentTab === 'archived' ? 'Offres Archivées' : 'Toutes les Offres' }} ({{ filteredListings.length }})</h2>
-        <span class="subtitle">Mise à jour le {{ updateDate }}</span>
+        <h2>
+          {{ currentTab === 'active' ? 'Offres Actives' : currentTab === 'sas' ? "Sas d'attente — Nouvelles annonces à valider" : currentTab === 'archived' ? 'Offres Archivées' : 'Toutes les Offres' }}
+          ({{ filteredListings.length }})
+        </h2>
+        <div v-if="currentTab === 'sas' && sasListings.length > 0" class="sas-bulk-actions">
+          <button @click="moderateSas('approve', 'all')" :disabled="moderating" class="btn-sas-approve-all">
+            ✅ Tout approuver ({{ sasListings.length }})
+          </button>
+          <button @click="moderateSas('reject', 'all')" :disabled="moderating" class="btn-sas-reject-all">
+            🗑️ Tout rejeter
+          </button>
+        </div>
+        <span v-else class="subtitle">Mise à jour le {{ updateDate }}</span>
+      </div>
+
+      <div v-if="sasFeedback" :class="['sas-feedback-banner', sasFeedback.type]">
+        {{ sasFeedback.message }}
       </div>
 
       <div v-if="filteredListings.length === 0" class="no-results">
-        Aucun bien ne correspond à vos critères de recherche.
+        {{ currentTab === 'sas' ? "Le sas d'attente est vide (aucune nouvelle annonce en attente de modération)." : "Aucun bien ne correspond à vos critères de recherche." }}
       </div>
 
       <div v-else class="listings-grid">
         <div 
           v-for="item in filteredListings" 
           :key="item.folder" 
-          :class="['listing-card', { 'is-archived': isArchived(item.status) }]"
+          :class="['listing-card', { 'is-archived': !item.isSas && isArchived(item.status) }]"
         >
           <!-- Thumbnail -->
           <div class="card-image-container">
@@ -198,7 +219,8 @@
 
             <div class="card-tags">
               <span class="source-tag">{{ item.source }}</span>
-              <span v-if="isArchived(item.status)" class="archive-tag">{{ item.status }}</span>
+              <span v-if="item.isSas" class="sas-tag">⏳ Sas</span>
+              <span v-else-if="isArchived(item.status)" class="archive-tag">{{ item.status }}</span>
             </div>
           </div>
 
@@ -213,9 +235,13 @@
               </span>
               <span class="meta-separator">•</span>
               <span class="meta-surface">{{ item.surface }}</span>
+              <template v-if="item.prixM2">
+                <span class="meta-separator">•</span>
+                <span class="meta-m2">{{ formatPrice(item.prixM2) }}/m²</span>
+              </template>
               <span class="meta-separator">•</span>
               <span class="meta-pieces">{{ item.pieces }}</span>
-              <template v-if="isArchived(item.status) && item.dateLast">
+              <template v-if="!item.isSas && isArchived(item.status) && item.dateLast">
                 <span class="meta-separator">•</span>
                 <span class="meta-exit-date" :title="`Dernière vue / sortie : ${item.dateLast}`">
                   Sortie : {{ formatDateShort(item.dateLast) }}
@@ -223,8 +249,17 @@
               </template>
             </div>
 
-            <div class="card-location">
-              <span class="loc-icon">📍</span> {{ item.location }}
+            <div class="card-location-row">
+              <div class="card-location">
+                <span class="loc-icon">📍</span> {{ item.quartier || item.location }}
+              </div>
+              <span
+                v-if="item.dvfComparison"
+                :class="['dvf-card-badge', getDvfBadgeClass(item.dvfComparison.diffPct)]"
+                :title="`Médiane notariale DVF (${item.dvfComparison.scopeLabel}, ${item.dvfComparison.sampleCount} ventes) : ${formatPrice(item.dvfComparison.medianM2)}/m²`"
+              >
+                {{ item.dvfComparison.diffPct > 0 ? `+${item.dvfComparison.diffPct}%` : `${item.dvfComparison.diffPct}%` }} vs DVF {{ item.dvfComparison.scopeLabel }}
+              </span>
             </div>
 
             <!-- Maluses / Criteria -->
@@ -242,6 +277,16 @@
             </div>
 
             <p class="card-desc">{{ truncateText(item.description, 120) }}</p>
+          </div>
+
+          <!-- SAS Moderation Buttons (when in SAS tab) -->
+          <div v-if="item.isSas" class="card-sas-actions">
+            <button @click="moderateSas('approve', item.folder)" :disabled="moderating" class="btn-sas-approve">
+              ✅ Approuver
+            </button>
+            <button @click="moderateSas('reject', item.folder)" :disabled="moderating" class="btn-sas-reject">
+              🗑️ Rejeter
+            </button>
           </div>
 
           <!-- Card Footer Buttons -->
@@ -263,8 +308,11 @@ export default {
   setup() {
     const baseUrl = import.meta.env.BASE_URL
     const listings = ref([])
+    const sasListings = ref([])
     const updateDate = ref('')
     const loading = ref(true)
+    const moderating = ref(false)
+    const sasFeedback = ref(null)
 
     // Limits for ranges
     const limits = ref({
@@ -289,18 +337,16 @@ export default {
       order: 'desc'
     })
 
-    const currentTab = ref('active') // 'active', 'archived', 'all'
+    const currentTab = ref('active') // 'active', 'sas', 'archived', 'all'
 
-    // Watch tab changes to set default sort:
-    // - Active offers: default to score desc
-    // - Archives & Vendus: default to exit date desc (most recent first)
     watch(currentTab, (newTab) => {
+      sasFeedback.value = null
       if (newTab === 'archived') {
         sort.value = {
           field: 'date',
           order: 'desc'
         }
-      } else if (newTab === 'active') {
+      } else if (newTab === 'active' || newTab === 'sas') {
         sort.value = {
           field: 'score',
           order: 'desc'
@@ -308,31 +354,36 @@ export default {
       }
     })
 
+    const applyListingsPayload = (data) => {
+      listings.value = data.listings || []
+      sasListings.value = data.sas_listings || []
+      updateDate.value = data.last_update || ''
+
+      const allItems = [...listings.value, ...sasListings.value]
+      if (allItems.length > 0) {
+        const prices = allItems.map(l => l.priceVal).filter(p => p > 0)
+        const surfaces = allItems.map(l => l.surfaceVal).filter(s => s > 0)
+
+        if (prices.length > 0) {
+          limits.value.minPrice = Math.min(...prices)
+          limits.value.maxPrice = Math.max(...prices)
+          filters.value.maxPrice = limits.value.maxPrice
+        }
+        if (surfaces.length > 0) {
+          limits.value.minSurface = Math.floor(Math.min(...surfaces))
+          limits.value.maxSurface = Math.ceil(Math.max(...surfaces))
+          filters.value.minSurface = limits.value.minSurface
+        }
+      }
+    }
+
     // Fetch data
     onMounted(async () => {
       try {
         const response = await fetch(`${baseUrl}listings_data.json`)
         if (response.ok) {
           const data = await response.json()
-          listings.value = data.listings || []
-          updateDate.value = data.last_update || ''
-          
-          // Dynamically compute limits based on data
-          if (listings.value.length > 0) {
-            const prices = listings.value.map(l => l.priceVal).filter(p => p > 0)
-            const surfaces = listings.value.map(l => l.surfaceVal).filter(s => s > 0)
-            
-            if (prices.length > 0) {
-              limits.value.minPrice = Math.min(...prices)
-              limits.value.maxPrice = Math.max(...prices)
-              filters.value.maxPrice = limits.value.maxPrice
-            }
-            if (surfaces.length > 0) {
-              limits.value.minSurface = Math.floor(Math.min(...surfaces))
-              limits.value.maxSurface = Math.ceil(Math.max(...surfaces))
-              filters.value.minSurface = limits.value.minSurface
-            }
-          }
+          applyListingsPayload(data)
         }
       } catch (err) {
         console.error('Failed to load listings data:', err)
@@ -340,6 +391,40 @@ export default {
         loading.value = false
       }
     })
+
+    // Moderate SAS listings directly from Web UI (Dev Server API)
+    const moderateSas = async (action, target) => {
+      moderating.value = true
+      sasFeedback.value = null
+      try {
+        const res = await fetch(`${baseUrl}api/sas/action`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ action, target })
+        })
+        if (!res.ok) {
+          throw new Error(`Serveur non disponible en mode statique (HTTP ${res.status}). Lancez "npm run dev" pour modérer en 1 clic.`)
+        }
+        const result = await res.json()
+        if (result.ok && result.data) {
+          applyListingsPayload(result.data)
+          const label = action === 'approve' ? 'approuvée(s) et publiée(s)' : 'déplacée(s) dans la corbeille'
+          sasFeedback.value = {
+            type: 'success',
+            message: `✓ ${(result.processed || []).length} annonce(s) ${label}.`
+          }
+        } else {
+          throw new Error(result.error || 'Erreur inconnue')
+        }
+      } catch (err) {
+        sasFeedback.value = {
+          type: 'error',
+          message: `⚠️ ${err.message}`
+        }
+      } finally {
+        moderating.value = false
+      }
+    }
 
     // Stats calculations (always computed on all ACTIVE offers in data)
     const stats = computed(() => {
@@ -372,9 +457,11 @@ export default {
 
     // Filter and Sort implementation
     const filteredListings = computed(() => {
-      // 1. Filter by active / archived tabs
+      // 1. Filter by active / sas / archived tabs
       let result = listings.value
-      if (currentTab.value === 'active') {
+      if (currentTab.value === 'sas') {
+        result = [...sasListings.value]
+      } else if (currentTab.value === 'active') {
         result = result.filter(item => {
           const status = (item.status || '').toLowerCase()
           return (status.includes('actif') && !status.includes('inactif')) || status === 'nouveau'
@@ -394,6 +481,7 @@ export default {
           return (item.title || '').toLowerCase().includes(q) ||
                  (item.description || '').toLowerCase().includes(q) ||
                  (item.location || '').toLowerCase().includes(q) ||
+                 (item.quartier || '').toLowerCase().includes(q) ||
                  (item.prestations || '').toLowerCase().includes(q) ||
                  (item.source || '').toLowerCase().includes(q)
         })
@@ -434,6 +522,8 @@ export default {
         let diff = 0
         if (sort.value.field === 'price') {
           diff = a.priceVal - b.priceVal
+        } else if (sort.value.field === 'prixM2') {
+          diff = (a.prixM2 || 999999) - (b.prixM2 || 999999)
         } else if (sort.value.field === 'surface') {
           diff = a.surfaceVal - b.surfaceVal
         } else if (sort.value.field === 'date') {
@@ -450,12 +540,10 @@ export default {
     // Sort handlers
     const setSort = (field) => {
       if (sort.value.field === field) {
-        // Toggle direction
         sort.value.order = sort.value.order === 'asc' ? 'desc' : 'asc'
       } else {
         sort.value.field = field
-        // Defaults
-        sort.value.order = field === 'price' ? 'asc' : 'desc'
+        sort.value.order = (field === 'price' || field === 'prixM2') ? 'asc' : 'desc'
       }
     }
 
@@ -463,6 +551,7 @@ export default {
       switch (field) {
         case 'score': return 'Score'
         case 'price': return 'Prix'
+        case 'prixM2': return 'Prix / m²'
         case 'surface': return 'Surface'
         case 'date': return currentTab.value === 'archived' ? 'Date de sortie' : 'Date de vue'
         default: return field
@@ -486,8 +575,13 @@ export default {
       return 'score-low'
     }
 
+    const getDvfBadgeClass = (diffPct) => {
+      if (diffPct <= -5) return 'dvf-badge-good'
+      if (diffPct <= 10) return 'dvf-badge-neutral'
+      return 'dvf-badge-high'
+    }
+
     const cleanMalusText = (text) => {
-      // Remove starting check box markers or points text if any, keeping it compact
       return text.replace(/^-\s*/, '').replace(/\[\s*\]\s*/, '')
     }
 
@@ -529,8 +623,12 @@ export default {
     return {
       baseUrl,
       listings,
+      sasListings,
       updateDate,
       loading,
+      moderating,
+      sasFeedback,
+      moderateSas,
       limits,
       filters,
       sort,
@@ -541,6 +639,7 @@ export default {
       formatDateShort,
       formatPrice,
       getScoreClass,
+      getDvfBadgeClass,
       cleanMalusText,
       truncateText,
       isBonus,
@@ -1248,6 +1347,155 @@ export default {
 
 .hub-chip:hover {
   background: rgba(255, 255, 255, 0.12);
+}
+
+.meta-m2 {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--vp-c-text-2);
+  background: var(--vp-c-default-soft);
+  padding: 2px 7px;
+  border-radius: 6px;
+}
+
+.card-location-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+
+.card-location-row .card-location {
+  margin-bottom: 0;
+}
+
+.dvf-card-badge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 10px;
+  white-space: nowrap;
+}
+
+.dvf-badge-good {
+  background: rgba(16, 185, 129, 0.14);
+  color: #10b981;
+  border: 1px solid rgba(16, 185, 129, 0.25);
+}
+
+.dvf-badge-neutral {
+  background: rgba(59, 130, 246, 0.14);
+  color: #3b82f6;
+  border: 1px solid rgba(59, 130, 246, 0.25);
+}
+
+.dvf-badge-high {
+  background: rgba(245, 158, 11, 0.14);
+  color: #f59e0b;
+  border: 1px solid rgba(245, 158, 11, 0.25);
+}
+
+.sas-tag {
+  background: rgba(245, 158, 11, 0.9);
+  backdrop-filter: blur(4px);
+  color: white;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.tab-count.sas-alert {
+  background: #f59e0b !important;
+  color: white !important;
+}
+
+.sas-bulk-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.btn-sas-approve-all, .btn-sas-reject-all {
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  border: none;
+  transition: opacity 0.2s, transform 0.15s;
+}
+
+.btn-sas-approve-all {
+  background: #10b981;
+  color: white;
+}
+
+.btn-sas-reject-all {
+  background: rgba(239, 68, 68, 0.15);
+  color: #ef4444;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.card-sas-actions {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  padding: 10px 16px;
+  background: var(--vp-c-bg);
+  border-top: 1px solid var(--vp-c-gutter);
+}
+
+.btn-sas-approve, .btn-sas-reject {
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-sas-approve {
+  background: rgba(16, 185, 129, 0.15);
+  color: #10b981;
+  border: 1px solid rgba(16, 185, 129, 0.35);
+}
+
+.btn-sas-approve:hover:not(:disabled) {
+  background: #10b981;
+  color: white;
+}
+
+.btn-sas-reject {
+  background: rgba(239, 68, 68, 0.12);
+  color: #ef4444;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.btn-sas-reject:hover:not(:disabled) {
+  background: #ef4444;
+  color: white;
+}
+
+.sas-feedback-banner {
+  padding: 12px 18px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.sas-feedback-banner.success {
+  background: rgba(16, 185, 129, 0.12);
+  color: #10b981;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.sas-feedback-banner.error {
+  background: rgba(239, 68, 68, 0.12);
+  color: #ef4444;
+  border: 1px solid rgba(239, 68, 68, 0.3);
 }
 
 @media (max-width: 640px) {

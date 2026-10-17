@@ -3,10 +3,57 @@
   "listings": [
     {
       "folder": "barraine_58615772",
+      "isSas": false,
       "source": "Barraine",
       "title": "appartement Kérinou - seul à l'étage",
       "price": "314 900 €",
       "priceVal": 314900,
+      "prixM2": 2386,
+      "dvfComparison": {
+        "prixM2": 2386,
+        "medianM2": 1232,
+        "diffPct": 94,
+        "sampleCount": 233,
+        "scopeLabel": "Kérinou",
+        "yearsLabel": "2024–2025",
+        "comparables": [
+          {
+            "date": "2025-12-05",
+            "adresse": "46 RUE MARCEL SEMBAT",
+            "surface": 128,
+            "prix": 135000,
+            "prixM2": 1057
+          },
+          {
+            "date": "2025-12-01",
+            "adresse": "18 RUE PAUL FORT",
+            "surface": 140,
+            "prix": 146000,
+            "prixM2": 1044
+          },
+          {
+            "date": "2025-10-22",
+            "adresse": "2 BD LEON BLUM",
+            "surface": 126,
+            "prix": 125990,
+            "prixM2": 999
+          },
+          {
+            "date": "2025-10-09",
+            "adresse": "110 RUE ROBESPIERRE",
+            "surface": 128,
+            "prix": 130000,
+            "prixM2": 1012
+          },
+          {
+            "date": "2025-11-21",
+            "adresse": "8 RUE GUY DE MAUPASSANT",
+            "surface": 114,
+            "prix": 120000,
+            "prixM2": 1049
+          }
+        ]
+      },
       "priceHistory": [
         {
           "date": "18 juillet 2026",
@@ -18,11 +65,13 @@
       "score": 5.2,
       "status": "Actif",
       "location": "Brest",
+      "quartier": "Kérinou",
+      "tier": 2,
       "url": "https://www.barraine-immo.com/achat/annonce-58615772/",
       "type": "Appartement",
       "surface": "132 m²",
       "surfaceVal": 132,
-      "pieces": "- Pièces : 5",
+      "pieces": "5",
       "prestations": "Non spécifiées",
       "dateFirst": "18 juillet 2026 à 23h57",
       "dateLast": "15 octobre 2026 à 21h12",
@@ -39,10 +88,57 @@
     },
     {
       "folder": "barraine_60032489",
+      "isSas": false,
       "source": "Barraine",
       "title": "appartement Branda - seul à l'étage",
       "price": "378 000 €",
       "priceVal": 378000,
+      "prixM2": 2739,
+      "dvfComparison": {
+        "prixM2": 2739,
+        "medianM2": 1542,
+        "diffPct": 78,
+        "sampleCount": 155,
+        "scopeLabel": "Branda",
+        "yearsLabel": "2024–2025",
+        "comparables": [
+          {
+            "date": "2025-12-09",
+            "adresse": "14 RUE DE GLASGOW",
+            "surface": 143,
+            "prix": 180000,
+            "prixM2": 1262
+          },
+          {
+            "date": "2025-11-04",
+            "adresse": "20 RUE DE LA REPUBLIQUE",
+            "surface": 150,
+            "prix": 210000,
+            "prixM2": 1396
+          },
+          {
+            "date": "2025-10-02",
+            "adresse": "4 RUE MOSTAGANEM",
+            "surface": 134,
+            "prix": 133500,
+            "prixM2": 998
+          },
+          {
+            "date": "2025-08-21",
+            "adresse": "66 RUE VICTOR HUGO",
+            "surface": 128,
+            "prix": 160000,
+            "prixM2": 1249
+          },
+          {
+            "date": "2025-08-12",
+            "adresse": "3 RUE VICTOR HUGO",
+            "surface": 137,
+            "prix": 271000,
+            "prixM2": 1982
+          }
+        ]
+      },
       "priceHistory": [
         {
           "date": "22 août 2026",
@@ -51,14 +147,16 @@
           "priceVal": 378000
         }
       ],
-      "score": 5.4,
+      "score": 5.2,
       "status": "Actif",
       "location": "Brest - CENTRE VILLE",
+      "quartier": "Branda",
+      "tier": 2,
       "url": "https://www.barraine-immo.com/achat/annonce-60032489/",
       "type": "Appartement",
       "surface": "138 m²",
       "surfaceVal": 138,
-      "pieces": "- Pièces : 5",
+      "pieces": "5",
       "prestations": "Chambres: 3",
       "dateFirst": "22 août 2026 à 11h28",
       "dateLast": "15 octobre 2026 à 21h12",
@@ -67,7 +165,7 @@
         "Localisation : -2.0 Tiers 2",
         "Pas d'ascenseur (-1.0)",
         "Malus surface (> 130m²) (-1.0)",
-        "Bonus qualité : environnement calme, bien exposé (+0.4)",
+        "Bonus qualité : bien exposé (+0.2)",
         "Pas dernier étage (-1.0)"
       ],
       "hasScreenshot": true,
@@ -75,10 +173,57 @@
     },
     {
       "folder": "barraine_60580222",
+      "isSas": false,
       "source": "Barraine",
       "title": "appartement Kérinou - 4 pièces 121m²",
       "price": "333 900 €",
       "priceVal": 333900,
+      "prixM2": 2760,
+      "dvfComparison": {
+        "prixM2": 2760,
+        "medianM2": 1232,
+        "diffPct": 124,
+        "sampleCount": 233,
+        "scopeLabel": "Kérinou",
+        "yearsLabel": "2024–2025",
+        "comparables": [
+          {
+            "date": "2025-12-05",
+            "adresse": "46 RUE MARCEL SEMBAT",
+            "surface": 128,
+            "prix": 135000,
+            "prixM2": 1057
+          },
+          {
+            "date": "2025-11-27",
+            "adresse": "5 RUE CLEMENT MAROT",
+            "surface": 110,
+            "prix": 109500,
+            "prixM2": 999
+          },
+          {
+            "date": "2025-11-21",
+            "adresse": "8 RUE GUY DE MAUPASSANT",
+            "surface": 114,
+            "prix": 120000,
+            "prixM2": 1049
+          },
+          {
+            "date": "2025-11-14",
+            "adresse": "1 RUE JOACHIM DU BELLAY",
+            "surface": 118,
+            "prix": 109000,
+            "prixM2": 923
+          },
+          {
+            "date": "2025-10-22",
+            "adresse": "2 BD LEON BLUM",
+            "surface": 126,
+            "prix": 125990,
+            "prixM2": 999
+          }
+        ]
+      },
       "priceHistory": [
         {
           "date": "18 juillet 2026",
@@ -90,18 +235,20 @@
       "score": 5,
       "status": "Vendu ou retiré de la vente",
       "location": "Brest - KERINOU",
+      "quartier": "Kérinou",
+      "tier": 3,
       "url": "https://www.barraine-immo.com/achat/annonce-60580222/",
       "type": "Appartement",
       "surface": "121 m²",
       "surfaceVal": 121,
-      "pieces": "- Pièces : 4",
+      "pieces": "4",
       "prestations": "Chambres: 3",
       "dateFirst": "18 juillet 2026 à 23h57",
       "dateLast": "22 août 2026 à 11h28",
       "dateVal": 1787390880000,
       "maluses": [
         "Localisation : -4.0 Tiers 3",
-        "Bonus qualité : rare, privatif, tranquillité, environnement calme, bien exposé, aucun travaux à prévoir, confort (+1.0)",
+        "Bonus qualité : rare, privatif, tranquillité, bien exposé, aucun travaux à prévoir, confort (+1.0)",
         "Pas dernier ni seul à l'étage (-2.0)"
       ],
       "hasScreenshot": false,
@@ -109,10 +256,57 @@
     },
     {
       "folder": "barraine_60989514",
+      "isSas": false,
       "source": "Barraine",
       "title": "appartement Gare - seul à l'étage",
       "price": "304 500 €",
       "priceVal": 304500,
+      "prixM2": 2289,
+      "dvfComparison": {
+        "prixM2": 2289,
+        "medianM2": 1582,
+        "diffPct": 45,
+        "sampleCount": 144,
+        "scopeLabel": "Gare",
+        "yearsLabel": "2024–2025",
+        "comparables": [
+          {
+            "date": "2025-11-24",
+            "adresse": "2 RUE ALAIN FOURNIER",
+            "surface": 137,
+            "prix": 125000,
+            "prixM2": 915
+          },
+          {
+            "date": "2025-07-16",
+            "adresse": "15 RUE DE LYON",
+            "surface": 137,
+            "prix": 143200,
+            "prixM2": 1042
+          },
+          {
+            "date": "2025-11-04",
+            "adresse": "20 RUE DE LA REPUBLIQUE",
+            "surface": 150,
+            "prix": 210000,
+            "prixM2": 1396
+          },
+          {
+            "date": "2025-10-30",
+            "adresse": "14 RUE BRANDA",
+            "surface": 123,
+            "prix": 177000,
+            "prixM2": 1444
+          },
+          {
+            "date": "2025-10-29",
+            "adresse": "3 RUE DES COLONIES",
+            "surface": 139,
+            "prix": 740000,
+            "prixM2": 5326
+          }
+        ]
+      },
       "priceHistory": [
         {
           "date": "4 août 2026",
@@ -124,11 +318,13 @@
       "score": 5.5,
       "status": "Actif",
       "location": "Brest - CENTRE VILLE",
+      "quartier": "Gare",
+      "tier": 1,
       "url": "https://www.barraine-immo.com/achat/annonce-60989514/",
       "type": "Appartement",
       "surface": "133 m²",
       "surfaceVal": 133,
-      "pieces": "- Pièces : 5",
+      "pieces": "5",
       "prestations": "Chambres: 4",
       "dateFirst": "4 août 2026 à 23h11",
       "dateLast": "15 octobre 2026 à 21h12",
@@ -145,10 +341,57 @@
     },
     {
       "folder": "henry_85852014",
+      "isSas": false,
       "source": "Agence Henry",
       "title": "appartement Siam - dernier étage",
       "price": "468 000 €",
       "priceVal": 468000,
+      "prixM2": 3771,
+      "dvfComparison": {
+        "prixM2": 3771,
+        "medianM2": 2270,
+        "diffPct": 66,
+        "sampleCount": 263,
+        "scopeLabel": "Siam",
+        "yearsLabel": "2024–2025",
+        "comparables": [
+          {
+            "date": "2025-11-28",
+            "adresse": "3 RUE VOLTAIRE",
+            "surface": 127,
+            "prix": 220000,
+            "prixM2": 1729
+          },
+          {
+            "date": "2025-11-27",
+            "adresse": "5 PL DE LA LIBERTE",
+            "surface": 109,
+            "prix": 309964,
+            "prixM2": 2844
+          },
+          {
+            "date": "2025-11-24",
+            "adresse": "2 RUE ALAIN FOURNIER",
+            "surface": 137,
+            "prix": 125000,
+            "prixM2": 915
+          },
+          {
+            "date": "2025-11-07",
+            "adresse": "2 SQ CDT L HERMINIER",
+            "surface": 114,
+            "prix": 405000,
+            "prixM2": 3553
+          },
+          {
+            "date": "2025-10-15",
+            "adresse": "4 RUE DUGUAY TROUIN",
+            "surface": 115,
+            "prix": 210500,
+            "prixM2": 1825
+          }
+        ]
+      },
       "priceHistory": [
         {
           "date": "21 juin 2026",
@@ -160,11 +403,13 @@
       "score": 5.9,
       "status": "Vendu ou retiré de la vente",
       "location": "Brest",
+      "quartier": "Siam",
+      "tier": 1,
       "url": "https://agence-henry.com/fr/propriete/vente+appartement+brest+exceptionnel-siam-bel-appartement-de-124-12-m2-dernier-etage-ascenseur-beaux-parquets-rare-sur-le-marche-brestois+85852014",
       "type": "Appartement",
       "surface": "124.12 m²",
       "surfaceVal": 124.12,
-      "pieces": "- Pièces : 5 pièces",
+      "pieces": "5 pièces",
       "prestations": "Fenêtre PVC Ascenseur",
       "dateFirst": "21 juin 2026 à 23h52",
       "dateLast": "23 septembre 2026 à 21h00",
@@ -180,10 +425,57 @@
     },
     {
       "folder": "henry_86332541",
+      "isSas": false,
       "source": "Agence Henry",
       "title": "appartement - vue Rade",
       "price": "358 000 €",
       "priceVal": 358000,
+      "prixM2": 3086,
+      "dvfComparison": {
+        "prixM2": 3086,
+        "medianM2": 1778,
+        "diffPct": 74,
+        "sampleCount": 165,
+        "scopeLabel": "Liberté",
+        "yearsLabel": "2024–2025",
+        "comparables": [
+          {
+            "date": "2025-11-27",
+            "adresse": "5 PL DE LA LIBERTE",
+            "surface": 109,
+            "prix": 309964,
+            "prixM2": 2844
+          },
+          {
+            "date": "2025-11-17",
+            "adresse": "7 RUE DOCTEUR LENOBLE",
+            "surface": 104,
+            "prix": 260000,
+            "prixM2": 2500
+          },
+          {
+            "date": "2025-10-30",
+            "adresse": "14 RUE BRANDA",
+            "surface": 123,
+            "prix": 177000,
+            "prixM2": 1444
+          },
+          {
+            "date": "2025-09-24",
+            "adresse": "24 RUE BRANDA",
+            "surface": 117,
+            "prix": 160000,
+            "prixM2": 1365
+          },
+          {
+            "date": "2025-12-09",
+            "adresse": "14 RUE DE GLASGOW",
+            "surface": 143,
+            "prix": 180000,
+            "prixM2": 1262
+          }
+        ]
+      },
       "priceHistory": [
         {
           "date": "22 juin 2026",
@@ -195,11 +487,13 @@
       "score": 3.8,
       "status": "Vendu ou retiré de la vente",
       "location": "Brest",
+      "quartier": "Liberté",
+      "tier": 2,
       "url": "https://agence-henry.com/fr/propriete/vente+appartement+brest+brest-liberte-rare-appartement-de-115-avec-ascenseur-et-parking-prive-immeuble-de-standing-vue-mer+86332541",
       "type": "Appartement",
       "surface": "116 m²",
       "surfaceVal": 116,
-      "pieces": "- Pièces : 5 pièces",
+      "pieces": "5 pièces",
       "prestations": "Interphone Alarme",
       "dateFirst": "22 juin 2026 à 00h03",
       "dateLast": "23 septembre 2026 à 21h00",
@@ -216,10 +510,57 @@
     },
     {
       "folder": "henry_86361656",
+      "isSas": false,
       "source": "Agence Henry",
       "title": "appartement Gare - seul à l'étage",
       "price": "309 900 €",
       "priceVal": 309900,
+      "prixM2": 2583,
+      "dvfComparison": {
+        "prixM2": 2583,
+        "medianM2": 1582,
+        "diffPct": 63,
+        "sampleCount": 144,
+        "scopeLabel": "Gare",
+        "yearsLabel": "2024–2025",
+        "comparables": [
+          {
+            "date": "2025-11-27",
+            "adresse": "5 PL DE LA LIBERTE",
+            "surface": 109,
+            "prix": 309964,
+            "prixM2": 2844
+          },
+          {
+            "date": "2025-10-30",
+            "adresse": "14 RUE BRANDA",
+            "surface": 123,
+            "prix": 177000,
+            "prixM2": 1444
+          },
+          {
+            "date": "2025-11-03",
+            "adresse": "13 RUE D ABOVILLE",
+            "surface": 105,
+            "prix": 103000,
+            "prixM2": 982
+          },
+          {
+            "date": "2025-10-02",
+            "adresse": "4 RUE MOSTAGANEM",
+            "surface": 134,
+            "prix": 133500,
+            "prixM2": 998
+          },
+          {
+            "date": "2025-09-24",
+            "adresse": "24 RUE BRANDA",
+            "surface": 117,
+            "prix": 160000,
+            "prixM2": 1365
+          }
+        ]
+      },
       "priceHistory": [
         {
           "date": "22 juin 2026",
@@ -231,11 +572,13 @@
       "score": 6.7,
       "status": "Actif",
       "location": "Brest",
+      "quartier": "Gare",
+      "tier": 1,
       "url": "https://agence-henry.com/fr/propriete/vente+appartement+brest+brest-quartz-branda-gare-ascenseur+86361656",
       "type": "Appartement",
       "surface": "120 m²",
       "surfaceVal": 120,
-      "pieces": "- Pièces : 5 pièces",
+      "pieces": "5 pièces",
       "prestations": "Double vitrage Accès PMR Ascenseur Interphone Digicode",
       "dateFirst": "22 juin 2026 à 00h03",
       "dateLast": "15 octobre 2026 à 21h12",
@@ -251,10 +594,57 @@
     },
     {
       "folder": "henry_86434785",
+      "isSas": false,
       "source": "Agence Henry",
       "title": "appartement récent(e) - vue Rade, jardin",
       "price": "440 000 €",
       "priceVal": 440000,
+      "prixM2": 5057,
+      "dvfComparison": {
+        "prixM2": 5057,
+        "medianM2": 1973,
+        "diffPct": 156,
+        "sampleCount": 89,
+        "scopeLabel": "Château",
+        "yearsLabel": "2024–2025",
+        "comparables": [
+          {
+            "date": "2025-10-01",
+            "adresse": "27 RUE D AIGUILLON",
+            "surface": 84,
+            "prix": 121500,
+            "prixM2": 1444
+          },
+          {
+            "date": "2025-09-30",
+            "adresse": "4 CITE D ANTIN",
+            "surface": 95,
+            "prix": 203000,
+            "prixM2": 2139
+          },
+          {
+            "date": "2025-09-15",
+            "adresse": "16 RUE DE DENVER",
+            "surface": 87,
+            "prix": 420000,
+            "prixM2": 4837
+          },
+          {
+            "date": "2025-12-17",
+            "adresse": "46 RUE D AIGUILLON",
+            "surface": 99,
+            "prix": 114200,
+            "prixM2": 1150
+          },
+          {
+            "date": "2025-10-30",
+            "adresse": "17 RUE D AIGUILLON",
+            "surface": 103,
+            "prix": 126000,
+            "prixM2": 1223
+          }
+        ]
+      },
       "priceHistory": [
         {
           "date": "19 juillet 2026",
@@ -266,11 +656,13 @@
       "score": 7,
       "status": "Vendu ou retiré de la vente",
       "location": "Brest",
+      "quartier": "Château",
+      "tier": 1,
       "url": "https://agence-henry.com/fr/propriete/vente+appartement+brest+exceptionnel-appartement-2-chambres-vue-mer-sur-la-rade-de-brest+86434785",
       "type": "Appartement",
       "surface": "87 m²",
       "surfaceVal": 87,
-      "pieces": "- Pièces : 3 pièces",
+      "pieces": "3 pièces",
       "prestations": "Double vitrage Fenêtre aluminium Fenêtres coulissantes Internet Thermostat connecté Volets roulants électriques Abri de voiture Accès PMR Ascenseur Digicode Interphone Vidéophone",
       "dateFirst": "19 juillet 2026 à 10h17",
       "dateLast": "23 septembre 2026 à 21h00",
@@ -282,14 +674,17 @@
         "Pas dernier ni seul à l'étage (-2.0)"
       ],
       "hasScreenshot": true,
-      "description": "Dans une résidence très récente idéalement située, découvrez cet appartement lumineux offrant une vue imprenable sur la mer, le château et le jardin des Explorateurs.\n\n\nCe bien rare allie modernité, confort et emplacement exceptionnel.\n\nIl se compose d'une pièce de vie lumineuse agrémentée d'une verrière et d'une cuisine toute équipée aux lignes épurées et aux couleurs tendances. Les larges baies vitrées donnent la sensation d'être au-dessus de l'eau .        Dans le prolongement du salon un confortable balcon vous invite à vous prélassez tout en étant à l'abri du vent.\n\n\nCôté nuit vous saurez apprécier la grandeur et le confort des deux chambres équipées de grands placards. D'une spacieuse salle de bains contemporaine . Un cellier et un WC complète l'ensemble. \n\n\nVous profiterez d’un cadre de vie unique, au calme, tout en restant à proximité immédiate du centre-ville, des commerces et des transports.\n\nLa résidence sécurisée dispose également d’un ascenseur, d’un parking privatif avec stationnement privé sous abri, et de prestations de qualité.\n\nUne visite s'impose!"
+      "description": "Dans une résidence très récente idéalement située, découvrez cet appartement lumineux offrant une vue imprenable sur la mer, le château et le jardin des Explorateurs.\n\n\nCe bien rare allie modernité, confort et emplacement exceptionnel.\n\nIl se compose d'une pièce de vie lumineuse agrémentée d'une verrière et d'une cuisine toute équipée aux lignes épurées et aux couleurs tendances. Les larges baies vitrées donnent la sensation d'être au-dessus de l'eau . Dans le prolongement du salon un confortable balcon vous invite à vous prélassez tout en étant à l'abri du vent.\n\n\nCôté nuit vous saurez apprécier la grandeur et le confort des deux chambres équipées de grands placards. D'une spacieuse salle de bains contemporaine . Un cellier et un WC complète l'ensemble.\n\n\nVous profiterez d’un cadre de vie unique, au calme, tout en restant à proximité immédiate du centre-ville, des commerces et des transports.\n\nLa résidence sécurisée dispose également d’un ascenseur, d’un parking privatif avec stationnement privé sous abri, et de prestations de qualité.\n\nUne visite s'impose!"
     },
     {
       "folder": "henry_86476595",
+      "isSas": false,
       "source": "Agence Henry",
       "title": "appartement Siam - dernier étage, terrasse",
       "price": "Prix sur demande",
       "priceVal": 0,
+      "prixM2": 0,
+      "dvfComparison": null,
       "priceHistory": [
         {
           "date": "21 juin 2026",
@@ -301,11 +696,13 @@
       "score": 9.6,
       "status": "Vendu ou retiré de la vente",
       "location": "Brest",
+      "quartier": "Siam",
+      "tier": 1,
       "url": "https://agence-henry.com/fr/propriete/vente+appartement+brest+rare-siam-appartement-de-126-m2-au-dernier-etage-avec-terrasse-ascenseur-et-parkings+86476595",
       "type": "Appartement",
       "surface": "126.12 m²",
       "surfaceVal": 126.12,
-      "pieces": "- Pièces : 5 pièces",
+      "pieces": "5 pièces",
       "prestations": "Ascenseur",
       "dateFirst": "21 juin 2026 à 23h52",
       "dateLast": "23 septembre 2026 à 21h00",
@@ -315,14 +712,61 @@
         "Pas seul à l'étage (-1.0)"
       ],
       "hasScreenshot": true,
-      "description": "Rare, Siam-Triangle d'Or, superbe appartement de 126 M2 au 4ème et dernier étage avec ascenseur dans une copropriété bien tenue, très beau salon-séjour et cheminée donnant sur une belle terrasse côté mer.\n\nBonne exposition, 3 chambres et un bureau, dalle béton.\n\nDeux places de parkings privé.\n\nÀ proximité du tramway, du port, du château et des commodités du centre-ville. \n\nCoup de coeur agence henry !!!"
+      "description": "Rare, Siam-Triangle d'Or, superbe appartement de 126 M2 au 4ème et dernier étage avec ascenseur dans une copropriété bien tenue, très beau salon-séjour et cheminée donnant sur une belle terrasse côté mer.\n\nBonne exposition, 3 chambres et un bureau, dalle béton.\n\nDeux places de parkings privé.\n\nÀ proximité du tramway, du port, du château et des commodités du centre-ville.\n\nCoup de coeur agence henry !!!"
     },
     {
       "folder": "henry_86500613",
+      "isSas": false,
       "source": "Agence Henry",
       "title": "appartement Siam - 7 pièces 150m²",
       "price": "445 000 €",
       "priceVal": 445000,
+      "prixM2": 2967,
+      "dvfComparison": {
+        "prixM2": 2967,
+        "medianM2": 2270,
+        "diffPct": 31,
+        "sampleCount": 263,
+        "scopeLabel": "Siam",
+        "yearsLabel": "2024–2025",
+        "comparables": [
+          {
+            "date": "2025-05-23",
+            "adresse": "36 RUE JEAN MACE",
+            "surface": 150,
+            "prix": 233700,
+            "prixM2": 1558
+          },
+          {
+            "date": "2025-04-09",
+            "adresse": "3 RUE KEREON",
+            "surface": 151,
+            "prix": 285000,
+            "prixM2": 1887
+          },
+          {
+            "date": "2025-11-24",
+            "adresse": "2 RUE ALAIN FOURNIER",
+            "surface": 137,
+            "prix": 125000,
+            "prixM2": 915
+          },
+          {
+            "date": "2025-09-30",
+            "adresse": "2 RUE VICTOR SEGALEN",
+            "surface": 142,
+            "prix": 180000,
+            "prixM2": 1267
+          },
+          {
+            "date": "2025-03-27",
+            "adresse": "6 RUE NEPTUNE",
+            "surface": 148,
+            "prix": 236100,
+            "prixM2": 1597
+          }
+        ]
+      },
       "priceHistory": [
         {
           "date": "19 juillet 2026",
@@ -334,11 +778,13 @@
       "score": 5.4,
       "status": "Vendu ou retiré de la vente",
       "location": "Brest",
+      "quartier": "Siam",
+      "tier": 1,
       "url": "https://agence-henry.com/fr/propriete/vente+appartement+brest+exclusivite-centre-siam-jean-moulin-exceptionnel-appartement-duplex-de-150-m2-5-chambres-2-garages-rare-sur-le-marche-brestois+86500613",
       "type": "Appartement",
       "surface": "150 m²",
       "surfaceVal": 150,
-      "pieces": "- Pièces : 7 pièces",
+      "pieces": "7 pièces",
       "prestations": "Double vitrage Fenêtre PVC Internet",
       "dateFirst": "19 juillet 2026 à 10h17",
       "dateLast": "23 septembre 2026 à 21h00",
@@ -355,10 +801,57 @@
     },
     {
       "folder": "henry_86652246",
+      "isSas": false,
       "source": "Agence Henry",
       "title": "appartement Gare - 4 pièces 105m²",
       "price": "326 500 €",
       "priceVal": 326500,
+      "prixM2": 3110,
+      "dvfComparison": {
+        "prixM2": 3110,
+        "medianM2": 1582,
+        "diffPct": 97,
+        "sampleCount": 144,
+        "scopeLabel": "Gare",
+        "yearsLabel": "2024–2025",
+        "comparables": [
+          {
+            "date": "2025-11-27",
+            "adresse": "5 PL DE LA LIBERTE",
+            "surface": 109,
+            "prix": 309964,
+            "prixM2": 2844
+          },
+          {
+            "date": "2025-11-13",
+            "adresse": "18 RUE BRANDA",
+            "surface": 100,
+            "prix": 260000,
+            "prixM2": 2600
+          },
+          {
+            "date": "2025-11-03",
+            "adresse": "13 RUE D ABOVILLE",
+            "surface": 105,
+            "prix": 103000,
+            "prixM2": 982
+          },
+          {
+            "date": "2025-09-29",
+            "adresse": "1 RUE DE KERSAINT",
+            "surface": 98,
+            "prix": 151000,
+            "prixM2": 1534
+          },
+          {
+            "date": "2025-09-24",
+            "adresse": "24 RUE BRANDA",
+            "surface": 117,
+            "prix": 160000,
+            "prixM2": 1365
+          }
+        ]
+      },
       "priceHistory": [
         {
           "date": "18 juillet 2026",
@@ -370,11 +863,13 @@
       "score": 4.7,
       "status": "Vendu ou retiré de la vente",
       "location": "Brest",
+      "quartier": "Gare",
+      "tier": 1,
       "url": "https://agence-henry.com/fr/propriete/vente+appartement+brest+brest-hyper-centre-st-michel-prox-gare-105-m2-ascenseur-2-ch+86652246",
       "type": "Appartement",
       "surface": "105 m²",
       "surfaceVal": 105,
-      "pieces": "- Pièces : 4 pièces",
+      "pieces": "4 pièces",
       "prestations": "Double vitrage Fenêtre aluminium Fenêtres coulissantes Volets roulants électriques Ascenseur Interphone",
       "dateFirst": "18 juillet 2026 à 22h49",
       "dateLast": "30 septembre 2026 à 21h34",
@@ -390,10 +885,57 @@
     },
     {
       "folder": "henry_86753814",
+      "isSas": false,
       "source": "Agence Henry",
       "title": "récent(e) Siam - terrasse",
       "price": "294 000 €",
       "priceVal": 294000,
+      "prixM2": 3419,
+      "dvfComparison": {
+        "prixM2": 3419,
+        "medianM2": 2270,
+        "diffPct": 51,
+        "sampleCount": 263,
+        "scopeLabel": "Siam",
+        "yearsLabel": "2024–2025",
+        "comparables": [
+          {
+            "date": "2025-12-31",
+            "adresse": "4 RUE FOY",
+            "surface": 80,
+            "prix": 237800,
+            "prixM2": 2973
+          },
+          {
+            "date": "2025-12-30",
+            "adresse": "6 PL DE LA LIBERTE",
+            "surface": 78,
+            "prix": 207000,
+            "prixM2": 2654
+          },
+          {
+            "date": "2025-12-23",
+            "adresse": "6 RUE JEAN MACE",
+            "surface": 74,
+            "prix": 224000,
+            "prixM2": 3027
+          },
+          {
+            "date": "2025-12-23",
+            "adresse": "27 RUE JEAN MACE",
+            "surface": 90,
+            "prix": 177000,
+            "prixM2": 1967
+          },
+          {
+            "date": "2025-12-18",
+            "adresse": "17 RUE DU 2EME RIC",
+            "surface": 75,
+            "prix": 120000,
+            "prixM2": 1591
+          }
+        ]
+      },
       "priceHistory": [
         {
           "date": "21 juin 2026",
@@ -405,11 +947,13 @@
       "score": 5.6,
       "status": "Vendu ou retiré de la vente",
       "location": "Brest",
+      "quartier": "Siam",
+      "tier": 1,
       "url": "https://agence-henry.com/fr/propriete/vente+appartement+brest+brest-centre-siam-appartement-de-85-m2-avec-terrasse-ascenseur-et-garage-securise-residence-recente-de-2004-rare+86753814",
-      "type": "Non spécifié",
+      "type": "Appartement",
       "surface": "86 m²",
       "surfaceVal": 86,
-      "pieces": "- Pièces : 4 pièces",
+      "pieces": "4 pièces",
       "prestations": "Chambres: 2, Double vitrage FenÂªtre PVC Internet",
       "dateFirst": "21 juin 2026 à 23h52",
       "dateLast": "21 juin 2026 à 23h52",
@@ -421,14 +965,61 @@
         "Pas dernier ni seul à l'étage (-2.0)"
       ],
       "hasScreenshot": true,
-      "description": "Brest centre Siam, bel appartement T4 de 86 M2 dans une résidence récente de 2004 avec ascenseur.\n\nBeau salon-séjour donnant sur terrasse bien exposé.\n\nUn garage sécurisé en sous-sol \n\nImmeuble de très bon standing.\n\nEmplacement privilégié.\n\nProximité Hôpital, hall St Louis et téléphérique\n\nA visiter rapidement."
+      "description": "Brest centre Siam, bel appartement T4 de 86 M2 dans une résidence récente de 2004 avec ascenseur.\n\nBeau salon-séjour donnant sur terrasse bien exposé.\n\nUn garage sécurisé en sous-sol\n\nImmeuble de très bon standing.\n\nEmplacement privilégié.\n\nProximité Hôpital, hall St Louis et téléphérique\n\nA visiter rapidement."
     },
     {
       "folder": "henry_86755049",
+      "isSas": false,
       "source": "Agence Henry",
       "title": "appartement Saint-Martin - seul à l'étage, terrasse",
       "price": "319 900 €",
       "priceVal": 319900,
+      "prixM2": 2622,
+      "dvfComparison": {
+        "prixM2": 2622,
+        "medianM2": 1571,
+        "diffPct": 67,
+        "sampleCount": 410,
+        "scopeLabel": "Saint-Martin",
+        "yearsLabel": "2024–2025",
+        "comparables": [
+          {
+            "date": "2025-11-26",
+            "adresse": "8 RUE EMILE SOUVESTRE",
+            "surface": 119,
+            "prix": 134500,
+            "prixM2": 1132
+          },
+          {
+            "date": "2025-11-21",
+            "adresse": "8 RUE GUY DE MAUPASSANT",
+            "surface": 114,
+            "prix": 120000,
+            "prixM2": 1049
+          },
+          {
+            "date": "2025-10-30",
+            "adresse": "14 RUE BRANDA",
+            "surface": 123,
+            "prix": 177000,
+            "prixM2": 1444
+          },
+          {
+            "date": "2025-09-30",
+            "adresse": "6 RUE SAINT-POL-ROUX",
+            "surface": 106,
+            "prix": 130620,
+            "prixM2": 1232
+          },
+          {
+            "date": "2025-09-24",
+            "adresse": "24 RUE BRANDA",
+            "surface": 117,
+            "prix": 160000,
+            "prixM2": 1365
+          }
+        ]
+      },
       "priceHistory": [
         {
           "date": "22 juin 2026",
@@ -440,11 +1031,13 @@
       "score": 6.4,
       "status": "Vendu ou retiré de la vente",
       "location": "Brest",
+      "quartier": "Saint-Martin",
+      "tier": 2,
       "url": "https://agence-henry.com/fr/propriete/vente+appartement+brest+brest-st-martin-jaures-seul-a-l-etage-122-m2-3-ch-2-terrasses-garage+86755049",
       "type": "Appartement",
       "surface": "122 m²",
       "surfaceVal": 122,
-      "pieces": "- Pièces : 5 pièces",
+      "pieces": "5 pièces",
       "prestations": "Double vitrage Fenêtre PVC Fenêtres coulissantes Abri de voiture",
       "dateFirst": "22 juin 2026 à 00h02",
       "dateLast": "30 septembre 2026 à 21h34",
@@ -460,10 +1053,57 @@
     },
     {
       "folder": "henry_87102226",
+      "isSas": false,
       "source": "Leboncoin",
       "title": "appartement récent(e) Capucins - vue Rade, terrasse",
       "price": "427 000 €",
       "priceVal": 427000,
+      "prixM2": 4402,
+      "dvfComparison": {
+        "prixM2": 4402,
+        "medianM2": 1849,
+        "diffPct": 138,
+        "sampleCount": 126,
+        "scopeLabel": "Capucins",
+        "yearsLabel": "2024–2025",
+        "comparables": [
+          {
+            "date": "2025-01-30",
+            "adresse": "64 RUE D AIGUILLON",
+            "surface": 90,
+            "prix": 142000,
+            "prixM2": 1580
+          },
+          {
+            "date": "2025-01-28",
+            "adresse": "2 RUE PIERRE PUGET",
+            "surface": 100,
+            "prix": 165000,
+            "prixM2": 1650
+          },
+          {
+            "date": "2024-12-31",
+            "adresse": "2 RUE PIERRE PUGET",
+            "surface": 90,
+            "prix": 151746.27,
+            "prixM2": 1686
+          },
+          {
+            "date": "2025-12-18",
+            "adresse": "17 RUE DU 2EME RIC",
+            "surface": 75,
+            "prix": 120000,
+            "prixM2": 1591
+          },
+          {
+            "date": "2025-11-13",
+            "adresse": "25 RUE DE MAISSIN",
+            "surface": 86,
+            "prix": 165000,
+            "prixM2": 1919
+          }
+        ]
+      },
       "priceHistory": [
         {
           "date": "21 juin 2026",
@@ -481,11 +1121,13 @@
       "score": 6.4,
       "status": "Actif",
       "location": "Brest",
+      "quartier": "Capucins",
+      "tier": 2,
       "url": "https://www.leboncoin.fr/ad/ventes_immobilieres/3217417284",
       "type": "Appartement",
       "surface": "97 m²",
       "surfaceVal": 97,
-      "pieces": "- Pièces : 5 pièces",
+      "pieces": "5 pièces",
       "prestations": "Double vitrage Fenêtre aluminium Volets roulants électriques Abri de voiture Accès PMR Ascenseur Fibre optique Vidéo surveillance Vidéophone",
       "dateFirst": "21 juin 2026 à 23h52",
       "dateLast": "15 octobre 2026 à 21h12",
@@ -500,10 +1142,57 @@
     },
     {
       "folder": "henry_87169071",
+      "isSas": false,
       "source": "Agence Henry",
       "title": "maison années 30 Pilier Rouge - jardin",
       "price": "359 900 €",
       "priceVal": 359900,
+      "prixM2": 3428,
+      "dvfComparison": {
+        "prixM2": 3428,
+        "medianM2": 2532,
+        "diffPct": 35,
+        "sampleCount": 39,
+        "scopeLabel": "Pilier Rouge",
+        "yearsLabel": "2024–2025",
+        "comparables": [
+          {
+            "date": "2025-09-23",
+            "adresse": "8 RUE VIALA",
+            "surface": 92,
+            "prix": 270000,
+            "prixM2": 2935
+          },
+          {
+            "date": "2025-09-18",
+            "adresse": "10 RUE ROSA PARKS",
+            "surface": 108,
+            "prix": 273000,
+            "prixM2": 2528
+          },
+          {
+            "date": "2025-04-24",
+            "adresse": "66 RUE ALBERT LOUPPE",
+            "surface": 95,
+            "prix": 152000,
+            "prixM2": 1600
+          },
+          {
+            "date": "2025-01-24",
+            "adresse": "5 RUE DU PILIER ROUGE",
+            "surface": 90,
+            "prix": 222000,
+            "prixM2": 2467
+          },
+          {
+            "date": "2025-01-03",
+            "adresse": "11 B RUE MARCEAU",
+            "surface": 114,
+            "prix": 187000,
+            "prixM2": 1640
+          }
+        ]
+      },
       "priceHistory": [
         {
           "date": "18 juillet 2026",
@@ -521,11 +1210,13 @@
       "score": 5.7,
       "status": "Actif",
       "location": "Brest",
+      "quartier": "Pilier Rouge",
+      "tier": 2,
       "url": "https://agence-henry.com/fr/propriete/vente+maison+brest+exclusivite-maison-de-charme-des-annees-30-3-chambres-jardin+87169071",
       "type": "Maison",
       "surface": "105 m²",
       "surfaceVal": 105,
-      "pieces": "- Pièces : 5 pièces",
+      "pieces": "5 pièces",
       "prestations": "Double vitrage Vidéophone Fenêtre PVC",
       "dateFirst": "19 juillet 2026 à 16h15",
       "dateLast": "15 octobre 2026 à 21h12",
@@ -541,10 +1232,57 @@
     },
     {
       "folder": "henry_87184282",
+      "isSas": false,
       "source": "Agence Henry",
       "title": "maison Kérinou - jardin",
       "price": "389 500 €",
       "priceVal": 389500,
+      "prixM2": 3141,
+      "dvfComparison": {
+        "prixM2": 3141,
+        "medianM2": 2385,
+        "diffPct": 32,
+        "sampleCount": 57,
+        "scopeLabel": "Kérinou",
+        "yearsLabel": "2024–2025",
+        "comparables": [
+          {
+            "date": "2025-09-04",
+            "adresse": "3 RUE GUTENBERG",
+            "surface": 116,
+            "prix": 180000,
+            "prixM2": 1552
+          },
+          {
+            "date": "2025-07-08",
+            "adresse": "4 RUE CAMILLE DESMOULINS",
+            "surface": 112,
+            "prix": 350000,
+            "prixM2": 3125
+          },
+          {
+            "date": "2025-06-06",
+            "adresse": "17 RUE ANDRE PORTAIL",
+            "surface": 130,
+            "prix": 310000,
+            "prixM2": 2385
+          },
+          {
+            "date": "2025-04-08",
+            "adresse": "23 RUE ALBERT THOMAS",
+            "surface": 113,
+            "prix": 310000,
+            "prixM2": 2743
+          },
+          {
+            "date": "2025-01-03",
+            "adresse": "11 B RUE MARCEAU",
+            "surface": 114,
+            "prix": 187000,
+            "prixM2": 1640
+          }
+        ]
+      },
       "priceHistory": [
         {
           "date": "19 juillet 2026",
@@ -553,31 +1291,80 @@
           "priceVal": 389500
         }
       ],
-      "score": 7,
+      "score": 6.8,
       "status": "Vendu ou retiré de la vente",
       "location": "Brest",
+      "quartier": "Kérinou",
+      "tier": 3,
       "url": "https://agence-henry.com/fr/propriete/vente+maison+brest+brest-kerinou-maison-plain-pied-4-chambres-jardin-clos-et-garage+87184282",
       "type": "Maison",
       "surface": "124 m²",
       "surfaceVal": 124,
-      "pieces": "- Pièces : Non spécifié",
+      "pieces": "Non spécifié",
       "prestations": "Fenêtres coulissantes Abri de voiture Fibre optique Portail électrique",
       "dateFirst": "19 juillet 2026 à 16h18",
       "dateLast": "20 juillet 2026 à 20h38",
       "dateVal": 1784572680000,
       "maluses": [
         "Localisation : -4.0 Tiers 3",
-        "Bonus qualité : rare, quartier recherché, environnement calme, sans vis-à-vis, confort (+1.0)"
+        "Bonus qualité : rare, quartier recherché, environnement calme, confort (+0.8)"
       ],
       "hasScreenshot": true,
       "description": "Située dans le quartier recherché de Kérinou, cette maison de plain-pied construite en 1977 bénéficie d'un environnement calme tout en restant à proximité immédiate des commerces, des écoles et des transports. Elle se compose d'une entrée avec rangements desservant une belle pièce de vie lumineuse, d'une spacieuse cuisine aménagée et équipée, de quatre chambres, de deux salles d'eau et de WC séparés. Construite avec des matériaux de qualité, elle séduit par sa conception soignée, sa fonctionnalité et son agencement optimisé. À l'extérieur, vous profiterez d'un jardin clos, sans vis-à-vis, ainsi que d'un garage avec un coin buanderie. Fonctionnelle, bien agencée et idéalement située, cette maison offre un cadre de vie agréable pour une famille ou toute personne recherchant le confort d'un plain-pied. Rare sur le marché, à découvrir rapidement !"
     },
     {
       "folder": "human_200-2734",
+      "isSas": false,
       "source": "Human",
       "title": "maison Saint-Michel - jardin",
       "price": "359 000 €",
       "priceVal": 359000,
+      "prixM2": 2546,
+      "dvfComparison": {
+        "prixM2": 2546,
+        "medianM2": 2838,
+        "diffPct": -10,
+        "sampleCount": 19,
+        "scopeLabel": "Saint-Michel",
+        "yearsLabel": "2024–2025",
+        "comparables": [
+          {
+            "date": "2025-10-23",
+            "adresse": "36 RUE YVES COLLET",
+            "surface": 130,
+            "prix": 355000,
+            "prixM2": 2731
+          },
+          {
+            "date": "2025-05-15",
+            "adresse": "27 RUE SULLY PRUD HOMME",
+            "surface": 138,
+            "prix": 294573.75,
+            "prixM2": 2135
+          },
+          {
+            "date": "2025-04-24",
+            "adresse": "14 VEN KERIVIN",
+            "surface": 158,
+            "prix": 452000,
+            "prixM2": 2861
+          },
+          {
+            "date": "2024-07-09",
+            "adresse": "37 RUE LEVOT",
+            "surface": 123,
+            "prix": 285000,
+            "prixM2": 2317
+          },
+          {
+            "date": "2024-02-09",
+            "adresse": "26 RUE EDOUARD CORBIERE",
+            "surface": 130,
+            "prix": 347961.12,
+            "prixM2": 2677
+          }
+        ]
+      },
       "priceHistory": [
         {
           "date": "7 septembre 2026",
@@ -595,11 +1382,13 @@
       "score": 7,
       "status": "Actif",
       "location": "Brest - Centre-ville",
+      "quartier": "Saint-Michel",
+      "tier": 2,
       "url": "https://www.human-immobilier.fr/annonce-achat-maison-brest_200-2734",
       "type": "Maison",
       "surface": "141 m²",
       "surfaceVal": 141,
-      "pieces": "- Pièces : 5",
+      "pieces": "5",
       "prestations": "Chambres: 3, Exposition: Sud Est, Garage: 1",
       "dateFirst": "7 septembre 2026 à 21h33",
       "dateLast": "15 octobre 2026 à 21h12",
@@ -614,10 +1403,57 @@
     },
     {
       "folder": "leboncoin_2977769727",
+      "isSas": false,
       "source": "Leboncoin",
       "title": "appartement Siam - 5 pièces 139m²",
       "price": "470 000 €",
       "priceVal": 470000,
+      "prixM2": 3381,
+      "dvfComparison": {
+        "prixM2": 3381,
+        "medianM2": 2270,
+        "diffPct": 49,
+        "sampleCount": 263,
+        "scopeLabel": "Siam",
+        "yearsLabel": "2024–2025",
+        "comparables": [
+          {
+            "date": "2025-11-28",
+            "adresse": "3 RUE VOLTAIRE",
+            "surface": 127,
+            "prix": 220000,
+            "prixM2": 1729
+          },
+          {
+            "date": "2025-11-24",
+            "adresse": "2 RUE ALAIN FOURNIER",
+            "surface": 137,
+            "prix": 125000,
+            "prixM2": 915
+          },
+          {
+            "date": "2025-09-30",
+            "adresse": "2 RUE VICTOR SEGALEN",
+            "surface": 142,
+            "prix": 180000,
+            "prixM2": 1267
+          },
+          {
+            "date": "2025-09-19",
+            "adresse": "11 RUE PIERRE BROSSOLETTE",
+            "surface": 136,
+            "prix": 198000,
+            "prixM2": 1452
+          },
+          {
+            "date": "2025-09-15",
+            "adresse": "12 RUE FAUTRAS",
+            "surface": 134,
+            "prix": 222500,
+            "prixM2": 1661
+          }
+        ]
+      },
       "priceHistory": [
         {
           "date": "18 juillet 2026",
@@ -626,14 +1462,16 @@
           "priceVal": 470000
         }
       ],
-      "score": 6.4,
+      "score": 6.2,
       "status": "Vendu ou retiré de la vente",
       "location": "Brest 29200 Centre-ville - Triangle d'Or",
+      "quartier": "Siam",
+      "tier": 1,
       "url": "https://www.leboncoin.fr/ad/ventes_immobilieres/2977769727",
       "type": "Appartement",
       "surface": "139 m²",
       "surfaceVal": 139,
-      "pieces": "- Pièces : 5",
+      "pieces": "5",
       "prestations": "Non spécifiées",
       "dateFirst": "18 juillet 2026 à 21h54",
       "dateLast": "20 juillet 2026 à 20h38",
@@ -641,7 +1479,7 @@
       "maluses": [
         "Pas d'ascenseur (-1.0)",
         "Malus surface (> 130m²) (-1.0)",
-        "Bonus qualité : exceptionnel, magnifique (+0.4)",
+        "Bonus qualité : magnifique (+0.2)",
         "Pas dernier ni seul à l'étage (-2.0)"
       ],
       "hasScreenshot": true,
@@ -649,10 +1487,57 @@
     },
     {
       "folder": "leboncoin_3005528482",
+      "isSas": false,
       "source": "Leboncoin",
       "title": "maison années 30 Triangle d'Or - vue Rade",
       "price": "520 000 €",
       "priceVal": 520000,
+      "prixM2": 4000,
+      "dvfComparison": {
+        "prixM2": 4000,
+        "medianM2": 2874,
+        "diffPct": 39,
+        "sampleCount": 17,
+        "scopeLabel": "Triangle d'Or",
+        "yearsLabel": "2024–2025",
+        "comparables": [
+          {
+            "date": "2025-10-23",
+            "adresse": "36 RUE YVES COLLET",
+            "surface": 130,
+            "prix": 355000,
+            "prixM2": 2731
+          },
+          {
+            "date": "2025-08-28",
+            "adresse": "21 RUE REMY COPPIN",
+            "surface": 113,
+            "prix": 412850,
+            "prixM2": 3654
+          },
+          {
+            "date": "2025-07-23",
+            "adresse": "11 RUE REMY COPPIN",
+            "surface": 111,
+            "prix": 348000,
+            "prixM2": 3135
+          },
+          {
+            "date": "2024-09-12",
+            "adresse": "21 RUE GRAVERAN",
+            "surface": 108,
+            "prix": 250000,
+            "prixM2": 2315
+          },
+          {
+            "date": "2025-12-12",
+            "adresse": "37 RUE LANNOURON",
+            "surface": 81,
+            "prix": 200000,
+            "prixM2": 2469
+          }
+        ]
+      },
       "priceHistory": [
         {
           "date": "18 juillet 2026",
@@ -664,11 +1549,13 @@
       "score": 5.9,
       "status": "Vendu ou retiré de la vente",
       "location": "Brest 29200 Centre-ville - Triangle d'Or",
+      "quartier": "Triangle d'Or",
+      "tier": 1,
       "url": "https://www.leboncoin.fr/ad/ventes_immobilieres/3005528482",
       "type": "Maison",
       "surface": "130 m²",
       "surfaceVal": 130,
-      "pieces": "- Pièces : 6",
+      "pieces": "6",
       "prestations": "Non spécifiées",
       "dateFirst": "18 juillet 2026 à 21h54",
       "dateLast": "20 juillet 2026 à 20h38",
@@ -685,10 +1572,57 @@
     },
     {
       "folder": "leboncoin_3126890775",
+      "isSas": false,
       "source": "Leboncoin",
       "title": "appartement Triangle d'Or - rooftop, terrasse",
       "price": "449 800 €",
       "priceVal": 449800,
+      "prixM2": 3946,
+      "dvfComparison": {
+        "prixM2": 3946,
+        "medianM2": 2250,
+        "diffPct": 75,
+        "sampleCount": 229,
+        "scopeLabel": "Triangle d'Or",
+        "yearsLabel": "2024–2025",
+        "comparables": [
+          {
+            "date": "2025-01-14",
+            "adresse": "53 RUE D AIGUILLON",
+            "surface": 115,
+            "prix": 270000,
+            "prixM2": 2348
+          },
+          {
+            "date": "2025-12-17",
+            "adresse": "46 RUE D AIGUILLON",
+            "surface": 99,
+            "prix": 114200,
+            "prixM2": 1150
+          },
+          {
+            "date": "2025-11-27",
+            "adresse": "5 PL DE LA LIBERTE",
+            "surface": 109,
+            "prix": 309964,
+            "prixM2": 2844
+          },
+          {
+            "date": "2025-11-17",
+            "adresse": "7 RUE DOCTEUR LENOBLE",
+            "surface": 104,
+            "prix": 260000,
+            "prixM2": 2500
+          },
+          {
+            "date": "2025-11-07",
+            "adresse": "2 SQ CDT L HERMINIER",
+            "surface": 114,
+            "prix": 405000,
+            "prixM2": 3553
+          }
+        ]
+      },
       "priceHistory": [
         {
           "date": "18 juillet 2026",
@@ -700,11 +1634,13 @@
       "score": 5.9,
       "status": "Vendu ou retiré de la vente",
       "location": "Brest 29200 Centre-ville - Triangle d'Or",
+      "quartier": "Triangle d'Or",
+      "tier": 1,
       "url": "https://www.leboncoin.fr/ad/ventes_immobilieres/3126890775",
       "type": "Appartement",
       "surface": "114 m²",
       "surfaceVal": 114,
-      "pieces": "- Pièces : 4",
+      "pieces": "4",
       "prestations": "Non spécifiées",
       "dateFirst": "18 juillet 2026 à 21h15",
       "dateLast": "7 août 2026 à 11h43",
@@ -720,10 +1656,57 @@
     },
     {
       "folder": "leboncoin_3140665078",
+      "isSas": false,
       "source": "Leboncoin",
       "title": "appartement rénové(e) Siam - 7 pièces 138m²",
       "price": "598 000 €",
       "priceVal": 598000,
+      "prixM2": 4333,
+      "dvfComparison": {
+        "prixM2": 4333,
+        "medianM2": 2270,
+        "diffPct": 91,
+        "sampleCount": 263,
+        "scopeLabel": "Siam",
+        "yearsLabel": "2024–2025",
+        "comparables": [
+          {
+            "date": "2025-11-28",
+            "adresse": "3 RUE VOLTAIRE",
+            "surface": 127,
+            "prix": 220000,
+            "prixM2": 1729
+          },
+          {
+            "date": "2025-11-24",
+            "adresse": "2 RUE ALAIN FOURNIER",
+            "surface": 137,
+            "prix": 125000,
+            "prixM2": 915
+          },
+          {
+            "date": "2025-09-30",
+            "adresse": "2 RUE VICTOR SEGALEN",
+            "surface": 142,
+            "prix": 180000,
+            "prixM2": 1267
+          },
+          {
+            "date": "2025-09-19",
+            "adresse": "11 RUE PIERRE BROSSOLETTE",
+            "surface": 136,
+            "prix": 198000,
+            "prixM2": 1452
+          },
+          {
+            "date": "2025-09-15",
+            "adresse": "12 RUE FAUTRAS",
+            "surface": 134,
+            "prix": 222500,
+            "prixM2": 1661
+          }
+        ]
+      },
       "priceHistory": [
         {
           "date": "18 juillet 2026",
@@ -735,11 +1718,13 @@
       "score": 2.7,
       "status": "Actif",
       "location": "Brest 29200 Centre-ville - Triangle d'Or",
+      "quartier": "Siam",
+      "tier": 1,
       "url": "https://www.leboncoin.fr/ad/ventes_immobilieres/3140665078",
       "type": "Appartement",
       "surface": "138 m²",
       "surfaceVal": 138,
-      "pieces": "- Pièces : 7",
+      "pieces": "7",
       "prestations": "Non spécifiées",
       "dateFirst": "18 juillet 2026 à 21h54",
       "dateLast": "14 octobre 2026 à 18h02",
@@ -757,10 +1742,57 @@
     },
     {
       "folder": "leboncoin_3172038629",
+      "isSas": false,
       "source": "Leboncoin",
       "title": "appartement Saint-Michel - 5 pièces 123m²",
       "price": "305 000 €",
       "priceVal": 305000,
+      "prixM2": 2480,
+      "dvfComparison": {
+        "prixM2": 2480,
+        "medianM2": 1686,
+        "diffPct": 47,
+        "sampleCount": 240,
+        "scopeLabel": "Saint-Michel",
+        "yearsLabel": "2024–2025",
+        "comparables": [
+          {
+            "date": "2025-10-30",
+            "adresse": "14 RUE BRANDA",
+            "surface": 123,
+            "prix": 177000,
+            "prixM2": 1444
+          },
+          {
+            "date": "2025-12-18",
+            "adresse": "102 BD GAMBETTA",
+            "surface": 138,
+            "prix": 146000,
+            "prixM2": 1056
+          },
+          {
+            "date": "2025-10-02",
+            "adresse": "4 RUE MOSTAGANEM",
+            "surface": 134,
+            "prix": 133500,
+            "prixM2": 998
+          },
+          {
+            "date": "2025-09-29",
+            "adresse": "96 BD GAMBETTA",
+            "surface": 126,
+            "prix": 155050,
+            "prixM2": 1233
+          },
+          {
+            "date": "2025-09-24",
+            "adresse": "24 RUE BRANDA",
+            "surface": 117,
+            "prix": 160000,
+            "prixM2": 1365
+          }
+        ]
+      },
       "priceHistory": [
         {
           "date": "21 juin 2026",
@@ -772,11 +1804,13 @@
       "score": 1.5,
       "status": "Vendu ou retiré de la vente",
       "location": "Brest (29200) Saint-Michel",
+      "quartier": "Saint-Michel",
+      "tier": 2,
       "url": "https://www.leboncoin.fr/ad/ventes_immobilieres/3172038629",
       "type": "Appartement",
       "surface": "123 m²",
       "surfaceVal": 123,
-      "pieces": "- Pièces : 5 pièces",
+      "pieces": "5 pièces",
       "prestations": "Vendeur: Professionnel (FT Breizh - Brest Linois)",
       "dateFirst": "21 juin 2026 à 23:28",
       "dateLast": "21 juin 2026 à 23:28",
@@ -794,10 +1828,57 @@
     },
     {
       "folder": "leboncoin_3181077504",
+      "isSas": false,
       "source": "Leboncoin",
       "title": "appartement Triangle d'Or - terrasse",
       "price": "590 000 €",
       "priceVal": 590000,
+      "prixM2": 6860,
+      "dvfComparison": {
+        "prixM2": 6860,
+        "medianM2": 2250,
+        "diffPct": 205,
+        "sampleCount": 229,
+        "scopeLabel": "Triangle d'Or",
+        "yearsLabel": "2024–2025",
+        "comparables": [
+          {
+            "date": "2025-12-31",
+            "adresse": "4 RUE FOY",
+            "surface": 80,
+            "prix": 237800,
+            "prixM2": 2973
+          },
+          {
+            "date": "2025-12-30",
+            "adresse": "6 PL DE LA LIBERTE",
+            "surface": 78,
+            "prix": 207000,
+            "prixM2": 2654
+          },
+          {
+            "date": "2025-12-23",
+            "adresse": "6 RUE JEAN MACE",
+            "surface": 74,
+            "prix": 224000,
+            "prixM2": 3027
+          },
+          {
+            "date": "2025-12-23",
+            "adresse": "27 RUE JEAN MACE",
+            "surface": 90,
+            "prix": 177000,
+            "prixM2": 1967
+          },
+          {
+            "date": "2025-12-18",
+            "adresse": "17 RUE DU 2EME RIC",
+            "surface": 75,
+            "prix": 120000,
+            "prixM2": 1591
+          }
+        ]
+      },
       "priceHistory": [
         {
           "date": "19 juillet 2026",
@@ -806,14 +1887,16 @@
           "priceVal": 590000
         }
       ],
-      "score": 6.6,
+      "score": 6.4,
       "status": "Vendu ou retiré de la vente",
       "location": "Brest 29200 Centre-ville - Triangle d'Or",
+      "quartier": "Triangle d'Or",
+      "tier": 1,
       "url": "https://www.leboncoin.fr/ad/ventes_immobilieres/3181077504",
       "type": "Appartement",
       "surface": "86 m²",
       "surfaceVal": 86,
-      "pieces": "- Pièces : 3",
+      "pieces": "3",
       "prestations": "Non spécifiées",
       "dateFirst": "19 juillet 2026 à 10h17",
       "dateLast": "7 septembre 2026 à 10h43",
@@ -821,7 +1904,7 @@
       "maluses": [
         "Malus surface (< 95m²) (-1.0)",
         "Malus chambres (2 chambres) (-1.0)",
-        "Bonus qualité : exceptionnel, haut de gamme, confort (+0.6)",
+        "Bonus qualité : haut de gamme, confort (+0.4)",
         "Pas dernier ni seul à l'étage (-2.0)"
       ],
       "hasScreenshot": true,
@@ -829,10 +1912,57 @@
     },
     {
       "folder": "leboncoin_3188608567",
+      "isSas": false,
       "source": "Leboncoin",
       "title": "appartement Siam - 6 pièces 122m²",
       "price": "478 000 €",
       "priceVal": 478000,
+      "prixM2": 3918,
+      "dvfComparison": {
+        "prixM2": 3918,
+        "medianM2": 2270,
+        "diffPct": 73,
+        "sampleCount": 263,
+        "scopeLabel": "Siam",
+        "yearsLabel": "2024–2025",
+        "comparables": [
+          {
+            "date": "2025-11-28",
+            "adresse": "3 RUE VOLTAIRE",
+            "surface": 127,
+            "prix": 220000,
+            "prixM2": 1729
+          },
+          {
+            "date": "2025-11-27",
+            "adresse": "5 PL DE LA LIBERTE",
+            "surface": 109,
+            "prix": 309964,
+            "prixM2": 2844
+          },
+          {
+            "date": "2025-11-24",
+            "adresse": "2 RUE ALAIN FOURNIER",
+            "surface": 137,
+            "prix": 125000,
+            "prixM2": 915
+          },
+          {
+            "date": "2025-11-07",
+            "adresse": "2 SQ CDT L HERMINIER",
+            "surface": 114,
+            "prix": 405000,
+            "prixM2": 3553
+          },
+          {
+            "date": "2025-10-15",
+            "adresse": "4 RUE DUGUAY TROUIN",
+            "surface": 115,
+            "prix": 210500,
+            "prixM2": 1825
+          }
+        ]
+      },
       "priceHistory": [
         {
           "date": "18 juillet 2026",
@@ -841,14 +1971,16 @@
           "priceVal": 478000
         }
       ],
-      "score": 2.9,
+      "score": 2.7,
       "status": "Actif",
       "location": "Brest 29200 Centre-ville - Triangle d'Or",
+      "quartier": "Siam",
+      "tier": 1,
       "url": "https://www.leboncoin.fr/ad/ventes_immobilieres/3188608567",
       "type": "Appartement",
       "surface": "122 m²",
       "surfaceVal": 122,
-      "pieces": "- Pièces : 6",
+      "pieces": "6",
       "prestations": "Non spécifiées",
       "dateFirst": "18 juillet 2026 à 21h46",
       "dateLast": "14 octobre 2026 à 04h48",
@@ -858,7 +1990,7 @@
         "Pas d'ascenseur (-1.0)",
         "Pas de parking/garage (-1.5)",
         "Malus chambres (6 chambres) (-1.0)",
-        "Bonus qualité : matériaux de qualité, magnifique (+0.4)",
+        "Bonus qualité : magnifique (+0.2)",
         "Pas dernier ni seul à l'étage (-2.0)"
       ],
       "hasScreenshot": true,
@@ -866,10 +1998,57 @@
     },
     {
       "folder": "leboncoin_3193625225",
+      "isSas": false,
       "source": "Leboncoin",
       "title": "appartement Triangle d'Or - 4 pièces 114m²",
       "price": "335 000 €",
       "priceVal": 335000,
+      "prixM2": 2939,
+      "dvfComparison": {
+        "prixM2": 2939,
+        "medianM2": 2250,
+        "diffPct": 31,
+        "sampleCount": 229,
+        "scopeLabel": "Triangle d'Or",
+        "yearsLabel": "2024–2025",
+        "comparables": [
+          {
+            "date": "2025-01-14",
+            "adresse": "53 RUE D AIGUILLON",
+            "surface": 115,
+            "prix": 270000,
+            "prixM2": 2348
+          },
+          {
+            "date": "2025-12-17",
+            "adresse": "46 RUE D AIGUILLON",
+            "surface": 99,
+            "prix": 114200,
+            "prixM2": 1150
+          },
+          {
+            "date": "2025-11-27",
+            "adresse": "5 PL DE LA LIBERTE",
+            "surface": 109,
+            "prix": 309964,
+            "prixM2": 2844
+          },
+          {
+            "date": "2025-11-17",
+            "adresse": "7 RUE DOCTEUR LENOBLE",
+            "surface": 104,
+            "prix": 260000,
+            "prixM2": 2500
+          },
+          {
+            "date": "2025-11-07",
+            "adresse": "2 SQ CDT L HERMINIER",
+            "surface": 114,
+            "prix": 405000,
+            "prixM2": 3553
+          }
+        ]
+      },
       "priceHistory": [
         {
           "date": "21 juin 2026",
@@ -881,11 +2060,13 @@
       "score": 4.5,
       "status": "Vendu ou retiré de la vente",
       "location": "Brest (29200) Centre-ville - Triangle d'Or",
+      "quartier": "Triangle d'Or",
+      "tier": 1,
       "url": "https://www.leboncoin.fr/ad/ventes_immobilieres/3193625225",
       "type": "Appartement",
       "surface": "114 m²",
       "surfaceVal": 114,
-      "pieces": "- Pièces : 4 pièces",
+      "pieces": "4 pièces",
       "prestations": "Cuisine équipée, Cave, Chauffage individuel gaz",
       "dateFirst": "21 juin 2026 à 23:28",
       "dateLast": "21 juin 2026 à 23:28",
@@ -902,10 +2083,57 @@
     },
     {
       "folder": "leboncoin_3225954101",
+      "isSas": false,
       "source": "Leboncoin",
       "title": "appartement Capucins - terrasse",
       "price": "595 000 €",
       "priceVal": 595000,
+      "prixM2": 4798,
+      "dvfComparison": {
+        "prixM2": 4798,
+        "medianM2": 1849,
+        "diffPct": 159,
+        "sampleCount": 126,
+        "scopeLabel": "Capucins",
+        "yearsLabel": "2024–2025",
+        "comparables": [
+          {
+            "date": "2025-12-15",
+            "adresse": "20 RUE DE PONTANIOU",
+            "surface": 124,
+            "prix": 272250,
+            "prixM2": 2196
+          },
+          {
+            "date": "2025-10-31",
+            "adresse": "18 CITE MONTGOLFIER",
+            "surface": 121,
+            "prix": 107000,
+            "prixM2": 888
+          },
+          {
+            "date": "2025-10-24",
+            "adresse": "18 CITE MONTGOLFIER",
+            "surface": 122,
+            "prix": 139000,
+            "prixM2": 1138
+          },
+          {
+            "date": "2025-12-22",
+            "adresse": "16 CITE MONTGOLFIER",
+            "surface": 140,
+            "prix": 124000,
+            "prixM2": 886
+          },
+          {
+            "date": "2025-12-17",
+            "adresse": "3 RUE CAFFIERI",
+            "surface": 139,
+            "prix": 140000,
+            "prixM2": 1009
+          }
+        ]
+      },
       "priceHistory": [
         {
           "date": "18 juillet 2026",
@@ -917,11 +2145,13 @@
       "score": 5.6,
       "status": "Actif",
       "location": "Brest 29200 Recouvrance - Capucins",
+      "quartier": "Capucins",
+      "tier": 2,
       "url": "https://www.leboncoin.fr/ad/ventes_immobilieres/3225954101",
       "type": "Appartement",
       "surface": "124 m²",
       "surfaceVal": 124,
-      "pieces": "- Pièces : 6",
+      "pieces": "6",
       "prestations": "Ascenseur, parkings privatifs souterrains, cave",
       "dateFirst": "18 juillet 2026 à 21h15",
       "dateLast": "5 octobre 2026 à 11h41",
@@ -937,10 +2167,57 @@
     },
     {
       "folder": "leboncoin_3229816247",
+      "isSas": false,
       "source": "Leboncoin",
       "title": "appartement récent(e) Capucins - vue Rade, terrasse",
       "price": "439 000 €",
       "priceVal": 439000,
+      "prixM2": 4526,
+      "dvfComparison": {
+        "prixM2": 4526,
+        "medianM2": 1849,
+        "diffPct": 145,
+        "sampleCount": 126,
+        "scopeLabel": "Capucins",
+        "yearsLabel": "2024–2025",
+        "comparables": [
+          {
+            "date": "2025-01-30",
+            "adresse": "64 RUE D AIGUILLON",
+            "surface": 90,
+            "prix": 142000,
+            "prixM2": 1580
+          },
+          {
+            "date": "2025-01-28",
+            "adresse": "2 RUE PIERRE PUGET",
+            "surface": 100,
+            "prix": 165000,
+            "prixM2": 1650
+          },
+          {
+            "date": "2024-12-31",
+            "adresse": "2 RUE PIERRE PUGET",
+            "surface": 90,
+            "prix": 151746.27,
+            "prixM2": 1686
+          },
+          {
+            "date": "2025-12-18",
+            "adresse": "17 RUE DU 2EME RIC",
+            "surface": 75,
+            "prix": 120000,
+            "prixM2": 1591
+          },
+          {
+            "date": "2025-11-13",
+            "adresse": "25 RUE DE MAISSIN",
+            "surface": 86,
+            "prix": 165000,
+            "prixM2": 1919
+          }
+        ]
+      },
       "priceHistory": [
         {
           "date": "18 juillet 2026",
@@ -952,11 +2229,13 @@
       "score": 6.4,
       "status": "Vendu ou retiré de la vente",
       "location": "Brest 29200 Recouvrance - Capucins",
+      "quartier": "Capucins",
+      "tier": 2,
       "url": "https://www.leboncoin.fr/ad/ventes_immobilieres/3229816247",
       "type": "Appartement",
       "surface": "97 m²",
       "surfaceVal": 97,
-      "pieces": "- Pièces : 4",
+      "pieces": "4",
       "prestations": "Non spécifiées",
       "dateFirst": "18 juillet 2026 à 21h15",
       "dateLast": "20 juillet 2026 à 20h37",
@@ -971,10 +2250,57 @@
     },
     {
       "folder": "leboncoin_3230023834",
+      "isSas": false,
       "source": "Leboncoin",
       "title": "appartement Siam - seul à l'étage",
       "price": "438 880 €",
       "priceVal": 438880,
+      "prixM2": 4525,
+      "dvfComparison": {
+        "prixM2": 4525,
+        "medianM2": 2270,
+        "diffPct": 99,
+        "sampleCount": 263,
+        "scopeLabel": "Siam",
+        "yearsLabel": "2024–2025",
+        "comparables": [
+          {
+            "date": "2025-12-23",
+            "adresse": "27 RUE JEAN MACE",
+            "surface": 90,
+            "prix": 177000,
+            "prixM2": 1967
+          },
+          {
+            "date": "2025-12-17",
+            "adresse": "46 RUE D AIGUILLON",
+            "surface": 99,
+            "prix": 114200,
+            "prixM2": 1150
+          },
+          {
+            "date": "2025-12-31",
+            "adresse": "4 RUE FOY",
+            "surface": 80,
+            "prix": 237800,
+            "prixM2": 2973
+          },
+          {
+            "date": "2025-12-30",
+            "adresse": "6 PL DE LA LIBERTE",
+            "surface": 78,
+            "prix": 207000,
+            "prixM2": 2654
+          },
+          {
+            "date": "2025-11-27",
+            "adresse": "5 PL DE LA LIBERTE",
+            "surface": 109,
+            "prix": 309964,
+            "prixM2": 2844
+          }
+        ]
+      },
       "priceHistory": [
         {
           "date": "18 juillet 2026",
@@ -1013,14 +2339,16 @@
           "priceVal": 438880
         }
       ],
-      "score": 6.5,
+      "score": 6.3,
       "status": "Actif",
       "location": "Brest 29200 Centre-ville - Triangle d'Or",
+      "quartier": "Siam",
+      "tier": 1,
       "url": "https://www.leboncoin.fr/ad/ventes_immobilieres/3237367418",
       "type": "Appartement",
       "surface": "97 m²",
       "surfaceVal": 97,
-      "pieces": "- Pièces : 3",
+      "pieces": "3",
       "prestations": "Chambres: 2 ch.",
       "dateFirst": "18 juillet 2026 à 21h30",
       "dateLast": "12 octobre 2026 à 14h01",
@@ -1029,17 +2357,64 @@
         "Pas de terrasse/jardin (-2.0)",
         "Pas de parking/garage (-1.5)",
         "Malus chambres (2 chambres) (-1.0)",
-        "Bonus qualité : standing, exceptionnel, vue mer, privatif, baignée de lumière (+1.0)"
+        "Bonus qualité : standing, vue mer, privatif, baignée de lumière (+0.8)"
       ],
       "hasScreenshot": true,
       "description": "Appartement 3 pièces 97 m²\n\nREFERENCE ANNONCE : 29031-830 - BREST - SIAM - Au coeur du très recherché triangle d'or brestois, sur la place Wilson, découvrez cet appartement d'exception aux prestations recherchées. Situé au dernier étage d'un petite copropriété de standing, seul sur le palier et desservi par un ascenseur privatif, ce bien de 97 m² séduit immédiatement par son caractère bourgeois chic et son parfait état d'entretien. Traversant et baigné de lumière avec une vue panoramique et mer …\n\nVoir plus\nPasser la liste des médias\nListe des médias\nPhotos (13)\nLes informations clés\n\nType de bien\n\nAppartement\n\nSurface habitable\n\n97 m²\n\nSurface totale du terrain\n\n527 m²\n\nNombre de pièces\n\n3\n\nNombre de chambres\n\n2 ch.\n\nÉtage de votre bien\n\n4\n\nAscenseur\n\nOui\n\nRéférence\n\n29031-830\n\nDiagnostics\n\nClasse énergie\n\nA\nB\nC\nD\nE\nF\nG\n\nGES\n\nA\nB\nC\nD\nE\nF\nG"
     },
     {
       "folder": "leboncoin_3266438186",
+      "isSas": false,
       "source": "Leboncoin",
       "title": "maison de charme Saint-Michel - jardin",
       "price": "420 000 €",
       "priceVal": 420000,
+      "prixM2": 3066,
+      "dvfComparison": {
+        "prixM2": 3066,
+        "medianM2": 2838,
+        "diffPct": 8,
+        "sampleCount": 19,
+        "scopeLabel": "Saint-Michel",
+        "yearsLabel": "2024–2025",
+        "comparables": [
+          {
+            "date": "2025-10-23",
+            "adresse": "36 RUE YVES COLLET",
+            "surface": 130,
+            "prix": 355000,
+            "prixM2": 2731
+          },
+          {
+            "date": "2025-05-15",
+            "adresse": "27 RUE SULLY PRUD HOMME",
+            "surface": 138,
+            "prix": 294573.75,
+            "prixM2": 2135
+          },
+          {
+            "date": "2024-07-09",
+            "adresse": "37 RUE LEVOT",
+            "surface": 123,
+            "prix": 285000,
+            "prixM2": 2317
+          },
+          {
+            "date": "2024-02-09",
+            "adresse": "26 RUE EDOUARD CORBIERE",
+            "surface": 130,
+            "prix": 347961.12,
+            "prixM2": 2677
+          },
+          {
+            "date": "2025-04-24",
+            "adresse": "14 VEN KERIVIN",
+            "surface": 158,
+            "prix": 452000,
+            "prixM2": 2861
+          }
+        ]
+      },
       "priceHistory": [
         {
           "date": "9 septembre 2026",
@@ -1051,11 +2426,13 @@
       "score": 5.7,
       "status": "Actif",
       "location": "Brest 29200 Saint-Michel",
+      "quartier": "Saint-Michel",
+      "tier": 2,
       "url": "https://www.leboncoin.fr/ad/ventes_immobilieres/3266438186",
       "type": "Maison",
       "surface": "137 m²",
       "surfaceVal": 137,
-      "pieces": "- Pièces : 8",
+      "pieces": "8",
       "prestations": "Chambres: 4 ch.",
       "dateFirst": "9 septembre 2026 à 21h44",
       "dateLast": "15 octobre 2026 à 14h41",
@@ -1071,10 +2448,57 @@
     },
     {
       "folder": "leboncoin_3270344557",
+      "isSas": false,
       "source": "Leboncoin",
       "title": "appartement Siam - 4 pièces 116m²",
       "price": "445 990 €",
       "priceVal": 445990,
+      "prixM2": 3845,
+      "dvfComparison": {
+        "prixM2": 3845,
+        "medianM2": 2270,
+        "diffPct": 69,
+        "sampleCount": 263,
+        "scopeLabel": "Siam",
+        "yearsLabel": "2024–2025",
+        "comparables": [
+          {
+            "date": "2025-01-14",
+            "adresse": "53 RUE D AIGUILLON",
+            "surface": 115,
+            "prix": 270000,
+            "prixM2": 2348
+          },
+          {
+            "date": "2025-01-10",
+            "adresse": "76 RUE DE SIAM",
+            "surface": 120,
+            "prix": 200000,
+            "prixM2": 1667
+          },
+          {
+            "date": "2025-01-06",
+            "adresse": "45 RUE LOUIS PASTEUR",
+            "surface": 116,
+            "prix": 338000,
+            "prixM2": 2914
+          },
+          {
+            "date": "2024-12-24",
+            "adresse": "20 RUE JULES MICHELET",
+            "surface": 117,
+            "prix": 413800,
+            "prixM2": 3537
+          },
+          {
+            "date": "2025-01-28",
+            "adresse": "2 RUE PIERRE PUGET",
+            "surface": 100,
+            "prix": 165000,
+            "prixM2": 1650
+          }
+        ]
+      },
       "priceHistory": [
         {
           "date": "23 septembre 2026",
@@ -1098,11 +2522,13 @@
       "score": 3.1,
       "status": "Actif",
       "location": "Brest 29200 Centre-ville - Triangle d'Or",
+      "quartier": "Siam",
+      "tier": 1,
       "url": "https://www.leboncoin.fr/ad/ventes_immobilieres/3270344557",
       "type": "Appartement",
       "surface": "116 m²",
       "surfaceVal": 116,
-      "pieces": "- Pièces : 4",
+      "pieces": "4",
       "prestations": "Chambres: 2 ch.",
       "dateFirst": "23 septembre 2026 à 21h00",
       "dateLast": "10 octobre 2026 à 17h23",
@@ -1119,10 +2545,57 @@
     },
     {
       "folder": "leboncoin_3278891735",
+      "isSas": false,
       "source": "Leboncoin",
       "title": "appartement Bas Siam Cours Dajot - dernier étage, terrasse",
       "price": "600 000 €",
       "priceVal": 600000,
+      "prixM2": 5825,
+      "dvfComparison": {
+        "prixM2": 5825,
+        "medianM2": 2270,
+        "diffPct": 157,
+        "sampleCount": 263,
+        "scopeLabel": "Siam",
+        "yearsLabel": "2024–2025",
+        "comparables": [
+          {
+            "date": "2025-12-17",
+            "adresse": "46 RUE D AIGUILLON",
+            "surface": 99,
+            "prix": 114200,
+            "prixM2": 1150
+          },
+          {
+            "date": "2025-11-27",
+            "adresse": "5 PL DE LA LIBERTE",
+            "surface": 109,
+            "prix": 309964,
+            "prixM2": 2844
+          },
+          {
+            "date": "2025-11-07",
+            "adresse": "2 SQ CDT L HERMINIER",
+            "surface": 114,
+            "prix": 405000,
+            "prixM2": 3553
+          },
+          {
+            "date": "2025-10-30",
+            "adresse": "17 RUE D AIGUILLON",
+            "surface": 103,
+            "prix": 126000,
+            "prixM2": 1223
+          },
+          {
+            "date": "2025-12-23",
+            "adresse": "27 RUE JEAN MACE",
+            "surface": 90,
+            "prix": 177000,
+            "prixM2": 1967
+          }
+        ]
+      },
       "priceHistory": [
         {
           "date": "30 septembre 2026",
@@ -1131,14 +2604,16 @@
           "priceVal": 600000
         }
       ],
-      "score": 6.1,
+      "score": 5.9,
       "status": "Actif",
       "location": "Brest 29200 Centre-ville - Triangle d'Or",
+      "quartier": "Siam",
+      "tier": 1,
       "url": "https://www.leboncoin.fr/ad/ventes_immobilieres/3278891735",
       "type": "Appartement",
       "surface": "103 m²",
       "surfaceVal": 103,
-      "pieces": "- Pièces : 4",
+      "pieces": "4",
       "prestations": "Chambres: 2 ch.",
       "dateFirst": "30 septembre 2026 à 21h34",
       "dateLast": "13 octobre 2026 à 12h51",
@@ -1146,7 +2621,7 @@
       "maluses": [
         "Pas de parking/garage (-1.5)",
         "Malus chambres (4 pièces, 2 chambres) (-2.0)",
-        "Bonus qualité : rare, exceptionnel, magnifique (+0.6)",
+        "Bonus qualité : rare, magnifique (+0.4)",
         "Pas seul à l'étage (-1.0)"
       ],
       "hasScreenshot": true,
@@ -1154,10 +2629,57 @@
     },
     {
       "folder": "luxior_a-vendre-superbe-appartement-centre-ville-3-chambres-ascenseur-126m2",
+      "isSas": false,
       "source": "Luxior",
       "title": "appartement rénové(e) Liberté - seul à l'étage",
       "price": "385 000 €",
       "priceVal": 385000,
+      "prixM2": 3056,
+      "dvfComparison": {
+        "prixM2": 3056,
+        "medianM2": 1778,
+        "diffPct": 72,
+        "sampleCount": 165,
+        "scopeLabel": "Liberté",
+        "yearsLabel": "2024–2025",
+        "comparables": [
+          {
+            "date": "2025-11-24",
+            "adresse": "2 RUE ALAIN FOURNIER",
+            "surface": 137,
+            "prix": 125000,
+            "prixM2": 915
+          },
+          {
+            "date": "2025-10-30",
+            "adresse": "14 RUE BRANDA",
+            "surface": 123,
+            "prix": 177000,
+            "prixM2": 1444
+          },
+          {
+            "date": "2025-10-02",
+            "adresse": "4 RUE MOSTAGANEM",
+            "surface": 134,
+            "prix": 133500,
+            "prixM2": 998
+          },
+          {
+            "date": "2025-09-24",
+            "adresse": "24 RUE BRANDA",
+            "surface": 117,
+            "prix": 160000,
+            "prixM2": 1365
+          },
+          {
+            "date": "2025-08-14",
+            "adresse": "26 RUE ALGESIRAS",
+            "surface": 122,
+            "prix": 365000,
+            "prixM2": 2984
+          }
+        ]
+      },
       "priceHistory": [
         {
           "date": "23 septembre 2026",
@@ -1166,14 +2688,16 @@
           "priceVal": 385000
         }
       ],
-      "score": 5.6,
+      "score": 4.1,
       "status": "Vendu ou retiré de la vente",
       "location": "BREST",
+      "quartier": "Liberté",
+      "tier": 2,
       "url": "https://luxior-immobilier.com/bien/a-vendre-superbe-appartement-centre-ville-3-chambres-ascenseur-126m%c2%b2/",
       "type": "Appartement",
       "surface": "126 m²",
       "surfaceVal": 126,
-      "pieces": "- Pièces : 5",
+      "pieces": "5",
       "prestations": "Chambres: 3, Garage: 0, Cave: 1",
       "dateFirst": "23 septembre 2026 à 21h00",
       "dateLast": "30 septembre 2026 à 21h34",
@@ -1181,18 +2705,66 @@
       "maluses": [
         "Localisation : -2.0 Tiers 2",
         "Pas de terrasse/jardin (-2.0)",
+        "Pas de parking/garage (-1.5)",
         "Bonus qualité : rare, dalle béton, confort (+0.6)",
         "Pas dernier étage (-1.0)"
       ],
       "hasScreenshot": false,
-      "description": "Nouveauté Luxior. En plein coeur de Brest, à deux pas de la place de la Liberté, découvrez ce superbe appartement de 126 m² entièrement rénové, situé au 4e étage avec ascenseur et seul sur son palier. Dès l&rsquo;entrée, il séduit par ses volumes remarquables, sa luminosité et la qualité de ses prestations. La pièce maîtresse : près de 58 m² de pièce de vie, avec une cuisine ouverte entièrement équipée et parfaitement intégrée à l&rsquo;ensemble. Un espace généreux et chaleureux, prolongé par une arrière-cuisine et une buanderie. La partie nuit offre trois belles chambres, de nombreux rangements et menuiseries sur mesure, ainsi qu&rsquo;une salle de bains avec baignoire et douche. Décoration aboutie, belles finitions, double vitrage, dalle béton, cave : un appartement clé en main où chaque détail a été pensé pour conjuguer esthétique, confort et fonctionnalité. Un bien rare en centre-ville, aussi agréable à vivre qu&rsquo;à regarder. REFERENCE LUXIOR IMMOBILIER 26657BH (4.05 % honoraires TTC à la charge de l&rsquo;acquéreur.) Copropriété de 6 lots &#8211; dont 5 lots habitation. (Pas de procédure en cours).Charges annuelles : 1800 euros."
+      "description": "Nouveauté Luxior. En plein coeur de Brest, à deux pas de la place de la Liberté, découvrez ce superbe appartement de 126 m² entièrement rénové, situé au 4e étage avec ascenseur et seul sur son palier. Dès l'entrée, il séduit par ses volumes remarquables, sa luminosité et la qualité de ses prestations. La pièce maîtresse : près de 58 m² de pièce de vie, avec une cuisine ouverte entièrement équipée et parfaitement intégrée à l'ensemble. Un espace généreux et chaleureux, prolongé par une arrière-cuisine et une buanderie. La partie nuit offre trois belles chambres, de nombreux rangements et menuiseries sur mesure, ainsi qu'une salle de bains avec baignoire et douche. Décoration aboutie, belles finitions, double vitrage, dalle béton, cave : un appartement clé en main où chaque détail a été pensé pour conjuguer esthétique, confort et fonctionnalité. Un bien rare en centre-ville, aussi agréable à vivre qu'à regarder. REFERENCE LUXIOR IMMOBILIER 26657BH (4.05 % honoraires TTC à la charge de l'acquéreur.) Copropriété de 6 lots – dont 5 lots habitation. (Pas de procédure en cours).Charges annuelles : 1800 euros."
     },
     {
       "folder": "luxior_appartement-a-vendre-t5-4-chambres-ascenseur-brest-triangle-dor",
+      "isSas": false,
       "source": "Luxior",
       "title": "appartement Triangle d'Or - seul à l'étage",
       "price": "400 000 €",
       "priceVal": 400000,
+      "prixM2": 2778,
+      "dvfComparison": {
+        "prixM2": 2778,
+        "medianM2": 2250,
+        "diffPct": 23,
+        "sampleCount": 229,
+        "scopeLabel": "Triangle d'Or",
+        "yearsLabel": "2024–2025",
+        "comparables": [
+          {
+            "date": "2025-12-09",
+            "adresse": "14 RUE DE GLASGOW",
+            "surface": 143,
+            "prix": 180000,
+            "prixM2": 1262
+          },
+          {
+            "date": "2025-11-24",
+            "adresse": "2 RUE ALAIN FOURNIER",
+            "surface": 137,
+            "prix": 125000,
+            "prixM2": 915
+          },
+          {
+            "date": "2025-09-30",
+            "adresse": "2 RUE VICTOR SEGALEN",
+            "surface": 142,
+            "prix": 180000,
+            "prixM2": 1267
+          },
+          {
+            "date": "2025-09-15",
+            "adresse": "12 RUE FAUTRAS",
+            "surface": 134,
+            "prix": 222500,
+            "prixM2": 1661
+          },
+          {
+            "date": "2025-05-23",
+            "adresse": "36 RUE JEAN MACE",
+            "surface": 150,
+            "prix": 233700,
+            "prixM2": 1558
+          }
+        ]
+      },
       "priceHistory": [
         {
           "date": "8 octobre 2026",
@@ -1201,33 +2773,38 @@
           "priceVal": 400000
         }
       ],
-      "score": 7,
+      "score": 7.5,
       "status": "Actif",
       "location": "BREST",
+      "quartier": "Triangle d'Or",
+      "tier": 1,
       "url": "https://luxior-immobilier.com/bien/appartement-a-vendre-t5-4-chambres-ascenseur-brest-triangle-dor/",
       "type": "Appartement",
       "surface": "144 m²",
       "surfaceVal": 144,
-      "pieces": "- Pièces : 5",
+      "pieces": "5",
       "prestations": "Chambres: 4, Garage: 0, Cave: 1",
       "dateFirst": "8 octobre 2026 à 21h05",
       "dateLast": "15 octobre 2026 à 21h12",
       "dateVal": 1792091520000,
       "maluses": [
-        "Pas de terrasse/jardin (-2.0)",
+        "Pas de parking/garage (-1.5)",
         "Malus surface (> 130m²) (-1.0)",
         "Bonus qualité : exceptionnel, privilégié, beaux volumes, dalle béton, environnement calme, confort (+1.0)",
         "Pas dernier étage (-1.0)"
       ],
       "hasScreenshot": false,
-      "description": "Au coeur du centre-ville de Brest, dans le très recherché Triangle d&rsquo;Or de la ville du Ponant, découvrez cet élégant appartement de 144 m², situé au 2ème étage avec ascenseur d&rsquo;un immeuble bourgeois en dalle béton.A deux pas des commerces, des écoles, des restaurants et du Cours Dajot, seul appartement à l&rsquo;étage, il bénéficie d&rsquo;une configuration particulièrement privilégiée, avec une entrée principale et une entrée de service, offrant à la fois confort, intimité et fonctionnalité.Dès l&rsquo;entrée, les beaux volumes et les éléments de caractère donnent le ton. Vous serez séduit par sa belle hauteur sous plafond, son parquet à bâtons rompus, sa distribution harmonieuse et les proportions généreuses de chacune des pièces.Traversant et au calme, l&rsquo;appartement profite d&rsquo;une agréable luminosité et d&rsquo;une atmosphère sereine, tout en bénéficiant d&rsquo;un emplacement exceptionnel au coeur de la ville.L&rsquo;espace familial se compose de quatre chambres, d&rsquo;une salle de bains et d&rsquo;une salle d&rsquo;eau. Une vaste entrée avec placards assure une distribution fluide et élégante de l&rsquo;ensemble.La grande cuisine, prolongée par une loggia, complète cet espace de vie et offre de belles possibilités d&rsquo;aménagement selon vos envies.Le confort est complété par un chauffage individuel au gaz de ville ainsi qu&rsquo;une grande cave en sous-sol, apportant un espace de rangement appréciable.Nécessitant une modernisation, ce bien offre un potentiel remarquable pour qui saura révéler ses volumes, préserver ses éléments anciens et lui insuffler une nouvelle élégance. Uniquement chez Luxior Immobilier REFERENCE LUXIOR IMMOBILIER 26656oc(5.26 % honoraires TTC à la charge de l&rsquo;acquéreur.)"
+      "description": "Au coeur du centre-ville de Brest, dans le très recherché Triangle d'Or de la ville du Ponant, découvrez cet élégant appartement de 144 m², situé au 2ème étage avec ascenseur d'un immeuble bourgeois en dalle béton.A deux pas des commerces, des écoles, des restaurants et du Cours Dajot, seul appartement à l'étage, il bénéficie d'une configuration particulièrement privilégiée, avec une entrée principale et une entrée de service, offrant à la fois confort, intimité et fonctionnalité.Dès l'entrée, les beaux volumes et les éléments de caractère donnent le ton. Vous serez séduit par sa belle hauteur sous plafond, son parquet à bâtons rompus, sa distribution harmonieuse et les proportions généreuses de chacune des pièces.Traversant et au calme, l'appartement profite d'une agréable luminosité et d'une atmosphère sereine, tout en bénéficiant d'un emplacement exceptionnel au coeur de la ville.L'espace familial se compose de quatre chambres, d'une salle de bains et d'une salle d'eau. Une vaste entrée avec placards assure une distribution fluide et élégante de l'ensemble.La grande cuisine, prolongée par une loggia, complète cet espace de vie et offre de belles possibilités d'aménagement selon vos envies.Le confort est complété par un chauffage individuel au gaz de ville ainsi qu'une grande cave en sous-sol, apportant un espace de rangement appréciable.Nécessitant une modernisation, ce bien offre un potentiel remarquable pour qui saura révéler ses volumes, préserver ses éléments anciens et lui insuffler une nouvelle élégance. Uniquement chez Luxior Immobilier REFERENCE LUXIOR IMMOBILIER 26656oc(5.26 % honoraires TTC à la charge de l'acquéreur.)"
     },
     {
       "folder": "luxior_unknown",
+      "isSas": false,
       "source": "Luxior",
       "title": "maison de charme Saint-Michel - jardin",
       "price": "Prix sur demande",
       "priceVal": 0,
+      "prixM2": 0,
+      "dvfComparison": null,
       "priceHistory": [
         {
           "date": "20 juillet 2026",
@@ -1239,11 +2816,13 @@
       "score": 7.6,
       "status": "Vendu ou retiré de la vente",
       "location": "BREST",
+      "quartier": "Saint-Michel",
+      "tier": 2,
       "url": "https://luxior-immobilier.com/bien/maison-3-chambres-jardin-garage-a-vendre-a-brest-saint-michel-keruscun/#cmplz-manage-consent-container",
       "type": "Maison",
       "surface": "93.25 m²",
       "surfaceVal": 93.25,
-      "pieces": "- Pièces : 5",
+      "pieces": "5",
       "prestations": "Chambres: 3, Garage: , Cave:",
       "dateFirst": "20 juillet 2026 à 20h38",
       "dateLast": "20 juillet 2026 à 20h38",
@@ -1254,7 +2833,95 @@
         "Bonus qualité : privatif, cachet, confort (+0.6)"
       ],
       "hasScreenshot": false,
-      "description": "A Brest au centre ville &#8211; quartier Saint-Michel &#8211; Keruscun Maison de charme d&rsquo;avant 1950 &#8211; 93 m² environ Jardin, sous-sol et garage Cette ravissante maison d&rsquo;avant 1950, d&rsquo;environ 93 m², séduit par son cachet de l&rsquo;ancien subtilement allié à une rénovation complète réalisée en 2023, offrant un cadre de vie confortable et chaleureux. Le rez-de-chaussée propose une grande cuisine aménagée et équipée, idéale pour les moments de convivialité, ainsi qu&rsquo;un salon-séjour lumineux avec accès direct au jardin, parfait pour profiter des beaux jours. A l&rsquo;étage, l&rsquo;espace nuit se compose de deux chambres, dont une avec salle d&rsquo;eau privative, d&rsquo;une salle de bains et d&rsquo;un WC séparé. Le dernier niveau accueille une troisième chambre, un coin bureau, ainsi qu&rsquo;un espace de rangement pouvant être aménagé en dressing ou quatrième chambre selon les besoins. Un sous-sol complète l&rsquo;ensemble, offrant des espaces de stockage appréciables. En fond de jardin, un garage indépendant vient parfaire les prestations. Une maison pleine de charme, idéale pour une vie de famille, alliant authenticité, fonctionnalité et confort moderne. REFERENCE LUXIOR 26456JM (5.13 % honoraires TTC à la charge de l&rsquo;acquéreur.)"
+      "description": "A Brest au centre ville – quartier Saint-Michel – Keruscun Maison de charme d'avant 1950 – 93 m² environ Jardin, sous-sol et garage Cette ravissante maison d'avant 1950, d'environ 93 m², séduit par son cachet de l'ancien subtilement allié à une rénovation complète réalisée en 2023, offrant un cadre de vie confortable et chaleureux. Le rez-de-chaussée propose une grande cuisine aménagée et équipée, idéale pour les moments de convivialité, ainsi qu'un salon-séjour lumineux avec accès direct au jardin, parfait pour profiter des beaux jours. A l'étage, l'espace nuit se compose de deux chambres, dont une avec salle d'eau privative, d'une salle de bains et d'un WC séparé. Le dernier niveau accueille une troisième chambre, un coin bureau, ainsi qu'un espace de rangement pouvant être aménagé en dressing ou quatrième chambre selon les besoins. Un sous-sol complète l'ensemble, offrant des espaces de stockage appréciables. En fond de jardin, un garage indépendant vient parfaire les prestations. Une maison pleine de charme, idéale pour une vie de famille, alliant authenticité, fonctionnalité et confort moderne. REFERENCE LUXIOR 26456JM (5.13 % honoraires TTC à la charge de l'acquéreur.)"
+    }
+  ],
+  "sas_listings": [
+    {
+      "folder": "henry_87461572",
+      "isSas": true,
+      "source": "Agence Henry",
+      "title": "appartement de charme Gare - seul à l'étage",
+      "price": "324 500 €",
+      "priceVal": 324500,
+      "prixM2": 3033,
+      "dvfComparison": {
+        "prixM2": 3033,
+        "medianM2": 1582,
+        "diffPct": 92,
+        "sampleCount": 144,
+        "scopeLabel": "Gare",
+        "yearsLabel": "2024–2025",
+        "comparables": [
+          {
+            "date": "2025-11-27",
+            "adresse": "5 PL DE LA LIBERTE",
+            "surface": 109,
+            "prix": 309964,
+            "prixM2": 2844
+          },
+          {
+            "date": "2025-11-13",
+            "adresse": "18 RUE BRANDA",
+            "surface": 100,
+            "prix": 260000,
+            "prixM2": 2600
+          },
+          {
+            "date": "2025-11-03",
+            "adresse": "13 RUE D ABOVILLE",
+            "surface": 105,
+            "prix": 103000,
+            "prixM2": 982
+          },
+          {
+            "date": "2025-06-16",
+            "adresse": "67 RUE VICTOR HUGO",
+            "surface": 106,
+            "prix": 140000,
+            "prixM2": 1325
+          },
+          {
+            "date": "2025-10-30",
+            "adresse": "14 RUE BRANDA",
+            "surface": 123,
+            "prix": 177000,
+            "prixM2": 1444
+          }
+        ]
+      },
+      "priceHistory": [
+        {
+          "date": "14 octobre 2026",
+          "dateTs": 1792009076000,
+          "price": "324 500 €",
+          "priceVal": 324500
+        }
+      ],
+      "score": 2.9,
+      "status": "Sas d'attente",
+      "location": "Brest",
+      "quartier": "Gare",
+      "tier": 1,
+      "url": "https://agence-henry.com/fr/propriete/vente+appartement+brest+st-michel-proche-gare-du-cachet-107-m2-seul-a-l-etage+87461572",
+      "type": "Appartement",
+      "surface": "107 m²",
+      "surfaceVal": 107,
+      "pieces": "4 pièces",
+      "prestations": "Double vitrage Internet Digicode Fibre optique Local à vélo",
+      "dateFirst": "14 octobre 2026 à 22h17",
+      "dateLast": "15 octobre 2026 à 21h12",
+      "dateVal": 1792091520000,
+      "maluses": [
+        "Pas de terrasse/jardin (-2.0)",
+        "Pas d'ascenseur (-1.0)",
+        "Pas de parking/garage (-1.5)",
+        "Malus chambres (4 pièces, 2 chambres) (-2.0)",
+        "Bonus qualité : coup de coeur, cachet (+0.4)",
+        "Pas dernier étage (-1.0)"
+      ],
+      "hasScreenshot": true,
+      "description": "Brest – Saint-Michel | Appartement de charme de 107 m² à proximité du centre-ville et de la gare Coup de cœur pour cet appartement de caractère, idéalement situé dans le très recherché quartier Saint-Michel à Brest. Au sein d’un immeuble de charme, cet appartement occupe à lui seul le deuxième étage, D’une superficie de 107 m², il séduit dès l’entrée par ses volumes généreux, et son cachet Vous découvrirez une vaste pièce de vie de plus de 34 m², sublimée par de magnifiques planchers d'autrefois, offrant un espace chaleureux et convivial. La grande cuisine équipée et aménagée, avec son agréable coin séjour, constitue un véritable espace de vie. L’espace nuit se compose de deux chambres, complété par une salle de bains confortable avec baignoire et douche, ainsi qu’une buanderie L’immeuble dispose également d’une cave et d’un local à vélos. Les atouts 107 m² habitables Appartement occupant seul le 2ᵉ étage Belle pièce de vie de plus de 34 m² Beaux planchers et cachet de l’ancien Grande cuisine équipée et aménagée avec coin séjour 2 chambres Salle de bains avec baignoire et douche Buanderie Cave Local à vélos Emplacement recherché dans le quartier Saint-Michel À quelques minutes du centre-ville et de la gare de Brest À découvrir sans tarder"
     }
   ]
 }

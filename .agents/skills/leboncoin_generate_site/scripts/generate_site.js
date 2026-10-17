@@ -1,12 +1,17 @@
-const fs = require('fs');
-const path = require('path');
+const fs = require('node:fs');
+const path = require('node:path');
+const {
+  OUTPUT_DIR: SOURCE_DIR,
+  SAS_DIR,
+  DOCS_DIR,
+  DVF_DATA_DIR,
+  parseListingMarkdown
+} = require('../../shared/listing_utils');
 
-const ROOT_DIR = path.resolve(__dirname, '../../../../');
-const SOURCE_DIR = path.resolve(ROOT_DIR, 'leboncoin_searches');
-const DOCS_DIR = path.resolve(ROOT_DIR, 'docs');
 const BIENS_DIR = path.resolve(DOCS_DIR, 'biens');
 const PUBLIC_DIR = path.resolve(DOCS_DIR, 'public');
 const SCREENSHOTS_DIR = path.resolve(PUBLIC_DIR, 'screenshots');
+const DVF_PUBLIC_DIR = path.resolve(PUBLIC_DIR, 'dvf');
 
 // Clean output directories before generation
 if (fs.existsSync(BIENS_DIR)) {
@@ -15,9 +20,6 @@ if (fs.existsSync(BIENS_DIR)) {
 if (fs.existsSync(SCREENSHOTS_DIR)) {
   fs.rmSync(SCREENSHOTS_DIR, { recursive: true, force: true });
 }
-
-const DVF_DATA_DIR = path.resolve(ROOT_DIR, 'dvf_data');
-const DVF_PUBLIC_DIR = path.resolve(PUBLIC_DIR, 'dvf');
 
 // Ensure output directories exist
 fs.mkdirSync(DOCS_DIR, { recursive: true });
@@ -35,26 +37,133 @@ if (fs.existsSync(DVF_DATA_DIR)) {
   console.log(`Synced ${dvfFiles.length} DVF data file(s) to public/dvf/`);
 }
 
-
-function parsePrice(priceStr) {
-  if (!priceStr) return 0;
-  const digits = priceStr.replace(/\D/g, '');
-  if (!digits) return 0;
-  return parseInt(digits, 10);
+function haversineKm(lat1, lon1, lat2, lon2) {
+  const toRad = (deg) => (deg * Math.PI) / 180;
+  const R = 6371;
+  const dLat = toRad(lat2 - lat1);
+  const dLon = toRad(lon2 - lon1);
+  const a =
+    Math.sin(dLat / 2) ** 2 +
+    Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLon / 2) ** 2;
+  return 2 * R * Math.asin(Math.sqrt(a));
 }
 
-function parseSurface(surfaceStr) {
-  if (!surfaceStr) return 0;
-  const match = surfaceStr.match(/[\d.]+/);
-  if (!match) return 0;
-  return parseFloat(match[0]);
+function computeMedian(values) {
+  if (!values || values.length === 0) return 0;
+  const sorted = [...values].sort((a, b) => a - b);
+  const mid = Math.floor(sorted.length / 2);
+  return sorted.length % 2 !== 0
+    ? Math.round(sorted[mid])
+    : Math.round((sorted[mid - 1] + sorted[mid]) / 2);
 }
 
-// Extract price history from all .md files in a folder
-// Returns array of {date, dateTs, price, priceVal} sorted chronologically
+// Load recent DVF sales (last 2 available years, e.g. 2024-2025) for neighborhood cross-referencing
+function loadRecentDvfSales() {
+  if (!fs.existsSync(DVF_DATA_DIR)) return { sales: [], yearsUsed: [] };
+  const metaPath = path.join(DVF_DATA_DIR, 'metadata.json');
+  let years = [2024, 2025];
+  if (fs.existsSync(metaPath)) {
+    try {
+      const meta = JSON.parse(fs.readFileSync(metaPath, 'utf8'));
+      if (Array.isArray(meta.years) && meta.years.length > 0) {
+        years = meta.years.slice(-2);
+      }
+    } catch (e) {}
+  }
+
+  const sales = [];
+  for (const y of years) {
+    const fPath = path.join(DVF_DATA_DIR, `brest_${y}.json`);
+    if (!fs.existsSync(fPath)) continue;
+    try {
+      const data = JSON.parse(fs.readFileSync(fPath, 'utf8'));
+      for (const row of data) {
+        if (
+          (row.type === 'Appartement' || row.type === 'Maison') &&
+          row.prixM2 >= 800 &&
+          row.prixM2 <= 8000 &&
+          row.surfaceAffichee >= 55 &&
+          row.surfaceAffichee <= 250
+        ) {
+          sales.push(row);
+        }
+      }
+    } catch (e) {
+      console.warn(`Could not read ${fPath}:`, e.message);
+    }
+  }
+  return { sales, yearsUsed: years };
+}
+
+function computeDvfComparison(dvfContext, type, surfaceVal, priceVal, quartierObj) {
+  const { sales, yearsUsed } = dvfContext;
+  if (!sales || sales.length === 0 || !priceVal || !surfaceVal) return null;
+
+  const isMaison = (type || '').toLowerCase().includes('maison');
+  const targetType = isMaison ? 'Maison' : 'Appartement';
+  const typeSales = sales.filter(s => s.type === targetType);
+  if (typeSales.length === 0) return null;
+
+  const prixM2 = Math.round(priceVal / surfaceVal);
+  let matchedSales = [];
+  let scopeLabel = 'Brest';
+
+  if (quartierObj && quartierObj.lat && quartierObj.lon) {
+    const radius = quartierObj.radiusKm || 0.55;
+    matchedSales = typeSales.filter(
+      s => s.lat && s.lon && haversineKm(quartierObj.lat, quartierObj.lon, s.lat, s.lon) <= radius
+    );
+    // If fewer than 4 sales in strict radius, slightly expand radius to 0.85km
+    if (matchedSales.length < 4) {
+      matchedSales = typeSales.filter(
+        s => s.lat && s.lon && haversineKm(quartierObj.lat, quartierObj.lon, s.lat, s.lon) <= Math.max(0.85, radius * 1.4)
+      );
+    }
+    if (matchedSales.length >= 3) {
+      scopeLabel = quartierObj.name;
+    } else {
+      matchedSales = typeSales;
+    }
+  } else {
+    matchedSales = typeSales;
+  }
+
+  const medianM2 = computeMedian(matchedSales.map(s => s.prixM2));
+  if (!medianM2) return null;
+
+  const diffPct = Math.round(((prixM2 - medianM2) / medianM2) * 100);
+
+  // Pick top 5 comparable sales in that scope closest in surface & most recent
+  const comparables = [...matchedSales]
+    .sort((a, b) => {
+      const surfDiffA = Math.abs((a.surfaceAffichee || 0) - surfaceVal);
+      const surfDiffB = Math.abs((b.surfaceAffichee || 0) - surfaceVal);
+      if (Math.abs(surfDiffA - surfDiffB) > 12) return surfDiffA - surfDiffB;
+      return String(b.date).localeCompare(String(a.date));
+    })
+    .slice(0, 5)
+    .map(c => ({
+      date: c.date,
+      adresse: c.adresse || 'Brest',
+      surface: Math.round(c.surfaceAffichee || c.surface || 0),
+      prix: c.prix,
+      prixM2: c.prixM2
+    }));
+
+  return {
+    prixM2,
+    medianM2,
+    diffPct,
+    sampleCount: matchedSales.length,
+    scopeLabel,
+    yearsLabel: yearsUsed.join('–'),
+    comparables
+  };
+}
+
 function extractPriceHistory(folderPath, allFiles) {
   const entries = [];
-  const sortedFiles = [...allFiles].sort(); // chronological by filename
+  const sortedFiles = [...allFiles].sort();
   for (const file of sortedFiles) {
     const m = file.match(/^(\d{4})(\d{2})(\d{2})_(\d{2})(\d{2})(\d{2})_([\w]+)\.md$/);
     if (!m) continue;
@@ -74,7 +183,6 @@ function extractPriceHistory(folderPath, allFiles) {
         priceLabel = priceVal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '\u202f') + '\u00a0€';
       }
     }
-    // Only add if price differs from the last entry
     if (entries.length === 0 || entries[entries.length - 1].priceVal !== priceVal) {
       entries.push({ date: dateLabel, dateTs, price: priceLabel, priceVal });
     }
@@ -82,9 +190,8 @@ function extractPriceHistory(folderPath, allFiles) {
   return entries;
 }
 
-// Generate HTML for price history section
 function renderPriceHistory(history) {
-  if (history.length <= 1) return ''; // no changes
+  if (history.length <= 1) return '';
   let rows = '';
   for (let i = 0; i < history.length; i++) {
     const h = history[i];
@@ -121,254 +228,139 @@ function renderPriceHistory(history) {
 ${rows}</tbody>
 </table>
 </div>
-
-<style>
-.price-history-wrap { overflow-x: auto; margin: 16px 0; }
-.price-history-table { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
-.price-history-table th { text-align: left; padding: 10px 14px; background: var(--vp-c-bg-soft); border-bottom: 2px solid var(--vp-c-gutter); font-weight: 700; color: var(--vp-c-text-2); text-transform: uppercase; font-size: 0.75rem; letter-spacing: 0.5px; }
-.price-history-table td { padding: 10px 14px; border-bottom: 1px solid var(--vp-c-gutter); }
-.ph-row.ph-current td { background: var(--vp-c-bg-soft); font-weight: 700; }
-.ph-badge { display: inline-block; padding: 3px 8px; border-radius: 12px; font-size: 0.8rem; font-weight: 600; }
-.ph-first { background: rgba(99,102,241,0.12); color: #6366f1; }
-.ph-down { background: rgba(16,185,129,0.12); color: #10b981; }
-.ph-up { background: rgba(239,68,68,0.12); color: #ef4444; }
-.ph-same { background: var(--vp-c-bg-soft); color: var(--vp-c-text-3); }
-</style>
 `;
 }
 
-function parseFrenchDate(dateStr) {
-  if (!dateStr) return 0;
-  const months = {
-    janvier: 0, février: 1, mars: 2, avril: 3, mai: 4, juin: 5,
-    juillet: 6, août: 7, septembre: 8, octobre: 9, novembre: 10, décembre: 11
-  };
-  const match = dateStr.match(/(\d+)\s+([a-zéûû\s]+)\s+(\d+)\s+à\s+(\d+)h(\d+)/i);
-  if (!match) return 0;
-  const day = parseInt(match[1], 10);
-  const monthName = match[2].trim().toLowerCase();
-  const month = months[monthName] !== undefined ? months[monthName] : 0;
-  const year = parseInt(match[3], 10);
-  const hour = parseInt(match[4], 10);
-  const minute = parseInt(match[5], 10);
-  return new Date(year, month, day, hour, minute).getTime();
-}
+function renderDvfSection(dvfComp, type) {
+  if (!dvfComp) return '';
+  const sign = dvfComp.diffPct > 0 ? `+${dvfComp.diffPct}%` : `${dvfComp.diffPct}%`;
+  const badgeClass = dvfComp.diffPct <= -5 ? 'dvf-good' : dvfComp.diffPct <= 10 ? 'dvf-neutral' : 'dvf-high';
+  const verdict = dvfComp.diffPct <= -5
+    ? 'Sous la médiane notariale'
+    : dvfComp.diffPct <= 10
+      ? 'Aligné avec le marché notarial'
+      : 'Au-dessus de la médiane notariale';
 
-function formatPriceCleanly(priceStr) {
-  if (!priceStr) return 'Non renseigné';
-  if (priceStr.toLowerCase().includes('demande')) return 'Prix sur demande';
-  let cleaned = priceStr.replace(/€Â¯/g, ' ').replace(/Â¯/g, ' ').replace(/\s+/g, ' ').trim();
-  cleaned = cleaned.replace(/\s*€\s*/g, '').trim();
-  if (isNaN(parseInt(cleaned.replace(/\s/g, ''), 10))) {
-    return priceStr;
-  }
-  return cleaned.replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + ' €';
-}
-
-function extractMaluses(lines) {
-  const maluses = [];
-  let inScoringBlock = false;
-  
-  let hasPasDernierEtage = false;
-  let hasPasSeulEtage = false;
-  let combinedMalusText = null;
-
-  for (const line of lines) {
-    if (line.includes('- **Score de correspondance** :')) {
-      inScoringBlock = true;
-      continue;
-    }
-    if (inScoringBlock) {
-      if (line.startsWith('  - [')) {
-        const isChecked = line.includes('[x]');
-        const isUnchecked = line.includes('[ ]');
-        
-        if (isUnchecked) {
-          let text = line.replace(/^\s*-\s*\[\s*\]\s*/, '').trim();
-          if (text.includes('Siam / Triangle')) {
-            const match = text.match(/\((-[0-9.]+\s*pour\s*Tiers\s*\d)\)/i);
-            text = match ? `Localisation : ${match[1].replace('pour ', '')}` : 'Localisation (Tiers 2/3)';
-            maluses.push(text);
-          } else if (text.includes('Dernier étage')) {
-            hasPasDernierEtage = true;
-            if (text.includes('non dernier & non seul')) {
-              combinedMalusText = "Pas dernier ni seul à l'étage (-2.0)";
-            } else {
-              const match = text.match(/\((-[0-9.]+)\)/);
-              combinedMalusText = `Pas dernier étage${match ? ' (' + match[1] + ')' : ' (-1.0)'}`;
-            }
-          } else if (text.includes('Seul à l\'étage')) {
-            hasPasSeulEtage = true;
-            const match = text.match(/\((-[0-9.]+)\)/);
-            if (match) {
-              combinedMalusText = `Pas seul à l'étage (${match[1]})`;
-            }
-          } else if (text.includes('Terrasse')) {
-            const match = text.match(/\((-[0-9.]+)\)/);
-            text = `Pas de terrasse/jardin${match ? ' (' + match[1] + ')' : ''}`;
-            maluses.push(text);
-          } else if (text.includes('Ascenseur')) {
-            const match = text.match(/\((-[0-9.]+)\)/);
-            text = `Pas d'ascenseur${match ? ' (' + match[1] + ')' : ''}`;
-            maluses.push(text);
-          } else if (text.includes('Parking')) {
-            const match = text.match(/\((-[0-9.]+)\)/);
-            text = `Pas de parking/garage${match ? ' (' + match[1] + ')' : ''}`;
-            maluses.push(text);
-          } else {
-            maluses.push(text);
-          }
-        } else if (isChecked && (line.includes('Malus') || line.includes('Bonus'))) {
-          let text = line.replace(/^\s*-\s*\[x\]\s*/, '').trim();
-          maluses.push(text);
-        }
-      } else if (line.trim() !== '' && !line.startsWith(' ')) {
-        inScoringBlock = false;
-      }
+  let compRows = '';
+  if (dvfComp.comparables && dvfComp.comparables.length > 0) {
+    for (const c of dvfComp.comparables) {
+      const [y, m, d] = (c.date || '').split('-');
+      const dateStr = d && m && y ? `${d}/${m}/${y}` : c.date;
+      const prixStr = (c.prix || 0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '\u202f') + '\u00a0€';
+      const m2Str = (c.prixM2 || 0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, '\u202f') + '\u00a0€/m²';
+      compRows += `<tr><td>${dateStr}</td><td>${c.adresse}</td><td>${c.surface} m²</td><td><strong>${prixStr}</strong></td><td>${m2Str}</td></tr>\n`;
     }
   }
 
-  if (hasPasDernierEtage && hasPasSeulEtage) {
-    maluses.push(combinedMalusText || "Pas dernier ni seul à l'étage (-2.0)");
-  } else if (hasPasDernierEtage) {
-    maluses.push(combinedMalusText || "Pas dernier étage (-1.0)");
-  } else if (hasPasSeulEtage) {
-    maluses.push(combinedMalusText || "Pas seul à l'étage (-1.0)");
-  }
+  const prixM2Str = dvfComp.prixM2.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '\u202f') + '\u00a0€/m²';
+  const medM2Str = dvfComp.medianM2.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '\u202f') + '\u00a0€/m²';
 
-  return maluses;
+  return `
+---
+
+## 📊 Positionnement Marché vs Ventes Réelles (DVF ${dvfComp.yearsLabel})
+
+<div class="dvf-comp-panel">
+  <div class="dvf-comp-metrics">
+    <div class="dvf-metric">
+      <span class="dvf-metric-label">Prix / m² affiché</span>
+      <span class="dvf-metric-val">${prixM2Str}</span>
+    </div>
+    <div class="dvf-metric">
+      <span class="dvf-metric-label">Médiane DVF (${dvfComp.scopeLabel})</span>
+      <span class="dvf-metric-val">${medM2Str}</span>
+      <span class="dvf-metric-sub">sur ${dvfComp.sampleCount} ventes (${type.toLowerCase()}s)</span>
+    </div>
+    <div class="dvf-metric">
+      <span class="dvf-metric-label">Écart vs Notaires</span>
+      <span class="dvf-badge ${badgeClass}">${sign} (${verdict})</span>
+    </div>
+  </div>
+  ${compRows ? `
+  <details class="dvf-comp-details">
+    <summary>Voir les 5 ventes notariées comparables dans le secteur (${dvfComp.scopeLabel})</summary>
+    <div class="price-history-wrap">
+      <table class="price-history-table">
+        <thead><tr><th>Date</th><th>Adresse</th><th>Surface</th><th>Prix net vendeur</th><th>Prix/m²</th></tr></thead>
+        <tbody>${compRows}</tbody>
+      </table>
+    </div>
+  </details>` : ''}
+</div>
+`;
 }
 
-function generateSite() {
-  if (!fs.existsSync(SOURCE_DIR)) {
-    console.error(`Error: Source directory ${SOURCE_DIR} does not exist.`);
-    return;
-  }
-
-  const folders = fs.readdirSync(SOURCE_DIR).filter(f => fs.statSync(path.join(SOURCE_DIR, f)).isDirectory());
+function processDirectory(dirPath, dvfContext, isSas = false) {
+  if (!fs.existsSync(dirPath)) return [];
+  const folders = fs.readdirSync(dirPath).filter(f => fs.statSync(path.join(dirPath, f)).isDirectory());
   const listings = [];
 
   for (const folder of folders) {
-    const folderPath = path.join(SOURCE_DIR, folder);
+    const folderPath = path.join(dirPath, folder);
     const files = fs.readdirSync(folderPath).filter(f => f.endsWith('.md'));
 
     const sortedFiles = [...files].sort();
     const latestMdFile = sortedFiles.length > 0 ? sortedFiles[sortedFiles.length - 1] : null;
-
     if (!latestMdFile) continue;
 
-    // Extract price history from all files in the folder
     const priceHistory = extractPriceHistory(folderPath, files);
-
     const filePath = path.join(folderPath, latestMdFile);
-    const content = fs.readFileSync(filePath, 'utf8').replace(/^\uFEFF/, '');
-    const lines = content.split(/\r?\n/);
+    const rawContent = fs.readFileSync(filePath, 'utf8');
+    const parsed = parseListingMarkdown(rawContent);
 
-    const titleLine = lines.find(l => l.startsWith('# '));
-    if (!titleLine) continue;
+    if (!parsed.titleLine && !parsed.title) continue;
 
-    // Source
-    const sourceMatch = titleLine.match(/^#\s*\[([^\]]+)\]/);
-    const source = sourceMatch ? sourceMatch[1] : 'Inconnu';
+    const {
+      source,
+      title,
+      score,
+      status,
+      dateFirst,
+      dateLast,
+      dateVal,
+      duration,
+      priceClean,
+      priceVal,
+      location,
+      quartier,
+      quartierObj,
+      tier,
+      url,
+      additionalLinks,
+      type,
+      surfaceStr,
+      surfaceVal,
+      pieces,
+      prestations,
+      description,
+      maluses,
+      criteriaLines
+    } = parsed;
 
-    // Score
-    const scoreMatch = titleLine.match(/\(Score:\s*([\d.]+)\/10\)/i);
-    const score = scoreMatch ? parseFloat(scoreMatch[1]) : 0.0;
-
-    // Clean title
-    const title = titleLine.replace(/^#\s*\[[^\]]+\]\s*-\s*/, '').replace(/\s*\(Score:\s*[\d.]+\/10\)\s*$/, '').trim();
-
-    const statusLine = lines.find(l => l.includes('- **Statut** :'));
-    const status = statusLine ? statusLine.replace(/.*-\s*\*\*Statut\*\*\s*:\s*/i, '').trim() : 'Actif';
-
-    const dateFirstLine = lines.find(l => l.includes('- **Date de première vue** :'));
-    const dateFirst = dateFirstLine ? dateFirstLine.replace(/.*-\s*\*\*Date de première vue\*\*\s*:\s*/i, '').trim() : '';
-
-    const dateLastLine = lines.find(l => l.includes('- **Dernière vue** :'));
-    const dateLast = dateLastLine ? dateLastLine.replace(/.*-\s*\*\*Dernière vue\*\*\s*:\s*/i, '').trim() : '';
-
-    const durationLine = lines.find(l => l.includes('- **Durée de référencement** :'));
-    const duration = durationLine ? durationLine.replace(/.*-\s*\*\*Durée de référencement\*\*\s*:\s*/i, '').trim() : '';
-
-    const priceLine = lines.find(l => l.includes('- **Prix** :'));
-    const priceRaw = priceLine ? priceLine.replace(/.*-\s*\*\*Prix\*\*\s*:\s*/i, '').trim() : 'Non spécifié';
-    const priceClean = formatPriceCleanly(priceRaw);
-
-    const locLine = lines.find(l => l.includes('- **Localisation** :'));
-    const location = locLine ? locLine.replace(/.*-\s*\*\*Localisation\*\*\s*:\s*/i, '').trim() : 'Non spécifiée';
-
-    const urlLine = lines.find(l => l.includes("- **Lien de l'annonce** :"));
-    const urlMatch = urlLine ? urlLine.match(/\((https?:\/\/[^\s)]+)\)/) : null;
-    const url = urlMatch ? urlMatch[1] : '';
-
-    const additionalLinks = [];
-    for (const line of lines) {
-      const match = line.match(/-\s*\*\*Lien additionnel\s*\(([^)]+)\)\*\*\s*:\s*\[Consulter l'annonce\]\((https?:\/\/[^\s)]+)\)/i);
-      if (match) {
-        additionalLinks.push({
-          source: match[1],
-          url: match[2]
-        });
-      }
-    }
-
-    const typeLine = lines.find(l => l.includes('Type de bien :'));
-    const type = typeLine ? typeLine.replace(/.*Type de bien\s*:\s*/i, '').trim() : 'Non spécifié';
-
-    const surfaceLine = lines.find(l => l.includes('Surface :'));
-    const surfaceStr = surfaceLine ? surfaceLine.replace(/.*Surface\s*:\s*/i, '').trim() : '';
-
-    const piecesLine = lines.find(l => l.includes('Pièces :') || l.includes('Pieces :'));
-    const pieces = piecesLine ? piecesLine.replace(/.*Piec?es\s*:\s*/i, '').trim() : '';
-
-    const prestLine = lines.find(l => l.includes('Prestations :'));
-    const prestations = prestLine ? prestLine.replace(/.*Prestations\s*:\s*/i, '').trim() : 'Aucune';
-
-    // Extract description
-    const descLines = [];
-    let inDesc = false;
-    for (const line of lines) {
-      if (line.trim() === '```text') {
-        inDesc = true;
-        continue;
-      }
-      if (inDesc && line.trim() === '```') {
-        inDesc = false;
-        break;
-      }
-      if (inDesc) {
-        descLines.push(line);
-      }
-    }
-    const description = descLines.join('\n');
-
-    // Values for sorting/filtering
-    const priceVal = parsePrice(priceRaw);
-    const surfaceVal = parseSurface(surfaceStr);
-    const dateVal = parseFrenchDate(dateLast || dateFirst);
-
-    // Extract maluses
-    const maluses = extractMaluses(lines);
-
-    // Check screenshot
     const screenshotPath = path.join(folderPath, 'latest_screenshot.png');
     const hasScreenshot = fs.existsSync(screenshotPath);
     if (hasScreenshot) {
-      // Copy screenshot to public directory
       fs.copyFileSync(screenshotPath, path.join(SCREENSHOTS_DIR, `${folder}.png`));
     }
 
-    // Save parsed listing to list
+    const prixM2 = (priceVal > 0 && surfaceVal > 0) ? Math.round(priceVal / surfaceVal) : 0;
+    const dvfComparison = computeDvfComparison(dvfContext, type, surfaceVal, priceVal, quartierObj);
+
     listings.push({
       folder,
+      isSas,
       source,
       title,
       price: priceClean,
       priceVal,
+      prixM2,
+      dvfComparison,
       priceHistory,
       score,
-      status,
+      status: isSas ? 'Sas d\'attente' : status,
       location,
+      quartier: quartier || location,
+      tier,
       url,
       type,
       surface: surfaceStr,
@@ -383,28 +375,15 @@ function generateSite() {
       description
     });
 
-    // Write individual listing markdown page for VitePress
-    let inScoringBlock = false;
-    let criteriaLines = [];
-    for (const line of lines) {
-      if (line.includes('- **Score de correspondance** :')) {
-        inScoringBlock = true;
-        criteriaLines.push(line);
-        continue;
-      }
-      if (inScoringBlock) {
-        if (line.startsWith('  - [')) {
-          criteriaLines.push(line);
-        } else if (line.trim() !== '' && !line.startsWith(' ')) {
-          inScoringBlock = false;
-        }
-      }
-    }
-
     let additionalButtons = '';
     for (const link of additionalLinks) {
       additionalButtons += `\n  <a href="${link.url}" target="_blank" rel="noopener" class="action-btn original-btn">Consulter sur ${link.source} ↗</a>`;
     }
+
+    const displayStatus = isSas ? "⏳ En attente (Sas)" : status;
+    const prixM2Display = prixM2 > 0
+      ? `${prixM2.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ')} €/m²`
+      : 'Non calculable';
 
     const detailMd = `---
 title: "[${source}] ${title}"
@@ -416,7 +395,8 @@ outline: deep
 <div class="detail-header-panel">
   <div class="detail-header-left">
     <span class="detail-source-badge">${source}</span>
-    <span class="detail-status-badge status-${status.toLowerCase().replace(/\s+/g, '-')}" style="margin-left: 8px;">${status}</span>
+    <span class="detail-status-badge status-${status.toLowerCase().replace(/\s+/g, '-')}" style="margin-left: 8px;">${displayStatus}</span>
+    ${quartier ? `<span class="detail-quartier-badge" style="margin-left: 8px;">📍 ${quartier} (Tiers ${tier})</span>` : ''}
   </div>
   <div class="detail-header-right">
     <div class="detail-score-circle score-${score >= 7 ? 'high' : score >= 5 ? 'medium' : 'low'}">
@@ -437,8 +417,9 @@ outline: deep
   </div>
   <div class="grid-stat-card">
     <div class="card-icon">📐</div>
-    <div class="card-label">Surface</div>
+    <div class="card-label">Surface & Prix/m²</div>
     <div class="card-val">${surfaceStr || 'Non spécifiée'}</div>
+    <div class="card-sub">${prixM2Display}</div>
   </div>
   <div class="grid-stat-card">
     <div class="card-icon">🚪</div>
@@ -448,9 +429,11 @@ outline: deep
   <div class="grid-stat-card">
     <div class="card-icon">📍</div>
     <div class="card-label">Localisation</div>
-    <div class="card-val">${location}</div>
+    <div class="card-val">${quartier || location}</div>
   </div>
 </div>
+
+${renderDvfSection(dvfComparison, type)}
 
 ---
 
@@ -501,6 +484,8 @@ ${hasScreenshot ? `
   padding: 15px 25px;
   border-radius: 12px;
   border: 1px solid var(--vp-c-gutter);
+  flex-wrap: wrap;
+  gap: 12px;
 }
 
 .detail-source-badge {
@@ -520,6 +505,15 @@ ${hasScreenshot ? `
   border-radius: 20px;
   font-weight: 600;
   font-size: 0.9rem;
+}
+
+.detail-quartier-badge {
+  background: rgba(99, 102, 241, 0.14);
+  color: #6366f1;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 0.85rem;
 }
 
 .detail-status-badge.status-actif, .detail-status-badge.status-nouveau {
@@ -554,7 +548,7 @@ ${hasScreenshot ? `
 
 .grid-stats {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: 15px;
   margin: 20px 0;
 }
@@ -586,10 +580,95 @@ ${hasScreenshot ? `
   margin-top: 4px;
 }
 
+.card-sub {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--vp-c-brand);
+  margin-top: 2px;
+}
+
+.dvf-comp-panel {
+  background: var(--vp-c-bg-soft);
+  border: 1px solid var(--vp-c-gutter);
+  border-radius: 12px;
+  padding: 18px 22px;
+  margin: 16px 0;
+}
+
+.dvf-comp-metrics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  align-items: center;
+}
+
+.dvf-metric {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.dvf-metric-label {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  color: var(--vp-c-text-3);
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.dvf-metric-val {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--vp-c-text-1);
+}
+
+.dvf-metric-sub {
+  font-size: 0.78rem;
+  color: var(--vp-c-text-3);
+}
+
+.dvf-badge {
+  display: inline-block;
+  width: fit-content;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.dvf-good { background: rgba(16, 185, 129, 0.15); color: #10b981; }
+.dvf-neutral { background: rgba(59, 130, 246, 0.15); color: #3b82f6; }
+.dvf-high { background: rgba(245, 158, 11, 0.16); color: #f59e0b; }
+
+.dvf-comp-details {
+  margin-top: 16px;
+  border-top: 1px solid var(--vp-c-gutter);
+  padding-top: 12px;
+}
+
+.dvf-comp-details summary {
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--vp-c-brand);
+}
+
+.price-history-wrap { overflow-x: auto; margin: 16px 0; }
+.price-history-table { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
+.price-history-table th { text-align: left; padding: 10px 14px; background: var(--vp-c-bg-soft); border-bottom: 2px solid var(--vp-c-gutter); font-weight: 700; color: var(--vp-c-text-2); text-transform: uppercase; font-size: 0.75rem; letter-spacing: 0.5px; }
+.price-history-table td { padding: 10px 14px; border-bottom: 1px solid var(--vp-c-gutter); }
+.ph-row.ph-current td { background: var(--vp-c-bg-soft); font-weight: 700; }
+.ph-badge { display: inline-block; padding: 3px 8px; border-radius: 12px; font-size: 0.8rem; font-weight: 600; }
+.ph-first { background: rgba(99,102,241,0.12); color: #6366f1; }
+.ph-down { background: rgba(16,185,129,0.12); color: #10b981; }
+.ph-up { background: rgba(239,68,68,0.12); color: #ef4444; }
+.ph-same { background: var(--vp-c-bg-soft); color: var(--vp-c-text-3); }
+
 .detail-actions {
   display: flex;
   gap: 15px;
   margin-top: 40px;
+  flex-wrap: wrap;
 }
 
 .action-btn {
@@ -624,7 +703,21 @@ ${hasScreenshot ? `
     fs.writeFileSync(path.join(BIENS_DIR, `${folder}.md`), detailMd, 'utf8');
   }
 
-  // Get timestamp and string for last search
+  return listings;
+}
+
+function generateSite() {
+  if (!fs.existsSync(SOURCE_DIR)) {
+    console.error(`Error: Source directory ${SOURCE_DIR} does not exist.`);
+    return;
+  }
+
+  const dvfContext = loadRecentDvfSales();
+  console.log(`Loaded ${dvfContext.sales.length} comparable DVF transactions (${dvfContext.yearsUsed.join(', ')}) for market comparison.`);
+
+  const listings = processDirectory(SOURCE_DIR, dvfContext, false);
+  const sasListings = processDirectory(SAS_DIR, dvfContext, true);
+
   let lastUpdateStr = new Date().toLocaleString('fr-FR', {
     day: 'numeric',
     month: 'long',
@@ -641,18 +734,22 @@ ${hasScreenshot ? `
         lastUpdateStr = data.last_search_date_str;
       }
     } catch (e) {
-      console.warn("Failed to parse last_search_info.json:", e);
+      console.warn('Failed to parse last_search_info.json:', e);
     }
   }
 
-  // Save all parsed listings to JSON
   const listingsJson = {
     last_update: lastUpdateStr,
-    listings: listings
+    listings,
+    sas_listings: sasListings
   };
 
   fs.writeFileSync(path.join(PUBLIC_DIR, 'listings_data.json'), JSON.stringify(listingsJson, null, 2), 'utf8');
-  console.log(`Generated listings data for ${listings.length} properties.`);
+  console.log(`Generated listings data for ${listings.length} active/archived properties and ${sasListings.length} SAS properties.`);
 }
 
-generateSite();
+if (require.main === module) {
+  generateSite();
+}
+
+module.exports = { generateSite };

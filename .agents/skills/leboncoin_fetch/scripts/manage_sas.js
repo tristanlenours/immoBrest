@@ -1,10 +1,13 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const { execSync } = require('node:child_process');
+const {
+  SAS_DIR,
+  OUTPUT_DIR: ACTIVE_DIR,
+  CORBEILLE_DIR,
+  parseListingMarkdown
+} = require('../../shared/listing_utils');
 
-const SAS_DIR = path.resolve(__dirname, '../../../../leboncoin_sas');
-const ACTIVE_DIR = path.resolve(__dirname, '../../../../leboncoin_searches');
-const CORBEILLE_DIR = path.resolve(__dirname, '../../../../corbeille');
 const SCORING_SCRIPT = path.resolve(__dirname, '../../leboncoin_scoring/scripts/score_listings.js');
 const GENERATE_SCRIPT = path.resolve(__dirname, '../../leboncoin_generate_site/scripts/generate_site.js');
 
@@ -16,51 +19,24 @@ function getStagedListings() {
   for (const folder of folders) {
     const folderPath = path.join(SAS_DIR, folder);
     const files = fs.readdirSync(folderPath).filter(f => f.endsWith('.md'));
-    let latestMdFile = null;
-    let latestMtime = 0;
-    for (const file of files) {
-      const stat = fs.statSync(path.join(folderPath, file));
-      if (stat.mtimeMs > latestMtime) {
-        latestMtime = stat.mtimeMs;
-        latestMdFile = file;
-      }
-    }
+    const sortedFiles = [...files].sort();
+    const latestMdFile = sortedFiles.length > 0 ? sortedFiles[sortedFiles.length - 1] : null;
 
     if (!latestMdFile) continue;
 
     const content = fs.readFileSync(path.join(folderPath, latestMdFile), 'utf8');
-    const lines = content.split(/\r?\n/);
-
-    const titleLine = lines.find(l => l.startsWith('# '));
-    const titleMatch = titleLine ? titleLine.match(/#\s*\[([^\]]+)\]\s*-\s*(.*?)(?:\s*\(Score:\s*(.*?)\))?$/) : null;
-    const source = titleMatch ? titleMatch[1] : 'Unknown';
-    const title = titleMatch ? titleMatch[2] : 'Untitled';
-    const score = titleMatch && titleMatch[3] ? titleMatch[3] : 'N/A';
-
-    const priceLine = lines.find(l => l.includes('- **Prix** :'));
-    const price = priceLine ? priceLine.replace(/- \*\*Prix\*\* :/i, '').trim() : 'N/A';
-
-    const locLine = lines.find(l => l.includes('- **Localisation** :'));
-    const location = locLine ? locLine.replace(/- \*\*Localisation\*\* :/i, '').trim() : 'N/A';
-
-    const surfaceLine = lines.find(l => l.includes('Surface :'));
-    const surfaceMatch = surfaceLine ? surfaceLine.match(/Surface\s*:\s*([\d.,]+)/i) : null;
-    const surface = surfaceMatch ? `${surfaceMatch[1]} m²` : 'N/A';
-
-    const urlLine = lines.find(l => l.includes("- **Lien de l'annonce** :"));
-    const urlMatch = urlLine ? urlLine.match(/\((https?:\/\/[^\s)]+)\)/) : null;
-    const url = urlMatch ? urlMatch[1] : '';
+    const parsed = parseListingMarkdown(content);
 
     listings.push({
       folder,
       folderPath,
-      source,
-      title,
-      price,
-      location,
-      surface,
-      score,
-      url
+      source: parsed.source,
+      title: parsed.title,
+      price: parsed.priceClean,
+      location: parsed.location,
+      surface: parsed.surfaceStr || 'N/A',
+      score: `${parsed.score}/10`,
+      url: parsed.url
     });
   }
 
@@ -70,7 +46,7 @@ function getStagedListings() {
 function listSas() {
   const listings = getStagedListings();
   if (listings.length === 0) {
-    console.log('Le sas d\'attente est vide (0 annonce en attente de validation).');
+    console.log("Le sas d'attente est vide (0 annonce en attente de validation).");
     return;
   }
 
@@ -90,6 +66,17 @@ function listSas() {
   console.log('  node .agents/skills/leboncoin_fetch/scripts/manage_sas.js reject <dossier|id|all>');
 }
 
+function refreshScoreAndSite() {
+  try {
+    console.log('\nRecalcul des scores et régénération du site...');
+    execSync(`node "${SCORING_SCRIPT}"`, { stdio: 'inherit' });
+    execSync(`node "${GENERATE_SCRIPT}"`, { stdio: 'inherit' });
+    console.log('Base active et site VitePress mis à jour avec succès.');
+  } catch (err) {
+    console.error('Erreur lors du scoring ou de la génération du site:', err.message);
+  }
+}
+
 function approveListing(target) {
   if (!fs.existsSync(ACTIVE_DIR)) {
     fs.mkdirSync(ACTIVE_DIR, { recursive: true });
@@ -98,19 +85,16 @@ function approveListing(target) {
   const listings = getStagedListings();
   if (listings.length === 0) {
     console.log('Aucune annonce dans le sas à valider.');
-    return;
+    return [];
   }
 
-  let toApprove = [];
-  if (target === 'all') {
-    toApprove = listings;
-  } else {
-    toApprove = listings.filter(l => l.folder === target || l.folder.includes(target));
-  }
+  const toApprove = target === 'all'
+    ? listings
+    : listings.filter(l => l.folder === target || l.folder.includes(target));
 
   if (toApprove.length === 0) {
     console.error(`Aucune annonce ne correspond au terme "${target}" dans le sas.`);
-    return;
+    return [];
   }
 
   for (const item of toApprove) {
@@ -128,15 +112,8 @@ function approveListing(target) {
     console.log(`[APPROUVÉ] ${item.folder} déplacé vers la base active (leboncoin_searches).`);
   }
 
-  // Auto score & generate site
-  try {
-    console.log('\nRecalcul des scores et régénération du site...');
-    execSync(`node "${SCORING_SCRIPT}"`, { stdio: 'inherit' });
-    execSync(`node "${GENERATE_SCRIPT}"`, { stdio: 'inherit' });
-    console.log('Base active et site VitePress mis à jour avec succès.');
-  } catch (err) {
-    console.error('Erreur lors du scoring ou de la génération du site:', err.message);
-  }
+  refreshScoreAndSite();
+  return toApprove.map(i => i.folder);
 }
 
 function rejectListing(target) {
@@ -147,19 +124,16 @@ function rejectListing(target) {
   const listings = getStagedListings();
   if (listings.length === 0) {
     console.log('Aucune annonce dans le sas à rejeter.');
-    return;
+    return [];
   }
 
-  let toReject = [];
-  if (target === 'all') {
-    toReject = listings;
-  } else {
-    toReject = listings.filter(l => l.folder === target || l.folder.includes(target));
-  }
+  const toReject = target === 'all'
+    ? listings
+    : listings.filter(l => l.folder === target || l.folder.includes(target));
 
   if (toReject.length === 0) {
     console.error(`Aucune annonce ne correspond au terme "${target}" dans le sas.`);
-    return;
+    return [];
   }
 
   for (const item of toReject) {
@@ -175,27 +149,33 @@ function rejectListing(target) {
     }
     console.log(`[REJETÉ] ${item.folder} déplacé vers la corbeille.`);
   }
+
+  refreshScoreAndSite();
+  return toReject.map(i => i.folder);
 }
 
-// CLI entry point
-const args = process.argv.slice(2);
-const command = args[0] ? args[0].toLowerCase() : 'list';
-const target = args[1];
+if (require.main === module) {
+  const args = process.argv.slice(2);
+  const command = args[0] ? args[0].toLowerCase() : 'list';
+  const target = args[1];
 
-if (command === 'list' || command === 'ls') {
-  listSas();
-} else if (command === 'approve' || command === 'accept') {
-  if (!target) {
-    console.error('Veuillez spécifier le nom du dossier, l\'ID ou "all". Exemple: node manage_sas.js approve all');
-    process.exit(1);
+  if (command === 'list' || command === 'ls') {
+    listSas();
+  } else if (command === 'approve' || command === 'accept') {
+    if (!target) {
+      console.error('Veuillez spécifier le nom du dossier, l\'ID ou "all". Exemple: node manage_sas.js approve all');
+      process.exit(1);
+    }
+    approveListing(target);
+  } else if (command === 'reject' || command === 'trash') {
+    if (!target) {
+      console.error('Veuillez spécifier le nom du dossier, l\'ID ou "all". Exemple: node manage_sas.js reject all');
+      process.exit(1);
+    }
+    rejectListing(target);
+  } else {
+    console.log(`Commande inconnue "${command}". Usage: node manage_sas.js [list|approve|reject] [target]`);
   }
-  approveListing(target);
-} else if (command === 'reject' || command === 'trash') {
-  if (!target) {
-    console.error('Veuillez spécifier le nom du dossier, l\'ID ou "all". Exemple: node manage_sas.js reject all');
-    process.exit(1);
-  }
-  rejectListing(target);
-} else {
-  console.log(`Commande inconnue "${command}". Usage: node manage_sas.js [list|approve|reject] [target]`);
 }
+
+module.exports = { getStagedListings, approveListing, rejectListing };

@@ -2,64 +2,21 @@ const dns = require('node:dns');
 dns.setDefaultResultOrder('ipv4first');
 const fs = require('node:fs');
 const path = require('node:path');
-
-const OUTPUT_DIR = path.resolve(__dirname, '../../../../leboncoin_searches');
-const SAS_DIR = path.resolve(__dirname, '../../../../leboncoin_sas');
-const CORBEILLE_DIR = path.resolve(__dirname, '../../../../corbeille');
-
-function normalizeString(str) {
-  return (str || '')
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '')
-    .toLowerCase();
-}
-
-function normalizeForDup(str) {
-  return normalizeString(str).replace(/[^\w]/g, '');
-}
-
-function decodeHtmlEntities(str) {
-  if (!str) return '';
-  return str
-    .replace(/&amp;/g, '&')
-    .replace(/&rsquo;/g, "'")
-    .replace(/&lsquo;/g, "'")
-    .replace(/&ldquo;/g, '"')
-    .replace(/&rdquo;/g, '"')
-    .replace(/&quot;/g, '"')
-    .replace(/&#039;/g, "'")
-    .replace(/&#39;/g, "'")
-    .replace(/&Agrave;/g, 'À')
-    .replace(/&eacute;/g, 'é')
-    .replace(/&egrave;/g, 'è')
-    .replace(/&ecirc;/g, 'ê')
-    .replace(/&agrave;/g, 'à')
-    .replace(/&icirc;/g, 'î')
-    .replace(/&ocirc;/g, 'ô')
-    .replace(/&ucirc;/g, 'û')
-    .replace(/&deg;/g, '°')
-    .replace(/&nbsp;/g, ' ')
-    .replace(/&#8211;/g, '–')
-    .replace(/&#8217;/g, "'")
-    .replace(/&#178;/g, '²')
-    .replace(/&#x27;/gi, "'")
-    .replace(/&#xE8;/gi, 'è')
-    .replace(/&#xE9;/gi, 'é')
-    .replace(/&#xE0;/gi, 'à')
-    .replace(/&#xEB;/gi, 'ë')
-    .replace(/&#xFB;/gi, 'û')
-    .replace(/&#xFA;/gi, 'ú')
-    .replace(/&#xB2;/gi, '²')
-    .replace(/&#x20AC;/gi, '€')
-    .replace(/\r?\n/g, ' ')
-    .replace(/\s+/g, ' ')
-    .trim();
-}
-
-function formatPrice(price) {
-  if (typeof price !== 'number') return 'Prix sur demande';
-  return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + ' €';
-}
+const os = require('node:os');
+const {
+  OUTPUT_DIR,
+  SAS_DIR,
+  CORBEILLE_DIR,
+  normalizeString,
+  normalizeForDup,
+  decodeHtmlEntities,
+  formatPrice,
+  parseFrenchDate,
+  detectQuartier,
+  hasIdentifiedQuartier,
+  scoreProperty,
+  parseListingMarkdown
+} = require('../../shared/listing_utils');
 
 function formatLeboncoinDate(dateStr) {
   if (!dateStr) return null;
@@ -74,6 +31,8 @@ const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 const { exec } = require('child_process');
 
 async function waitForPort(port, maxRetries = 15, delay = 1000) {
+  const chromeBin = process.env.CHROME_BIN || 'C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe';
+  const chromeProfile = process.env.CHROME_PROFILE_DIR || path.join(os.homedir(), 'AppData', 'Local', 'Google', 'Chrome', 'User Data', 'TempProfile');
   for (let i = 0; i < maxRetries; i++) {
     try {
       const res = await fetch(`http://127.0.0.1:${port}/json`);
@@ -82,7 +41,7 @@ async function waitForPort(port, maxRetries = 15, delay = 1000) {
     } catch (e) {
       if (i === 0) {
         console.log(`Chrome port ${port} not active. Attempting to start Chrome in debugging mode...`);
-        exec('start "" "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe" --remote-debugging-port=9222 "--user-data-dir=C:\\Users\\trist\\AppData\\Local\\Google\\Chrome\\User Data\\TempProfile"');
+        exec(`start "" "${chromeBin}" --remote-debugging-port=${port} "--user-data-dir=${chromeProfile}"`);
       }
       if (i < maxRetries - 1) {
         await sleep(delay);
@@ -442,105 +401,9 @@ function isExcluded(title, description, location) {
   return false;
 }
 
-function hasIdentifiedQuartier(title, description, location, url = '') {
-  const fullText = normalizeString(title + ' ' + description + ' ' + location + ' ' + url);
-  
-  const recognizedQuartiers = [
-    'siam',
-    'triangle d or', "triangle d'or", 'triangle',
-    'saint-louis', 'saint louis', 'st-louis', 'st louis',
-    'wilson', 'place wilson',
-    'gare',
-    'cours dajot', "cours d ajot",
-    'chateau', 'château',
-    'jardin des explorateurs',
-    'saint-michel', 'saint michel', 'st-michel', 'st michel',
-    'gambetta',
-    'fac de medecine', 'fac de médecine', 'faculte de medecine', 'faculté de médecine', 'faculte', 'faculté', 'facultes', 'facultés',
-    'yves collet', 'yves-collet',
-    'pasteur',
-    'saint-martin', 'saint martin', 'st-martin', 'st martin',
-    'linois',
-    'capucins', 'capucin',
-    'branda',
-    'liberte', 'liberté',
-    'recouvrance',
-    'kerinou', 'kérinou',
-    'lanredec', 'lanrédec',
-    'harteloire',
-    'pilier rouge', 'pilier-rouge',
-    'port de commerce',
-    'guelmeur',
-    'corniche', 'la corniche'
-  ];
-
-  return recognizedQuartiers.some(q => fullText.includes(normalizeString(q)));
-}
-
-// Quick in-memory scorer used ONLY to determine if screenshot should be captured
+// Quick in-memory scorer delegating to unified scoreProperty from listing_utils.js
 function quickScoreProperty(title, description, detailsText, type) {
-  const fullText = (title + ' ' + description + ' ' + detailsText).toLowerCase();
-  const isHouse = type.toLowerCase().includes('maison');
-  
-  let score = 0;
-  
-  if (
-    fullText.includes('siam') || 
-    fullText.includes("triangle d'or") || 
-    fullText.includes('saint-louis') || 
-    fullText.includes('saint louis') || 
-    fullText.includes('wilson') ||
-    fullText.includes('gare') ||
-    fullText.includes('cours dajot') ||
-    fullText.includes('cours d\'ajot')
-  ) {
-    score += 5.5;
-  } else if (
-    fullText.includes('saint-michel') || fullText.includes('saint michel') ||
-    fullText.includes('gambetta') ||
-    fullText.includes('fac de médecine') || fullText.includes('fac de medecine') ||
-    fullText.includes('faculte de medecine') || fullText.includes('faculté de médecine') ||
-    fullText.includes('branda') ||
-    fullText.includes('liberté') ||
-    fullText.includes('liberte')
-  ) {
-    score += 4.0;
-  } else if (
-    fullText.includes('centre-ville') || fullText.includes('centre ville') ||
-    fullText.includes('pasteur') ||
-    fullText.includes('saint-martin') || fullText.includes('saint martin') ||
-    fullText.includes('linois')
-  ) {
-    score += 3.0;
-  }
-  
-  if (isHouse) score += 2.0;
-  else {
-    const floorMatch = fullText.match(/(\d+)(?:ème|er|re)?\s*étage\s*\/\s*(\d+)/i) || fullText.match(/étage\s*:\s*(\d+)\s*\/\s*(\d+)/i);
-    const floorIsEqual = floorMatch && floorMatch[1] === floorMatch[2];
-    if (fullText.includes('dernier étage') || fullText.includes('dernier etage') || floorIsEqual) {
-      score += 2.0;
-    }
-  }
-  
-  if (fullText.includes('terrasse') || (isHouse && fullText.includes('jardin'))) score += 2.0;
-  if (isHouse) score += 1.5;
-  else if (fullText.includes('ascenseur')) score += 1.5;
-  
-  if (fullText.includes('parking') || fullText.includes('garage') || fullText.includes('box') || fullText.includes('stationnement')) {
-    score += 1.5;
-  }
-  
-  if (
-    fullText.includes('guelmeur') ||
-    fullText.includes('saint-marc') || 
-    fullText.includes('saint marc') ||
-    fullText.includes('lanredec') || 
-    fullText.includes('lanrédec')
-  ) {
-    if (score > 7.0) score = 7.0;
-  }
-  
+  const { score } = scoreProperty(title, description, detailsText, type);
   return score;
 }
 
@@ -1546,23 +1409,6 @@ function areDuplicates(p1, p2) {
   return false;
 }
 
-function parseFrenchDate(dateStr) {
-  if (!dateStr) return 0;
-  const months = {
-    janvier: 0, février: 1, mars: 2, avril: 3, mai: 4, juin: 5,
-    juillet: 6, août: 7, septembre: 8, octobre: 9, novembre: 10, décembre: 11
-  };
-  const match = dateStr.match(/(\d+)\s+([a-zéûû\s]+)\s+(\d+)\s+à\s+(\d+)h(\d+)/i);
-  if (!match) return 0;
-  const day = parseInt(match[1], 10);
-  const monthName = match[2].trim().toLowerCase();
-  const month = months[monthName] !== undefined ? months[monthName] : 0;
-  const year = parseInt(match[3], 10);
-  const hour = parseInt(match[4], 10);
-  const minute = parseInt(match[5], 10);
-  return new Date(year, month, day, hour, minute).getTime();
-}
-
 async function checkUrlIs404(url) {
   if (!url || url.includes('leboncoin.fr')) return false;
   try {
@@ -1669,6 +1515,7 @@ const getLinks = (content) => {
   const luxiorMatch = content.match(/- \*\*Lien additionnel \(Luxior\)\*\* : \[Consulter l'annonce\]\(([^)]+)\)/);
   const lbcMatch = content.match(/- \*\*Lien additionnel \(Leboncoin\)\*\* : \[Consulter l'annonce\]\(([^)]+)\)/);
   const barraineMatch = content.match(/- \*\*Lien additionnel \(Barraine\)\*\* : \[Consulter l'annonce\]\(([^)]+)\)/);
+  const humanMatch = content.match(/- \*\*Lien additionnel \(Human\)\*\* : \[Consulter l'annonce\]\(([^)]+)\)/);
   
   if (mainMatch) {
     const url = mainMatch[1];
@@ -1676,11 +1523,13 @@ const getLinks = (content) => {
     else if (url.includes('agence-henry.com')) links.henry = url;
     else if (url.includes('luxior-immobilier.com')) links.luxior = url;
     else if (url.includes('barraine-immo.com')) links.barraine = url;
+    else if (url.includes('human-immobilier.fr')) links.human = url;
   }
   if (henryMatch) links.henry = henryMatch[1];
   if (luxiorMatch) links.luxior = luxiorMatch[1];
   if (lbcMatch) links.leboncoin = lbcMatch[1];
   if (barraineMatch) links.barraine = barraineMatch[1];
+  if (humanMatch) links.human = humanMatch[1];
   return links;
 };
 
@@ -1698,15 +1547,8 @@ function findDuplicateFolder(p) {
     for (const folder of folders) {
       const folderPath = path.join(d.path, folder);
       const files = fs.readdirSync(folderPath).filter(f => f.endsWith('.md'));
-      let latestMdFile = null;
-      let latestMtime = 0;
-      for (const file of files) {
-        const stat = fs.statSync(path.join(folderPath, file));
-        if (stat.mtimeMs > latestMtime) {
-          latestMtime = stat.mtimeMs;
-          latestMdFile = file;
-        }
-      }
+      const sortedFiles = [...files].sort();
+      const latestMdFile = sortedFiles.length > 0 ? sortedFiles[sortedFiles.length - 1] : null;
       if (latestMdFile) {
         const content = fs.readFileSync(path.join(folderPath, latestMdFile), 'utf8');
         
@@ -1717,45 +1559,16 @@ function findDuplicateFolder(p) {
           return { folder, folderPath, latestMdFile, fileContent: content, dirName: d.name, dirPath: d.path };
         }
 
-        const lines = content.split(/\r?\n/);
-        
-        const titleLine = lines.find(l => l.startsWith('# '));
-        const titleMatch = titleLine ? titleLine.match(/#\s*\[([^\]]+)\]\s*-\s*(.*?)(?:\s*\(Score:\s*.*?\))?$/) : null;
-        const existingTitle = titleMatch ? titleMatch[2] : '';
-        
-        const locLine = lines.find(l => l.includes('- **Localisation** :'));
-        const existingLoc = locLine ? locLine.replace(/- \*\*Localisation\*\* :/i, '').trim() : '';
-        
-        const typeLine = lines.find(l => l.includes('Type de bien :'));
-        const existingType = typeLine ? typeLine.replace(/.*Type de bien\s*:\s*/i, '').trim() : '';
-        
-        const surfaceLine = lines.find(l => l.includes('Surface :'));
-        const existingSurface = surfaceLine ? surfaceLine.replace(/.*Surface\s*:\s*/i, '').trim() : '';
-        
-        const piecesLine = lines.find(l => l.includes('Pièces :'));
-        const existingPieces = piecesLine ? piecesLine.replace(/.*Pièces\s*:\s*/i, '').trim() : '';
-        
-        const priceLine = lines.find(l => l.includes('- **Prix** :'));
-        const existingPrice = priceLine ? priceLine.replace(/- \*\*Prix\*\* :/i, '').trim() : '';
-        
-        const descLines = [];
-        let inDesc = false;
-        for (const line of lines) {
-          if (line.trim() === '```text') { inDesc = true; continue; }
-          if (inDesc && line.trim() === '```') { inDesc = false; break; }
-          if (inDesc) { descLines.push(line); }
-        }
-        const existingDesc = descLines.join('\n');
-        
+        const parsed = parseListingMarkdown(content);
         const existingP = {
-          title: existingTitle,
-          type: existingType,
-          location: existingLoc,
-          description: existingDesc,
-          price: existingPrice,
+          title: parsed.title,
+          type: parsed.type,
+          location: parsed.location,
+          description: parsed.description,
+          price: parsed.priceRaw,
           specs: {
-            surface: existingSurface,
-            pieces: existingPieces
+            surface: parsed.surfaceStr,
+            pieces: parsed.pieces
           }
         };
         
@@ -1770,32 +1583,8 @@ function findDuplicateFolder(p) {
 
 function generatePersonalizedTitle(type, title, description, location, surface, pieces) {
   const fullText = (title + ' ' + description + ' ' + location).toLowerCase();
-  
-  let quartier = '';
-  if (fullText.includes('siam')) quartier = 'Siam';
-  else if (fullText.includes("triangle d'or")) quartier = "Triangle d'Or";
-  else if (fullText.includes('saint-louis') || fullText.includes('saint louis')) quartier = 'Saint-Louis';
-  else if (fullText.includes('wilson')) quartier = 'Place Wilson';
-  else if (fullText.includes('gare')) quartier = 'Gare';
-  else if (fullText.includes('saint-michel') || fullText.includes('saint michel')) quartier = 'Saint-Michel';
-  else if (fullText.includes('gambetta')) quartier = 'Gambetta';
-  else if (fullText.includes('capucin')) quartier = 'Capucins';
-  else if (fullText.includes('st marc') || fullText.includes('saint marc') || fullText.includes('saint-marc')) quartier = 'Saint-Marc';
-  else if (fullText.includes('guelmeur')) quartier = 'Guelmeur';
-  else if (fullText.includes('st martin') || fullText.includes('saint martin') || fullText.includes('saint-martin')) quartier = 'Saint-Martin';
-  else if (fullText.includes('kerinou') || fullText.includes('kérinou')) quartier = 'Kérinou';
-  else if (fullText.includes('lanredec') || fullText.includes('lanrédec')) quartier = 'Lanrédec';
-  else if (fullText.includes('fac de médecine') || fullText.includes('fac de medecine') || fullText.includes('faculte') || fullText.includes('faculté') || fullText.includes('facultes') || fullText.includes('facultés')) quartier = 'Fac de Médecine';
-  else if (fullText.includes('yves collet') || fullText.includes('yves-collet')) quartier = 'Yves Collet';
-  else if (fullText.includes('pasteur')) quartier = 'Pasteur';
-  else if (fullText.includes('linois')) quartier = 'Linois';
-  else if (fullText.includes('branda')) quartier = 'Branda';
-  else if (fullText.includes('kerbonne')) quartier = 'Kerbonne';
-  else if (fullText.includes('recouvrance')) quartier = 'Recouvrance';
-  else if (fullText.includes('bellevue')) quartier = 'Bellevue';
-  else if (fullText.includes('pilier rouge') || fullText.includes('pilier-rouge')) quartier = 'Pilier Rouge';
-  else if (fullText.includes('harteloire')) quartier = 'Harteloire';
-  else if (fullText.includes('port de commerce')) quartier = 'Port de Commerce';
+  const matchedQ = detectQuartier(title, description, location);
+  const quartier = matchedQ ? matchedQ.name : '';
   
   const isHouse = type.toLowerCase().includes('maison');
   const features = [];
@@ -2021,13 +1810,13 @@ async function saveOrUpdateProperty(p) {
 - **Dernière vue** : ${lastSeenDate}
 - **Durée de référencement** : ${durationStr}
 - **Score de correspondance** : -/10
-  - [ ] Siam / Triangle d'Or / Place Wilson / Saint-Louis / Gare (+5.5)
-  - [ ] Saint-Michel / Gambetta / Fac de médecine / Centre-ville / Pasteur / Saint-Martin / Linois (+3.0 / +4.0)
-  - [ ] Dernier étage (ou Maison) (+2.0)
-  - [ ] Seul à l'étage (+1.5)
-  - [ ] Terrasse (ou Jardin pour une Maison) (+2.0)
-  - [ ] Ascenseur (ou Maison) (+1.5)
-  - [ ] Parking / Garage (+1.5)
+  - [ ] Siam / Triangle d'Or / Place Wilson / Saint-Louis / Gare / Cours Dajot / Château / Jardin des Explorateurs (Tiers 1)
+  - [ ] Dernier étage (ou Maison)
+  - [ ] Seul à l'étage (ou Maison)
+  - [ ] Terrasse (ou Jardin pour une Maison)
+  - [ ] Ascenseur (ou Maison)
+  - [ ] Parking / Garage
+  - [ ] Bonus qualité (+0.0)
 - **Prix** : ${currentPrice}
 - **Localisation** : ${p.location}
 - **Caractéristiques** :

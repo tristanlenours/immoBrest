@@ -9,10 +9,11 @@ outline: deep
   <div class="detail-header-left">
     <span class="detail-source-badge">Luxior</span>
     <span class="detail-status-badge status-actif" style="margin-left: 8px;">Actif</span>
+    <span class="detail-quartier-badge" style="margin-left: 8px;">📍 Triangle d'Or (Tiers 1)</span>
   </div>
   <div class="detail-header-right">
     <div class="detail-score-circle score-high">
-      7<span>/10</span>
+      7.5<span>/10</span>
     </div>
   </div>
 </div>
@@ -29,32 +30,72 @@ outline: deep
   </div>
   <div class="grid-stat-card">
     <div class="card-icon">📐</div>
-    <div class="card-label">Surface</div>
+    <div class="card-label">Surface & Prix/m²</div>
     <div class="card-val">144 m²</div>
+    <div class="card-sub">2 778 €/m²</div>
   </div>
   <div class="grid-stat-card">
     <div class="card-icon">🚪</div>
     <div class="card-label">Pièces / Type</div>
-    <div class="card-val">- Pièces : 5 (Appartement)</div>
+    <div class="card-val">5 (Appartement)</div>
   </div>
   <div class="grid-stat-card">
     <div class="card-icon">📍</div>
     <div class="card-label">Localisation</div>
-    <div class="card-val">BREST</div>
+    <div class="card-val">Triangle d'Or</div>
   </div>
 </div>
+
+
+---
+
+## 📊 Positionnement Marché vs Ventes Réelles (DVF 2024–2025)
+
+<div class="dvf-comp-panel">
+  <div class="dvf-comp-metrics">
+    <div class="dvf-metric">
+      <span class="dvf-metric-label">Prix / m² affiché</span>
+      <span class="dvf-metric-val">2 778 €/m²</span>
+    </div>
+    <div class="dvf-metric">
+      <span class="dvf-metric-label">Médiane DVF (Triangle d'Or)</span>
+      <span class="dvf-metric-val">2 250 €/m²</span>
+      <span class="dvf-metric-sub">sur 229 ventes (appartements)</span>
+    </div>
+    <div class="dvf-metric">
+      <span class="dvf-metric-label">Écart vs Notaires</span>
+      <span class="dvf-badge dvf-high">+23% (Au-dessus de la médiane notariale)</span>
+    </div>
+  </div>
+  
+  <details class="dvf-comp-details">
+    <summary>Voir les 5 ventes notariées comparables dans le secteur (Triangle d'Or)</summary>
+    <div class="price-history-wrap">
+      <table class="price-history-table">
+        <thead><tr><th>Date</th><th>Adresse</th><th>Surface</th><th>Prix net vendeur</th><th>Prix/m²</th></tr></thead>
+        <tbody><tr><td>09/12/2025</td><td>14 RUE DE GLASGOW</td><td>143 m²</td><td><strong>180 000 €</strong></td><td>1 262 €/m²</td></tr>
+<tr><td>24/11/2025</td><td>2 RUE ALAIN FOURNIER</td><td>137 m²</td><td><strong>125 000 €</strong></td><td>915 €/m²</td></tr>
+<tr><td>30/09/2025</td><td>2 RUE VICTOR SEGALEN</td><td>142 m²</td><td><strong>180 000 €</strong></td><td>1 267 €/m²</td></tr>
+<tr><td>15/09/2025</td><td>12 RUE FAUTRAS</td><td>134 m²</td><td><strong>222 500 €</strong></td><td>1 661 €/m²</td></tr>
+<tr><td>23/05/2025</td><td>36 RUE JEAN MACE</td><td>150 m²</td><td><strong>233 700 €</strong></td><td>1 558 €/m²</td></tr>
+</tbody>
+      </table>
+    </div>
+  </details>
+</div>
+
 
 ---
 
 ## Critères de Scoring et Correspondance
 
-- **Score de correspondance** : 7/10
+- **Score de correspondance** : 7.5/10
   - [x] Siam / Triangle d'Or / Place Wilson / Saint-Louis / Gare / Cours Dajot / Château / Jardin des Explorateurs (Tiers 1)
   - [ ] Dernier étage (ou Maison) (-1.0)
   - [x] Seul à l'étage (ou Maison)
-  - [ ] Terrasse (ou Jardin pour une Maison) (-2.0)
+  - [x] Terrasse (ou Jardin pour une Maison)
   - [x] Ascenseur (ou Maison)
-  - [x] Parking / Garage
+  - [ ] Parking / Garage (-1.5)
   - [x] Malus surface (> 130m²) (-1.0)
   - [x] Bonus qualité : exceptionnel, privilégié, beaux volumes, dalle béton, environnement calme, confort (+1.0)
 
@@ -63,7 +104,7 @@ outline: deep
 ## Description de l'Annonce
 
 ```text
-Au coeur du centre-ville de Brest, dans le très recherché Triangle d&rsquo;Or de la ville du Ponant, découvrez cet élégant appartement de 144 m², situé au 2ème étage avec ascenseur d&rsquo;un immeuble bourgeois en dalle béton.A deux pas des commerces, des écoles, des restaurants et du Cours Dajot, seul appartement à l&rsquo;étage, il bénéficie d&rsquo;une configuration particulièrement privilégiée, avec une entrée principale et une entrée de service, offrant à la fois confort, intimité et fonctionnalité.Dès l&rsquo;entrée, les beaux volumes et les éléments de caractère donnent le ton. Vous serez séduit par sa belle hauteur sous plafond, son parquet à bâtons rompus, sa distribution harmonieuse et les proportions généreuses de chacune des pièces.Traversant et au calme, l&rsquo;appartement profite d&rsquo;une agréable luminosité et d&rsquo;une atmosphère sereine, tout en bénéficiant d&rsquo;un emplacement exceptionnel au coeur de la ville.L&rsquo;espace familial se compose de quatre chambres, d&rsquo;une salle de bains et d&rsquo;une salle d&rsquo;eau. Une vaste entrée avec placards assure une distribution fluide et élégante de l&rsquo;ensemble.La grande cuisine, prolongée par une loggia, complète cet espace de vie et offre de belles possibilités d&rsquo;aménagement selon vos envies.Le confort est complété par un chauffage individuel au gaz de ville ainsi qu&rsquo;une grande cave en sous-sol, apportant un espace de rangement appréciable.Nécessitant une modernisation, ce bien offre un potentiel remarquable pour qui saura révéler ses volumes, préserver ses éléments anciens et lui insuffler une nouvelle élégance. Uniquement chez Luxior Immobilier REFERENCE LUXIOR IMMOBILIER 26656oc(5.26 % honoraires TTC à la charge de l&rsquo;acquéreur.)
+Au coeur du centre-ville de Brest, dans le très recherché Triangle d'Or de la ville du Ponant, découvrez cet élégant appartement de 144 m², situé au 2ème étage avec ascenseur d'un immeuble bourgeois en dalle béton.A deux pas des commerces, des écoles, des restaurants et du Cours Dajot, seul appartement à l'étage, il bénéficie d'une configuration particulièrement privilégiée, avec une entrée principale et une entrée de service, offrant à la fois confort, intimité et fonctionnalité.Dès l'entrée, les beaux volumes et les éléments de caractère donnent le ton. Vous serez séduit par sa belle hauteur sous plafond, son parquet à bâtons rompus, sa distribution harmonieuse et les proportions généreuses de chacune des pièces.Traversant et au calme, l'appartement profite d'une agréable luminosité et d'une atmosphère sereine, tout en bénéficiant d'un emplacement exceptionnel au coeur de la ville.L'espace familial se compose de quatre chambres, d'une salle de bains et d'une salle d'eau. Une vaste entrée avec placards assure une distribution fluide et élégante de l'ensemble.La grande cuisine, prolongée par une loggia, complète cet espace de vie et offre de belles possibilités d'aménagement selon vos envies.Le confort est complété par un chauffage individuel au gaz de ville ainsi qu'une grande cave en sous-sol, apportant un espace de rangement appréciable.Nécessitant une modernisation, ce bien offre un potentiel remarquable pour qui saura révéler ses volumes, préserver ses éléments anciens et lui insuffler une nouvelle élégance. Uniquement chez Luxior Immobilier REFERENCE LUXIOR IMMOBILIER 26656oc(5.26 % honoraires TTC à la charge de l'acquéreur.)
 ```
 
 ---
@@ -95,6 +136,8 @@ Au coeur du centre-ville de Brest, dans le très recherché Triangle d&rsquo;Or 
   padding: 15px 25px;
   border-radius: 12px;
   border: 1px solid var(--vp-c-gutter);
+  flex-wrap: wrap;
+  gap: 12px;
 }
 
 .detail-source-badge {
@@ -114,6 +157,15 @@ Au coeur du centre-ville de Brest, dans le très recherché Triangle d&rsquo;Or 
   border-radius: 20px;
   font-weight: 600;
   font-size: 0.9rem;
+}
+
+.detail-quartier-badge {
+  background: rgba(99, 102, 241, 0.14);
+  color: #6366f1;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 0.85rem;
 }
 
 .detail-status-badge.status-actif, .detail-status-badge.status-nouveau {
@@ -148,7 +200,7 @@ Au coeur du centre-ville de Brest, dans le très recherché Triangle d&rsquo;Or 
 
 .grid-stats {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: 15px;
   margin: 20px 0;
 }
@@ -180,10 +232,95 @@ Au coeur du centre-ville de Brest, dans le très recherché Triangle d&rsquo;Or 
   margin-top: 4px;
 }
 
+.card-sub {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--vp-c-brand);
+  margin-top: 2px;
+}
+
+.dvf-comp-panel {
+  background: var(--vp-c-bg-soft);
+  border: 1px solid var(--vp-c-gutter);
+  border-radius: 12px;
+  padding: 18px 22px;
+  margin: 16px 0;
+}
+
+.dvf-comp-metrics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  align-items: center;
+}
+
+.dvf-metric {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.dvf-metric-label {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  color: var(--vp-c-text-3);
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.dvf-metric-val {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--vp-c-text-1);
+}
+
+.dvf-metric-sub {
+  font-size: 0.78rem;
+  color: var(--vp-c-text-3);
+}
+
+.dvf-badge {
+  display: inline-block;
+  width: fit-content;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.dvf-good { background: rgba(16, 185, 129, 0.15); color: #10b981; }
+.dvf-neutral { background: rgba(59, 130, 246, 0.15); color: #3b82f6; }
+.dvf-high { background: rgba(245, 158, 11, 0.16); color: #f59e0b; }
+
+.dvf-comp-details {
+  margin-top: 16px;
+  border-top: 1px solid var(--vp-c-gutter);
+  padding-top: 12px;
+}
+
+.dvf-comp-details summary {
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--vp-c-brand);
+}
+
+.price-history-wrap { overflow-x: auto; margin: 16px 0; }
+.price-history-table { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
+.price-history-table th { text-align: left; padding: 10px 14px; background: var(--vp-c-bg-soft); border-bottom: 2px solid var(--vp-c-gutter); font-weight: 700; color: var(--vp-c-text-2); text-transform: uppercase; font-size: 0.75rem; letter-spacing: 0.5px; }
+.price-history-table td { padding: 10px 14px; border-bottom: 1px solid var(--vp-c-gutter); }
+.ph-row.ph-current td { background: var(--vp-c-bg-soft); font-weight: 700; }
+.ph-badge { display: inline-block; padding: 3px 8px; border-radius: 12px; font-size: 0.8rem; font-weight: 600; }
+.ph-first { background: rgba(99,102,241,0.12); color: #6366f1; }
+.ph-down { background: rgba(16,185,129,0.12); color: #10b981; }
+.ph-up { background: rgba(239,68,68,0.12); color: #ef4444; }
+.ph-same { background: var(--vp-c-bg-soft); color: var(--vp-c-text-3); }
+
 .detail-actions {
   display: flex;
   gap: 15px;
   margin-top: 40px;
+  flex-wrap: wrap;
 }
 
 .action-btn {

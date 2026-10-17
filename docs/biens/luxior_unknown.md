@@ -9,6 +9,7 @@ outline: deep
   <div class="detail-header-left">
     <span class="detail-source-badge">Luxior</span>
     <span class="detail-status-badge status-vendu-ou-retiré-de-la-vente" style="margin-left: 8px;">Vendu ou retiré de la vente</span>
+    <span class="detail-quartier-badge" style="margin-left: 8px;">📍 Saint-Michel (Tiers 2)</span>
   </div>
   <div class="detail-header-right">
     <div class="detail-score-circle score-high">
@@ -29,20 +30,23 @@ outline: deep
   </div>
   <div class="grid-stat-card">
     <div class="card-icon">📐</div>
-    <div class="card-label">Surface</div>
+    <div class="card-label">Surface & Prix/m²</div>
     <div class="card-val">93.25 m²</div>
+    <div class="card-sub">Non calculable</div>
   </div>
   <div class="grid-stat-card">
     <div class="card-icon">🚪</div>
     <div class="card-label">Pièces / Type</div>
-    <div class="card-val">- Pièces : 5 (Maison)</div>
+    <div class="card-val">5 (Maison)</div>
   </div>
   <div class="grid-stat-card">
     <div class="card-icon">📍</div>
     <div class="card-label">Localisation</div>
-    <div class="card-val">BREST</div>
+    <div class="card-val">Saint-Michel</div>
   </div>
 </div>
+
+
 
 ---
 
@@ -63,7 +67,7 @@ outline: deep
 ## Description de l'Annonce
 
 ```text
-A Brest au centre ville &#8211; quartier Saint-Michel &#8211; Keruscun Maison de charme d&rsquo;avant 1950 &#8211; 93 m² environ Jardin, sous-sol et garage Cette ravissante maison d&rsquo;avant 1950, d&rsquo;environ 93 m², séduit par son cachet de l&rsquo;ancien subtilement allié à une rénovation complète réalisée en 2023, offrant un cadre de vie confortable et chaleureux. Le rez-de-chaussée propose une grande cuisine aménagée et équipée, idéale pour les moments de convivialité, ainsi qu&rsquo;un salon-séjour lumineux avec accès direct au jardin, parfait pour profiter des beaux jours. A l&rsquo;étage, l&rsquo;espace nuit se compose de deux chambres, dont une avec salle d&rsquo;eau privative, d&rsquo;une salle de bains et d&rsquo;un WC séparé. Le dernier niveau accueille une troisième chambre, un coin bureau, ainsi qu&rsquo;un espace de rangement pouvant être aménagé en dressing ou quatrième chambre selon les besoins. Un sous-sol complète l&rsquo;ensemble, offrant des espaces de stockage appréciables. En fond de jardin, un garage indépendant vient parfaire les prestations. Une maison pleine de charme, idéale pour une vie de famille, alliant authenticité, fonctionnalité et confort moderne. REFERENCE LUXIOR 26456JM (5.13 % honoraires TTC à la charge de l&rsquo;acquéreur.)
+A Brest au centre ville – quartier Saint-Michel – Keruscun Maison de charme d'avant 1950 – 93 m² environ Jardin, sous-sol et garage Cette ravissante maison d'avant 1950, d'environ 93 m², séduit par son cachet de l'ancien subtilement allié à une rénovation complète réalisée en 2023, offrant un cadre de vie confortable et chaleureux. Le rez-de-chaussée propose une grande cuisine aménagée et équipée, idéale pour les moments de convivialité, ainsi qu'un salon-séjour lumineux avec accès direct au jardin, parfait pour profiter des beaux jours. A l'étage, l'espace nuit se compose de deux chambres, dont une avec salle d'eau privative, d'une salle de bains et d'un WC séparé. Le dernier niveau accueille une troisième chambre, un coin bureau, ainsi qu'un espace de rangement pouvant être aménagé en dressing ou quatrième chambre selon les besoins. Un sous-sol complète l'ensemble, offrant des espaces de stockage appréciables. En fond de jardin, un garage indépendant vient parfaire les prestations. Une maison pleine de charme, idéale pour une vie de famille, alliant authenticité, fonctionnalité et confort moderne. REFERENCE LUXIOR 26456JM (5.13 % honoraires TTC à la charge de l'acquéreur.)
 ```
 
 ---
@@ -95,6 +99,8 @@ A Brest au centre ville &#8211; quartier Saint-Michel &#8211; Keruscun Maison de
   padding: 15px 25px;
   border-radius: 12px;
   border: 1px solid var(--vp-c-gutter);
+  flex-wrap: wrap;
+  gap: 12px;
 }
 
 .detail-source-badge {
@@ -114,6 +120,15 @@ A Brest au centre ville &#8211; quartier Saint-Michel &#8211; Keruscun Maison de
   border-radius: 20px;
   font-weight: 600;
   font-size: 0.9rem;
+}
+
+.detail-quartier-badge {
+  background: rgba(99, 102, 241, 0.14);
+  color: #6366f1;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-weight: 600;
+  font-size: 0.85rem;
 }
 
 .detail-status-badge.status-actif, .detail-status-badge.status-nouveau {
@@ -148,7 +163,7 @@ A Brest au centre ville &#8211; quartier Saint-Michel &#8211; Keruscun Maison de
 
 .grid-stats {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   gap: 15px;
   margin: 20px 0;
 }
@@ -180,10 +195,95 @@ A Brest au centre ville &#8211; quartier Saint-Michel &#8211; Keruscun Maison de
   margin-top: 4px;
 }
 
+.card-sub {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--vp-c-brand);
+  margin-top: 2px;
+}
+
+.dvf-comp-panel {
+  background: var(--vp-c-bg-soft);
+  border: 1px solid var(--vp-c-gutter);
+  border-radius: 12px;
+  padding: 18px 22px;
+  margin: 16px 0;
+}
+
+.dvf-comp-metrics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  align-items: center;
+}
+
+.dvf-metric {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.dvf-metric-label {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  color: var(--vp-c-text-3);
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.dvf-metric-val {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--vp-c-text-1);
+}
+
+.dvf-metric-sub {
+  font-size: 0.78rem;
+  color: var(--vp-c-text-3);
+}
+
+.dvf-badge {
+  display: inline-block;
+  width: fit-content;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.dvf-good { background: rgba(16, 185, 129, 0.15); color: #10b981; }
+.dvf-neutral { background: rgba(59, 130, 246, 0.15); color: #3b82f6; }
+.dvf-high { background: rgba(245, 158, 11, 0.16); color: #f59e0b; }
+
+.dvf-comp-details {
+  margin-top: 16px;
+  border-top: 1px solid var(--vp-c-gutter);
+  padding-top: 12px;
+}
+
+.dvf-comp-details summary {
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 0.9rem;
+  color: var(--vp-c-brand);
+}
+
+.price-history-wrap { overflow-x: auto; margin: 16px 0; }
+.price-history-table { width: 100%; border-collapse: collapse; font-size: 0.92rem; }
+.price-history-table th { text-align: left; padding: 10px 14px; background: var(--vp-c-bg-soft); border-bottom: 2px solid var(--vp-c-gutter); font-weight: 700; color: var(--vp-c-text-2); text-transform: uppercase; font-size: 0.75rem; letter-spacing: 0.5px; }
+.price-history-table td { padding: 10px 14px; border-bottom: 1px solid var(--vp-c-gutter); }
+.ph-row.ph-current td { background: var(--vp-c-bg-soft); font-weight: 700; }
+.ph-badge { display: inline-block; padding: 3px 8px; border-radius: 12px; font-size: 0.8rem; font-weight: 600; }
+.ph-first { background: rgba(99,102,241,0.12); color: #6366f1; }
+.ph-down { background: rgba(16,185,129,0.12); color: #10b981; }
+.ph-up { background: rgba(239,68,68,0.12); color: #ef4444; }
+.ph-same { background: var(--vp-c-bg-soft); color: var(--vp-c-text-3); }
+
 .detail-actions {
   display: flex;
   gap: 15px;
   margin-top: 40px;
+  flex-wrap: wrap;
 }
 
 .action-btn {
