@@ -181,7 +181,7 @@ function collectDvf() {
         type: s.type || null,
         adresse: s.adresse || null,
         code_postal: s.codePostal || null,
-        prix: s.prix ?? null,
+        prix: s.prix != null ? Math.round(s.prix) : null,
         surface: s.surface ?? null,
         surface_carrez: s.surfaceCarrez ?? null,
         pieces: s.pieces ?? null,

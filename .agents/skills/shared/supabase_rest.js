@@ -7,7 +7,10 @@ function createSupabaseRest({ url = process.env.SUPABASE_URL, key = process.env.
     throw new Error('SUPABASE_URL et SUPABASE_SERVICE_ROLE_KEY sont requis (voir .env.example).');
   }
   const base = `${url.replace(/\/+$/, '')}/rest/v1`;
-  const headers = { apikey: key, Authorization: `Bearer ${key}` };
+  // Les nouvelles clés secrètes (sb_secret_...) ne sont pas des JWT : header apikey uniquement.
+  const headers = key.startsWith('sb_secret_')
+    ? { apikey: key }
+    : { apikey: key, Authorization: `Bearer ${key}` };
 
   async function request(pathAndQuery, { method = 'GET', body, prefer } = {}) {
     const res = await fetch(`${base}/${pathAndQuery}`, {
