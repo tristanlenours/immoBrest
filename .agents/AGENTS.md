@@ -128,6 +128,11 @@ flowchart TD
 - **Lancer le serveur de développement VitePress** : `npm run dev`
 - `npm run build` compile uniquement le site à partir des fichiers déjà générés (utilisé par le déploiement GitHub Pages, sans accès à la base) ; `npm run build:full` régénère puis compile.
 
+### 📱 `app/` (Application privée Next.js, à déployer sur Railway)
+- Site protégé par mot de passe (`SITE_PASSWORD`, cookie signé avec `SESSION_SECRET`) : **Sas** (Accepter / Rejeter avec motif), **Annonces**, fiche détaillée (historique de prix, comparaison DVF), **Archives**, **Corbeille** (remettre dans le sas).
+- Lit et écrit dans Supabase côté serveur uniquement (clé `service_role`, jamais envoyée au navigateur). Variables : voir `app/.env.example`.
+- Local : `cd app && npm install && npm run dev` (variables dans `app/.env.local`, ignoré par git).
+
 ### 🗄️ `supabase_sync` (Migration)
 - **Migration unique des fiches markdown vers Supabase** : `node --env-file=.env .agents/skills/supabase_sync/scripts/migrate_files_to_supabase.js [--apply]` (dry-run par défaut ; n'insère que les lignes absentes).
 

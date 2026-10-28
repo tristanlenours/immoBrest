@@ -1,0 +1,184 @@
+[
+  {
+    "name": "Siam",
+    "tier": 1,
+    "lat": 48.3878,
+    "lon": -4.4902,
+    "radiusKm": 0.55
+  },
+  {
+    "name": "Triangle d'Or",
+    "tier": 1,
+    "lat": 48.3885,
+    "lon": -4.4875,
+    "radiusKm": 0.5
+  },
+  {
+    "name": "Saint-Louis",
+    "tier": 1,
+    "lat": 48.3892,
+    "lon": -4.492,
+    "radiusKm": 0.5
+  },
+  {
+    "name": "Place Wilson",
+    "tier": 1,
+    "lat": 48.3895,
+    "lon": -4.4852,
+    "radiusKm": 0.45
+  },
+  {
+    "name": "Cours Dajot",
+    "tier": 1,
+    "lat": 48.3845,
+    "lon": -4.4875,
+    "radiusKm": 0.45
+  },
+  {
+    "name": "Château",
+    "tier": 1,
+    "lat": 48.3828,
+    "lon": -4.4922,
+    "radiusKm": 0.45
+  },
+  {
+    "name": "Jardin des Explorateurs",
+    "tier": 1,
+    "lat": 48.3825,
+    "lon": -4.4975,
+    "radiusKm": 0.45
+  },
+  {
+    "name": "Gare",
+    "tier": 1,
+    "lat": 48.3878,
+    "lon": -4.4805,
+    "radiusKm": 0.5
+  },
+  {
+    "name": "Liberté",
+    "tier": 2,
+    "lat": 48.3908,
+    "lon": -4.4858,
+    "radiusKm": 0.45
+  },
+  {
+    "name": "Branda",
+    "tier": 2,
+    "lat": 48.3902,
+    "lon": -4.481,
+    "radiusKm": 0.45
+  },
+  {
+    "name": "Saint-Michel",
+    "tier": 2,
+    "lat": 48.3915,
+    "lon": -4.4785,
+    "radiusKm": 0.5
+  },
+  {
+    "name": "Gambetta",
+    "tier": 2,
+    "lat": 48.3895,
+    "lon": -4.4765,
+    "radiusKm": 0.5
+  },
+  {
+    "name": "Fac de Médecine",
+    "tier": 2,
+    "lat": 48.3935,
+    "lon": -4.491,
+    "radiusKm": 0.55
+  },
+  {
+    "name": "Yves Collet",
+    "tier": 2,
+    "lat": 48.3905,
+    "lon": -4.4825,
+    "radiusKm": 0.45
+  },
+  {
+    "name": "Pasteur",
+    "tier": 2,
+    "lat": 48.3925,
+    "lon": -4.4895,
+    "radiusKm": 0.5
+  },
+  {
+    "name": "Saint-Martin",
+    "tier": 2,
+    "lat": 48.3955,
+    "lon": -4.4795,
+    "radiusKm": 0.65
+  },
+  {
+    "name": "Linois",
+    "tier": 2,
+    "lat": 48.3885,
+    "lon": -4.4955,
+    "radiusKm": 0.45
+  },
+  {
+    "name": "Capucins",
+    "tier": 2,
+    "lat": 48.3895,
+    "lon": -4.4985,
+    "radiusKm": 0.55
+  },
+  {
+    "name": "Harteloire",
+    "tier": 3,
+    "lat": 48.3935,
+    "lon": -4.495,
+    "radiusKm": 0.55
+  },
+  {
+    "name": "Recouvrance",
+    "tier": 3,
+    "lat": 48.3845,
+    "lon": -4.5005,
+    "radiusKm": 0.65
+  },
+  {
+    "name": "Kérinou",
+    "tier": 3,
+    "lat": 48.4015,
+    "lon": -4.4865,
+    "radiusKm": 0.65
+  },
+  {
+    "name": "Lanrédec",
+    "tier": 3,
+    "lat": 48.3995,
+    "lon": -4.4935,
+    "radiusKm": 0.55
+  },
+  {
+    "name": "Pilier Rouge",
+    "tier": 3,
+    "lat": 48.4025,
+    "lon": -4.4715,
+    "radiusKm": 0.65
+  },
+  {
+    "name": "Port de Commerce",
+    "tier": 3,
+    "lat": 48.382,
+    "lon": -4.481,
+    "radiusKm": 0.6
+  },
+  {
+    "name": "Guelmeur",
+    "tier": 3,
+    "lat": 48.3975,
+    "lon": -4.4625,
+    "radiusKm": 0.65
+  },
+  {
+    "name": "La Corniche",
+    "tier": 3,
+    "lat": 48.3775,
+    "lon": -4.5125,
+    "radiusKm": 0.7
+  }
+]
