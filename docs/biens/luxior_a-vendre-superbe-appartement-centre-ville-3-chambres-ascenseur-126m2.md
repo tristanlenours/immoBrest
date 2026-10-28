@@ -37,7 +37,7 @@ outline: deep
   <div class="grid-stat-card">
     <div class="card-icon">🚪</div>
     <div class="card-label">Pièces / Type</div>
-    <div class="card-val">5 (Appartement)</div>
+    <div class="card-val">5 pièces (Appartement)</div>
   </div>
   <div class="grid-stat-card">
     <div class="card-icon">📍</div>

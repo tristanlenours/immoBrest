@@ -1,135 +1,55 @@
-const fs = require('node:fs');
-const path = require('node:path');
 const {
-  OUTPUT_DIR,
-  SAS_DIR,
-  CORBEILLE_DIR,
-  DOCS_DIR,
   hasIdentifiedQuartier,
   extractChambres,
   scoreProperty,
-  buildScoringCheckboxBlock,
-  parseListingMarkdown,
-  serializeFrontmatter
+  buildScoringCheckboxBlock
 } = require('../../shared/listing_utils');
+const { ListingStore, rowToParsed } = require('../../shared/listing_store');
 
-function updateMarkdownScoring(rawContent, parsed, score, criteria, status, surface = null, pieces = null, chambres = null) {
-  let updated = parsed.body;
-
-  // 1. Title line (captures both the source and the title cleanly)
-  updated = updated.replace(
-    /^#\s*\[([^\]]+)\]\s*-\s*(.*?)(?:\s*\(Score:\s*.*?\))?(\r?\n)/i,
-    `# [$1] - $2 (Score: ${score}/10)$3`
-  );
-
-  // 2. Statut line
-  if (updated.match(/- \*\*Statut\*\* :/i)) {
-    updated = updated.replace(/- \*\*Statut\*\* : [^\r\n]*/i, `- **Statut** : ${status}`);
-  } else {
-    updated = updated.replace(
-      /^(#\s*\[[^\]]+\]\s*-\s*(.*?)(?:\s*\(Score:\s*.*?\))?\r?\n)/i,
-      `$1- **Statut** : ${status}\n`
-    );
-  }
-
-  const isHouse = (parsed.type || '').toLowerCase().includes('maison');
-  const newCheckboxBlock = buildScoringCheckboxBlock(score, criteria, isHouse, surface, chambres);
-
-  updated = updated.replace(
-    /- \*\*Score de correspondance\*\* : [^\r\n]*(?:\r?\n\s+-\s*\[[ x]?\][^\r\n]*)*/i,
-    newCheckboxBlock
-  );
-
-  // 3. Prepend structured YAML frontmatter for fast & reliable parsing
-  const frontmatter = serializeFrontmatter({
-    source: parsed.source,
-    title: parsed.title,
-    score,
-    status,
-    price: parsed.priceVal || 0,
-    surface: surface || parsed.surfaceVal || 0,
-    pieces: pieces || parsed.piecesNum || 0,
-    chambres: chambres || 0,
-    type: parsed.type,
-    quartier: criteria.quartierName || parsed.quartier || 'Brest',
-    tier: criteria.tier || parsed.tier || 3
+async function rejectListing(store, row, reason) {
+  console.log(`[MOVED TO CORBEILLE - ${reason}] Property "${row.title}" (${row.id}).`);
+  await store.update(row.id, {
+    review_status: 'rejected',
+    decided_at: new Date().toISOString(),
+    decided_by: 'auto',
+    reject_reason: reason
   });
-
-  return frontmatter + updated;
+  store.stats.rejected++;
 }
 
-function moveFolderToCorbeille(folder, folderPath, reason, title) {
-  console.log(`[MOVED TO CORBEILLE - ${reason}] Property "${title}" in folder ${folder}.`);
-  if (!fs.existsSync(CORBEILLE_DIR)) fs.mkdirSync(CORBEILLE_DIR, { recursive: true });
-  const destPath = path.join(CORBEILLE_DIR, folder);
-  if (fs.existsSync(destPath)) {
-    fs.rmSync(destPath, { recursive: true, force: true });
-  }
-  try {
-    fs.renameSync(folderPath, destPath);
-  } catch (e) {
-    console.error(`Error moving ${folder} to corbeille:`, e.message);
-  }
-  const docPage = path.join(DOCS_DIR, 'biens', `${folder}.md`);
-  if (fs.existsSync(docPage)) {
-    try { fs.unlinkSync(docPage); } catch (e) {}
-  }
-}
-
-function runScoring() {
+// Note les annonces du sas et de la base active, et rejette automatiquement
+// celles sans quartier identifié ou en colocation.
+async function scoreAll(store) {
   console.log('Starting Brest real estate scoring...');
-  const dirs = [
-    { label: 'Active', path: OUTPUT_DIR },
-    { label: 'Sas', path: SAS_DIR }
-  ];
-
-  const targetFolders = [];
-  for (const d of dirs) {
-    if (!fs.existsSync(d.path)) continue;
-    const subfolders = fs.readdirSync(d.path).filter(f => fs.statSync(path.join(d.path, f)).isDirectory());
-    for (const sf of subfolders) {
-      targetFolders.push({ folder: sf, folderPath: path.join(d.path, sf), label: d.label });
-    }
-  }
-
-  console.log(`Found ${targetFolders.length} property folders to process across active database and sas.`);
+  const targets = store.byReviewStatus('approved', 'sas');
+  console.log(`Found ${targets.length} listings to process across active database and sas.`);
 
   const scoredListings = [];
 
-  for (const item of targetFolders) {
-    const { folder, folderPath } = item;
-    const files = fs.readdirSync(folderPath).filter(f => f.endsWith('.md'));
-
-    const sortedFiles = [...files].sort();
-    const latestMdFile = sortedFiles.length > 0 ? sortedFiles[sortedFiles.length - 1] : null;
-
-    if (!latestMdFile) {
-      console.log(`No markdown file found in folder ${folder}. Skipping.`);
-      continue;
-    }
-
-    const filePath = path.join(folderPath, latestMdFile);
-    const rawContent = fs.readFileSync(filePath, 'utf8');
-    const parsed = parseListingMarkdown(rawContent);
-
-    const { source, title, location, type, priceClean: price, status, url, description, prestations } = parsed;
+  for (const row of targets) {
+    const title = row.title;
+    const description = row.description || '';
+    const location = row.location || '';
+    const url = row.url || '';
+    const type = row.type || 'Appartement';
+    const prestations = row.prestations || 'Aucune';
 
     // Check if an identified recognized quartier is present
     if (!hasIdentifiedQuartier(title, description, location, url)) {
-      moveFolderToCorbeille(folder, folderPath, 'NO QUARTIER', title);
+      await rejectListing(store, row, 'NO QUARTIER');
       continue;
     }
 
     // Eliminatory: colocation
     const fullTextLower = (title + ' ' + description + ' ' + location).toLowerCase();
     if (fullTextLower.includes('colocation') || fullTextLower.includes('co-location')) {
-      moveFolderToCorbeille(folder, folderPath, 'COLOCATION', title);
+      await rejectListing(store, row, 'COLOCATION');
       continue;
     }
 
-    const surface = parsed.surfaceVal > 0 ? parsed.surfaceVal : null;
-    let pieces = parsed.piecesNum;
-    if (pieces === null) {
+    const surface = Number(row.surface) > 0 ? Number(row.surface) : null;
+    let pieces = row.pieces;
+    if (pieces === null || pieces === undefined) {
       const match = (title + ' ' + description).match(/\b(\d+)\s*(?:pièces|pieces|pcs)\b/i);
       if (match) {
         pieces = parseInt(match[1], 10);
@@ -139,29 +59,30 @@ function runScoring() {
     const chambres = extractChambres(title, description, prestations, pieces);
 
     // Automatically exclude if surface <= 63m²
-    let updatedStatus = status;
+    let updatedStatus = row.market_status;
     if (surface !== null && surface <= 63) {
       updatedStatus = 'Hors zone (surface exclue)';
     }
 
     // Calculate score with negation-aware & word-boundary engine
-    const { score, criteria } = scoreProperty(title, description, location, type, prestations, surface, pieces, chambres, folder);
+    const { score, criteria } = scoreProperty(title, description, location, type, prestations, surface, pieces, chambres, row.id);
+    const isHouse = type.toLowerCase().includes('maison');
+    const criteriaLines = buildScoringCheckboxBlock(score, criteria, isHouse, surface, chambres).split('\n');
 
-    // Update Markdown content + YAML frontmatter
-    const updatedContent = updateMarkdownScoring(rawContent, parsed, score, criteria, updatedStatus, surface, pieces, chambres);
-    fs.writeFileSync(filePath, updatedContent, 'utf8');
-
-    console.log(`Scored [${source}] ${title} in folder ${folder} -> ${score}/10`);
-
-    scoredListings.push({
-      folder,
-      source,
-      title,
-      price,
+    const patch = {
       score,
-      status: updatedStatus,
-      url
-    });
+      score_criteria: criteriaLines,
+      quartier: criteria.quartierName || row.quartier || 'Brest',
+      tier: criteria.tier || row.tier || 3,
+      pieces: pieces || null,
+      chambres: chambres || null,
+      market_status: updatedStatus
+    };
+    const changed = Object.keys(patch).some(k => JSON.stringify(patch[k]) !== JSON.stringify(row[k] ?? null));
+    if (changed) await store.update(row.id, patch);
+
+    console.log(`Scored [${row.source}] ${title} (${row.id}) -> ${score}/10`);
+    scoredListings.push({ id: row.id, source: row.source, title, price: rowToParsed(row).priceClean, score, status: updatedStatus, url });
   }
 
   const activeGoodProperties = scoredListings
@@ -177,10 +98,20 @@ function runScoring() {
     console.log(`      Link: ${p.url}`);
   }
   console.log('================================================');
+  return scoredListings;
+}
+
+async function runScoring({ dryRun = false } = {}) {
+  const store = new ListingStore({ dryRun });
+  await store.load();
+  return scoreAll(store);
 }
 
 if (require.main === module) {
-  runScoring();
+  runScoring({ dryRun: process.argv.includes('--dry-run') }).catch(err => {
+    console.error(err.message);
+    process.exit(1);
+  });
 }
 
-module.exports = { runScoring, scoreProperty };
+module.exports = { runScoring, scoreAll, scoreProperty };

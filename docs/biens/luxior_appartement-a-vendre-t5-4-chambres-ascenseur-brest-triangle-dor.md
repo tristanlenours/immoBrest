@@ -37,7 +37,7 @@ outline: deep
   <div class="grid-stat-card">
     <div class="card-icon">🚪</div>
     <div class="card-label">Pièces / Type</div>
-    <div class="card-val">5 (Appartement)</div>
+    <div class="card-val">5 pièces (Appartement)</div>
   </div>
   <div class="grid-stat-card">
     <div class="card-icon">📍</div>
@@ -114,7 +114,7 @@ Au coeur du centre-ville de Brest, dans le très recherché Triangle d'Or de la 
 * **Prestations supplémentaires** : Chambres: 4, Garage: 0, Cave: 1
 * **Date de première vue** : 8 octobre 2026 à 21h05
 * **Dernière vue** : 25 octobre 2026 à 22h34
-* **Durée de référencement** : 17 jour(s) et 2 heure(s)
+* **Durée de référencement** : 19 jour(s) et 18 heure(s)
 
 
 

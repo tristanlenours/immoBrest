@@ -1,10 +1,6 @@
-const fs = require('node:fs');
 const path = require('node:path');
-const {
-  OUTPUT_DIR,
-  SAS_DIR,
-  parseListingMarkdown
-} = require('../../shared/listing_utils');
+const { ROOT_DIR } = require('../../shared/listing_utils');
+const { ListingStore, rowToParsed } = require('../../shared/listing_store');
 
 const args = process.argv.slice(2);
 const options = {
@@ -51,31 +47,20 @@ if (!options.order) {
   options.order = options.sort === 'price' ? 'asc' : 'desc';
 }
 
-function displayListings() {
-  const targetDir = options.sas ? SAS_DIR : OUTPUT_DIR;
-  if (!fs.existsSync(targetDir)) {
-    if (options.sas) {
-      console.log("Le sas d'attente est vide ou n'existe pas encore.");
-      return;
-    }
-    console.error(`Error: Directory ${targetDir} does not exist.`);
+async function displayListings() {
+  const store = new ListingStore();
+  await store.load();
+  const rows = store.byReviewStatus(options.sas ? 'sas' : 'approved');
+  if (options.sas && rows.length === 0) {
+    console.log("Le sas d'attente est vide.");
     return;
   }
 
-  const folders = fs.readdirSync(targetDir).filter(f => fs.statSync(path.join(targetDir, f)).isDirectory());
   const listings = [];
 
-  for (const folder of folders) {
-    const folderPath = path.join(targetDir, folder);
-    const files = fs.readdirSync(folderPath).filter(f => f.endsWith('.md'));
-
-    const sortedFiles = [...files].sort();
-    const latestMdFile = sortedFiles.length > 0 ? sortedFiles[sortedFiles.length - 1] : null;
-    if (!latestMdFile) continue;
-
-    const filePath = path.join(folderPath, latestMdFile);
-    const content = fs.readFileSync(filePath, 'utf8');
-    const parsed = parseListingMarkdown(content);
+  for (const row of rows) {
+    const folder = row.id;
+    const parsed = rowToParsed(row);
 
     const {
       source,
@@ -145,7 +130,7 @@ function displayListings() {
       dateLast,
       dateVal,
       maluses,
-      filePath: filePath.replace(/\\/g, '/')
+      filePath: path.join(ROOT_DIR, 'docs', 'biens', `${folder}.md`).replace(/\\/g, '/')
     });
   }
 
@@ -185,4 +170,7 @@ function displayListings() {
   }
 }
 
-displayListings();
+displayListings().catch(err => {
+  console.error(err.message);
+  process.exit(1);
+});

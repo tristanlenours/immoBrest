@@ -32,7 +32,7 @@ Exemples :
 ## Restitution des Résultats du Fetch
 
 > [!IMPORTANT]
-> Après chaque exécution du script de fetch (`fetch_listings.js`), l'agent doit **systématiquement et explicitement** présenter à l'utilisateur la liste des nouvelles annonces découvertes et placées dans le sas d'attente (`leboncoin_sas/`).
+> Après chaque exécution du script de fetch (`fetch_listings.js`), l'agent doit **systématiquement et explicitement** présenter à l'utilisateur la liste des nouvelles annonces découvertes et placées dans le sas d'attente (`review_status = 'sas'` dans Supabase).
 > Pour chaque annonce découverte, il convient d'indiquer :
 > - La source (Leboncoin, Agence Henry, Luxior, Barraine, Human)
 > - Le type de bien, quartier, surface, prix (ou "Prix sur demande")
@@ -58,13 +58,17 @@ ImmoBrest est une plateforme automatisée de recherche, d'évaluation et de cons
 
 ---
 
-## 2. Structure des Dossiers de Données
+## 2. Structure des Données
 
-- `leboncoin_searches/` : **Base active** des annonces confirmées et publiées sur le site.
-- `leboncoin_sas/` : **Sas d'attente** hébergeant les nouvelles annonces détectées lors des sessions de fetch, en attente de validation.
-- `corbeille/` : **Corbeille** des annonces rejetées ou supprimées (sert également d'anti-doublon pour ne jamais ré-ingérer une annonce rejetée).
-- `dvf_data/` : Données historiques brutes et parsées des transactions immobilières réelles de la DGFiP sur Brest.
-- `docs/` : Code source et contenu du site statique VitePress (`docs/biens/`, `docs/public/listings_data.json`).
+Les annonces vivent dans le projet **Supabase partagé** (avec DraftMaster et Quiz), tables préfixées `immo_`. Les scripts utilisent la clé `service_role` lue dans `.env` (voir `.env.example`) : lancer avec `node --env-file=.env <script>`. Le schéma est dans `supabase/migrations/`.
+
+- `immo_listings` : une ligne par annonce. `review_status` vaut `sas` (**sas d'attente**, nouvelles annonces à valider), `approved` (**base active** publiée sur le site) ou `rejected` (**corbeille**, sert aussi d'anti-doublon pour ne jamais ré-ingérer une annonce rejetée). `market_status` porte l'état sur le marché (Actif, Vendu ou retiré de la vente...).
+- `immo_price_history` : historique des prix par annonce.
+- `immo_dvf_sales` : transactions réelles DGFiP sur Brest.
+- `immo_run_log` : journal des exécutions du fetch (date de dernière recherche, statistiques, erreurs).
+- `immo_allowed_emails` : e-mails autorisés à consulter et modérer.
+- `leboncoin_searches/<id>/latest_screenshot.png` : captures d'écran des annonces à fort score (les anciens dossiers `.md` sont conservés comme archive historique, plus lus par les scripts).
+- `dvf_data/` et `docs/public/dvf/` : données DVF brutes et parsées ; `docs/` : site statique VitePress (`docs/biens/`, `docs/public/listings_data.json`), généré depuis la base.
 
 ---
 
@@ -73,8 +77,8 @@ ImmoBrest est une plateforme automatisée de recherche, d'évaluation et de cons
 ```mermaid
 flowchart TD
     A[Scraper / Fetch Multi-sources] --> B{A déjà été vus?}
-    B -- Non --> C[Dossier Sas d'attente leboncoin_sas]
-    B -- Oui (Base Active) --> D[Mise à jour historique / prix dans leboncoin_searches]
+    B -- Non --> C[Sas d'attente : immo_listings review_status = sas]
+    B -- Oui (Base Active) --> D[Mise à jour historique / prix : immo_listings + immo_price_history]
     B -- Oui (Corbeille) --> E[Ignoré / Non ingéré]
     
     C --> F[Scoring automatique sur 10]
@@ -88,9 +92,9 @@ flowchart TD
 
 1. **Ingestion (Fetch & Multi-dédoublonnage)** :
    - Scan Chrome Debugging sur Leboncoin + requêtes HTTP sur agences partenaires.
-   - Contrôle anti-doublon global (recherche dans `leboncoin_searches/`, `leboncoin_sas/` et `corbeille/`).
+   - Contrôle anti-doublon global (toutes les annonces de `immo_listings`, quel que soit leur `review_status`).
 2. **Sas d'attente (Staging)** :
-   - Toute nouvelle propriété entre dans `leboncoin_sas/`.
+   - Toute nouvelle propriété entre dans `immo_listings` avec `review_status = 'sas'`.
    - Le scoring est immédiatement calculé pour faciliter la décision.
 3. **Validation / Modération** :
    - L'utilisateur ou l'agent valide (`manage_sas.js approve`) ou rejette (`manage_sas.js reject`).
@@ -104,21 +108,28 @@ flowchart TD
 ## 4. Catalogue des Skills & Helper Scripts
 
 ### 🔍 `leboncoin_fetch` (Ingestion & Gestion du Sas)
-- **Scraper d'annonces** : `node .agents/skills/leboncoin_fetch/scripts/fetch_listings.js`
-- **Lister le Sas d'attente** : `node .agents/skills/leboncoin_fetch/scripts/manage_sas.js list`
-- **Valider une annonce du Sas** : `node .agents/skills/leboncoin_fetch/scripts/manage_sas.js approve <id|all>`
-- **Rejeter une annonce du Sas** : `node .agents/skills/leboncoin_fetch/scripts/manage_sas.js reject <id|all>`
+- **Scraper d'annonces** : `node --env-file=.env .agents/skills/leboncoin_fetch/scripts/fetch_listings.js`
+  - `--sources=leboncoin,henry,luxior,barraine,human` : limite les sources interrogées (toutes par défaut). Leboncoin s'exécute sur le PC (Chrome en debug), les autres sources peuvent tourner dans le cloud.
+  - `--dry-run` : exécute tout le pipeline sans rien écrire dans la base.
+  - Le scoring est lancé automatiquement à la fin, et chaque exécution est tracée dans `immo_run_log`.
+- **Lister le Sas d'attente** : `node --env-file=.env .agents/skills/leboncoin_fetch/scripts/manage_sas.js list`
+- **Valider une annonce du Sas** : `node --env-file=.env .agents/skills/leboncoin_fetch/scripts/manage_sas.js approve <id|all>`
+- **Rejeter une annonce du Sas** : `node --env-file=.env .agents/skills/leboncoin_fetch/scripts/manage_sas.js reject <id|all> [motif]`
 
 ### 📊 `leboncoin_scoring` (Calcul des Notes)
-- **Scorer toutes les annonces (actives + sas)** : `node .agents/skills/leboncoin_scoring/scripts/score_listings.js`
+- **Scorer toutes les annonces (actives + sas)** : `node --env-file=.env .agents/skills/leboncoin_scoring/scripts/score_listings.js` (`--dry-run` pour simuler)
 
 ### 💻 `leboncoin_display` (Consultation CLI)
-- **Afficher les annonces actives** : `node .agents/skills/leboncoin_display/scripts/display_listings.js`
-- **Afficher les annonces du Sas d'attente** : `node .agents/skills/leboncoin_display/scripts/display_listings.js --sas`
+- **Afficher les annonces actives** : `node --env-file=.env .agents/skills/leboncoin_display/scripts/display_listings.js`
+- **Afficher les annonces du Sas d'attente** : `node --env-file=.env .agents/skills/leboncoin_display/scripts/display_listings.js --sas`
 
 ### 🌐 `leboncoin_generate_site` (Génération Web)
-- **Régénérer les fiches et données du site** : `node .agents/skills/leboncoin_generate_site/scripts/generate_site.js`
+- **Régénérer les fiches et données du site depuis la base** : `npm run generate`
 - **Lancer le serveur de développement VitePress** : `npm run dev`
+- `npm run build` compile uniquement le site à partir des fichiers déjà générés (utilisé par le déploiement GitHub Pages, sans accès à la base) ; `npm run build:full` régénère puis compile.
+
+### 🗄️ `supabase_sync` (Migration)
+- **Migration unique des fiches markdown vers Supabase** : `node --env-file=.env .agents/skills/supabase_sync/scripts/migrate_files_to_supabase.js [--apply]` (dry-run par défaut ; n'insère que les lignes absentes).
 
 ### 🗺️ `dvf` (Données Ventes Réelles DGFiP)
 - **Télécharger et géolocaliser les données DVF sur Brest** : Voir instructions dans `.agents/skills/dvf/SKILL.md`.

@@ -3,20 +3,35 @@ dns.setDefaultResultOrder('ipv4first');
 const fs = require('node:fs');
 const path = require('node:path');
 const os = require('node:os');
+const crypto = require('node:crypto');
 const {
-  OUTPUT_DIR,
-  SAS_DIR,
-  CORBEILLE_DIR,
   normalizeString,
   normalizeForDup,
   decodeHtmlEntities,
   formatPrice,
-  parseFrenchDate,
   detectQuartier,
   hasIdentifiedQuartier,
-  scoreProperty,
-  parseListingMarkdown
+  scoreProperty
 } = require('../../shared/listing_utils');
+const {
+  ListingStore,
+  rowToParsed,
+  linksFromRow,
+  buildLinkFields,
+  sourceKeyOf,
+  parseFrenchDateToIso,
+  formatFrenchDateTime,
+  LINK_LABELS,
+  SOLD_STATUS
+} = require('../../shared/listing_store');
+const { scoreAll } = require('../../leboncoin_scoring/scripts/score_listings');
+
+// Captures d'écran des annonces à fort score : leboncoin_searches/<id>/latest_screenshot.png,
+// copiées vers docs/public/screenshots par la génération du site.
+const SCREENSHOTS_DIR = path.resolve(__dirname, '../../../../leboncoin_searches');
+
+// Magasin d'annonces Supabase, initialisé dans run().
+let store = null;
 
 function formatLeboncoinDate(dateStr) {
   if (!dateStr) return null;
@@ -687,101 +702,36 @@ async function scrapeLeboncoin(pagesToScan = 3, lastSearchTime = 0) {
     const priceKey = adPrice ? adPrice.toString() : 'sur_demande';
     
     const sourceKey = 'leboncoin';
-    const propDir = path.join(OUTPUT_DIR, `${sourceKey}_${adId}`);
-    const corbeilleDir = path.join(path.dirname(OUTPUT_DIR), 'corbeille', `${sourceKey}_${adId}`);
-    if (fs.existsSync(corbeilleDir)) {
-      console.log(`[SKIPPED - TRASHED] ${sourceKey}_${adId} is in corbeille`);
+    const listingId = `${sourceKey}_${adId}`;
+    const known = store.get(listingId);
+    if (known && known.review_status === 'rejected') {
+      console.log(`[SKIPPED - TRASHED] ${listingId} is in corbeille`);
+      store.stats.skippedTrashed++;
       continue;
     }
-    
-    let latestMdFile = null;
-    let latestPrice = null;
-    
-    if (fs.existsSync(propDir)) {
-      const files = fs.readdirSync(propDir).filter(f => f.endsWith('.md'));
-      let latestMtime = 0;
-      for (const file of files) {
-        const stat = fs.statSync(path.join(propDir, file));
-        if (stat.mtimeMs > latestMtime) {
-          latestMtime = stat.mtimeMs;
-          latestMdFile = file;
-        }
-      }
-      if (latestMdFile) {
-        const parts = latestMdFile.replace('.md', '').split('_');
-        if (parts.length >= 3) {
-          latestPrice = parts.slice(2).join('_');
-        }
-      }
-    }
-    
-    const priceMatches = latestPrice === priceKey;
+
+    const priceMatches = !!known && known.price === (adPrice !== null ? Number(adPrice) : null);
     let indexTime = 0;
     if (ad.index_date) {
       indexTime = new Date(ad.index_date.replace(' ', 'T')).getTime();
     }
-    
-    if (latestMdFile && priceMatches && lastSearchTime > 0 && indexTime < lastSearchTime) {
+
+    if (priceMatches && lastSearchTime > 0 && indexTime < lastSearchTime) {
       // SKIP DETAIL PAGE LOAD - Listing is already saved and has not been modified since last search
-      const filePath = path.join(propDir, latestMdFile);
-      let content = fs.readFileSync(filePath, 'utf8');
-      
-      const now = new Date();
-      const dateStr = now.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }) + 
-        ' à ' + String(now.getHours()).padStart(2, '0') + 'h' + String(now.getMinutes()).padStart(2, '0');
-      
-      // Calculate new duration
-      let firstSeenTime = now.getTime();
-      const files = fs.readdirSync(propDir).filter(f => f.endsWith('.md'));
-      const sortedFiles = [...files].sort();
-      if (sortedFiles.length > 0) {
-        const earliestFile = sortedFiles[0];
-        const tMatch = earliestFile.match(/^(\d{4})(\d{2})(\d{2})_(\d{2})(\d{2})(\d{2})/);
-        if (tMatch) {
-          firstSeenTime = new Date(
-            parseInt(tMatch[1]),
-            parseInt(tMatch[2]) - 1,
-            parseInt(tMatch[3]),
-            parseInt(tMatch[4]),
-            parseInt(tMatch[5]),
-            parseInt(tMatch[6])
-          ).getTime();
-        }
-      }
-      const diffMs = now.getTime() - firstSeenTime;
-      const diffDays = Math.floor(diffMs / (24 * 60 * 60 * 1000));
-      const diffHours = Math.floor((diffMs % (24 * 60 * 60 * 1000)) / (60 * 60 * 1000));
-      let durationStr = '';
-      if (diffDays > 0) {
-        durationStr = `${diffDays} jour(s) et ${diffHours} heure(s)`;
-      } else {
-        const diffMins = Math.floor((diffMs % (60 * 60 * 1000)) / (60 * 1000));
-        durationStr = `${diffHours} heure(s) et ${diffMins} minute(s)`;
-      }
-      
-      const pubDateStr = formatLeboncoinDate(ad.index_date || ad.published_date || ad.first_publication_date) || dateStr;
-      
-      content = content.replace(/- \*\*Dernière vue\*\* : [^\n]*/, `- **Dernière vue** : ${pubDateStr}`);
-      content = content.replace(/- \*\*Durée de référencement\*\* : [^\n]*/, `- **Durée de référencement** : ${durationStr}`);
-      
-      fs.writeFileSync(filePath, content, 'utf8');
-      console.log(`[SKIPPED DETAIL - UNCHANGED] ${ad.subject} (${priceKey} €) | Last seen & duration updated.`);
-      
-      // Push to results for uniqueResults list
-      const descMatch = content.match(/\*\*Description\*\* :\s*```text([\s\S]*?)```/);
-      const description = descMatch ? descMatch[1].trim() : '';
-      
+      const pubDateStr = formatLeboncoinDate(ad.index_date || ad.published_date || ad.first_publication_date) || formatFrenchDateTime(new Date().toISOString());
+      console.log(`[SKIPPED DETAIL - UNCHANGED] ${ad.subject} (${priceKey} €) | Last seen updated on save.`);
+
       const isMaison = url.includes('maison') || ad.subject.toLowerCase().includes('maison');
       const type = isMaison ? 'Maison' : 'Appartement';
       const city = ad.location.city_label || ad.location.city || 'Brest';
-      
+
       results.push({
         source: 'Leboncoin',
         url,
         title: ad.subject,
         price: formatPrice(adPrice),
         location: city,
-        description,
+        description: known.description || '',
         type,
         publicationDate: pubDateStr,
         specs: {
@@ -889,10 +839,8 @@ async function scrapeLeboncoin(pagesToScan = 3, lastSearchTime = 0) {
         const score = quickScoreProperty(title, description, location, type);
         let screenshotBuffer = null;
         let needsScreenshot = score >= 5.0;
-        if (needsScreenshot && fs.existsSync(propDir)) {
-          if (priceMatches) {
-            needsScreenshot = false;
-          }
+        if (needsScreenshot && known && priceMatches) {
+          needsScreenshot = false;
         }
         
         if (needsScreenshot) {
@@ -1423,163 +1371,45 @@ async function checkUrlIs404(url) {
   }
 }
 
-async function markSoldProperties(seenIds) {
+async function markSoldProperties(seenIds, sourcesRun) {
   console.log('\nChecking for sold/removed properties...');
-  if (!fs.existsSync(OUTPUT_DIR)) return;
-  
-  const folders = fs.readdirSync(OUTPUT_DIR).filter(f => fs.statSync(path.join(OUTPUT_DIR, f)).isDirectory());
   const fourteenDaysAgo = Date.now() - 14 * 24 * 60 * 60 * 1000; // 2 semaines (14 jours)
-  
-  for (const folder of folders) {
-    if (seenIds.has(folder)) continue;
-    
-    const folderPath = path.join(OUTPUT_DIR, folder);
-    const files = fs.readdirSync(folderPath).filter(f => f.endsWith('.md'));
-    const sortedFiles = [...files].sort();
-    let latestMdFile = sortedFiles.length > 0 ? sortedFiles[sortedFiles.length - 1] : null;
-    
-    if (latestMdFile) {
-      const filePath = path.join(folderPath, latestMdFile);
-      let content = fs.readFileSync(filePath, 'utf8');
-      
-      if (content.includes('**Statut** : Vendu ou retiré de la vente')) {
-        continue;
-      }
-      
-      let shouldMarkSold = false;
-      let reason = '';
-      
-      // 1. Check if older than 14 days (2 weeks)
-      let fileDateTs = 0;
-      const match = latestMdFile.match(/^(\d{4})(\d{2})(\d{2})_\d{6}/);
-      if (match) {
-        fileDateTs = new Date(parseInt(match[1]), parseInt(match[2]) - 1, parseInt(match[3])).getTime();
-      } else {
-        const stat = fs.statSync(filePath);
-        fileDateTs = stat.mtimeMs;
-      }
-      
-      const lastSeenMatch = content.match(/- \*\*Dernière vue\*\* : ([^\n]+)/);
-      if (lastSeenMatch) {
-        const parsedTs = parseFrenchDate(lastSeenMatch[1].trim());
-        if (parsedTs > 0) fileDateTs = parsedTs;
-      }
-      
-      if (fileDateTs < fourteenDaysAgo) {
-        shouldMarkSold = true;
-        reason = 'non vu depuis plus de 2 semaines (14 jours)';
-      }
-      
-      // 2. Check HTTP 404 for agency URLs if not seen in current run
-      if (!shouldMarkSold) {
-        const links = getLinks(content);
-        const mainMatch = content.match(/- \*\*Lien de l'annonce\*\* : \[Consulter l'annonce\]\(([^)]+)\)/);
-        const primaryUrl = mainMatch ? mainMatch[1] : null;
-        
-        const urlsToCheck = new Set();
-        if (primaryUrl && !primaryUrl.includes('leboncoin.fr')) urlsToCheck.add(primaryUrl);
-        if (links.henry) urlsToCheck.add(links.henry);
-        if (links.barraine) urlsToCheck.add(links.barraine);
-        if (links.luxior) urlsToCheck.add(links.luxior);
-        if (links.human) urlsToCheck.add(links.human);
-        
-        for (const url of urlsToCheck) {
-          const is404 = await checkUrlIs404(url);
-          if (is404) {
-            shouldMarkSold = true;
-            reason = `page 404 sur ${url}`;
-            break;
-          }
+
+  for (const row of store.byReviewStatus('approved')) {
+    if (seenIds.has(row.id)) continue;
+    if (row.market_status === SOLD_STATUS) continue;
+
+    // Une annonce n'est jugée que si l'une de ses sources a été interrogée avec succès dans cette exécution.
+    const links = linksFromRow(row);
+    if (!Object.keys(links).some(key => sourcesRun.has(key))) continue;
+
+    let reason = '';
+
+    // 1. Non vue depuis plus de 14 jours
+    const lastSeenMs = row.last_seen_at ? new Date(row.last_seen_at).getTime() : 0;
+    if (lastSeenMs < fourteenDaysAgo) {
+      reason = 'non vu depuis plus de 2 semaines (14 jours)';
+    }
+
+    // 2. Page 404 sur un lien d'agence
+    if (!reason) {
+      for (const [key, url] of Object.entries(links)) {
+        if (key === 'leboncoin') continue;
+        if (await checkUrlIs404(url)) {
+          reason = `page 404 sur ${url}`;
+          break;
         }
       }
-      
-      if (shouldMarkSold) {
-        if (content.includes('**Statut** :')) {
-          content = content.replace(/- \*\*Statut\*\* : [^\n]*/, '- **Statut** : Vendu ou retiré de la vente');
-        } else {
-          const lines = content.split('\n');
-          lines.splice(1, 0, '- **Statut** : Vendu ou retiré de la vente');
-          content = lines.join('\n');
-        }
-        fs.writeFileSync(filePath, content, 'utf8');
-        console.log(`[MARKED SOLD] Property in folder ${folder} marked as sold/removed (${reason}).`);
-      }
+    }
+
+    if (reason) {
+      await store.update(row.id, { market_status: SOLD_STATUS });
+      store.stats.markedSold++;
+      console.log(`[MARKED SOLD] Property ${row.id} marked as sold/removed (${reason}).`);
     }
   }
 }
 
-const getLinks = (content) => {
-  const links = {};
-  const mainMatch = content.match(/- \*\*Lien de l'annonce\*\* : \[Consulter l'annonce\]\(([^)]+)\)/);
-  const henryMatch = content.match(/- \*\*Lien additionnel \(Agence Henry\)\*\* : \[Consulter l'annonce\]\(([^)]+)\)/);
-  const luxiorMatch = content.match(/- \*\*Lien additionnel \(Luxior\)\*\* : \[Consulter l'annonce\]\(([^)]+)\)/);
-  const lbcMatch = content.match(/- \*\*Lien additionnel \(Leboncoin\)\*\* : \[Consulter l'annonce\]\(([^)]+)\)/);
-  const barraineMatch = content.match(/- \*\*Lien additionnel \(Barraine\)\*\* : \[Consulter l'annonce\]\(([^)]+)\)/);
-  const humanMatch = content.match(/- \*\*Lien additionnel \(Human\)\*\* : \[Consulter l'annonce\]\(([^)]+)\)/);
-  
-  if (mainMatch) {
-    const url = mainMatch[1];
-    if (url.includes('leboncoin.fr')) links.leboncoin = url;
-    else if (url.includes('agence-henry.com')) links.henry = url;
-    else if (url.includes('luxior-immobilier.com')) links.luxior = url;
-    else if (url.includes('barraine-immo.com')) links.barraine = url;
-    else if (url.includes('human-immobilier.fr')) links.human = url;
-  }
-  if (henryMatch) links.henry = henryMatch[1];
-  if (luxiorMatch) links.luxior = luxiorMatch[1];
-  if (lbcMatch) links.leboncoin = lbcMatch[1];
-  if (barraineMatch) links.barraine = barraineMatch[1];
-  if (humanMatch) links.human = humanMatch[1];
-  return links;
-};
-
-// Search all repository subdirectories (active, sas, corbeille) to find a duplicate of the property
-function findDuplicateFolder(p) {
-  const dirs = [
-    { name: 'active', path: OUTPUT_DIR },
-    { name: 'sas', path: SAS_DIR },
-    { name: 'corbeille', path: CORBEILLE_DIR }
-  ];
-
-  for (const d of dirs) {
-    if (!fs.existsSync(d.path)) continue;
-    const folders = fs.readdirSync(d.path).filter(f => fs.statSync(path.join(d.path, f)).isDirectory());
-    for (const folder of folders) {
-      const folderPath = path.join(d.path, folder);
-      const files = fs.readdirSync(folderPath).filter(f => f.endsWith('.md'));
-      const sortedFiles = [...files].sort();
-      const latestMdFile = sortedFiles.length > 0 ? sortedFiles[sortedFiles.length - 1] : null;
-      if (latestMdFile) {
-        const content = fs.readFileSync(path.join(folderPath, latestMdFile), 'utf8');
-        
-        // Direct URL match check
-        const existingLinks = getLinks(content);
-        const allExistingUrls = Object.values(existingLinks);
-        if (p.url && allExistingUrls.some(u => u === p.url)) {
-          return { folder, folderPath, latestMdFile, fileContent: content, dirName: d.name, dirPath: d.path };
-        }
-
-        const parsed = parseListingMarkdown(content);
-        const existingP = {
-          title: parsed.title,
-          type: parsed.type,
-          location: parsed.location,
-          description: parsed.description,
-          price: parsed.priceRaw,
-          specs: {
-            surface: parsed.surfaceStr,
-            pieces: parsed.pieces
-          }
-        };
-        
-        if (areDuplicates(p, existingP)) {
-          return { folder, folderPath, latestMdFile, fileContent: content, dirName: d.name, dirPath: d.path };
-        }
-      }
-    }
-  }
-  return null;
-}
 
 function generatePersonalizedTitle(type, title, description, location, surface, pieces) {
   const fullText = (title + ' ' + description + ' ' + location).toLowerCase();
@@ -1652,398 +1482,309 @@ function generatePersonalizedTitle(type, title, description, location, surface, 
   return `${prefix}${middle}${suffix}`.trim();
 }
 
-async function saveOrUpdateProperty(p) {
-  const sourceKey = p.source === 'Agence Henry' ? 'henry' : (p.source === 'Luxior' ? 'luxior' : (p.source === 'Barraine' ? 'barraine' : (p.source === 'Human' ? 'human' : 'leboncoin')));
-  const url = p.url;
-  
+function priceNumberOf(priceStr) {
+  const digits = String(priceStr || '').replace(/[^\d]/g, '');
+  return digits ? parseInt(digits, 10) : null;
+}
+
+// Identifiant stable d'une annonce, dérivé de son lien (repli : empreinte du lien).
+function extractListingId(url) {
   const match = url.match(/\/(\d+)(?:\.htm)?$/) || url.match(/\/(\d+)\/?$/) || url.match(/\+(\d+)/) || url.match(/\/bien\/([^\/]+)\/?$/) || url.match(/_(\d+-\d+)\/?$/) || url.match(/annonce-(\d+)/) || url.match(/ref(\d+)/);
-  const id = match ? match[1] : 'unknown';
-  
-  const now = new Date();
-  const timestamp = now.getFullYear() +
-    String(now.getMonth() + 1).padStart(2, '0') +
-    String(now.getDate()).padStart(2, '0') +
-    '_' +
-    String(now.getHours()).padStart(2, '0') +
-    String(now.getMinutes()).padStart(2, '0') +
-    String(now.getSeconds()).padStart(2, '0');
-    
-  const dateStr = now.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }) + 
-    ' à ' + String(now.getHours()).padStart(2, '0') + 'h' + String(now.getMinutes()).padStart(2, '0');
-    
-  const priceNum = p.price.replace(/[^\d]/g, '');
-  const priceKey = priceNum ? priceNum : 'sur_demande';
-  
-  // Look for duplicate folder in the repo (active, sas, or corbeille)
-  const dup = findDuplicateFolder(p);
-  
-  if (dup && dup.dirName === 'corbeille') {
-    console.log(`[SKIPPED - TRASHED] Property is in corbeille (${dup.folder})`);
+  if (match) return match[1];
+  return 'h' + crypto.createHash('sha1').update(url).digest('hex').slice(0, 10);
+}
+
+function saveScreenshot(id, buffer) {
+  if (store.dryRun) return;
+  const dir = path.join(SCREENSHOTS_DIR, id);
+  fs.mkdirSync(dir, { recursive: true });
+  fs.writeFileSync(path.join(dir, 'latest_screenshot.png'), buffer);
+}
+
+// Suit le changement d'identifiant d'une annonce (fusion vers Leboncoin) pour sa capture d'écran.
+function moveScreenshotFolder(oldId, newId) {
+  if (store.dryRun) return;
+  const from = path.join(SCREENSHOTS_DIR, oldId);
+  const to = path.join(SCREENSHOTS_DIR, newId);
+  if (fs.existsSync(from) && !fs.existsSync(to)) fs.renameSync(from, to);
+}
+
+async function saveOrUpdateProperty(p) {
+  const sourceKey = sourceKeyOf(p.source);
+  const id = extractListingId(p.url);
+  const nowIso = new Date().toISOString();
+  const priceNum = priceNumberOf(p.price);
+
+  // Annonce déjà connue (base active, sas ou corbeille), par lien puis par caractéristiques.
+  let existing = store.findDuplicate(p, areDuplicates);
+  if (existing && existing.review_status === 'rejected') {
+    console.log(`[SKIPPED - TRASHED] Property is in corbeille (${existing.id})`);
+    store.stats.skippedTrashed++;
     return null;
   }
-  
-  let targetFolder = `${sourceKey}_${id}`;
-  let baseDir = dup ? dup.dirPath : SAS_DIR;
-  let targetFolderPath = path.join(baseDir, targetFolder);
-  
-  const checkFolders = [
-    `${sourceKey}_${id}`,
-    `leboncoin_${id}`,
-    `henry_${id}`,
-    `luxior_${id}`,
-    `barraine_${id}`,
-    `human_${id}`
-  ];
-  if (dup) {
-    checkFolders.push(dup.folder);
-  }
-  for (const f of checkFolders) {
-    if (fs.existsSync(path.join(CORBEILLE_DIR, f))) {
-      console.log(`[SKIPPED - TRASHED] Property is in corbeille (${f})`);
+  for (const key of Object.keys(LINK_LABELS)) {
+    const sameId = store.get(`${key}_${id}`);
+    if (sameId && sameId.review_status === 'rejected') {
+      console.log(`[SKIPPED - TRASHED] Property is in corbeille (${sameId.id})`);
+      store.stats.skippedTrashed++;
       return null;
     }
   }
-  
-  let latestMdFile = null;
-  let latestPrice = null;
-  let existingLinks = {};
-  
-  if (dup) {
-    targetFolder = dup.folder;
-    targetFolderPath = dup.folderPath;
-    latestMdFile = dup.latestMdFile;
-    existingLinks = getLinks(dup.fileContent);
-    
-    // Parse price key from existing file name
-    const parts = latestMdFile.replace('.md', '').split('_');
-    if (parts.length >= 3) {
-      latestPrice = parts.slice(2).join('_');
-    }
-    
-    // Merge folder to Leboncoin if the new source is Leboncoin and the current folder is not leboncoin
-    if (p.source === 'Leboncoin' && !targetFolder.startsWith('leboncoin_')) {
-      const newFolder = `leboncoin_${id}`;
-      const newFolderPath = path.join(baseDir, newFolder);
-      console.log(`Migrating duplicate folder from ${targetFolder} to ${newFolder} (Leboncoin is primary)`);
-      try {
-        fs.renameSync(targetFolderPath, newFolderPath);
-        targetFolder = newFolder;
-        targetFolderPath = newFolderPath;
-      } catch (err) {
-        console.error(`Folder migration failed:`, err.message);
-      }
-    }
-  } else {
-    console.log(`[NEW PROPERTY - SAS STAGING] Property "${p.title}" placed in SAS: ${targetFolder}`);
-  }
-  
-  if (!fs.existsSync(targetFolderPath)) {
-    fs.mkdirSync(targetFolderPath, { recursive: true });
-  }
-  
-  const files = fs.readdirSync(targetFolderPath).filter(f => f.endsWith('.md'));
-  const sortedFiles = [...files].sort();
-  let firstSeenTime = now.getTime();
-  if (sortedFiles.length > 0) {
-    const earliestFile = sortedFiles[0];
-    const tMatch = earliestFile.match(/^(\d{4})(\d{2})(\d{2})_(\d{2})(\d{2})(\d{2})/);
-    if (tMatch) {
-      firstSeenTime = new Date(
-        parseInt(tMatch[1]),
-        parseInt(tMatch[2]) - 1,
-        parseInt(tMatch[3]),
-        parseInt(tMatch[4]),
-        parseInt(tMatch[5]),
-        parseInt(tMatch[6])
-      ).getTime();
-    }
-  }
-  const diffMs = now.getTime() - firstSeenTime;
-  const diffDays = Math.floor(diffMs / (24 * 60 * 60 * 1000));
-  const diffHours = Math.floor((diffMs % (24 * 60 * 60 * 1000)) / (60 * 60 * 1000));
-  let durationStr = '';
-  if (diffDays > 0) {
-    durationStr = `${diffDays} jour(s) et ${diffHours} heure(s)`;
-  } else {
-    const diffMins = Math.floor((diffMs % (60 * 60 * 1000)) / (60 * 1000));
-    durationStr = `${diffHours} heure(s) et ${diffMins} minute(s)`;
-  }
-  
-  const getMdContent = (firstSeenDate, lastSeenDate, currentPrice, status = 'Actif', linksObj = {}) => {
-    const allLinks = { ...linksObj, ...p.otherLinks, [sourceKey]: p.url };
-    const primaryLink = allLinks.leboncoin || allLinks.henry || allLinks.luxior || allLinks.barraine || allLinks.human;
-    
-    let linksLines = `- **Lien de l'annonce** : [Consulter l'annonce](${primaryLink})`;
-    if (allLinks.leboncoin && primaryLink !== allLinks.leboncoin) {
-      linksLines += `\n- **Lien additionnel (Leboncoin)** : [Consulter l'annonce](${allLinks.leboncoin})`;
-    }
-    if (allLinks.henry && primaryLink !== allLinks.henry) {
-      linksLines += `\n- **Lien additionnel (Agence Henry)** : [Consulter l'annonce](${allLinks.henry})`;
-    }
-    if (allLinks.luxior && primaryLink !== allLinks.luxior) {
-      linksLines += `\n- **Lien additionnel (Luxior)** : [Consulter l'annonce](${allLinks.luxior})`;
-    }
-    if (allLinks.barraine && primaryLink !== allLinks.barraine) {
-      linksLines += `\n- **Lien additionnel (Barraine)** : [Consulter l'annonce](${allLinks.barraine})`;
-    }
-    if (allLinks.human && primaryLink !== allLinks.human) {
-      linksLines += `\n- **Lien additionnel (Human)** : [Consulter l'annonce](${allLinks.human})`;
-    }
-    
-    // Choose appropriate title tag source prefix
-    let titlePrefix = p.source;
-    if (allLinks.leboncoin) titlePrefix = 'Leboncoin';
-    else if (allLinks.henry) titlePrefix = 'Agence Henry';
-    
-    const personalizedTitle = generatePersonalizedTitle(
-      p.type,
-      p.title,
-      p.description,
-      p.location,
-      p.specs.surface ? parseFloat(p.specs.surface.replace(/[^\d.]/g, '')) : null,
-      p.specs.pieces ? parseInt(p.specs.pieces.replace(/[^\d]/g, ''), 10) : null
-    );
-    
-    return `# [${titlePrefix}] - ${personalizedTitle} (Score: -/10)
-- **Statut** : ${status}
-- **Date de première vue** : ${firstSeenDate}
-- **Dernière vue** : ${lastSeenDate}
-- **Durée de référencement** : ${durationStr}
-- **Score de correspondance** : -/10
-  - [ ] Siam / Triangle d'Or / Place Wilson / Saint-Louis / Gare / Cours Dajot / Château / Jardin des Explorateurs (Tiers 1)
-  - [ ] Dernier étage (ou Maison)
-  - [ ] Seul à l'étage (ou Maison)
-  - [ ] Terrasse (ou Jardin pour une Maison)
-  - [ ] Ascenseur (ou Maison)
-  - [ ] Parking / Garage
-  - [ ] Bonus qualité (+0.0)
-- **Prix** : ${currentPrice}
-- **Localisation** : ${p.location}
-- **Caractéristiques** :
-  - Type de bien : ${p.type}
-  - Surface : ${p.specs.surface || 'Non spécifiée'}
-  - Pièces : ${p.specs.pieces || 'Non spécifié'}
-  - Étage : ${p.specs.floor || 'Non spécifié'}
-  - Prestations : ${p.specs.prestations || 'Non spécifiées'}
-- **Description** :
-\`\`\`text
-${p.description}
-\`\`\`
-${linksLines}
-`;
-  };
+  if (!existing) existing = store.get(`${sourceKey}_${id}`);
 
-  if (latestMdFile && latestPrice === priceKey) {
-    const filePath = path.join(targetFolderPath, latestMdFile);
-    let content = fs.readFileSync(filePath, 'utf8');
-    
-    const lastSeenDate = p.publicationDate || dateStr;
-    content = content.replace(/- \*\*Dernière vue\*\* : [^\n]*/, `- **Dernière vue** : ${lastSeenDate}`);
-    content = content.replace(/- \*\*Durée de référencement\*\* : [^\n]*/, `- **Durée de référencement** : ${durationStr}`);
-    
-    const allLinks = { ...existingLinks, ...p.otherLinks, [sourceKey]: p.url };
-    const primaryLink = allLinks.leboncoin || allLinks.henry || allLinks.luxior || allLinks.barraine || allLinks.human;
-    
-    let linksLines = `- **Lien de l'annonce** : [Consulter l'annonce](${primaryLink})`;
-    if (allLinks.leboncoin && primaryLink !== allLinks.leboncoin) {
-      linksLines += `\n- **Lien additionnel (Leboncoin)** : [Consulter l'annonce](${allLinks.leboncoin})`;
+  let targetId = existing ? existing.id : `${sourceKey}_${id}`;
+
+  // Leboncoin devient la référence d'une annonce publiée sur plusieurs portails.
+  if (existing && p.source === 'Leboncoin' && !targetId.startsWith('leboncoin_')) {
+    const newId = `leboncoin_${id}`;
+    console.log(`Migrating duplicate listing from ${targetId} to ${newId} (Leboncoin is primary)`);
+    try {
+      await store.rename(targetId, newId);
+      moveScreenshotFolder(targetId, newId);
+      targetId = newId;
+      existing = store.get(newId);
+    } catch (err) {
+      console.error('Listing id migration failed:', err.message);
     }
-    if (allLinks.henry && primaryLink !== allLinks.henry) {
-      linksLines += `\n- **Lien additionnel (Agence Henry)** : [Consulter l'annonce](${allLinks.henry})`;
-    }
-    if (allLinks.luxior && primaryLink !== allLinks.luxior) {
-      linksLines += `\n- **Lien additionnel (Luxior)** : [Consulter l'annonce](${allLinks.luxior})`;
-    }
-    if (allLinks.barraine && primaryLink !== allLinks.barraine) {
-      linksLines += `\n- **Lien additionnel (Barraine)** : [Consulter l'annonce](${allLinks.barraine})`;
-    }
-    if (allLinks.human && primaryLink !== allLinks.human) {
-      linksLines += `\n- **Lien additionnel (Human)** : [Consulter l'annonce](${allLinks.human})`;
-    }
-    
-    // Update description if newly fetched description is longer/better
-    const currentDescMatch = content.match(/- \*\*Description\*\* :\r?\n```text\r?\n([\s\S]*?)\r?\n```/);
-    const currentDesc = currentDescMatch ? currentDescMatch[1].trim() : '';
+  }
+
+  const allLinks = { ...(existing ? linksFromRow(existing) : {}), ...p.otherLinks, [sourceKey]: p.url };
+  const linkFields = buildLinkFields(allLinks);
+  const lastSeenIso = parseFrenchDateToIso(p.publicationDate) || nowIso;
+
+  // Source affichée : Leboncoin, puis Agence Henry, sinon la source de l'annonce.
+  let titlePrefix = p.source;
+  if (allLinks.leboncoin) titlePrefix = 'Leboncoin';
+  else if (allLinks.henry) titlePrefix = 'Agence Henry';
+
+  // Même prix qu'au dernier relevé : on rafraîchit seulement la dernière vue et les liens.
+  if (existing && existing.price === priceNum) {
+    const patch = {
+      source: titlePrefix,
+      last_seen_at: lastSeenIso,
+      url: linkFields.url,
+      additional_links: linkFields.additional_links
+    };
+    const currentDesc = (existing.description || '').trim();
     if (p.description && (p.description.length > currentDesc.length + 20 || currentDesc.endsWith('et') || currentDesc.endsWith('...'))) {
-      content = content.replace(/- \*\*Description\*\* :\r?\n```text\r?\n[\s\S]*?\r?\n```/, `- **Description** :\n\`\`\`text\n${p.description}\n\`\`\``);
-      console.log(`[UPDATED DESCRIPTION] ${p.title} | Updated description in ${targetFolder}`);
+      patch.description = p.description;
+      console.log(`[UPDATED DESCRIPTION] ${p.title} | Updated description in ${targetId}`);
     }
+    await store.update(targetId, patch);
+    store.stats.unchanged++;
+    console.log(`[UPDATED LAST SEEN & LINKS] ${p.title} (${p.price}) | Updated listing ${targetId}`);
+    return targetId;
+  }
 
-    content = content.replace(/- \*\*Lien de l'annonce\*\* : [\s\S]*/, linksLines);
-    
-    fs.writeFileSync(filePath, content, 'utf8');
-    console.log(`[UPDATED LAST SEEN & LINKS] ${p.title} (${p.price}) | Updated in folder ${targetFolder}`);
-  } else {
-    let screenshotBuffer = p.screenshotBuffer;
-    
-    const quickScore = p.quickScore || quickScoreProperty(p.title, p.description, p.location, p.type);
-    if (!screenshotBuffer && quickScore >= 5.0 && (p.source === 'Agence Henry' || p.source === 'Barraine' || p.source === 'Human')) {
-      console.log(`High score listing needs a screenshot (quickScore: ${quickScore}). Capturing...`);
-      screenshotBuffer = await captureHenryScreenshot(p.url);
-    }
-    
-    const fileName = `${timestamp}_${priceKey}.md`;
-    const filePath = path.join(targetFolderPath, fileName);
-    
-    let firstSeenDate = dateStr;
-    let status = 'Actif';
-    if (latestMdFile) {
-      const prevFilePath = path.join(targetFolderPath, latestMdFile);
-      const prevContent = fs.readFileSync(prevFilePath, 'utf8');
-      const firstSeenMatch = prevContent.match(/- \*\*Date de première vue\*\* : ([^\n]+)/);
-      if (firstSeenMatch) firstSeenDate = firstSeenMatch[1].trim();
-      
-      const statusMatch = prevContent.match(/- \*\*Statut\*\* : ([^\n]+)/);
-      if (statusMatch) {
-        const existingStatus = statusMatch[1].trim();
-        if (existingStatus.toLowerCase().includes('vendu') || existingStatus.toLowerCase().includes('compromis') || existingStatus.toLowerCase().includes('offre')) {
-          status = existingStatus;
-        }
-      }
-    }
-    
-    const lastSeenDate = p.publicationDate || dateStr;
-    const mdContent = getMdContent(firstSeenDate, lastSeenDate, p.price, status, existingLinks);
-    fs.writeFileSync(filePath, mdContent, 'utf8');
-    
-    if (screenshotBuffer) {
-      const screenshotName = `screenshot_${timestamp}.png`;
-      const screenshotPath = path.join(targetFolderPath, screenshotName);
-      fs.writeFileSync(screenshotPath, screenshotBuffer);
-      
-      const latestScreenshotPath = path.join(targetFolderPath, 'latest_screenshot.png');
-      fs.writeFileSync(latestScreenshotPath, screenshotBuffer);
-    }
-    
-    if (latestMdFile) {
-      console.log(`[PRICE CHANGED] ${p.title} (New Price: ${p.price}, Old Price: ${latestPrice}) -> Created ${fileName} in folder ${targetFolder}`);
-    } else {
-      console.log(`[NEW SAVED] ${p.title} (${p.price}) -> Created folder ${targetFolder} and file ${fileName}`);
+  let screenshotBuffer = p.screenshotBuffer;
+  const quickScore = p.quickScore || quickScoreProperty(p.title, p.description, p.location, p.type);
+  if (!screenshotBuffer && quickScore >= 5.0 && (p.source === 'Agence Henry' || p.source === 'Barraine' || p.source === 'Human')) {
+    console.log(`High score listing needs a screenshot (quickScore: ${quickScore}). Capturing...`);
+    screenshotBuffer = await captureHenryScreenshot(p.url);
+  }
+
+  // Les statuts « vendu / compromis / offre » sont conservés d'un relevé à l'autre.
+  let marketStatus = 'Actif';
+  if (existing) {
+    const prev = (existing.market_status || '').toLowerCase();
+    if (prev.includes('vendu') || prev.includes('compromis') || prev.includes('offre')) {
+      marketStatus = existing.market_status;
     }
   }
-  
-  return targetFolder;
+
+  const surfaceNum = p.specs.surface ? parseFloat(String(p.specs.surface).replace(',', '.').replace(/[^\d.]/g, '')) : null;
+  const piecesNum = p.specs.pieces ? (parseInt(String(p.specs.pieces).replace(/[^\d]/g, ''), 10) || null) : null;
+  const fields = {
+    source: titlePrefix,
+    market_status: marketStatus,
+    title: generatePersonalizedTitle(p.type, p.title, p.description, p.location, surfaceNum, piecesNum),
+    type: p.type,
+    location: p.location,
+    price: priceNum,
+    surface: Number.isFinite(surfaceNum) ? surfaceNum : null,
+    pieces: piecesNum,
+    floor: p.specs.floor || null,
+    prestations: p.specs.prestations || null,
+    description: p.description || null,
+    url: linkFields.url,
+    additional_links: linkFields.additional_links,
+    last_seen_at: lastSeenIso
+  };
+  const historyEntry = { listing_id: targetId, seen_at: nowIso, price: priceNum, score: null, market_status: marketStatus };
+
+  if (existing) {
+    const oldPrice = existing.price;
+    await store.update(targetId, fields);
+    await store.addHistory(historyEntry);
+    store.stats.priceChanged++;
+    console.log(`[PRICE CHANGED] ${p.title} (New Price: ${p.price}, Old Price: ${oldPrice === null ? 'sur_demande' : oldPrice}) -> Updated listing ${targetId}`);
+  } else {
+    await store.insert({
+      id: targetId,
+      review_status: 'sas',
+      first_seen_at: nowIso,
+      notified_at: null,
+      score: null,
+      score_criteria: [],
+      ...fields
+    }, historyEntry);
+    store.stats.new++;
+    console.log(`[NEW PROPERTY - SAS STAGING] Property "${p.title}" (${p.price}) placed in SAS: ${targetId}`);
+  }
+
+  if (screenshotBuffer) saveScreenshot(targetId, screenshotBuffer);
+  return targetId;
+}
+
+function parseArgs(argv) {
+  const all = ['leboncoin', 'henry', 'luxior', 'barraine', 'human'];
+  const sourcesArg = argv.find(a => a.startsWith('--sources='));
+  const sources = sourcesArg ? sourcesArg.slice('--sources='.length).split(',').map(s => s.trim()).filter(Boolean) : all;
+  const unknown = sources.filter(s => !all.includes(s));
+  if (unknown.length > 0) {
+    throw new Error(`Sources inconnues : ${unknown.join(', ')} (valeurs possibles : ${all.join(', ')})`);
+  }
+  return { sources: new Set(sources), dryRun: argv.includes('--dry-run') };
+}
+
+function pipelineName(sources) {
+  if (sources.has('leboncoin')) return sources.size === 1 ? 'fetch-leboncoin' : 'fetch-all';
+  return 'fetch-agencies';
+}
+
+function printNewListings() {
+  const created = store.createdIds.map(id => store.get(id)).filter(r => r && r.review_status === 'sas');
+  console.log(`\n================ NOUVELLES ANNONCES DANS LE SAS (${created.length}) ================`);
+  for (const row of created) {
+    const parsed = rowToParsed(row);
+    console.log(`[${row.source}] ${row.type || '?'} ${parsed.quartier || 'quartier ?'} - ${parsed.surfaceStr || 'surface ?'} - ${parsed.priceClean} - Score ${parsed.score}/10`);
+    console.log(`      ${row.title}`);
+    console.log(`      Lien : ${row.url || 'non disponible'}`);
+  }
+  console.log('==============================================================');
 }
 
 async function run() {
-  console.log('Starting Brest real estate fetch scraper...');
-  
-  if (!fs.existsSync(OUTPUT_DIR)) {
-    fs.mkdirSync(OUTPUT_DIR, { recursive: true });
-  }
-  if (!fs.existsSync(SAS_DIR)) {
-    fs.mkdirSync(SAS_DIR, { recursive: true });
-  }
-  if (!fs.existsSync(CORBEILLE_DIR)) {
-    fs.mkdirSync(CORBEILLE_DIR, { recursive: true });
-  }
-  
-  const configPath = path.join(OUTPUT_DIR, 'last_search_info.json');
-  let lastSearchTime = 0;
-  let lastSearchDateStr = 'Aucune (première recherche)';
-  if (fs.existsSync(configPath)) {
-    try {
-      const config = JSON.parse(fs.readFileSync(configPath, 'utf8'));
-      lastSearchTime = config.last_search_timestamp || 0;
-      lastSearchDateStr = config.last_search_date_str || 'Inconnue';
-    } catch (e) {
-      console.error('Error reading last_search_info.json:', e.message);
-    }
-  }
-  
-  let pagesToScan = 3;
-  if (lastSearchTime > 0) {
-    const diffMs = Date.now() - lastSearchTime;
-    const diffDays = diffMs / (24 * 60 * 60 * 1000);
-    if (diffDays <= 2) {
-      pagesToScan = 1;
-    } else if (diffDays <= 7) {
-      pagesToScan = 2;
-    } else {
-      pagesToScan = 3;
-    }
-    console.log(`Dernière recherche effectuée le : ${lastSearchDateStr} (il y a ${diffDays.toFixed(1)} jour(s)).`);
-    console.log(`Adaptation de la profondeur temporelle : scan de ${pagesToScan} page(s) sur Leboncoin.`);
-  } else {
-    console.log('Aucune recherche précédente enregistrée. Scan de profondeur maximale (3 pages) sur Leboncoin.');
-  }
-  
-  const henryResults = await scrapeHenry();
-  const lbcResults = await scrapeLeboncoin(pagesToScan, lastSearchTime);
-  const luxiorResults = await scrapeLuxior();
-  const barraineResults = await scrapeBarraine();
-  const humanResults = await scrapeHuman();
-  
-  const allResults = [...henryResults, ...lbcResults, ...luxiorResults, ...barraineResults, ...humanResults];
-  
-  // Deduplicate
-  const uniqueResults = [];
-  for (const p of allResults) {
-    let isDup = false;
-    for (const u of uniqueResults) {
-      if (areDuplicates(p, u)) {
-        isDup = true;
-        console.log(`[DEDUPLICATED] Skipped ${p.source} listing: "${p.title}" (${p.price}) as duplicate of "${u.title}" (${u.price})`);
-        
-        // Merge links
-        if (!u.otherLinks) u.otherLinks = {};
-        const pSourceKey = p.source === 'Agence Henry' ? 'henry' : (p.source === 'Luxior' ? 'luxior' : (p.source === 'Barraine' ? 'barraine' : (p.source === 'Human' ? 'human' : 'leboncoin')));
-        u.otherLinks[pSourceKey] = p.url;
-        if (p.otherLinks) {
-          u.otherLinks = { ...u.otherLinks, ...p.otherLinks };
-        }
-        break;
+  const { sources, dryRun } = parseArgs(process.argv.slice(2));
+  console.log(`Starting Brest real estate fetch scraper (sources: ${[...sources].join(', ')}${dryRun ? ', DRY-RUN' : ''})...`);
+
+  store = new ListingStore({ dryRun });
+  await store.load();
+  console.log(`${store.rows.size} annonces connues en base.`);
+  await store.startRun(pipelineName(sources));
+
+  const failures = [];
+  try {
+    let lastSearchTime = 0;
+    let pagesToScan = 3;
+    if (sources.has('leboncoin')) {
+      lastSearchTime = await store.lastLeboncoinSearch();
+      if (lastSearchTime > 0) {
+        const diffDays = (Date.now() - lastSearchTime) / (24 * 60 * 60 * 1000);
+        pagesToScan = diffDays <= 2 ? 1 : diffDays <= 7 ? 2 : 3;
+        console.log(`Dernière recherche effectuée le : ${formatFrenchDateTime(new Date(lastSearchTime).toISOString())} (il y a ${diffDays.toFixed(1)} jour(s)).`);
+        console.log(`Adaptation de la profondeur temporelle : scan de ${pagesToScan} page(s) sur Leboncoin.`);
+      } else {
+        console.log('Aucune recherche précédente enregistrée. Scan de profondeur maximale (3 pages) sur Leboncoin.');
       }
     }
-    if (!isDup) {
-      uniqueResults.push(p);
+
+    const scrapers = [
+      ['henry', () => scrapeHenry()],
+      ['leboncoin', () => scrapeLeboncoin(pagesToScan, lastSearchTime)],
+      ['luxior', () => scrapeLuxior()],
+      ['barraine', () => scrapeBarraine()],
+      ['human', () => scrapeHuman()]
+    ];
+
+    const allResults = [];
+    const succeeded = new Set();
+    const foundBySource = {};
+    for (const [key, scrape] of scrapers) {
+      if (!sources.has(key)) continue;
+      try {
+        const results = await scrape();
+        allResults.push(...results);
+        succeeded.add(key);
+        foundBySource[key] = results.length;
+        if (results.length === 0) console.warn(`[WARNING] Aucune annonce récupérée sur ${key}.`);
+      } catch (err) {
+        failures.push(`${key}: ${err.message}`);
+        console.error(`[ERROR] Scraper ${key} en échec :`, err.message);
+      }
     }
-  }
-  
-  console.log('\n================ FETCH SUMMARY ================');
-  console.log(`${uniqueResults.length} unique properties found (out of ${allResults.length} raw results).`);
-  console.log('==============================================');
-  
-  const seenIds = new Set();
-  for (const p of uniqueResults) {
+
+    // Deduplicate
+    const uniqueResults = [];
+    for (const p of allResults) {
+      let isDup = false;
+      for (const u of uniqueResults) {
+        if (areDuplicates(p, u)) {
+          isDup = true;
+          console.log(`[DEDUPLICATED] Skipped ${p.source} listing: "${p.title}" (${p.price}) as duplicate of "${u.title}" (${u.price})`);
+
+          // Merge links
+          if (!u.otherLinks) u.otherLinks = {};
+          u.otherLinks[sourceKeyOf(p.source)] = p.url;
+          if (p.otherLinks) {
+            u.otherLinks = { ...u.otherLinks, ...p.otherLinks };
+          }
+          break;
+        }
+      }
+      if (!isDup) {
+        uniqueResults.push(p);
+      }
+    }
+
+    console.log('\n================ FETCH SUMMARY ================');
+    console.log(`${uniqueResults.length} unique properties found (out of ${allResults.length} raw results).`);
+    console.log('==============================================');
+
+    const seenIds = new Set();
+    for (const p of uniqueResults) {
+      try {
+        const savedId = await saveOrUpdateProperty(p);
+        if (savedId) seenIds.add(savedId);
+      } catch (err) {
+        failures.push(`save ${p.url}: ${err.message}`);
+        console.error(`Error saving property ${p.url}:`, err.message);
+      }
+    }
+
     try {
-      const folderSaved = await saveOrUpdateProperty(p);
-      seenIds.add(folderSaved);
+      await markSoldProperties(seenIds, succeeded);
     } catch (err) {
-      console.error(`Error saving property ${p.url}:`, err.message);
+      console.error('Error marking sold properties:', err.message);
     }
-  }
-  
-  try {
-    await markSoldProperties(seenIds);
-  } catch (err) {
-    console.error('Error marking sold properties:', err.message);
-  }
-  
-  // Save current search execution info
-  try {
-    const now = new Date();
-    const config = {
-      last_search_timestamp: now.getTime(),
-      last_search_date_str: now.toLocaleDateString('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }) + 
-        ' à ' + String(now.getHours()).padStart(2, '0') + 'h' + String(now.getMinutes()).padStart(2, '0')
-    };
-    fs.writeFileSync(configPath, JSON.stringify(config, null, 2), 'utf8');
-    console.log(`Date de recherche sauvegardée : ${config.last_search_date_str}`);
-  } catch (err) {
-    console.error('Error saving last_search_info.json:', err.message);
-  }
-  
-  // Run scoring on active & staged listings
-  try {
+
     console.log('\nRunning automated scoring on active and staged listings...');
-    const { execSync } = require('node:child_process');
-    const scoringScript = path.resolve(__dirname, '../../leboncoin_scoring/scripts/score_listings.js');
-    execSync(`node "${scoringScript}"`, { stdio: 'inherit' });
+    try {
+      await scoreAll(store);
+    } catch (err) {
+      failures.push(`scoring: ${err.message}`);
+      console.error('Error running automated scoring:', err.message);
+    }
+
+    printNewListings();
+    await store.finishRun(failures.length > 0 ? 'error' : 'success', { sources: [...sources], foundBySource, failures }, failures.join(' | ') || null);
+    console.log(failures.length > 0 ? `\nFetch completed with ${failures.length} error(s).` : '\nFetch completed successfully.');
+    if (failures.length > 0) process.exitCode = 1;
   } catch (err) {
-    console.error('Error running automated scoring:', err.message);
+    await store.finishRun('error', { failures }, err.message).catch(() => {});
+    throw err;
   }
-  
-  console.log('\nFetch completed successfully.');
 }
-run().catch(console.error);
+if (require.main === module) {
+  run().catch(err => {
+    console.error(err);
+    process.exit(1);
+  });
+}
+
+module.exports = {
+  saveOrUpdateProperty,
+  useStore(nextStore) {
+    store = nextStore;
+  }
+};

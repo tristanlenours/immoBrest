@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "generate": "node .agents/skills/leboncoin_generate_site/scripts/generate_site.js",
+    "generate": "node --env-file-if-exists=.env .agents/skills/leboncoin_generate_site/scripts/generate_site.js",
     "dev": "npm run generate && vitepress dev docs",
-    "build": "npm run generate && vitepress build docs",
+    "build": "vitepress build docs",
+    "build:full": "npm run generate && vitepress build docs",
     "preview": "vitepress preview docs"
   },
   "keywords": [],

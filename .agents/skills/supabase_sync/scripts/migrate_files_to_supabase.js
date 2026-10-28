@@ -19,42 +19,13 @@ const {
   parseListingMarkdown
 } = require('../../shared/listing_utils');
 const { createSupabaseRest } = require('../../shared/supabase_rest');
+const { parisToIso, parseFrenchDateToIso } = require('../../shared/listing_store');
 
 const REVIEW_SOURCES = [
   { dir: OUTPUT_DIR, reviewStatus: 'approved' },
   { dir: SAS_DIR, reviewStatus: 'sas' },
   { dir: CORBEILLE_DIR, reviewStatus: 'rejected' }
 ];
-
-const MONTHS = {
-  janvier: 1, février: 2, fevrier: 2, mars: 3, avril: 4, mai: 5, juin: 6,
-  juillet: 7, août: 8, aout: 8, septembre: 9, octobre: 10, novembre: 11, décembre: 12, decembre: 12
-};
-
-function parisOffsetMs(utcMs) {
-  const parts = new Intl.DateTimeFormat('en-US', {
-    timeZone: 'Europe/Paris',
-    hourCycle: 'h23',
-    year: 'numeric', month: '2-digit', day: '2-digit',
-    hour: '2-digit', minute: '2-digit', second: '2-digit'
-  }).formatToParts(new Date(utcMs)).reduce((acc, p) => ({ ...acc, [p.type]: p.value }), {});
-  const asUtc = Date.UTC(+parts.year, +parts.month - 1, +parts.day, +parts.hour, +parts.minute, +parts.second);
-  return asUtc - utcMs;
-}
-
-// Heure murale Europe/Paris -> instant UTC (ISO).
-function parisToIso(y, mo, d, h, mi, s = 0) {
-  const guess = Date.UTC(y, mo - 1, d, h, mi, s);
-  const first = guess - parisOffsetMs(guess);
-  return new Date(guess - parisOffsetMs(first)).toISOString();
-}
-
-// "22 juin 2026 à 00h03" -> ISO
-function parseFrenchDateToIso(str) {
-  const m = String(str || '').match(/(\d+)\s+([a-zéûôàù]+)\s+(\d{4})\s+à\s+(\d+)h(\d+)/i);
-  if (!m || !MONTHS[m[2].toLowerCase()]) return null;
-  return parisToIso(+m[3], MONTHS[m[2].toLowerCase()], +m[1], +m[4], +m[5]);
-}
 
 // "20260622_000308_358000.md" ou "20260622_000308_sur_demande.md" -> { seenAt, price }
 function parseSnapshotName(fileName) {
@@ -195,6 +166,26 @@ function collectDvf() {
   return [...rows.values()];
 }
 
+// Reprend la date de dernière recherche de last_search_info.json pour que le premier fetch
+// garde la profondeur de scan Leboncoin adaptée.
+async function seedRunLog(db) {
+  const infoPath = path.join(OUTPUT_DIR, 'last_search_info.json');
+  if (!fs.existsSync(infoPath)) return;
+  const existing = await db.select('immo_run_log', 'select=id&pipeline=eq.fetch-all&limit=1');
+  if (existing.length > 0) return;
+  const info = JSON.parse(fs.readFileSync(infoPath, 'utf8'));
+  if (!info.last_search_timestamp) return;
+  const finished = new Date(info.last_search_timestamp).toISOString();
+  await db.insert('immo_run_log', {
+    pipeline: 'fetch-all',
+    started_at: finished,
+    finished_at: finished,
+    status: 'success',
+    stats: { seededFrom: 'last_search_info.json' }
+  });
+  console.log(`Journal d'exécution amorcé : dernière recherche le ${info.last_search_date_str || finished}.`);
+}
+
 async function main() {
   const args = process.argv.slice(2);
   const apply = args.includes('--apply');
@@ -228,6 +219,8 @@ async function main() {
   await db.insertMissing('immo_listings', listings, 'id');
   await db.insertMissing('immo_price_history', history, 'listing_id,seen_at');
   await db.insertMissing('immo_dvf_sales', dvf, 'id', 500);
+
+  await seedRunLog(db);
 
   console.log('\nMigration terminée. Totaux en base :');
   for (const table of ['immo_listings', 'immo_price_history', 'immo_dvf_sales']) {

@@ -2,11 +2,10 @@ const fs = require('node:fs');
 const path = require('node:path');
 const {
   OUTPUT_DIR: SOURCE_DIR,
-  SAS_DIR,
   DOCS_DIR,
-  DVF_DATA_DIR,
-  parseListingMarkdown
+  DVF_DATA_DIR
 } = require('../../shared/listing_utils');
+const { ListingStore, rowToParsed, formatFrenchDateTime } = require('../../shared/listing_store');
 
 const BIENS_DIR = path.resolve(DOCS_DIR, 'biens');
 const PUBLIC_DIR = path.resolve(DOCS_DIR, 'public');
@@ -161,28 +160,18 @@ function computeDvfComparison(dvfContext, type, surfaceVal, priceVal, quartierOb
   };
 }
 
-function extractPriceHistory(folderPath, allFiles) {
+// `rows` : relevés de immo_price_history d'une annonce, triés par date croissante.
+function extractPriceHistory(rows = []) {
   const entries = [];
-  const sortedFiles = [...allFiles].sort();
-  for (const file of sortedFiles) {
-    const m = file.match(/^(\d{4})(\d{2})(\d{2})_(\d{2})(\d{2})(\d{2})_([\w]+)\.md$/);
-    if (!m) continue;
-    const dateTs = new Date(
-      parseInt(m[1]), parseInt(m[2]) - 1, parseInt(m[3]),
-      parseInt(m[4]), parseInt(m[5]), parseInt(m[6])
-    ).getTime();
+  for (const row of rows) {
+    const dateTs = new Date(row.seen_at).getTime();
     const dateLabel = new Date(dateTs).toLocaleDateString('fr-FR', {
-      day: 'numeric', month: 'long', year: 'numeric'
+      day: 'numeric', month: 'long', year: 'numeric', timeZone: 'Europe/Paris'
     });
-    const priceRaw = m[7];
-    let priceVal = 0;
-    let priceLabel = 'Prix sur demande';
-    if (priceRaw !== 'sur_demande') {
-      priceVal = parseInt(priceRaw, 10);
-      if (!isNaN(priceVal)) {
-        priceLabel = priceVal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, '\u202f') + '\u00a0€';
-      }
-    }
+    const priceVal = row.price || 0;
+    const priceLabel = priceVal
+      ? priceVal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ' ') + ' €'
+      : 'Prix sur demande';
     if (entries.length === 0 || entries[entries.length - 1].priceVal !== priceVal) {
       entries.push({ date: dateLabel, dateTs, price: priceLabel, priceVal });
     }
@@ -290,25 +279,13 @@ function renderDvfSection(dvfComp, type) {
 `;
 }
 
-function processDirectory(dirPath, dvfContext, isSas = false) {
-  if (!fs.existsSync(dirPath)) return [];
-  const folders = fs.readdirSync(dirPath).filter(f => fs.statSync(path.join(dirPath, f)).isDirectory());
+function processListings(rows, historyByListing, dvfContext, isSas = false) {
   const listings = [];
 
-  for (const folder of folders) {
-    const folderPath = path.join(dirPath, folder);
-    const files = fs.readdirSync(folderPath).filter(f => f.endsWith('.md'));
-
-    const sortedFiles = [...files].sort();
-    const latestMdFile = sortedFiles.length > 0 ? sortedFiles[sortedFiles.length - 1] : null;
-    if (!latestMdFile) continue;
-
-    const priceHistory = extractPriceHistory(folderPath, files);
-    const filePath = path.join(folderPath, latestMdFile);
-    const rawContent = fs.readFileSync(filePath, 'utf8');
-    const parsed = parseListingMarkdown(rawContent);
-
-    if (!parsed.titleLine && !parsed.title) continue;
+  for (const row of rows) {
+    const folder = row.id;
+    const priceHistory = extractPriceHistory(historyByListing.get(row.id));
+    const parsed = rowToParsed(row);
 
     const {
       source,
@@ -337,7 +314,7 @@ function processDirectory(dirPath, dvfContext, isSas = false) {
       criteriaLines
     } = parsed;
 
-    const screenshotPath = path.join(folderPath, 'latest_screenshot.png');
+    const screenshotPath = path.join(SOURCE_DIR, folder, 'latest_screenshot.png');
     const hasScreenshot = fs.existsSync(screenshotPath);
     if (hasScreenshot) {
       fs.copyFileSync(screenshotPath, path.join(SCREENSHOTS_DIR, `${folder}.png`));
@@ -706,37 +683,27 @@ ${hasScreenshot ? `
   return listings;
 }
 
-function generateSite() {
-  if (!fs.existsSync(SOURCE_DIR)) {
-    console.error(`Error: Source directory ${SOURCE_DIR} does not exist.`);
-    return;
-  }
+async function generateSite() {
+  const store = new ListingStore();
+  await store.load();
+  const historyByListing = await store.loadHistory();
 
   const dvfContext = loadRecentDvfSales();
   console.log(`Loaded ${dvfContext.sales.length} comparable DVF transactions (${dvfContext.yearsUsed.join(', ')}) for market comparison.`);
 
-  const listings = processDirectory(SOURCE_DIR, dvfContext, false);
-  const sasListings = processDirectory(SAS_DIR, dvfContext, true);
+  const listings = processListings(store.byReviewStatus('approved'), historyByListing, dvfContext, false);
+  const sasListings = processListings(store.byReviewStatus('sas'), historyByListing, dvfContext, true);
 
-  let lastUpdateStr = new Date().toLocaleString('fr-FR', {
-    day: 'numeric',
-    month: 'long',
-    year: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit'
-  });
-
-  const timestampFilePath = path.join(SOURCE_DIR, 'last_search_info.json');
-  if (fs.existsSync(timestampFilePath)) {
-    try {
-      const data = JSON.parse(fs.readFileSync(timestampFilePath, 'utf8'));
-      if (data.last_search_date_str) {
-        lastUpdateStr = data.last_search_date_str;
-      }
-    } catch (e) {
-      console.warn('Failed to parse last_search_info.json:', e);
-    }
-  }
+  const lastRun = await store.lastSuccessfulRun();
+  const lastUpdateStr = lastRun
+    ? formatFrenchDateTime(lastRun)
+    : new Date().toLocaleString('fr-FR', {
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    });
 
   const listingsJson = {
     last_update: lastUpdateStr,
@@ -749,7 +716,10 @@ function generateSite() {
 }
 
 if (require.main === module) {
-  generateSite();
+  generateSite().catch(err => {
+    console.error(err.message);
+    process.exit(1);
+  });
 }
 
 module.exports = { generateSite };

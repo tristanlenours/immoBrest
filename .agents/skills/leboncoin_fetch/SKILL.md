@@ -35,17 +35,19 @@ Use this skill when the user asks to:
 ## How to Execute
 1. Ensure Google Chrome is running in debugging mode:
    * Started with `--remote-debugging-port=9222 --user-data-dir="C:\Users\trist\AppData\Local\Google\Chrome\User Data\TempProfile"`.
-2. Run the helper script:
-   `node .agents/skills/leboncoin_fetch/scripts/fetch_listings.js`
+2. Run the helper script (listings are stored in the shared Supabase project; credentials are read from `.env`):
+   `node --env-file=.env .agents/skills/leboncoin_fetch/scripts/fetch_listings.js`
+   * `--sources=leboncoin,henry,luxior,barraine,human` restricts the sources queried (all by default).
+   * `--dry-run` runs the whole pipeline without writing anything to the database.
+   * Scoring runs automatically at the end and every run is logged in `immo_run_log`.
 
 ## Staging Area ("Sas d'attente") & Validation
-Newly detected properties are stored in the staging area (`leboncoin_sas/`) to prevent unverified or duplicate listings from directly entering the active database.
+Newly detected properties are stored in the staging area (`immo_listings` with `review_status = 'sas'`) to prevent unverified or duplicate listings from directly entering the active database.
 
 ### Managing Staged Listings
 * **List staged properties**:
-  `node .agents/skills/leboncoin_fetch/scripts/manage_sas.js list`
-* **Approve property (move to active database `leboncoin_searches/` and rebuild site)**:
-  `node .agents/skills/leboncoin_fetch/scripts/manage_sas.js approve <folder_or_id|all>`
-* **Reject property (move to trash `corbeille/`)**:
-  `node .agents/skills/leboncoin_fetch/scripts/manage_sas.js reject <folder_or_id|all>`
-
+  `node --env-file=.env .agents/skills/leboncoin_fetch/scripts/manage_sas.js list`
+* **Approve property (`review_status = 'approved'`, then rebuild site)**:
+  `node --env-file=.env .agents/skills/leboncoin_fetch/scripts/manage_sas.js approve <id|all>`
+* **Reject property (`review_status = 'rejected'`, kept as anti-duplicate trash)**:
+  `node --env-file=.env .agents/skills/leboncoin_fetch/scripts/manage_sas.js reject <id|all> [reason]`
