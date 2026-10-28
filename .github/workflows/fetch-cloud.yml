@@ -1,7 +1,8 @@
 name: Fetch cloud sources
 
-# Sources interrogeables depuis le cloud (Henry, Barraine, Luxior, Human).
-# Leboncoin reste sur le PC (tâche planifiée Windows) : il bloque les IP de datacenter.
+# Sources interrogeables depuis le cloud (Henry, Barraine, Luxior).
+# Leboncoin et Human restent sur le PC (tâche planifiée Windows) : ils bloquent les IP de datacenter
+# (Human renvoie 403 sur ses fiches depuis GitHub Actions).
 
 on:
   schedule:
@@ -61,7 +62,7 @@ jobs:
         continue-on-error: true
         run: |
           node .agents/skills/leboncoin_fetch/scripts/fetch_listings.js \
-            --sources=henry,barraine,luxior,human \
+            --sources=henry,barraine,luxior \
             ${{ inputs.dry_run && '--dry-run' || '' }}
 
       - name: Generate site

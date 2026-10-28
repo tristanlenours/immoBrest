@@ -1705,9 +1705,13 @@ async function run() {
       try {
         const results = await scrape();
         allResults.push(...results);
-        succeeded.add(key);
         foundBySource[key] = results.length;
-        if (results.length === 0) console.warn(`[WARNING] Aucune annonce récupérée sur ${key}.`);
+        if (results.length === 0) {
+          // Une source muette (blocage, page vide) ne doit pas servir à déclarer des annonces vendues.
+          console.warn(`[WARNING] Aucune annonce récupérée sur ${key} : source ignorée pour la détection des ventes.`);
+        } else {
+          succeeded.add(key);
+        }
       } catch (err) {
         failures.push(`${key}: ${err.message}`);
         console.error(`[ERROR] Scraper ${key} en échec :`, err.message);
