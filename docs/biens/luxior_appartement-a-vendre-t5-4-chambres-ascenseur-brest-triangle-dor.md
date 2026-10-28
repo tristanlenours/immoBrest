@@ -104,7 +104,7 @@ outline: deep
 ## Description de l'Annonce
 
 ```text
-Au coeur du centre-ville de Brest, dans le très recherché Triangle d'Or de la ville du Ponant, découvrez cet élégant appartement de 144 m², situé au 2ème étage avec ascenseur d'un immeuble bourgeois en dalle béton.A deux pas des commerces, des écoles, des restaurants et du Cours Dajot, seul appartement à l'étage, il bénéficie d'une configuration particulièrement privilégiée, avec une entrée principale et une entrée de service, offrant à la fois confort, intimité et fonctionnalité.Dès l'entrée, les beaux volumes et les éléments de caractère donnent le ton. Vous serez séduit par sa belle hauteur sous plafond, son parquet à bâtons rompus, sa distribution harmonieuse et les proportions généreuses de chacune des pièces.Traversant et au calme, l'appartement profite d'une agréable luminosité et d'une atmosphère sereine, tout en bénéficiant d'un emplacement exceptionnel au coeur de la ville.L'espace familial se compose de quatre chambres, d'une salle de bains et d'une salle d'eau. Une vaste entrée avec placards assure une distribution fluide et élégante de l'ensemble.La grande cuisine, prolongée par une loggia, complète cet espace de vie et offre de belles possibilités d'aménagement selon vos envies.Le confort est complété par un chauffage individuel au gaz de ville ainsi qu'une grande cave en sous-sol, apportant un espace de rangement appréciable.Nécessitant une modernisation, ce bien offre un potentiel remarquable pour qui saura révéler ses volumes, préserver ses éléments anciens et lui insuffler une nouvelle élégance. Uniquement chez Luxior Immobilier REFERENCE LUXIOR IMMOBILIER 26656oc(5.26 % honoraires TTC à la charge de l'acquéreur.)
+Au coeur du centre-ville de Brest, dans le très recherché Triangle d&rsquo;Or de la ville du Ponant, découvrez cet élégant appartement de 144 m², situé au 2ème étage avec ascenseur d&rsquo;un immeuble bourgeois en dalle béton.A deux pas des commerces, des écoles, des restaurants et du Cours Dajot, seul appartement à l&rsquo;étage, il bénéficie d&rsquo;une configuration particulièrement privilégiée, avec une entrée principale et une entrée de service, offrant à la fois confort, intimité et fonctionnalité.Dès l&rsquo;entrée, les beaux volumes et les éléments de caractère donnent le ton. Vous serez séduit par sa belle hauteur sous plafond, son parquet à bâtons rompus, sa distribution harmonieuse et les proportions généreuses de chacune des pièces.Traversant et au calme, l&rsquo;appartement profite d&rsquo;une agréable luminosité et d&rsquo;une atmosphère sereine, tout en bénéficiant d&rsquo;un emplacement exceptionnel au coeur de la ville.L&rsquo;espace familial se compose de quatre chambres, d&rsquo;une salle de bains et d&rsquo;une salle d&rsquo;eau. Une vaste entrée avec placards assure une distribution fluide et élégante de l&rsquo;ensemble.La grande cuisine, prolongée par une loggia, complète cet espace de vie et offre de belles possibilités d&rsquo;aménagement selon vos envies.Le confort est complété par un chauffage individuel au gaz de ville ainsi qu&rsquo;une grande cave en sous-sol, apportant un espace de rangement appréciable.Nécessitant une modernisation, ce bien offre un potentiel remarquable pour qui saura révéler ses volumes, préserver ses éléments anciens et lui insuffler une nouvelle élégance. Uniquement chez Luxior Immobilier REFERENCE LUXIOR IMMOBILIER 26656oc(5.26 % honoraires TTC à la charge de l&rsquo;acquéreur.)
 ```
 
 ---
@@ -113,8 +113,8 @@ Au coeur du centre-ville de Brest, dans le très recherché Triangle d'Or de la 
 
 * **Prestations supplémentaires** : Chambres: 4, Garage: 0, Cave: 1
 * **Date de première vue** : 8 octobre 2026 à 21h05
-* **Dernière vue** : 25 octobre 2026 à 22h34
-* **Durée de référencement** : 19 jour(s) et 18 heure(s)
+* **Dernière vue** : 28 octobre 2026 à 16h48
+* **Durée de référencement** : 19 jour(s) et 20 heure(s)
 
 
 
