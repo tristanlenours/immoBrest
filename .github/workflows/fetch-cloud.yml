@@ -1,0 +1,98 @@
+name: Fetch cloud sources
+
+# Sources interrogeables depuis le cloud (Henry, Barraine, Luxior, Human).
+# Leboncoin reste sur le PC (tâche planifiée Windows) : il bloque les IP de datacenter.
+
+on:
+  schedule:
+    # Tous les jours à 05:30 UTC (06:30 ou 07:30 en France selon la saison)
+    - cron: '30 5 * * *'
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Simuler : aucune écriture en base, aucun commit"
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+  actions: write
+
+concurrency:
+  group: immo-fetch
+  cancel-in-progress: false
+
+env:
+  TZ: Europe/Paris
+  SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+  SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      # Luxior, Human et les captures d'écran passent par Chrome en mode debug (port 9222).
+      - name: Start headless Chrome
+        run: |
+          google-chrome --headless=new --no-sandbox --disable-gpu \
+            --remote-debugging-port=9222 --user-data-dir=/tmp/chrome-profile about:blank \
+            > /tmp/chrome.log 2>&1 &
+          for i in $(seq 1 30); do
+            curl -sf http://127.0.0.1:9222/json/version > /dev/null && exit 0
+            sleep 1
+          done
+          echo "Chrome n'a pas démarré" && cat /tmp/chrome.log && exit 1
+
+      - name: Fetch listings
+        id: fetch
+        continue-on-error: true
+        run: |
+          node .agents/skills/leboncoin_fetch/scripts/fetch_listings.js \
+            --sources=henry,barraine,luxior,human \
+            ${{ inputs.dry_run && '--dry-run' || '' }}
+
+      - name: Generate site
+        if: ${{ !inputs.dry_run }}
+        run: npm run generate
+
+      - name: Commit generated site
+        id: commit
+        if: ${{ !inputs.dry_run }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A docs leboncoin_searches
+          if git diff --cached --quiet; then
+            echo "pushed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          git commit -m "chore: actualiser les annonces du $(date +%F) (cloud)"
+          git pull --rebase origin main
+          git push origin HEAD:main
+          echo "pushed=true" >> "$GITHUB_OUTPUT"
+
+      # Un push fait avec GITHUB_TOKEN ne déclenche pas le workflow de déploiement : on le lance explicitement.
+      - name: Deploy site
+        if: ${{ steps.commit.outputs.pushed == 'true' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh workflow run deploy.yml --ref main
+
+      - name: Fail if fetch failed
+        if: ${{ steps.fetch.outcome == 'failure' }}
+        run: |
+          echo "Le fetch a échoué sur au moins une source : voir le journal immo_run_log et l'étape « Fetch listings »."
+          exit 1
