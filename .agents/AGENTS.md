@@ -132,6 +132,7 @@ flowchart TD
 - Site protégé par mot de passe (`SITE_PASSWORD`, cookie signé avec `SESSION_SECRET`) : **Sas** (Accepter / Rejeter avec motif), **Annonces**, fiche détaillée (historique de prix, comparaison DVF), **Archives**, **Corbeille** (remettre dans le sas).
 - Lit et écrit dans Supabase côté serveur uniquement (clé `service_role`, jamais envoyée au navigateur). Variables : voir `app/.env.example`.
 - Local : `cd app && npm install && npm run dev` (variables dans `app/.env.local`, ignoré par git).
+- Production : projet Railway `immoBrest`, service `web`, https://web-production-72ad5c.up.railway.app . Redéployer depuis `app/` : `railway up --service web --detach` (déploiement par envoi du dossier, pas encore relié à GitHub). Variables Railway : `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, `SITE_PASSWORD`, `SESSION_SECRET`.
 
 ### 🗄️ `supabase_sync` (Migration)
 - **Migration unique des fiches markdown vers Supabase** : `node --env-file=.env .agents/skills/supabase_sync/scripts/migrate_files_to_supabase.js [--apply]` (dry-run par défaut ; n'insère que les lignes absentes).
