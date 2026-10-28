@@ -17,3 +17,6 @@ yarn-error.log*
 # Local env files
 .env
 .env.local
+
+# Journaux du fetch local
+logs/

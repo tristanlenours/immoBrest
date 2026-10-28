@@ -109,7 +109,7 @@ flowchart TD
 
 ### 🔍 `leboncoin_fetch` (Ingestion & Gestion du Sas)
 - **Scraper d'annonces** : `node --env-file=.env .agents/skills/leboncoin_fetch/scripts/fetch_listings.js`
-  - `--sources=leboncoin,henry,luxior,barraine,human` : limite les sources interrogées (toutes par défaut). Leboncoin et Human s'exécutent sur le PC (Chrome en debug ; Human renvoie 403 depuis les IP de datacenter), Henry, Barraine et Luxior tournent dans le cloud (`.github/workflows/fetch-cloud.yml`, cron quotidien).
+  - `--sources=leboncoin,henry,luxior,barraine,human` : limite les sources interrogées (toutes par défaut). Leboncoin s'exécute sur le PC (Chrome en debug, tâche planifiée `scripts/run_local_fetch.ps1`), Henry, Barraine et Luxior tournent dans le cloud (`.github/workflows/fetch-cloud.yml`, cron quotidien). **Human est en pause** : son site répond 403 aux scrapers (cloud comme PC), ne pas chercher à contourner cette protection.
   - `--dry-run` : exécute tout le pipeline sans rien écrire dans la base.
   - Le scoring est lancé automatiquement à la fin, et chaque exécution est tracée dans `immo_run_log`.
 - **Lister le Sas d'attente** : `node --env-file=.env .agents/skills/leboncoin_fetch/scripts/manage_sas.js list`
