@@ -1,9 +1,9 @@
 ---
-title: "[Luxior] appartement Triangle d'Or - seul à l'étage"
+title: "[Luxior] Appartement 144 m² Triangle d'Or, seul à l'étage"
 outline: deep
 ---
 
-# appartement Triangle d'Or - seul à l'étage
+# Appartement 144 m² Triangle d'Or, seul à l'étage
 
 <div class="detail-header-panel">
   <div class="detail-header-left">
@@ -113,8 +113,8 @@ Au coeur du centre-ville de Brest, dans le très recherché Triangle d&rsquo;Or 
 
 * **Prestations supplémentaires** : Chambres: 4, Garage: 0, Cave: 1
 * **Date de première vue** : 8 octobre 2026 à 21h05
-* **Dernière vue** : 28 octobre 2026 à 16h48
-* **Durée de référencement** : 19 jour(s) et 20 heure(s)
+* **Dernière vue** : 29 octobre 2026 à 12h42
+* **Durée de référencement** : 20 jour(s) et 16 heure(s)
 
 
 

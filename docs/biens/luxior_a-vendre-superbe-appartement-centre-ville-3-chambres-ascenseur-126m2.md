@@ -1,9 +1,9 @@
 ---
-title: "[Luxior] appartement rénové(e) Liberté - seul à l'étage"
+title: "[Luxior] Appartement 126 m² Liberté, seul à l'étage"
 outline: deep
 ---
 
-# appartement rénové(e) Liberté - seul à l'étage
+# Appartement 126 m² Liberté, seul à l'étage
 
 <div class="detail-header-panel">
   <div class="detail-header-left">
