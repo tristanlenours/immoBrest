@@ -1,6 +1,7 @@
 // Client Gemini minimal (sans dépendance) pour les clés gratuites du projet.
 // Clés lues dans GEMINI_API_KEYS (séparées par des virgules), GEMINI_API_KEY et GEMINI_API_KEY_* :
 // en cas de quota atteint (429) on passe à la clé suivante, la clé fautive est mise en pause.
+// Quand toutes les clés sont épuisées, un prompt texte part chez DeepSeek si DEEPSEEK_API_KEY est défini.
 
 const DEFAULT_MODEL = 'gemini-3.6-flash';
 const ENDPOINT = 'https://generativelanguage.googleapis.com/v1beta/models';
@@ -18,6 +19,29 @@ function geminiKeys(env = process.env) {
 
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
+// Secours payant (DEEPSEEK_API_KEY, modèle DEEPSEEK_MODEL) : API compatible OpenAI, sans images.
+// Le mode JSON de DeepSeek ne prend pas de schéma : il est donné dans le prompt.
+async function deepseekJson(prompt, schema, { temperature, maxOutputTokens }) {
+  const res = await fetch('https://api.deepseek.com/chat/completions', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${process.env.DEEPSEEK_API_KEY}` },
+    body: JSON.stringify({
+      model: process.env.DEEPSEEK_MODEL || 'deepseek-chat',
+      messages: [{ role: 'user', content: `${prompt}\n\nRéponds uniquement par un objet JSON conforme à ce schéma :\n${JSON.stringify(schema)}` }],
+      response_format: { type: 'json_object' },
+      temperature,
+      max_tokens: maxOutputTokens
+    })
+  });
+  if (!res.ok) throw new Error(`DeepSeek : HTTP ${res.status} ${(await res.text()).slice(0, 200)}`);
+  const data = await res.json();
+  try {
+    return JSON.parse(data.choices?.[0]?.message?.content || '');
+  } catch {
+    throw new Error(`DeepSeek : réponse illisible (${data.choices?.[0]?.finish_reason || 'sans motif'})`);
+  }
+}
+
 function createGemini({ keys = geminiKeys(), model = process.env.GEMINI_MODEL || DEFAULT_MODEL } = {}) {
   const cooldowns = new Map();
   let next = 0;
@@ -29,11 +53,13 @@ function createGemini({ keys = geminiKeys(), model = process.env.GEMINI_MODEL ||
     return ordered.filter(k => (cooldowns.get(k) || 0) <= now);
   }
 
-  // Envoie le prompt et renvoie l'objet JSON produit (conforme à `schema`), ou lève une erreur.
+  // Envoie le prompt (texte, ou liste de parts pour joindre une image) et renvoie l'objet JSON
+  // produit (conforme à `schema`), ou lève une erreur.
   async function generateJson(prompt, schema, { temperature = 0.1, maxOutputTokens = 4000 } = {}) {
     if (keys.length === 0) throw new Error('Aucune clé Gemini (GEMINI_API_KEYS) configurée.');
+    const parts = Array.isArray(prompt) ? prompt : [{ text: prompt }];
     const body = JSON.stringify({
-      contents: [{ parts: [{ text: prompt }] }],
+      contents: [{ parts }],
       generationConfig: { responseMimeType: 'application/json', responseSchema: schema, temperature, maxOutputTokens }
     });
 
@@ -78,6 +104,11 @@ function createGemini({ keys = geminiKeys(), model = process.env.GEMINI_MODEL ||
         throw new Error(`Gemini : ${lastError}`);
       }
       await sleep(15_000);
+    }
+    // Clés gratuites épuisées ou modèle indisponible : DeepSeek prend le relais (texte seulement).
+    if (process.env.DEEPSEEK_API_KEY && parts.every(p => p.text !== undefined)) {
+      console.log(`[IA] Gemini indisponible (${lastError.slice(0, 80)}), repli sur DeepSeek.`);
+      return deepseekJson(parts.map(p => p.text).join('\n'), schema, { temperature, maxOutputTokens });
     }
     throw new Error(`Gemini : ${lastError}`);
   }

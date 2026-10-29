@@ -60,4 +60,18 @@ async function fetchPhotos(url) {
   }
 }
 
-module.exports = { extractPhotosFromHtml, photosFromLeboncoinAd, fetchPhotos };
+// Télécharge une image au format attendu par Gemini (part « inline_data »), ou null.
+async function fetchImagePart(url) {
+  try {
+    const res = await fetch(url, { headers: { 'User-Agent': USER_AGENT } });
+    if (!res.ok) return null;
+    const mimeType = (res.headers.get('content-type') || 'image/jpeg').split(';')[0];
+    if (!mimeType.startsWith('image/')) return null;
+    const data = Buffer.from(await res.arrayBuffer()).toString('base64');
+    return { inline_data: { mime_type: mimeType, data } };
+  } catch {
+    return null;
+  }
+}
+
+module.exports = { extractPhotosFromHtml, photosFromLeboncoinAd, fetchPhotos, fetchImagePart };
