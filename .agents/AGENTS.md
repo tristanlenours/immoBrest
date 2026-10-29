@@ -128,7 +128,7 @@ flowchart TD
 ### 🤖 `listing_enrich` (Photos, analyse IA, titres)
 - **Enrichir les annonces actives et du sas** : `node --env-file=.env .agents/skills/listing_enrich/scripts/enrich_listings.js`
   - `--dry-run` (aucune écriture), `--force` (réanalyse tout), `--only=<id>`, `--no-ai`, `--no-photos`.
-  - Clés Gemini gratuites lues dans `GEMINI_API_KEYS` / `GEMINI_API_KEY*` (rotation sur quota 429), modèle `GEMINI_MODEL`. Dans le cloud, ajouter le secret GitHub `GEMINI_API_KEYS`, sinon l'analyse est ignorée. Quand toutes les clés sont épuisées, l'analyse texte passe par DeepSeek si `DEEPSEEK_API_KEY` est défini (modèle `DEEPSEEK_MODEL`, secret GitHub du même nom).
+  - Clés Gemini gratuites lues dans `GEMINI_API_KEYS` / `GEMINI_API_KEY*` (rotation sur quota 429), modèle `GEMINI_MODEL`. Dans le cloud, ajouter le secret GitHub `GEMINI_API_KEYS`, sinon l'analyse est ignorée. Quand toutes les clés sont épuisées, l'analyse texte passe par DeepSeek (DeepSeek V4.1 Flash via OpenRouter) si `OPENROUTER_PREMIUM_API_KEY` est défini (même clé que DraftMaster, modèle `FALLBACK_MODEL`, secret GitHub du même nom).
   - Annonces Henry : la première photo de la fiche Henry est lue par Gemini ; un bandeau « offre acceptée / sous offre / vendu » fait passer l'annonce en « Vendu ou retiré de la vente » (résultat gardé par photo dans `ai_analysis.photo_banner`). DeepSeek ne lit pas les images : sans quota Gemini, la vérification attend le relevé suivant.
   - Leboncoin : quand Chrome est ouvert en mode debug, les fiches sans photos ou sans date de publication sont ouvertes pour relever les photos et la date de création de l'annonce.
   - Relancer ensuite le scoring pour appliquer les nouvelles analyses (le fetch le fait automatiquement).

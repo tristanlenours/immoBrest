@@ -1,7 +1,7 @@
 // Client Gemini minimal (sans dépendance) pour les clés gratuites du projet.
 // Clés lues dans GEMINI_API_KEYS (séparées par des virgules), GEMINI_API_KEY et GEMINI_API_KEY_* :
 // en cas de quota atteint (429) on passe à la clé suivante, la clé fautive est mise en pause.
-// Quand toutes les clés sont épuisées, un prompt texte part chez DeepSeek si DEEPSEEK_API_KEY est défini.
+// Quand toutes les clés sont épuisées, un prompt texte part chez DeepSeek (OpenRouter) si la clé est définie.
 
 const DEFAULT_MODEL = 'gemini-3.6-flash';
 const ENDPOINT = 'https://generativelanguage.googleapis.com/v1beta/models';
@@ -19,14 +19,21 @@ function geminiKeys(env = process.env) {
 
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
-// Secours payant (DEEPSEEK_API_KEY, modèle DEEPSEEK_MODEL) : API compatible OpenAI, sans images.
-// Le mode JSON de DeepSeek ne prend pas de schéma : il est donné dans le prompt.
+// Secours payant : DeepSeek V4.1 Flash via OpenRouter (clé OPENROUTER_PREMIUM_API_KEY, la même que
+// DraftMaster ; modèle FALLBACK_MODEL), sans images. Le mode JSON ne prend pas de schéma : il est
+// donné dans le prompt.
+const FALLBACK_MODEL = 'deepseek/deepseek-v4.1-flash';
+
+function fallbackKey() {
+  return process.env.OPENROUTER_PREMIUM_API_KEY || process.env.OPENROUTER_API_KEY || '';
+}
+
 async function deepseekJson(prompt, schema, { temperature, maxOutputTokens }) {
-  const res = await fetch('https://api.deepseek.com/chat/completions', {
+  const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${process.env.DEEPSEEK_API_KEY}` },
+    headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${fallbackKey()}` },
     body: JSON.stringify({
-      model: process.env.DEEPSEEK_MODEL || 'deepseek-chat',
+      model: process.env.FALLBACK_MODEL || FALLBACK_MODEL,
       messages: [{ role: 'user', content: `${prompt}\n\nRéponds uniquement par un objet JSON conforme à ce schéma :\n${JSON.stringify(schema)}` }],
       response_format: { type: 'json_object' },
       temperature,
@@ -106,7 +113,7 @@ function createGemini({ keys = geminiKeys(), model = process.env.GEMINI_MODEL ||
       await sleep(15_000);
     }
     // Clés gratuites épuisées ou modèle indisponible : DeepSeek prend le relais (texte seulement).
-    if (process.env.DEEPSEEK_API_KEY && parts.every(p => p.text !== undefined)) {
+    if (fallbackKey() && parts.every(p => p.text !== undefined)) {
       console.log(`[IA] Gemini indisponible (${lastError.slice(0, 80)}), repli sur DeepSeek.`);
       return deepseekJson(parts.map(p => p.text).join('\n'), schema, { temperature, maxOutputTokens });
     }
