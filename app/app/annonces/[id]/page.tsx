@@ -3,9 +3,23 @@ import { notFound } from 'next/navigation';
 import Nav from '@/components/Nav';
 import PriceChart from '@/components/PriceChart';
 import DecisionButtons from '@/components/DecisionButtons';
-import { Pill, QuartierBadge, ScoreBadge, SourceBadge } from '@/components/Ui';
+import ListingPhoto from '@/components/ListingPhoto';
+import { CriteriaPills, QuartierBadge, ScoreBadge, SourceBadge } from '@/components/Ui';
 import { compareWithDvf } from '@/lib/dvf';
-import { formatDate, formatEuro, getHistory, getListing, pricePerM2, summarizeCriteria } from '@/lib/listings';
+import {
+  daysAgo,
+  formatDate,
+  formatDateTime,
+  formatEuro,
+  getHistory,
+  getListing,
+  headline,
+  isOnline,
+  pricePerM2,
+  seenInfo,
+  summarizeCriteria,
+  type AiAnalysis
+} from '@/lib/listings';
 
 export const dynamic = 'force-dynamic';
 
@@ -20,8 +34,13 @@ export default async function ListingPage({ params }: { params: { id: string } }
   if (!listing) notFound();
 
   const [history, dvf] = await Promise.all([getHistory(id), compareWithDvf(listing)]);
-  const { positives, negatives } = summarizeCriteria(listing.score_criteria);
+  const criteria = summarizeCriteria(listing.score_criteria, (listing.type || '').toLowerCase().includes('maison'));
   const m2 = pricePerM2(listing);
+  const title = headline(listing);
+  const seen = seenInfo(listing);
+  const photos = listing.photos ?? [];
+  const isHouse = (listing.type || '').toLowerCase().includes('maison');
+  const priceChanges = history.filter((h, i) => i > 0 && h.price !== history[i - 1].price).length;
 
   const facts: [string, string | null][] = [
     ['Type', listing.type],
@@ -30,10 +49,23 @@ export default async function ListingPage({ params }: { params: { id: string } }
     ['Chambres', listing.chambres ? String(listing.chambres) : null],
     ['Étage', listing.floor && listing.floor !== 'Non spécifié' ? listing.floor : null],
     ['Prestations', listing.prestations && listing.prestations !== 'Non spécifiées' ? listing.prestations : null],
-    ['Localisation', listing.location],
-    ['Première vue', formatDate(listing.first_seen_at)],
-    ['Dernière vue', formatDate(listing.last_seen_at)]
+    ['Localisation', listing.location]
   ];
+
+  // [libellé, valeur, précision]
+  const timeline: [string, string, string][] = [
+    ['Repérée par nos relevés', formatDateTime(seen.firstSeen), daysAgo(seen.firstSeen)],
+    [
+      isOnline(listing) ? 'Vue en ligne pour la dernière fois' : 'Dernière fois vue en ligne',
+      formatDateTime(seen.lastSeen),
+      seen.stale ? `${daysAgo(seen.lastSeen)} · source pas relevée depuis ?` : daysAgo(seen.lastSeen)
+    ]
+  ];
+  if (seen.published) timeline.push(['Publiée par la source', formatDate(seen.published), daysAgo(seen.published)]);
+  if (seen.daysOnMarket !== null) {
+    timeline.push(['Sur le marché depuis', `${seen.daysOnMarket} jours`, isOnline(listing) ? 'toujours en ligne' : 'retirée']);
+  }
+  timeline.push(['Changements de prix', priceChanges === 0 ? 'aucun' : String(priceChanges), `${history.length} relevé${history.length > 1 ? 's' : ''} de prix`]);
 
   return (
     <>
@@ -43,7 +75,9 @@ export default async function ListingPage({ params }: { params: { id: string } }
           ← Retour aux annonces
         </Link>
 
-        <section className="card p-5">
+        <section className="card overflow-hidden">
+          <Gallery photos={photos} alt={listing.title} isHouse={isHouse} />
+          <div className="p-5">
           <div className="flex items-start gap-4">
             <div className="min-w-0 flex-1">
               <div className="flex flex-wrap items-center gap-1.5">
@@ -54,7 +88,12 @@ export default async function ListingPage({ params }: { params: { id: string } }
                   {listing.review_status === 'sas' ? "En attente" : listing.review_status === 'approved' ? 'Acceptée' : 'Rejetée'}
                 </span>
               </div>
-              <h1 className="mt-2 text-xl font-bold leading-snug sm:text-2xl">{listing.title}</h1>
+              <h1 className="mt-2 text-xl leading-snug sm:text-2xl">
+                <span className="font-bold">{title.main}</span>
+                {title.place && <span className="font-semibold"> {title.place}</span>}
+                {title.complement && <span className="font-normal text-slate-600 dark:text-slate-300">{title.complement}</span>}
+              </h1>
+              {listing.ai_analysis?.accroche && <p className="mt-1 text-slate-600 dark:text-slate-300">{listing.ai_analysis.accroche}</p>}
               <p className="mt-2 text-3xl font-bold tracking-tight">
                 {formatEuro(listing.price)}
                 {m2 && <span className="ml-3 text-base font-normal text-slate-500 dark:text-slate-400">{m2.toLocaleString('fr-FR')}&nbsp;€/m²</span>}
@@ -81,6 +120,22 @@ export default async function ListingPage({ params }: { params: { id: string } }
               <DecisionButtons id={listing.id} />
             </div>
           )}
+          </div>
+        </section>
+
+        <section className="card p-5">
+          <h2 className="font-semibold">Suivi de l&apos;annonce</h2>
+          <dl className="mt-3 divide-y divide-slate-100 text-sm dark:divide-slate-800">
+            {timeline.map(([label, value, hint]) => (
+              <div key={label} className="flex flex-wrap items-baseline justify-between gap-x-3 py-2">
+                <dt className="text-slate-500 dark:text-slate-400">{label}</dt>
+                <dd className="text-right">
+                  <span className="font-medium">{value}</span>
+                  <span className="ml-2 text-xs text-slate-500 dark:text-slate-400">{hint}</span>
+                </dd>
+              </div>
+            ))}
+          </dl>
         </section>
 
         {dvf && (
@@ -144,19 +199,21 @@ export default async function ListingPage({ params }: { params: { id: string } }
           </section>
         )}
 
-        {(positives.length > 0 || negatives.length > 0) && (
+        {criteria.positives.length + criteria.negatives.length + criteria.unknowns.length > 0 && (
           <section className="card p-5">
             <h2 className="font-semibold">Pourquoi ce score</h2>
-            <div className="mt-3 flex flex-wrap gap-1.5">
-              {positives.map(p => (
-                <Pill key={p} tone="good">{p}</Pill>
-              ))}
-              {negatives.map(n => (
-                <Pill key={n} tone="bad">{n}</Pill>
-              ))}
+            <div className="mt-3">
+              <CriteriaPills {...criteria} />
             </div>
+            {criteria.unknowns.length > 0 && (
+              <p className="mt-3 text-xs text-slate-500 dark:text-slate-400">
+                « ? » : l&apos;annonce ne permet pas de trancher, 3/4 du malus est appliqué. Une confirmation de l&apos;agence peut faire monter la note.
+              </p>
+            )}
           </section>
         )}
+
+        {listing.ai_analysis && <AiSection ai={listing.ai_analysis} />}
 
         <section className="card p-5">
           <h2 className="font-semibold">Caractéristiques</h2>
@@ -181,6 +238,82 @@ export default async function ListingPage({ params }: { params: { id: string } }
         )}
       </main>
     </>
+  );
+}
+
+function Gallery({ photos, alt, isHouse }: { photos: string[]; alt: string; isHouse: boolean }) {
+  if (photos.length <= 1) {
+    return <ListingPhoto src={photos[0]} alt={alt} isHouse={isHouse} className="aspect-[16/9] w-full" />;
+  }
+  return (
+    <div className="flex snap-x snap-mandatory gap-1 overflow-x-auto bg-slate-100 dark:bg-slate-800">
+      {photos.map((src, i) => (
+        <ListingPhoto key={src} src={src} alt={`${alt} — photo ${i + 1}`} isHouse={isHouse} className="aspect-[4/3] h-64 shrink-0 snap-start sm:h-80" />
+      ))}
+    </div>
+  );
+}
+
+const TRI_LABELS: Record<string, string> = { oui: 'Oui', non: 'Non', inconnu: 'Non précisé' };
+const ETAT_LABELS: Record<string, string> = {
+  neuf: 'Neuf',
+  renove: 'Rénové',
+  bon: 'Bon état',
+  a_rafraichir: 'À rafraîchir',
+  travaux: 'Gros travaux',
+  inconnu: 'Non précisé'
+};
+const capitalize = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
+
+function AiSection({ ai }: { ai: AiAnalysis }) {
+  const floor = ai.etage === null ? 'Non précisé' : `${ai.etage === 0 ? 'RDC' : ai.etage}${ai.nb_etages ? ` / ${ai.nb_etages}` : ''}`;
+  const features: [string, string][] = [
+    ['Dernier étage', TRI_LABELS[ai.dernier_etage]],
+    ["Seul à l'étage", TRI_LABELS[ai.seul_a_l_etage]],
+    ['Ascenseur', TRI_LABELS[ai.ascenseur]],
+    ['Extérieur', ai.exterieur === 'inconnu' ? 'Non précisé' : capitalize(ai.exterieur)],
+    ['Stationnement', ai.stationnement === 'inconnu' ? 'Non précisé' : capitalize(ai.stationnement)],
+    ['Vue mer', TRI_LABELS[ai.vue_mer]],
+    ['État', ETAT_LABELS[ai.etat] ?? ai.etat],
+    ['DPE', ai.dpe === 'inconnu' ? 'Non précisé' : ai.dpe],
+    ['Étage', floor],
+    ['Construction', ai.annee_construction ? String(ai.annee_construction) : 'Non précisé']
+  ];
+  return (
+    <section className="card p-5">
+      <h2 className="font-semibold">Analyse IA de l&apos;annonce</h2>
+      <div className="mt-3 grid gap-4 sm:grid-cols-2">
+        <div>
+          <h3 className="text-xs font-semibold uppercase tracking-wide text-emerald-700 dark:text-emerald-300">Points forts</h3>
+          <ul className="mt-1.5 space-y-1 text-sm">
+            {ai.points_forts.map(p => (
+              <li key={p}>✓ {p}</li>
+            ))}
+          </ul>
+        </div>
+        <div>
+          <h3 className="text-xs font-semibold uppercase tracking-wide text-rose-700 dark:text-rose-300">Points faibles &amp; incertitudes</h3>
+          <ul className="mt-1.5 space-y-1 text-sm">
+            {ai.points_faibles.length === 0 ? (
+              <li className="text-slate-500 dark:text-slate-400">Rien de notable</li>
+            ) : (
+              ai.points_faibles.map(p => <li key={p}>✗ {p}</li>)
+            )}
+          </ul>
+        </div>
+      </div>
+      <dl className="mt-4 grid grid-cols-1 gap-x-6 text-sm sm:grid-cols-2">
+        {features.map(([k, v]) => (
+          <div key={k} className="flex justify-between gap-2 border-b border-slate-100 py-1.5 dark:border-slate-800">
+            <dt className="text-slate-500 dark:text-slate-400">{k}</dt>
+            <dd className={`text-right font-medium ${v === 'Non précisé' ? 'text-amber-700 dark:text-amber-300' : ''}`}>{v}</dd>
+          </div>
+        ))}
+      </dl>
+      <p className="mt-3 text-xs text-slate-500 dark:text-slate-400">
+        Lu dans la description par {ai.model} le {formatDate(ai.analyzed_at)}. Ces caractéristiques alimentent le score.
+      </p>
+    </section>
   );
 }
 

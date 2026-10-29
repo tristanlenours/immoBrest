@@ -2,8 +2,8 @@ import Link from 'next/link';
 import { countByReviewStatus } from '@/lib/listings';
 
 const LINKS = [
-  { href: '/', label: 'Sas', withCount: true },
   { href: '/annonces', label: 'Annonces' },
+  { href: '/sas', label: 'Sas', withCount: true },
   { href: '/archives', label: 'Archives' },
   { href: '/corbeille', label: 'Corbeille' }
 ];

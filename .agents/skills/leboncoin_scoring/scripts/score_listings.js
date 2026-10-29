@@ -56,7 +56,14 @@ async function scoreAll(store) {
       }
     }
 
-    const chambres = extractChambres(title, description, prestations, pieces);
+    // Nombre de chambres : donnée structurée de la source, sinon analyse IA, sinon déduction du texte.
+    const ai = row.ai_analysis || null;
+    const structuredChambres = prestations.match(/chambres?\s*:\s*(\d+)/i);
+    const chambres = structuredChambres
+      ? parseInt(structuredChambres[1], 10)
+      : Number.isInteger(ai?.chambres) && ai.chambres > 0
+        ? ai.chambres
+        : extractChambres(title, description, prestations, pieces);
 
     // Automatically exclude if surface <= 63m²
     let updatedStatus = row.market_status;
@@ -65,7 +72,7 @@ async function scoreAll(store) {
     }
 
     // Calculate score with negation-aware & word-boundary engine
-    const { score, criteria } = scoreProperty(title, description, location, type, prestations, surface, pieces, chambres, row.id);
+    const { score, criteria } = scoreProperty(title, description, location, type, prestations, surface, pieces, chambres, row.id, ai);
     const isHouse = type.toLowerCase().includes('maison');
     const criteriaLines = buildScoringCheckboxBlock(score, criteria, isHouse, surface, chambres).split('\n');
 

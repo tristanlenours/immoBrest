@@ -27,6 +27,8 @@ env:
   TZ: Europe/Paris
   SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
   SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+  # Analyse IA des annonces (facultatif : sans ce secret, l'étape est ignorée)
+  GEMINI_API_KEYS: ${{ secrets.GEMINI_API_KEYS }}
 
 jobs:
   fetch:

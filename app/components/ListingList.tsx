@@ -16,7 +16,8 @@ const SORTS: Record<string, { label: string; value: (l: Listing) => number }> = 
   price: { label: 'Prix', value: l => l.price ?? Infinity },
   m2: { label: 'Prix au m²', value: l => pricePerM2(l) ?? Infinity },
   surface: { label: 'Surface', value: l => Number(l.surface ?? 0) },
-  date: { label: 'Date de sortie', value: l => (l.last_seen_at ? new Date(l.last_seen_at).getTime() : 0) }
+  recent: { label: 'Nouveautés', value: l => (l.first_seen_at ? new Date(l.first_seen_at).getTime() : 0) },
+  date: { label: 'Dernière vue', value: l => (l.last_seen_at ? new Date(l.last_seen_at).getTime() : 0) }
 };
 
 const ASCENDING = new Set(['price', 'm2']);
@@ -33,7 +34,7 @@ export function applyFilters(listings: Listing[], f: Filters): Listing[] {
     .filter(l => !f.quartier || l.quartier === f.quartier)
     .filter(l => Number(l.score ?? 0) >= minScore)
     .filter(l => !l.price || l.price <= maxPrice)
-    .filter(l => !q || `${l.title} ${l.description ?? ''} ${l.location ?? ''}`.toLowerCase().includes(q))
+    .filter(l => !q || `${l.title} ${l.quartier ?? ''} ${l.description ?? ''} ${l.location ?? ''}`.toLowerCase().includes(q))
     .sort((a, b) => (ASCENDING.has(sortKey) ? value(a) - value(b) : value(b) - value(a)));
 }
 
@@ -90,7 +91,7 @@ export function ListingList({
 }) {
   if (listings.length === 0) return <EmptyState title={emptyTitle} hint="Essaie d'élargir les filtres." />;
   return (
-    <div className="grid gap-4 md:grid-cols-2">
+    <div className="grid gap-5 md:grid-cols-2">
       {listings.map(l => (
         <ListingCard key={l.id} listing={l} change={changes.get(l.id)} actions={actions} />
       ))}

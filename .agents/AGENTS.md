@@ -20,14 +20,13 @@ Les quartiers suivants doivent être extraits et insérés au centre du titre :
 - **Harteloire** / **Bellevue** / **Pilier Rouge**
 - **Port de Commerce**
 
-### Format du Titre dans les Fiches
-Le titre principal de la fiche doit respecter le format suivant :
-`# [Source] - type_de_bien [caractéristiques_temporelles/architecturales] Quartier - [attributs] (Score: X/10)`
+### Format du Titre
+Le titre (`immo_listings.title`) suit le format `Type surface Quartier complément` : type, surface et quartier sont des données fiables qui identifient le bien, le complément donne les 1 ou 2 atouts distinctifs (analyse IA, à défaut mots-clés). Il est calculé par `buildHeadline` (`shared/listing_utils.js`).
 
 Exemples :
-- `# [Agence Henry] - maison années 30 Kérinou - jardin (Score: 7/10)`
-- `# [Leboncoin] - appartement - 3 pièces 100m² (La Corniche) (Score: 2.4/10)`
-- `# [Agence Henry] - grand appartement Branda Gare - seul à l'étage avec ascenseur (Score: 6.7/10)`
+- `Maison 141 m² Saint-Michel avec jardin et garage`
+- `Appartement 97 m² Capucins avec vue mer et terrasse`
+- `Appartement 120 m² Gare avec balcon, seul à l'étage`
 
 ## Restitution des Résultats du Fetch
 
@@ -63,6 +62,9 @@ ImmoBrest est une plateforme automatisée de recherche, d'évaluation et de cons
 Les annonces vivent dans le projet **Supabase partagé** (avec DraftMaster et Quiz), tables préfixées `immo_`. Les scripts utilisent la clé `service_role` lue dans `.env` (voir `.env.example`) : lancer avec `node --env-file=.env <script>`. Le schéma est dans `supabase/migrations/`.
 
 - `immo_listings` : une ligne par annonce. `review_status` vaut `sas` (**sas d'attente**, nouvelles annonces à valider), `approved` (**base active** publiée sur le site) ou `rejected` (**corbeille**, sert aussi d'anti-doublon pour ne jamais ré-ingérer une annonce rejetée). `market_status` porte l'état sur le marché (Actif, Vendu ou retiré de la vente...).
+  - Dates : `first_seen_at` = première fois que les relevés ont vu l'annonce (entrée dans le référentiel), `last_seen_at` = dernier relevé où elle était en ligne, `published_at` = date de publication indiquée par la source (Leboncoin).
+  - `photos` : URLs des photos (la première sert de vignette), relevées par le fetch ou par l'enrichissement.
+  - `ai_analysis` : analyse Gemini de la description (caractéristiques oui/non/inconnu, état, DPE, complément de titre, points forts/faibles), utilisée par le scoring.
 - `immo_price_history` : historique des prix par annonce.
 - `immo_dvf_sales` : transactions réelles DGFiP sur Brest.
 - `immo_run_log` : journal des exécutions du fetch (date de dernière recherche, statistiques, erreurs).
@@ -98,9 +100,13 @@ flowchart TD
    - Le scoring est immédiatement calculé pour faciliter la décision.
 3. **Validation / Modération** :
    - L'utilisateur ou l'agent valide (`manage_sas.js approve`) ou rejette (`manage_sas.js reject`).
-4. **Scoring Multicritères** :
-   - Note initiale de 10/10 déduite des maluses (Tiers localisation, prestations manquantes) et agrémentée de bonus qualité (+0.2 par mot-clé, max +1.0).
-5. **Publication HTML (VitePress)** :
+4. **Enrichissement** (`listing_enrich`, lancé par le fetch avant le scoring) :
+   - Photos manquantes, analyse Gemini des annonces nouvelles ou modifiées (empreinte `input_hash`), titre normalisé.
+5. **Scoring Multicritères** :
+   - Note initiale de 10/10 déduite des maluses (Tiers localisation, prestations manquantes).
+   - Avec l'analyse IA, chaque critère vaut oui / non / non précisé : « non précisé » coûte 3/4 du malus (au lieu du malus complet quand le texte ne mentionne rien). Le bonus qualité vient de l'état réel (neuf/rénové +0.5, à rafraîchir −0.5, gros travaux −1) et de la vue mer (+0.5), plafonné à +1 ; DPE F/G −0.5.
+   - Sans analyse IA (pas de clé, échec), repli sur les expressions régulières et les mots-clés (+0.2 par mot-clé, max +1.0).
+6. **Publication HTML (VitePress)** :
    - Exécution de `generate_site.js` pour créer les fiches markdown dans `docs/biens/` et la base JSON `docs/public/listings_data.json`.
 
 ---
@@ -118,6 +124,12 @@ flowchart TD
 
 ### 📊 `leboncoin_scoring` (Calcul des Notes)
 - **Scorer toutes les annonces (actives + sas)** : `node --env-file=.env .agents/skills/leboncoin_scoring/scripts/score_listings.js` (`--dry-run` pour simuler)
+
+### 🤖 `listing_enrich` (Photos, analyse IA, titres)
+- **Enrichir les annonces actives et du sas** : `node --env-file=.env .agents/skills/listing_enrich/scripts/enrich_listings.js`
+  - `--dry-run` (aucune écriture), `--force` (réanalyse tout), `--only=<id>`, `--no-ai`, `--no-photos`.
+  - Clés Gemini gratuites lues dans `GEMINI_API_KEYS` / `GEMINI_API_KEY*` (rotation sur quota 429), modèle `GEMINI_MODEL`. Dans le cloud, ajouter le secret GitHub `GEMINI_API_KEYS`, sinon l'analyse est ignorée.
+  - Relancer ensuite le scoring pour appliquer les nouvelles analyses (le fetch le fait automatiquement).
 
 ### 💻 `leboncoin_display` (Consultation CLI)
 - **Afficher les annonces actives** : `node --env-file=.env .agents/skills/leboncoin_display/scripts/display_listings.js`

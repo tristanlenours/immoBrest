@@ -37,7 +37,12 @@ All properties start with a default score of **10.0/10** and accumulate penaltie
     - 2 chambres (in other cases) → Penalty of **-1.0 point**.
     - >= 5 chambres → Penalty of **-1.0 point**.
 
-*   **Quality Bonus (Bonus qualité)**:
+*   **AI analysis (`ai_analysis`, from `listing_enrich`)** — when present, it takes precedence over the regexes:
+    - Each feature (dernier étage, seul à l'étage, ascenseur, extérieur, stationnement) is `oui` / `non` / `inconnu`. `oui` → no malus, `non` → full malus, `inconnu` → **3/4 of the malus** (line marked `(non précisé)`). Dernier étage and seul à l'étage are worth 1 point each; no elevator costs 2 points at the 3rd floor and above or on the top floor.
+    - The keyword bonus is replaced by: état `neuf`/`renove` **+0.5**, `vue_mer` **+0.5** (capped at +1.0); état `a_rafraichir` **-0.5**, `travaux` **-1.0**; DPE F or G **-0.5**.
+    - Number of chambres: structured source data first, then AI, then text deduction.
+
+*   **Quality Bonus (Bonus qualité)** — fallback without AI analysis:
     - Earn **+0.2 points** for each of the following keywords detected in the title, description, or prestations, up to a maximum total bonus of **+1.0 point**:
       - `coup de coeur` / `coup de cœur`
       - `standing`

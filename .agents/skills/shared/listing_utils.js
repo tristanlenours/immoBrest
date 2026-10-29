@@ -420,9 +420,26 @@ function extractChambres(title, description, prestations, pieces = null) {
   return null;
 }
 
-function scoreProperty(title, description, location, type, prestations = '', surface = null, pieces = null, chambres = null, folder = '') {
+// Part manquante d'un critère : 0 = présent, 0.75 = non précisé, 1 = absent.
+// Sans analyse IA, l'absence de mention vaut absence (comportement historique) ;
+// avec elle, seule une absence explicite coûte le malus complet. Une annonce qui tait
+// un atout ne l'a souvent pas : « non précisé » reste donc pénalisé aux trois quarts.
+const UNKNOWN_SHARE = 0.75;
+
+function missingShare(regexFound, aiValue, yesValues = ['oui'], noValues = ['non']) {
+  if (aiValue === undefined || aiValue === null) return regexFound ? 0 : 1;
+  if (yesValues.includes(aiValue)) return 0;
+  if (noValues.includes(aiValue)) return 1;
+  return regexFound ? 0 : UNKNOWN_SHARE;
+}
+
+const ETAT_LABELS = { neuf: 'neuf', renove: 'rénové', bon: 'bon état', a_rafraichir: 'à rafraîchir', travaux: 'gros travaux' };
+const ETAT_POINTS = { neuf: 0.5, renove: 0.5, bon: 0, a_rafraichir: -0.5, travaux: -1.0 };
+
+function scoreProperty(title, description, location, type, prestations = '', surface = null, pieces = null, chambres = null, folder = '', ai = null) {
   const fullText = stripAccents(`${title} ${description} ${location} ${prestations}`).toLowerCase();
   const isHouse = (type || '').toLowerCase().includes('maison');
+  ai = ai || {};
 
   let score = 10.0;
   const criteria = {
@@ -505,16 +522,17 @@ function scoreProperty(title, description, location, type, prestations = '', sur
     exteriorNegations
   );
 
-  if (hasExterior) {
-    criteria.terrasse = true;
-  } else {
-    if (isHouse) {
-      score -= 1.0;
-      criteria.terrasseMalusLimit = true;
-    } else {
-      score -= 2.0;
-      criteria.terrasseMalus = true;
-    }
+  const exteriorShare = missingShare(hasExterior, ai.exterieur, ['terrasse', 'balcon', 'jardin'], ['aucun']);
+  criteria.terrasse = exteriorShare === 0;
+  criteria.malus = {};
+  criteria.unknown = {};
+  if (exteriorShare > 0) {
+    const malus = (isHouse ? 1.0 : 2.0) * exteriorShare;
+    score -= malus;
+    criteria.malus.terrasse = malus;
+    criteria.unknown.terrasse = exteriorShare < 1;
+    if (isHouse) criteria.terrasseMalusLimit = true;
+    else criteria.terrasseMalus = true;
   }
 
   // 3. Parking check & malus (with negation & street-parking exclusion)
@@ -530,10 +548,18 @@ function scoreProperty(title, description, location, type, prestations = '', sur
     /\bstationnements?\b/i
   ];
 
-  if (hasPositiveFeature(fullText, parkingPositives, parkingNegations)) {
-    criteria.parking = true;
-  } else {
-    score -= 1.5;
+  const parkingShare = missingShare(
+    hasPositiveFeature(fullText, parkingPositives, parkingNegations),
+    ai.stationnement,
+    ['garage', 'parking'],
+    ['aucun']
+  );
+  criteria.parking = parkingShare === 0;
+  if (parkingShare > 0) {
+    const malus = 1.5 * parkingShare;
+    score -= malus;
+    criteria.malus.parking = malus;
+    criteria.unknown.parking = parkingShare < 1;
     criteria.parkingMalus = true;
   }
 
@@ -545,13 +571,16 @@ function scoreProperty(title, description, location, type, prestations = '', sur
     const dernierEtageNegations = [
       /\b(?:pas\s+au|non)\s+dernier\s+[eé]tage\b/gi
     ];
+    const aiTopFloor = Number.isInteger(ai.etage) && Number.isInteger(ai.nb_etages) && ai.etage > 0 && ai.etage >= ai.nb_etages;
     if (
       floorIsEqual ||
+      aiTopFloor ||
       hasPositiveFeature(fullText, [/\bdernier\s+[eé]tage\b/i, /\brooftop\b/i], dernierEtageNegations)
     ) {
       criteria.dernierEtage = true;
     }
 
+    let seulEtageFound = false;
     if (
       /\bseul[e]?\s+[aà]\s+l['’]?\s*[eé]tage\b/i.test(fullText) ||
       /\bseul[e]?\s+au\s+\d+/i.test(fullText) ||
@@ -561,21 +590,27 @@ function scoreProperty(title, description, location, type, prestations = '', sur
       /\bseul[e]?\s+[aà]\s+son\s+[eé]tage\b/i.test(fullText) ||
       /\bun\s+seul\s+appartement\s+par\s+[eé]tage\b/i.test(fullText)
     ) {
-      criteria.seulEtage = true;
+      seulEtageFound = true;
     }
 
-    if (criteria.dernierEtage && criteria.seulEtage) {
-      // Both true: no malus
-    } else if (criteria.dernierEtage && !criteria.seulEtage) {
-      score -= 1.0;
-      criteria.seulEtageMalusLimit = true;
-    } else if (!criteria.dernierEtage && criteria.seulEtage) {
-      score -= 1.0;
-      criteria.dernierEtageMalusLimit = true;
-    } else {
-      score -= 2.0;
-      criteria.dernierEtageMalus = true;
+    // Dernier étage et seul à l'étage valent 1 point chacun (0.5 si l'annonce ne permet pas de trancher).
+    const dernierShare = missingShare(criteria.dernierEtage, ai.dernier_etage);
+    const seulShare = missingShare(seulEtageFound, ai.seul_a_l_etage);
+    criteria.dernierEtage = dernierShare === 0;
+    criteria.seulEtage = seulShare === 0;
+    if (dernierShare > 0) {
+      score -= dernierShare;
+      criteria.malus.dernierEtage = dernierShare;
+      criteria.unknown.dernierEtage = dernierShare < 1;
     }
+    if (seulShare > 0) {
+      score -= seulShare;
+      criteria.malus.seulEtage = seulShare;
+      criteria.unknown.seulEtage = seulShare < 1;
+    }
+    if (dernierShare > 0 && seulShare > 0) criteria.dernierEtageMalus = true;
+    else if (dernierShare > 0) criteria.dernierEtageMalusLimit = true;
+    else if (seulShare > 0) criteria.seulEtageMalusLimit = true;
 
     // Ascenseur check (with negation protection!)
     const ascenseurNegations = [
@@ -583,23 +618,23 @@ function scoreProperty(title, description, location, type, prestations = '', sur
       /\bascenseur\s*:\s*non\b/gi,
       /\bnon\s+pourvu\s+d['’]ascenseur\b/gi
     ];
-    if (hasPositiveFeature(fullText, [/\bascenseur\b/i], ascenseurNegations)) {
-      criteria.ascenseur = true;
-    } else {
-      score -= 1.0;
-      criteria.ascenseurMalus = true;
-
-      let floorNum = null;
+    const ascenseurShare = missingShare(hasPositiveFeature(fullText, [/\bascenseur\b/i], ascenseurNegations), ai.ascenseur);
+    criteria.ascenseur = ascenseurShare === 0;
+    if (ascenseurShare > 0) {
+      let floorNum = Number.isInteger(ai.etage) ? ai.etage : null;
       const matchEtage = fullText.match(/(?:étage|etage)\s*:\s*(\d+)/i) || fullText.match(/(\d+)(?:ème|eme|er|re)?\s+[eé]tage/i);
-      if (matchEtage) {
+      if (floorNum === null && matchEtage) {
         floorNum = parseInt(matchEtage[1], 10);
       }
       const isHighFloor = floorNum !== null && floorNum >= 3;
-
-      if (isHighFloor || criteria.dernierEtage) {
-        score -= 1.0;
-        criteria.noElevatorHighFloorMalus = true;
-      }
+      // Monter à pied au 3e ou au dernier étage coûte double.
+      const base = isHighFloor || criteria.dernierEtage ? 2.0 : 1.0;
+      const malus = base * ascenseurShare;
+      score -= malus;
+      criteria.malus.ascenseur = malus;
+      criteria.unknown.ascenseur = ascenseurShare < 1;
+      criteria.ascenseurMalus = true;
+      criteria.noElevatorHighFloorMalus = base === 2.0;
     }
   } else {
     criteria.dernierEtage = true;
@@ -671,6 +706,40 @@ function scoreProperty(title, description, location, type, prestations = '', sur
     { term: 'confort', regex: /\bconfort\b/i }
   ];
 
+  // 7 bis. Avec l'analyse IA, la qualité se juge sur l'état réel du bien et la vue mer,
+  // plutôt qu'en comptant les superlatifs de l'agence.
+  criteria.aiQuality = Boolean(ai.etat);
+  if (criteria.aiQuality) {
+    const reasons = [];
+    let bonus = 0;
+    if (ETAT_POINTS[ai.etat] > 0) {
+      bonus += ETAT_POINTS[ai.etat];
+      reasons.push(ETAT_LABELS[ai.etat]);
+    }
+    if (ai.vue_mer === 'oui') {
+      bonus += 0.5;
+      reasons.push('vue mer');
+    }
+    bonus = Math.min(1.0, bonus);
+    score += bonus;
+    criteria.bonusQuality = bonus;
+    criteria.detectedKeywords = reasons;
+
+    criteria.qualityMalus = ETAT_POINTS[ai.etat] < 0;
+    if (criteria.qualityMalus) {
+      criteria.qualityMalusValue = -ETAT_POINTS[ai.etat];
+      criteria.qualityMalusLabel = ETAT_LABELS[ai.etat];
+      score -= criteria.qualityMalusValue;
+    }
+    // Passoire thermique : facture d'énergie et travaux d'isolation à prévoir.
+    if (ai.dpe === 'F' || ai.dpe === 'G') {
+      score -= 0.5;
+      criteria.dpeMalus = ai.dpe;
+    }
+    score = parseFloat(Math.min(10.0, Math.max(0, score)).toFixed(1));
+    return { score, criteria };
+  }
+
   for (const item of keywordMappings) {
     if (item.regex.test(fullText)) {
       detectedKeywords.push(item.term);
@@ -706,6 +775,49 @@ function scoreProperty(title, description, location, type, prestations = '', sur
   return { score, criteria };
 }
 
+// Titre d'une annonce : « Maison 141 m² Saint-Michel avec jardin et garage ».
+// Type, surface et quartier sont des données fiables qui identifient le bien ; le complément
+// (atouts distinctifs) vient de l'analyse IA, ou à défaut des mots-clés de l'annonce.
+function buildHeadline({ type, surface, quartier, complement = '' }) {
+  const typeLabel = (type || 'Bien').charAt(0).toUpperCase() + (type || 'Bien').slice(1).toLowerCase();
+  const surfaceLabel = Number(surface) > 0 ? `${Math.round(Number(surface))} m²` : '';
+  const base = [typeLabel, surfaceLabel, quartier].filter(Boolean).join(' ');
+  const extra = normalizeComplement(complement);
+  if (!extra) return base;
+  return `${base}${/^avec\b/i.test(extra) ? ' ' : ', '}${extra}`.replace(/\s+/g, ' ').trim();
+}
+
+// La position dans l'immeuble ne se construit pas avec « avec » :
+// « avec seul logement à l'étage » -> « seul à l'étage », « avec garage et dernier étage » -> « avec garage, dernier étage ».
+const FLOOR_PHRASE = "(seule?\\s+(?:[aà]\\s+l['’]\\s*[eé]tage|sur\\s+(?:le\\s+)?palier|au\\s+palier)|dernier\\s+[eé]tage)";
+
+function normalizeComplement(text = '') {
+  return String(text || '')
+    .trim()
+    .replace(/\.$/, '')
+    .replace(/(seule?)\s+(?:logement|appartement)\s+(?=[aà]\s+l['’]|sur\s|au\s)/i, '$1 ')
+    .replace(new RegExp(`\\s+et\\s+${FLOOR_PHRASE}`, 'i'), ', $1')
+    .replace(new RegExp(`^avec\\s+${FLOOR_PHRASE}`, 'i'), '$1')
+    .replace(/^avec\s*$/i, '')
+    .trim();
+}
+
+// Complément de titre déduit des mots-clés quand l'analyse IA n'est pas disponible.
+function keywordComplement(type, title = '', description = '', location = '') {
+  const text = stripAccents(`${title} ${description} ${location}`).toLowerCase();
+  const isHouse = (type || '').toLowerCase().includes('maison');
+  const assets = [];
+  if (/\bvue\b[^.?!]{0,35}\b(?:mer|rade)\b/.test(text)) assets.push('vue mer');
+  if (/\brooftop\b/.test(text)) assets.push('rooftop');
+  else if (/\bterrasses?\b/.test(text)) assets.push('terrasse');
+  else if (/\bjardins?\b/.test(text)) assets.push('jardin');
+  if (/\bgarages?\b|\bbox\b/.test(text)) assets.push('garage');
+  const parts = assets.length > 0 ? [`avec ${assets.slice(0, 2).join(' et ')}`] : [];
+  if (!isHouse && /\bseul[e]?\s+(?:a\s+l['’]?\s*etage|sur\s+(?:le\s+)?palier|au\s+palier)\b/.test(text)) parts.push("seul à l'étage");
+  else if (!isHouse && /\bdernier\s+etage\b/.test(text)) parts.push('dernier étage');
+  return parts.slice(0, 2).join(', ');
+}
+
 function buildScoringCheckboxBlock(score, criteria, isHouse, surface = null, chambres = null) {
   let locLine = '';
   if (criteria.premiumCenter) {
@@ -716,25 +828,21 @@ function buildScoringCheckboxBlock(score, criteria, isHouse, surface = null, cha
     locLine = `  - [ ] Siam / Triangle d'Or / Place Wilson / Saint-Louis / Gare / Cours Dajot / Château / Jardin des Explorateurs (Tiers 1) (-4.0 pour Tiers 3)`;
   }
 
-  let block = `- **Score de correspondance** : ${score}/10\n${locLine}`;
+  let block = `- **Score de correspondance** : ${score}/10${criteria.aiQuality ? ' (analyse IA)' : ''}\n${locLine}`;
 
-  if (!isHouse) {
-    if (!criteria.dernierEtage && !criteria.seulEtage) {
-      block += `\n  - [ ] Dernier étage (ou Maison) (-2.0 pour non dernier & non seul)\n  - [ ] Seul à l'étage (ou Maison)`;
-    } else if (!criteria.dernierEtage && criteria.seulEtage) {
-      block += `\n  - [ ] Dernier étage (ou Maison) (-1.0)\n  - [x] Seul à l'étage (ou Maison)`;
-    } else if (criteria.dernierEtage && !criteria.seulEtage) {
-      block += `\n  - [x] Dernier étage (ou Maison)\n  - [ ] Seul à l'étage (ou Maison) (-1.0)`;
-    } else {
-      block += `\n  - [x] Dernier étage (ou Maison)\n  - [x] Seul à l'étage (ou Maison)`;
-    }
-  } else {
-    block += `\n  - [x] Dernier étage (ou Maison)\n  - [x] Seul à l'étage (ou Maison)`;
-  }
+  // « [x] Libellé » si le critère est rempli, sinon « [ ] Libellé [(non précisé)] (-malus) ».
+  const malus = criteria.malus || {};
+  const unknown = criteria.unknown || {};
+  const line = (key, label) => {
+    if (!malus[key]) return `\n  - [x] ${label}`;
+    return `\n  - [ ] ${label}${unknown[key] ? ' (non précisé)' : ''} (-${Number(malus[key].toFixed(2))})`;
+  };
 
-  block += `\n  - [${criteria.terrasse ? 'x' : ' '}] Terrasse (ou Jardin pour une Maison)${!criteria.terrasse ? (isHouse ? ' (-1.0)' : ' (-2.0)') : ''}`;
-  block += `\n  - [${(isHouse || criteria.ascenseur) ? 'x' : ' '}] Ascenseur (ou Maison)${(!isHouse && !criteria.ascenseur) ? (criteria.noElevatorHighFloorMalus ? ' (-2.0)' : ' (-1.0)') : ''}`;
-  block += `\n  - [${criteria.parking ? 'x' : ' '}] Parking / Garage${!criteria.parking ? ' (-1.5)' : ''}`;
+  block += line('dernierEtage', 'Dernier étage (ou Maison)');
+  block += line('seulEtage', "Seul à l'étage (ou Maison)");
+  block += line('terrasse', 'Terrasse (ou Jardin pour une Maison)');
+  block += line('ascenseur', 'Ascenseur (ou Maison)');
+  block += line('parking', 'Parking / Garage');
 
   if (criteria.surfaceMalus2) {
     block += `\n  - [x] Malus surface (<= 85m²) (-2.0)`;
@@ -751,8 +859,14 @@ function buildScoringCheckboxBlock(score, criteria, isHouse, surface = null, cha
     block += `\n  - [x] Malus chambres (${chambres} chambres) (-1.0)`;
   }
 
-  if (criteria.qualityMalus) {
+  if (criteria.qualityMalus && criteria.qualityMalusLabel) {
+    block += `\n  - [x] Malus état (${criteria.qualityMalusLabel}) (-${criteria.qualityMalusValue.toFixed(1)})`;
+  } else if (criteria.qualityMalus) {
     block += `\n  - [x] Malus qualité (travaux à prévoir) (-1.0)`;
+  }
+
+  if (criteria.dpeMalus) {
+    block += `\n  - [x] Malus DPE ${criteria.dpeMalus} (-0.5)`;
   }
 
   if (criteria.bonusQuality > 0) {
@@ -767,10 +881,6 @@ function buildScoringCheckboxBlock(score, criteria, isHouse, surface = null, cha
 function extractMaluses(lines) {
   const maluses = [];
   let inScoringBlock = false;
-
-  let hasPasDernierEtage = false;
-  let hasPasSeulEtage = false;
-  let combinedMalusText = null;
 
   for (const line of lines) {
     if (line.includes('- **Score de correspondance** :')) {
@@ -789,19 +899,11 @@ function extractMaluses(lines) {
             text = match ? `Localisation : ${match[1].replace('pour ', '')}` : 'Localisation (Tiers 2/3)';
             maluses.push(text);
           } else if (text.includes('Dernier étage')) {
-            hasPasDernierEtage = true;
-            if (text.includes('non dernier & non seul')) {
-              combinedMalusText = "Pas dernier ni seul à l'étage (-2.0)";
-            } else {
-              const match = text.match(/\((-[0-9.]+)\)/);
-              combinedMalusText = `Pas dernier étage${match ? ' (' + match[1] + ')' : ' (-1.0)'}`;
-            }
-          } else if (text.includes("Seul à l'étage")) {
-            hasPasSeulEtage = true;
             const match = text.match(/\((-[0-9.]+)\)/);
-            if (match) {
-              combinedMalusText = `Pas seul à l'étage (${match[1]})`;
-            }
+            maluses.push(`Pas dernier étage${match ? ' (' + match[1] + ')' : ''}`);
+          } else if (text.includes("Seul à l'étage")) {
+            const match = text.match(/\((-[0-9.]+)\)/);
+            maluses.push(`Pas seul à l'étage${match ? ' (' + match[1] + ')' : ''}`);
           } else if (text.includes('Terrasse')) {
             const match = text.match(/\((-[0-9.]+)\)/);
             text = `Pas de terrasse/jardin${match ? ' (' + match[1] + ')' : ''}`;
@@ -825,14 +927,6 @@ function extractMaluses(lines) {
         inScoringBlock = false;
       }
     }
-  }
-
-  if (hasPasDernierEtage && hasPasSeulEtage) {
-    maluses.push(combinedMalusText || "Pas dernier ni seul à l'étage (-2.0)");
-  } else if (hasPasDernierEtage) {
-    maluses.push(combinedMalusText || 'Pas dernier étage (-1.0)');
-  } else if (hasPasSeulEtage) {
-    maluses.push(combinedMalusText || "Pas seul à l'étage (-1.0)");
   }
 
   return maluses;
@@ -1044,6 +1138,9 @@ module.exports = {
   hasPositiveFeature,
   extractChambres,
   scoreProperty,
+  buildHeadline,
+  normalizeComplement,
+  keywordComplement,
   buildScoringCheckboxBlock,
   extractMaluses,
   parseFrontmatter,

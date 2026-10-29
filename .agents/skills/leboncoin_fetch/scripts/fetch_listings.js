@@ -11,7 +11,9 @@ const {
   formatPrice,
   detectQuartier,
   hasIdentifiedQuartier,
-  scoreProperty
+  scoreProperty,
+  buildHeadline,
+  keywordComplement
 } = require('../../shared/listing_utils');
 const {
   ListingStore,
@@ -25,6 +27,8 @@ const {
   SOLD_STATUS
 } = require('../../shared/listing_store');
 const { scoreAll } = require('../../leboncoin_scoring/scripts/score_listings');
+const { enrichAll } = require('../../listing_enrich/scripts/enrich_listings');
+const { extractPhotosFromHtml, photosFromLeboncoinAd } = require('../../shared/photos');
 
 // Captures d'écran des annonces à fort score : leboncoin_searches/<id>/latest_screenshot.png,
 // copiées vers docs/public/screenshots par la génération du site.
@@ -522,6 +526,7 @@ async function scrapeHenry() {
       results.push({
         source: 'Agence Henry',
         url: item.url,
+        photos: extractPhotosFromHtml(detailHtml),
         title,
         price: formatPrice(parsedPrice),
         location: 'Brest',
@@ -718,7 +723,7 @@ async function scrapeLeboncoin(pagesToScan = 3, lastSearchTime = 0) {
 
     if (priceMatches && lastSearchTime > 0 && indexTime < lastSearchTime) {
       // SKIP DETAIL PAGE LOAD - Listing is already saved and has not been modified since last search
-      const pubDateStr = formatLeboncoinDate(ad.index_date || ad.published_date || ad.first_publication_date) || formatFrenchDateTime(new Date().toISOString());
+      const pubDateStr = formatLeboncoinDate(ad.first_publication_date || ad.index_date || ad.published_date);
       console.log(`[SKIPPED DETAIL - UNCHANGED] ${ad.subject} (${priceKey} €) | Last seen updated on save.`);
 
       const isMaison = url.includes('maison') || ad.subject.toLowerCase().includes('maison');
@@ -728,6 +733,7 @@ async function scrapeLeboncoin(pagesToScan = 3, lastSearchTime = 0) {
       results.push({
         source: 'Leboncoin',
         url,
+        photos: photosFromLeboncoinAd(ad),
         title: ad.subject,
         price: formatPrice(adPrice),
         location: city,
@@ -851,12 +857,13 @@ async function scrapeLeboncoin(pagesToScan = 3, lastSearchTime = 0) {
         results.push({
           source: 'Leboncoin',
           url,
+          photos: photosFromLeboncoinAd(ad),
           title,
           price: formatPrice(parsedPrice),
           location,
           description,
           type,
-          publicationDate: formatLeboncoinDate(ad.index_date || ad.published_date || ad.first_publication_date),
+          publicationDate: formatLeboncoinDate(ad.first_publication_date || ad.index_date || ad.published_date),
           specs: {
             surface: surfaceNum + ' m²',
             pieces,
@@ -981,6 +988,7 @@ async function scrapeLuxior() {
       results.push({
         source: 'Luxior',
         url,
+        photos: extractPhotosFromHtml(html),
         title,
         price: formatPrice(parsedPrice),
         location,
@@ -1112,6 +1120,7 @@ async function scrapeBarraine() {
       results.push({
         source: 'Barraine',
         url,
+        photos: extractPhotosFromHtml(detailHtml),
         title,
         price: priceStr,
         location,
@@ -1278,6 +1287,7 @@ async function scrapeHuman() {
       results.push({
         source: 'Human',
         url,
+        photos: extractPhotosFromHtml(html),
         title,
         price: priceStr,
         location,
@@ -1411,77 +1421,6 @@ async function markSoldProperties(seenIds, sourcesRun) {
 }
 
 
-function generatePersonalizedTitle(type, title, description, location, surface, pieces) {
-  const fullText = (title + ' ' + description + ' ' + location).toLowerCase();
-  const matchedQ = detectQuartier(title, description, location);
-  const quartier = matchedQ ? matchedQ.name : '';
-  
-  const isHouse = type.toLowerCase().includes('maison');
-  const features = [];
-  if (fullText.includes('années 30') || fullText.includes('annees 30') || fullText.includes('1930')) {
-    features.push('années 30');
-  } else if (fullText.includes('charme') || fullText.includes('cachet')) {
-    features.push('de charme');
-  } else if (fullText.includes('rénové') || fullText.includes('renove') || fullText.includes('refait à neuf')) {
-    features.push('rénové(e)');
-  } else if (fullText.includes('récent') || fullText.includes('recent') || fullText.includes('2024') || fullText.includes('2023')) {
-    features.push('récent(e)');
-  }
-  
-  if (!isHouse) {
-    if (fullText.includes('rooftop')) {
-      features.push('rooftop');
-    } else if (
-      (fullText.includes('seul') && (fullText.includes('étage') || fullText.includes('etage'))) ||
-      /seul[e]?\s+sur\s+(le\s+)?palier/.test(fullText) ||
-      /seul[e]?\s+au\s+palier/.test(fullText)
-    ) {
-      features.push("seul à l'étage");
-    } else if (fullText.includes('dernier étage') || fullText.includes('dernier etage')) {
-      features.push('dernier étage');
-    }
-  }
-  
-  if (fullText.includes('vue rade') || fullText.includes('vue mer')) {
-    features.push('vue Rade');
-  }
-  
-  if (fullText.includes('terrasse')) {
-    features.push('terrasse');
-  } else if (fullText.includes('jardin')) {
-    features.push('jardin');
-  }
-  
-  let prefix = type.toLowerCase();
-  if (features.includes('années 30')) {
-    prefix = `${prefix} années 30`;
-  } else if (features.includes('de charme')) {
-    prefix = `${prefix} de charme`;
-  } else if (features.includes('récent(e)')) {
-    prefix = `${prefix} récent(e)`;
-  } else if (features.includes('rénové(e)')) {
-    prefix = `${prefix} rénové(e)`;
-  }
-  
-  let middle = '';
-  if (quartier) {
-    middle = ` ${quartier}`;
-  }
-  
-  const restFeatures = features.filter(f => f !== 'années 30' && f !== 'de charme' && f !== 'récent(e)' && f !== 'rénové(e)');
-  let suffix = '';
-  if (restFeatures.length > 0) {
-    suffix = ` - ${restFeatures.join(', ')}`;
-  } else {
-    const s = surface ? `${surface}m²` : '';
-    const p = pieces ? `${pieces} pièces` : '';
-    const details = [p, s].filter(Boolean).join(' ');
-    suffix = details ? ` - ${details}` : '';
-  }
-  
-  return `${prefix}${middle}${suffix}`.trim();
-}
-
 function priceNumberOf(priceStr) {
   const digits = String(priceStr || '').replace(/[^\d]/g, '');
   return digits ? parseInt(digits, 10) : null;
@@ -1550,7 +1489,9 @@ async function saveOrUpdateProperty(p) {
 
   const allLinks = { ...(existing ? linksFromRow(existing) : {}), ...p.otherLinks, [sourceKey]: p.url };
   const linkFields = buildLinkFields(allLinks);
-  const lastSeenIso = parseFrenchDateToIso(p.publicationDate) || nowIso;
+  // last_seen_at = dernier relevé où l'annonce était en ligne ; published_at = date de publication annoncée par la source.
+  const publishedIso = parseFrenchDateToIso(p.publicationDate) || (existing ? existing.published_at : null) || null;
+  const photos = Array.isArray(p.photos) && p.photos.length > 0 ? p.photos : null;
 
   // Source affichée : Leboncoin, puis Agence Henry, sinon la source de l'annonce.
   let titlePrefix = p.source;
@@ -1561,10 +1502,12 @@ async function saveOrUpdateProperty(p) {
   if (existing && existing.price === priceNum) {
     const patch = {
       source: titlePrefix,
-      last_seen_at: lastSeenIso,
+      last_seen_at: nowIso,
+      published_at: publishedIso,
       url: linkFields.url,
       additional_links: linkFields.additional_links
     };
+    if (photos && !(existing.photos || []).length) patch.photos = photos;
     const currentDesc = (existing.description || '').trim();
     if (p.description && (p.description.length > currentDesc.length + 20 || currentDesc.endsWith('et') || currentDesc.endsWith('...'))) {
       patch.description = p.description;
@@ -1597,7 +1540,12 @@ async function saveOrUpdateProperty(p) {
   const fields = {
     source: titlePrefix,
     market_status: marketStatus,
-    title: generatePersonalizedTitle(p.type, p.title, p.description, p.location, surfaceNum, piecesNum),
+    title: buildHeadline({
+      type: p.type,
+      surface: surfaceNum,
+      quartier: detectQuartier(p.title, p.description, p.location)?.name || '',
+      complement: existing?.ai_analysis ? existing.ai_analysis.complement_titre : keywordComplement(p.type, p.title, p.description, p.location)
+    }),
     type: p.type,
     location: p.location,
     price: priceNum,
@@ -1608,7 +1556,9 @@ async function saveOrUpdateProperty(p) {
     description: p.description || null,
     url: linkFields.url,
     additional_links: linkFields.additional_links,
-    last_seen_at: lastSeenIso
+    last_seen_at: nowIso,
+    published_at: publishedIso,
+    ...(photos ? { photos } : {})
   };
   const historyEntry = { listing_id: targetId, seen_at: nowIso, price: priceNum, score: null, market_status: marketStatus };
 
@@ -1760,6 +1710,15 @@ async function run() {
       await markSoldProperties(seenIds, succeeded);
     } catch (err) {
       console.error('Error marking sold properties:', err.message);
+    }
+
+    // Photos manquantes, analyse IA des annonces nouvelles ou modifiées, titres : avant le scoring qui s'en sert.
+    console.log('\nEnriching listings (photos, AI analysis, titles)...');
+    try {
+      await enrichAll(store);
+    } catch (err) {
+      failures.push(`enrichment: ${err.message}`);
+      console.error('Error enriching listings:', err.message);
     }
 
     console.log('\nRunning automated scoring on active and staged listings...');

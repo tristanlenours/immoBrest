@@ -6,8 +6,8 @@ const SCORE_STYLES = {
   low: 'bg-rose-100 text-rose-800 ring-rose-300 dark:bg-rose-950 dark:text-rose-200 dark:ring-rose-800'
 };
 
-export function ScoreBadge({ score, size = 'md' }: { score: number | null; size?: 'md' | 'lg' }) {
-  const dimension = size === 'lg' ? 'h-20 w-20 text-3xl' : 'h-14 w-14 text-xl';
+export function ScoreBadge({ score, size = 'md' }: { score: number | null; size?: 'sm' | 'md' | 'lg' }) {
+  const dimension = size === 'lg' ? 'h-20 w-20 text-3xl' : size === 'sm' ? 'h-12 w-12 text-lg' : 'h-14 w-14 text-xl';
   return (
     <div
       className={`flex shrink-0 flex-col items-center justify-center rounded-full ring-2 ${dimension} ${SCORE_STYLES[scoreTone(score)]}`}
@@ -47,12 +47,39 @@ export function QuartierBadge({ quartier, tier }: { quartier: string | null; tie
   );
 }
 
-export function Pill({ tone, children }: { tone: 'good' | 'bad'; children: React.ReactNode }) {
-  const style =
-    tone === 'good'
-      ? 'bg-emerald-50 text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-200'
-      : 'bg-rose-50 text-rose-800 dark:bg-rose-950/60 dark:text-rose-200';
-  return <span className={`chip ${style}`}>{tone === 'good' ? '✓' : '✗'}&nbsp;{children}</span>;
+const PILL_STYLES = {
+  good: 'bg-emerald-50 text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-200',
+  bad: 'bg-rose-50 text-rose-800 dark:bg-rose-950/60 dark:text-rose-200',
+  unknown: 'bg-amber-50 text-amber-800 dark:bg-amber-950/60 dark:text-amber-200'
+};
+const PILL_ICONS = { good: '✓', bad: '✗', unknown: '?' };
+
+export function Pill({ tone, children, title }: { tone: 'good' | 'bad' | 'unknown'; children: React.ReactNode; title?: string }) {
+  return (
+    <span className={`chip ${PILL_STYLES[tone]}`} title={title}>
+      {PILL_ICONS[tone]}&nbsp;{children}
+    </span>
+  );
+}
+
+// Points forts / faibles / non précisés du scoring, sous forme de pastilles.
+export function CriteriaPills({ positives, negatives, unknowns }: { positives: string[]; negatives: string[]; unknowns: string[] }) {
+  if (positives.length + negatives.length + unknowns.length === 0) return null;
+  return (
+    <div className="flex flex-wrap gap-1.5">
+      {positives.map(p => (
+        <Pill key={p} tone="good">{p}</Pill>
+      ))}
+      {negatives.map(n => (
+        <Pill key={n} tone="bad">{n}</Pill>
+      ))}
+      {unknowns.map(u => (
+        <Pill key={u} tone="unknown" title="L'annonce ne permet pas de trancher : 3/4 du malus est appliqué">
+          {u}
+        </Pill>
+      ))}
+    </div>
+  );
 }
 
 export function PriceDrop({ first, last }: { first?: number; last?: number }) {
