@@ -1,6 +1,7 @@
 // Enrichit les annonces du sas et de la base active :
-//   1. photos manquantes, relevées sur les fiches des agences (Leboncoin et Human bloquent
-//      les requêtes directes : leurs photos arrivent avec le fetch) ;
+//   1. photos manquantes, relevées sur les fiches des agences ; Leboncoin bloque les requêtes
+//      directes : ses fiches sont lues dans Chrome en mode debug quand il est ouvert (photos et
+//      date de création de l'annonce), sinon ses photos arrivent avec le fetch ;
 //   2. analyse Gemini (caractéristiques, état, complément de titre), refaite seulement
 //      quand l'annonce a changé ;
 //   3. titre normalisé « Type surface quartier complément ».
@@ -10,6 +11,7 @@
 const { buildHeadline, keywordComplement, normalizeComplement, detectQuartier } = require('../../shared/listing_utils');
 const { ListingStore, linksFromRow } = require('../../shared/listing_store');
 const { fetchPhotos } = require('../../shared/photos');
+const { chromeDebugAvailable, readLeboncoinAd } = require('../../shared/leboncoin_ad');
 const { createGemini, geminiKeys } = require('../../shared/gemini');
 const { analyzeListing, needsAnalysis } = require('../../shared/listing_ai');
 
@@ -27,9 +29,34 @@ function headlineOf(row) {
 
 async function fillPhotos(store, rows) {
   let filled = 0;
+  const chrome = await chromeDebugAvailable();
   for (const row of rows) {
-    if (Array.isArray(row.photos) && row.photos.length > 0) continue;
+    const hasPhotos = Array.isArray(row.photos) && row.photos.length > 0;
     const links = linksFromRow(row);
+
+    // Leboncoin : la fiche ouverte dans Chrome donne les photos et la date de création de l'annonce.
+    if (chrome && links.leboncoin && (!hasPhotos || !row.published_at)) {
+      try {
+        const ad = await readLeboncoinAd(links.leboncoin);
+        if (!ad) {
+          console.log(`[PHOTOS] ${row.id} : annonce Leboncoin introuvable (${links.leboncoin})`);
+        } else {
+          const patch = {};
+          if (!hasPhotos && ad.photos.length > 0) patch.photos = ad.photos;
+          if (ad.publishedAt && ad.publishedAt !== row.published_at) patch.published_at = ad.publishedAt;
+          if (Object.keys(patch).length > 0) {
+            await store.update(row.id, patch);
+            if (patch.photos) filled++;
+            console.log(`[PHOTOS] ${row.id} : ${patch.photos ? patch.photos.length : 0} photo(s), publiée le ${ad.publishedAt || '?'} (Leboncoin)`);
+          }
+          if (patch.photos) continue;
+        }
+      } catch (err) {
+        console.error(`[PHOTOS] ${row.id} : lecture Leboncoin en échec : ${err.message}`);
+      }
+    }
+
+    if (hasPhotos) continue;
     for (const key of FETCHABLE_PHOTO_SOURCES) {
       if (!links[key]) continue;
       const photos = await fetchPhotos(links[key]);
