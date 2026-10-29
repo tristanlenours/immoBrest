@@ -20,9 +20,10 @@ export async function decide(id: string, decision: Decision, reason?: string): P
     await assertSession();
     if (!['approved', 'rejected', 'sas'].includes(decision)) throw new Error('Décision invalide.');
 
+    // Remise dans le sas : decided_by reste renseigné pour que le scoring ne l'écarte plus d'office.
     const patch =
       decision === 'sas'
-        ? { review_status: 'sas', decided_at: null, decided_by: null, reject_reason: null }
+        ? { review_status: 'sas', decided_at: new Date().toISOString(), decided_by: 'web', reject_reason: null }
         : {
             review_status: decision,
             decided_at: new Date().toISOString(),

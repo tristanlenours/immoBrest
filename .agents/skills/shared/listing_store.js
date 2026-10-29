@@ -263,6 +263,16 @@ class ListingStore {
     await this.db.patch('immo_listings', `id=eq.${encodeURIComponent(id)}`, patch);
   }
 
+  // Suppression définitive (l'historique de prix suit grâce à ON DELETE CASCADE).
+  async remove(id) {
+    this.rows.delete(id);
+    if (this.dryRun) {
+      console.log(`[DRY-RUN] delete immo_listings ${id}`);
+      return;
+    }
+    await this.db.remove('immo_listings', `id=eq.${encodeURIComponent(id)}`);
+  }
+
   async addHistory(entry) {
     if (this.dryRun) {
       console.log(`[DRY-RUN] insert immo_price_history ${entry.listing_id} ${entry.price}`);

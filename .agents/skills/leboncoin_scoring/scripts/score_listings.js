@@ -6,6 +6,10 @@ const {
 } = require('../../shared/listing_utils');
 const { ListingStore, rowToParsed } = require('../../shared/listing_store');
 
+// Note maximale d'une annonce écartée automatiquement à son arrivée dans le sas.
+const LOW_SCORE_MAX = 5;
+const LOW_SCORE_REASON = 'NOTE ≤ 5';
+
 async function rejectListing(store, row, reason) {
   console.log(`[MOVED TO CORBEILLE - ${reason}] Property "${row.title}" (${row.id}).`);
   await store.update(row.id, {
@@ -18,7 +22,7 @@ async function rejectListing(store, row, reason) {
 }
 
 // Note les annonces du sas et de la base active, et rejette automatiquement
-// celles sans quartier identifié ou en colocation.
+// celles sans quartier identifié, en colocation, ou arrivées dans le sas avec une note ≤ 5.
 async function scoreAll(store) {
   console.log('Starting Brest real estate scoring...');
   const targets = store.byReviewStatus('approved', 'sas');
@@ -89,6 +93,13 @@ async function scoreAll(store) {
     if (changed) await store.update(row.id, patch);
 
     console.log(`Scored [${row.source}] ${title} (${row.id}) -> ${score}/10`);
+
+    // Nouvelle annonce du sas sous la moyenne : écartée d'office, consultable dans la corbeille.
+    // Une annonce remise dans le sas à la main (decided_by renseigné) n'est plus écartée.
+    if (row.review_status === 'sas' && !row.decided_by && score <= LOW_SCORE_MAX) {
+      await rejectListing(store, row, `${LOW_SCORE_REASON} (${score}/10)`);
+      continue;
+    }
     scoredListings.push({ id: row.id, source: row.source, title, price: rowToParsed(row).priceClean, score, status: updatedStatus, url });
   }
 
@@ -121,4 +132,4 @@ if (require.main === module) {
   });
 }
 
-module.exports = { runScoring, scoreAll, scoreProperty };
+module.exports = { runScoring, scoreAll, scoreProperty, LOW_SCORE_REASON };

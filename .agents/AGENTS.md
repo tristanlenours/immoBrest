@@ -98,6 +98,7 @@ flowchart TD
 2. **Sas d'attente (Staging)** :
    - Toute nouvelle propriété entre dans `immo_listings` avec `review_status = 'sas'`.
    - Le scoring est immédiatement calculé pour faciliter la décision.
+   - Une nouvelle annonce notée **5 ou moins** est écartée d'office (`rejected`, `decided_by = 'auto'`, motif `NOTE ≤ 5 (x/10)`) : elle reste en corbeille (section « Écartées d'office » de l'app) pour ne pas être reproposée et pour vérifier les critères. Remise dans le sas à la main (`decided_by` renseigné), elle n'est plus écartée. Le fetch met à jour sa dernière vue et la **supprime** (sans archive) quand elle n'est plus vue depuis 14 jours.
 3. **Validation / Modération** :
    - L'utilisateur ou l'agent valide (`manage_sas.js approve`) ou rejette (`manage_sas.js reject`).
 4. **Enrichissement** (`listing_enrich`, lancé par le fetch avant le scoring) :

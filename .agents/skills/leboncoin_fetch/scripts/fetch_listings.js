@@ -26,7 +26,7 @@ const {
   LINK_LABELS,
   SOLD_STATUS
 } = require('../../shared/listing_store');
-const { scoreAll } = require('../../leboncoin_scoring/scripts/score_listings');
+const { scoreAll, LOW_SCORE_REASON } = require('../../leboncoin_scoring/scripts/score_listings');
 const { enrichAll } = require('../../listing_enrich/scripts/enrich_listings');
 const { extractPhotosFromHtml, photosFromLeboncoinAd } = require('../../shared/photos');
 
@@ -711,7 +711,7 @@ async function scrapeLeboncoin(pagesToScan = 3, lastSearchTime = 0) {
     const known = store.get(listingId);
     if (known && known.review_status === 'rejected') {
       console.log(`[SKIPPED - TRASHED] ${listingId} is in corbeille`);
-      store.stats.skippedTrashed++;
+      await touchRejected(known);
       continue;
     }
 
@@ -1381,6 +1381,27 @@ async function checkUrlIs404(url) {
   }
 }
 
+// Annonce de la corbeille revue en ligne : on ne l'ingère pas, mais on note qu'elle est toujours là.
+async function touchRejected(row) {
+  store.stats.skippedTrashed++;
+  await store.update(row.id, { last_seen_at: new Date().toISOString() });
+}
+
+// Les annonces écartées pour note ≤ 5 ne servent qu'à ne pas être reproposées : une fois disparues
+// des sites (non revues depuis 14 jours), elles sont supprimées, sans archive.
+async function purgeLowScoreRejects(sourcesRun) {
+  const fourteenDaysAgo = Date.now() - 14 * 24 * 60 * 60 * 1000;
+  for (const row of store.byReviewStatus('rejected')) {
+    if (row.decided_by !== 'auto' || !(row.reject_reason || '').startsWith(LOW_SCORE_REASON)) continue;
+    if (!Object.keys(linksFromRow(row)).some(key => sourcesRun.has(key))) continue;
+    const lastSeenMs = row.last_seen_at ? new Date(row.last_seen_at).getTime() : 0;
+    if (lastSeenMs >= fourteenDaysAgo) continue;
+    await store.remove(row.id);
+    store.stats.purged = (store.stats.purged || 0) + 1;
+    console.log(`[PURGED] ${row.id} (${row.reject_reason}) non revue depuis plus de 14 jours : supprimée.`);
+  }
+}
+
 async function markSoldProperties(seenIds, sourcesRun) {
   console.log('\nChecking for sold/removed properties...');
   const fourteenDaysAgo = Date.now() - 14 * 24 * 60 * 60 * 1000; // 2 semaines (14 jours)
@@ -1458,14 +1479,14 @@ async function saveOrUpdateProperty(p) {
   let existing = store.findDuplicate(p, areDuplicates);
   if (existing && existing.review_status === 'rejected') {
     console.log(`[SKIPPED - TRASHED] Property is in corbeille (${existing.id})`);
-    store.stats.skippedTrashed++;
+    await touchRejected(existing);
     return null;
   }
   for (const key of Object.keys(LINK_LABELS)) {
     const sameId = store.get(`${key}_${id}`);
     if (sameId && sameId.review_status === 'rejected') {
       console.log(`[SKIPPED - TRASHED] Property is in corbeille (${sameId.id})`);
-      store.stats.skippedTrashed++;
+      await touchRejected(sameId);
       return null;
     }
   }
@@ -1708,6 +1729,7 @@ async function run() {
 
     try {
       await markSoldProperties(seenIds, succeeded);
+      await purgeLowScoreRejects(succeeded);
     } catch (err) {
       console.error('Error marking sold properties:', err.message);
     }

@@ -52,6 +52,10 @@ function createSupabaseRest({ url = process.env.SUPABASE_URL, key = process.env.
     await request(`${table}?${filter}`, { method: 'PATCH', body, prefer: 'return=minimal' });
   }
 
+  async function remove(table, filter) {
+    await request(`${table}?${filter}`, { method: 'DELETE', prefer: 'return=minimal' });
+  }
+
   async function select(table, query = '') {
     const res = await request(`${table}?${query}`);
     return res.json();
@@ -76,7 +80,7 @@ function createSupabaseRest({ url = process.env.SUPABASE_URL, key = process.env.
     return parseInt(range.split('/')[1], 10) || 0;
   }
 
-  return { request, insertMissing, insert, patch, select, selectAll, count };
+  return { request, insertMissing, insert, patch, remove, select, selectAll, count };
 }
 
 module.exports = { createSupabaseRest };
