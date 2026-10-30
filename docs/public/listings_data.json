@@ -1,5 +1,5 @@
 {
-  "last_update": "29 octobre 2026 à 12h42",
+  "last_update": "30 octobre 2026 à 12h34",
   "listings": [
     {
       "folder": "barraine_58615772",
@@ -62,7 +62,7 @@
           "priceVal": 314900
         }
       ],
-      "score": 5.2,
+      "score": 6,
       "status": "Actif",
       "location": "Brest",
       "quartier": "Kérinou",
@@ -74,102 +74,17 @@
       "pieces": "5 pièces",
       "prestations": "Non spécifiées",
       "dateFirst": "18 juillet 2026 à 23h57",
-      "dateLast": "29 octobre 2026 à 12h42",
-      "dateVal": 1793274120000,
+      "dateLast": "30 octobre 2026 à 12h34",
+      "dateVal": 1793360040000,
       "maluses": [
         "Localisation : -2.0 Tiers 2",
-        "Pas d'ascenseur (-1.0)",
+        "Pas dernier étage (-0.75)",
+        "Pas d'ascenseur (-0.75)",
         "Malus surface (> 130m²) (-1.0)",
-        "Bonus qualité : exceptionnel (+0.2)",
-        "Pas dernier étage (-1.0)"
+        "Bonus qualité : rénové (+0.5)"
       ],
       "hasScreenshot": false,
       "description": "A VENDRE BREST CENTRE VILLE – proche FAC DE MEDECINE et marché de KERINOU . Découvrez cet appartement exceptionnel de 132 m², situé seul à l étage d'un immeuble bien entretenu. Dès les premiers instants vous serez séduit par la répartition des pièces et sa luminosité. Le bien se présente comme suit : entrée avec placards, séjour salon cuisine de 47m², arrière cuisine, 4 confortables chambres de 10 à 13m², une salle de bains, une salle d'eau, WC, dressing. Nombreux rangements. Plusieurs balcons sont accessibles de l'appartement. Idéalement situé, vous serez à proximité de nombreux points d'intérêt. Profitez également de la proximité de parcs pour vos moments de détente, ainsi que de plusieurs restaurants et boulangeries pour vos repas et douceurs du quotidien. Pour la pratique vous profiterez d'une grande cave. D'une place de parking et d'un garage. L'appartement a profité d'une rénovation permettant ainsi un emménagement rapide et sans travaux. Très bonne isolation. DPE en C. Ne laissez pas passer cette chance de devenir propriétaire dans un quartier dynamique et agréable. Contactez dès maintenant l'Agence Barraine IMMO pour organiser une visite ! (4.97 % honoraires TTC à la charge de l'acquéreur.) * 314 900 € honoraires inclus dont à la charge de l'acquéreur : 14 900 € - Prix hors honoraires : 300 000 €."
-    },
-    {
-      "folder": "barraine_60032489",
-      "isSas": false,
-      "source": "Barraine",
-      "title": "Appartement 138 m² Branda avec garage et balcon",
-      "price": "378 000 €",
-      "priceVal": 378000,
-      "prixM2": 2739,
-      "dvfComparison": {
-        "prixM2": 2739,
-        "medianM2": 1542,
-        "diffPct": 78,
-        "sampleCount": 155,
-        "scopeLabel": "Branda",
-        "yearsLabel": "2024–2025",
-        "comparables": [
-          {
-            "date": "2025-12-09",
-            "adresse": "14 RUE DE GLASGOW",
-            "surface": 143,
-            "prix": 180000,
-            "prixM2": 1262
-          },
-          {
-            "date": "2025-11-04",
-            "adresse": "20 RUE DE LA REPUBLIQUE",
-            "surface": 150,
-            "prix": 210000,
-            "prixM2": 1396
-          },
-          {
-            "date": "2025-10-02",
-            "adresse": "4 RUE MOSTAGANEM",
-            "surface": 134,
-            "prix": 133500,
-            "prixM2": 998
-          },
-          {
-            "date": "2025-08-21",
-            "adresse": "66 RUE VICTOR HUGO",
-            "surface": 128,
-            "prix": 160000,
-            "prixM2": 1249
-          },
-          {
-            "date": "2025-08-12",
-            "adresse": "3 RUE VICTOR HUGO",
-            "surface": 137,
-            "prix": 271000,
-            "prixM2": 1982
-          }
-        ]
-      },
-      "priceHistory": [
-        {
-          "date": "22 août 2026",
-          "dateTs": 1787390931000,
-          "price": "378 000 €",
-          "priceVal": 378000
-        }
-      ],
-      "score": 4.2,
-      "status": "Actif",
-      "location": "Brest - CENTRE VILLE",
-      "quartier": "Branda",
-      "tier": 2,
-      "url": "https://www.barraine-immo.com/achat/annonce-60032489/",
-      "type": "Appartement",
-      "surface": "138 m²",
-      "surfaceVal": 138,
-      "pieces": "5 pièces",
-      "prestations": "Chambres: 3",
-      "dateFirst": "22 août 2026 à 11h28",
-      "dateLast": "29 octobre 2026 à 12h42",
-      "dateVal": 1793274120000,
-      "maluses": [
-        "Localisation : -2.0 Tiers 2",
-        "Pas d'ascenseur (-1.0)",
-        "Malus surface (> 130m²) (-1.0)",
-        "Bonus qualité : bien exposé (+0.2)",
-        "Pas dernier ni seul à l'étage (-2.0)"
-      ],
-      "hasScreenshot": true,
-      "description": "BREST – BRANDA – Réf: SILM5395-WS A vendre, bel appartement de 5 pièces situé au 1er étage d'un immeuble datant de 1957, en bon état général, dans le centre-ville de Brest. Ce spacieux appartement de 138 m² loi Carrez comprend un séjour lumineux de 42 m² exposé sud-ouest, une cuisine aménagée et équipée, 3 chambres, une salle de bain, une salle d'eau, et un WC séparé. Le chauffage est assuré par des radiateurs au gaz avec une chaudière pour l'eau chaude. L'appartement est calme et dispose d'un balcon, de 3 caves, ainsi que d'un garage fermé pour le stationnement. Les fenêtres sont en PVC. L'accès aux transports en commun est très pratique, avec le tramway et le bus à seulement 1 minute. Les écoles sont accessibles en 10 minutes, notamment le Groupe Scolaire Auguste Dupouy, le Groupe Scolaire Lucie et Raymond Aubrac, et l'École primaire publique Célestin Freinet. A proximité, vous trouverez également plusieurs universités telles que l'Institut d'administration des entreprises de Bretagne Occidentale, l'Institut de Géoarchitecture, et l'UBO – UFR Sciences et Techniques – Bâtiment Langevin, ainsi que le Service Universitaire de Médecine Préventive. Le quartier est bien desservi avec des commerces, pharmacies, restaurants, et parcs à proximité. L'appartement est équipé pour l'ADSL et la fibre optique est disponible. Prix de vente : 378 000 euros. Agence : Barraine IMMO (5.00 % honoraires TTC à la charge de l'acquéreur.) Copropriété de 34 lots – dont 10 lots habitation. (Pas de procédure en cours). Charges annuelles : 1880 euros. Risque sismique ou radon Les informations sur les risques auxquels ce bien est exposé sont disponibles sur le site Géorisques . * 378 000 € honoraires inclus dont à la charge de l'acquéreur : 18 000 € - Prix hors honoraires : 360 000 €."
     },
     {
       "folder": "barraine_60580222",
@@ -232,7 +147,7 @@
           "priceVal": 333900
         }
       ],
-      "score": 5,
+      "score": 4.5,
       "status": "Vendu ou retiré de la vente",
       "location": "Brest - KERINOU",
       "quartier": "Kérinou",
@@ -248,96 +163,12 @@
       "dateVal": 1787390880000,
       "maluses": [
         "Localisation : -4.0 Tiers 3",
-        "Bonus qualité : rare, privatif, tranquillité, bien exposé, aucun travaux à prévoir, confort (+1.0)",
-        "Pas dernier ni seul à l'étage (-2.0)"
+        "Pas dernier étage (-0.75)",
+        "Pas seul à l'étage (-0.75)",
+        "Bonus qualité (+0.0)"
       ],
       "hasScreenshot": false,
       "description": "EXCLUSIVITÉ. Réf : PC00572-PF A Brest Kérinou, découvrez ce superbe appartement traversant de 121 m² très lumineux, avec deux balcons, garage fermé et parking privatif, dans une résidence avec ascenseur parfaitement entretenue. Dès l'entrée, vous serez séduits par ses volumes généreux, sa luminosité grâce à son exposition sud-ouest et son agencement idéal pour une vie de famille confortable. Vous n'avez plus qu'à poser vos valises. L'appartement se compose d'un grand séjour, d'une cuisine indépendante entièrement équipée, de 3 belles chambres dont une avec grand dressing de 16 m², d'une salle de bains, d'une salle d'eau, et d'un WC séparé. Aucun travaux à prévoir, menuiseries aluminium double vitrage, cuisine et sols rénovés récemment, chauffage électrique, volets roulants électriques, fibre installée. Vous profiterez également de prestations rares sur le secteur de deux balcons, un garage fermé, une place de stationnement privative et une cave. Résidence calme, sécurisée et très bien entretenue. A proximité immédiate des commerces, transports, établissements scolaires et commodités. DPE C : un vrai confort énergétique au quotidien. Un appartement spacieux, lumineux et clé en main, idéal pour ceux qui recherchent confort, tranquillité et praticité en plein Brest. Le quartier Kerinou est bien desservi et proche de nombreux points d'intérêt : collèges Cours Galien et Elytis, crèche de Kerigonan, ainsi que plusieurs parcs, restaurants, pharmacies, boulangeries, supermarchés et établissements de santé. Prix de vente : 333 900 euros. Contactez dès maintenant Barraine IMMO – Brest (6.00 % honoraires TTC à la charge de l'acquéreur.) Copropriété de 39 lots – dont 10 lots habitation. (Pas de procédure en cours). Charges annuelles : 1594 euros. * 333 900 € honoraires inclus dont à la charge de l'acquéreur : 18 900 € - Prix hors honoraires : 315 000 €."
-    },
-    {
-      "folder": "barraine_60989514",
-      "isSas": false,
-      "source": "Barraine",
-      "title": "Appartement 133 m² Gare avec balcon",
-      "price": "304 500 €",
-      "priceVal": 304500,
-      "prixM2": 2289,
-      "dvfComparison": {
-        "prixM2": 2289,
-        "medianM2": 1582,
-        "diffPct": 45,
-        "sampleCount": 144,
-        "scopeLabel": "Gare",
-        "yearsLabel": "2024–2025",
-        "comparables": [
-          {
-            "date": "2025-11-24",
-            "adresse": "2 RUE ALAIN FOURNIER",
-            "surface": 137,
-            "prix": 125000,
-            "prixM2": 915
-          },
-          {
-            "date": "2025-07-16",
-            "adresse": "15 RUE DE LYON",
-            "surface": 137,
-            "prix": 143200,
-            "prixM2": 1042
-          },
-          {
-            "date": "2025-11-04",
-            "adresse": "20 RUE DE LA REPUBLIQUE",
-            "surface": 150,
-            "prix": 210000,
-            "prixM2": 1396
-          },
-          {
-            "date": "2025-10-30",
-            "adresse": "14 RUE BRANDA",
-            "surface": 123,
-            "prix": 177000,
-            "prixM2": 1444
-          },
-          {
-            "date": "2025-10-29",
-            "adresse": "3 RUE DES COLONIES",
-            "surface": 139,
-            "prix": 740000,
-            "prixM2": 5326
-          }
-        ]
-      },
-      "priceHistory": [
-        {
-          "date": "4 août 2026",
-          "dateTs": 1785877913000,
-          "price": "304 500 €",
-          "priceVal": 304500
-        }
-      ],
-      "score": 4.5,
-      "status": "Actif",
-      "location": "Brest - CENTRE VILLE",
-      "quartier": "Gare",
-      "tier": 1,
-      "url": "https://www.barraine-immo.com/achat/annonce-60989514/",
-      "type": "Appartement",
-      "surface": "133 m²",
-      "surfaceVal": 133,
-      "pieces": "5 pièces",
-      "prestations": "Chambres: 4",
-      "dateFirst": "4 août 2026 à 23h11",
-      "dateLast": "29 octobre 2026 à 12h42",
-      "dateVal": 1793274120000,
-      "maluses": [
-        "Pas de parking/garage (-1.5)",
-        "Malus surface (> 130m²) (-1.0)",
-        "Malus qualité (travaux à prévoir) (-1.0)",
-        "Bonus qualité (+0.0)",
-        "Pas dernier ni seul à l'étage (-2.0)"
-      ],
-      "hasScreenshot": true,
-      "description": "Découvrez cet appartement de 133 m², situé au 1er étage d'un immeuble des années 60 avec ascenseur, en plein coeur de Brest. Il se compose d'un séjour lumineux de 35 m², exposé ouest, de quatre chambres plus un dressing, d'une cuisine aménagée et équipée, d'une salle de bains, d'un WC indépendant. Le bien dispose également d'un balcon appréciable. Une cave complète le bien et l'accès à la résidence est sécurisé par une double porte ainsi que par un digicode. L'appartement est à rafraîchir, offrant un beau potentiel pour créer un intérieur à votre goût. Ses volumes généreux et sa distribution en font un bien idéal pour une famille ou un projet de résidence principale. Le chauffage collectif est assuré par des radiateurs alimentés par un chauffage urbain et l'eau chaude par un ballon électrique. Son emplacement est un véritable atout. Vous rejoignez les stations de tramway Jean Jaurès et Liberté en seulement 5 minutes à pied. Les commerces, écoles et arrêts de bus sont accessibles en 2 minutes. Restaurants, boulangerie, pharmacie, supermarché, parc et hôpital se trouvent également à proximité. La gare se trouve à 1Km. Pour plus d'informations ou organiser une visite, contactez votre agence Barraine Immo. Les informations sur les risques auxquels ce bien est exposé sont disponibles sur le site Géorisques : http://www.georisques.gouv.fr (5.00 % honoraires TTC à la charge de l'acquéreur.) Copropriété de 42 lots – dont 29 lots habitation. (Pas de procédure en cours). Charges annuelles : 2850 euros. * 304 500 € honoraires inclus dont à la charge de l'acquéreur : 14 500 € - Prix hors honoraires : 290 000 €."
     },
     {
       "folder": "henry_85852014",
@@ -400,7 +231,7 @@
           "priceVal": 468000
         }
       ],
-      "score": 5.9,
+      "score": 6.6,
       "status": "Vendu ou retiré de la vente",
       "location": "Brest",
       "quartier": "Siam",
@@ -415,10 +246,10 @@
       "dateLast": "23 septembre 2026 à 21h00",
       "dateVal": 1790190000000,
       "maluses": [
-        "Pas de terrasse/jardin (-2.0)",
-        "Pas de parking/garage (-1.5)",
-        "Bonus qualité : standing, rare (+0.4)",
-        "Pas seul à l'étage (-1.0)"
+        "Pas seul à l'étage (-0.75)",
+        "Pas de terrasse/jardin (-1.5)",
+        "Pas de parking/garage (-1.13)",
+        "Bonus qualité (+0.0)"
       ],
       "hasScreenshot": true,
       "description": "Brest-Siam, bel appartement de 124.12M2 situé au dernier étage avec ascenseur d'une copropriété de très bon standing, beau salon-séjour avec joli parquet, cuisine aménagée et équipée, trois belles chambres, bonne exposition,, vue dégagée..\n\nRare sur le marché brestois !!!"
@@ -484,7 +315,7 @@
           "priceVal": 358000
         }
       ],
-      "score": 3.8,
+      "score": 4.3,
       "status": "Vendu ou retiré de la vente",
       "location": "Brest",
       "quartier": "Liberté",
@@ -500,10 +331,11 @@
       "dateVal": 1790190000000,
       "maluses": [
         "Localisation : -2.0 Tiers 2",
-        "Pas de terrasse/jardin (-2.0)",
+        "Pas dernier étage (-1)",
+        "Pas seul à l'étage (-0.75)",
+        "Pas de terrasse/jardin (-1.5)",
         "Malus chambres (2 chambres) (-1.0)",
-        "Bonus qualité : standing, rare, exceptionnel, vue mer (+0.8)",
-        "Pas dernier ni seul à l'étage (-2.0)"
+        "Bonus qualité : vue mer (+0.5)"
       ],
       "hasScreenshot": true,
       "description": "Exceptionnel, Brest centre ville, appartement de 115 M2 dans une résidence de bon standing avec ascenseur et parking privé, salon-séjour de 50 M2 avec belle vue mer, belle cuisine aménagée et équipée, deux chambres, bonne exposition, vue dégagée. Rare sur le marché Brestois..."
@@ -569,7 +401,7 @@
           "priceVal": 309900
         }
       ],
-      "score": 6.7,
+      "score": 7.6,
       "status": "Actif",
       "location": "Brest",
       "quartier": "Gare",
@@ -581,13 +413,13 @@
       "pieces": "5 pièces",
       "prestations": "Double vitrage Accès PMR Ascenseur Interphone Digicode",
       "dateFirst": "22 juin 2026 à 00h03",
-      "dateLast": "29 octobre 2026 à 12h42",
-      "dateVal": 1793274120000,
+      "dateLast": "30 octobre 2026 à 12h34",
+      "dateVal": 1793360040000,
       "maluses": [
-        "Pas de parking/garage (-1.5)",
-        "Malus qualité (travaux à prévoir) (-1.0)",
-        "Bonus qualité : baignée de lumière (+0.2)",
-        "Pas dernier étage (-1.0)"
+        "Pas dernier étage (-0.75)",
+        "Pas de parking/garage (-1.13)",
+        "Malus état (à rafraîchir) (-0.5)",
+        "Bonus qualité (+0.0)"
       ],
       "hasScreenshot": true,
       "description": "BREST , secteur Branda- proche quartz, gare , tramway, dans une copropriété bien tenue, avec ascenseur, seul à l'étage , très beau potentiel pour cet appartement de 120 M2 , à remettre au goût du jour, , il se compose d'une pièce de vie de 39 M2 baignée de lumière avec une vue dégagée, une cuisine indépendante, 3 chambres, dont 2 avec balcons, 2 salles d'eau, toilette, une cave. emplacement recherché au coeur du centre ville. Ses plus: son emplacement, l'ascenseur, la vue dégagée, l'exposition."
@@ -653,7 +485,7 @@
           "priceVal": 440000
         }
       ],
-      "score": 7,
+      "score": 7.3,
       "status": "Vendu ou retiré de la vente",
       "location": "Brest",
       "quartier": "Château",
@@ -668,10 +500,11 @@
       "dateLast": "23 septembre 2026 à 21h00",
       "dateVal": 1790190000000,
       "maluses": [
+        "Pas dernier étage (-1)",
+        "Pas seul à l'étage (-0.75)",
         "Malus surface (< 95m²) (-1.0)",
         "Malus chambres (2 chambres) (-1.0)",
-        "Bonus qualité : rare, exceptionnel, vue mer, privatif, matériaux de qualité, environnement calme, unique, confort (+1.0)",
-        "Pas dernier ni seul à l'étage (-2.0)"
+        "Bonus qualité : neuf, vue mer (+1.0)"
       ],
       "hasScreenshot": true,
       "description": "Dans une résidence très récente idéalement située, découvrez cet appartement lumineux offrant une vue imprenable sur la mer, le château et le jardin des Explorateurs.\n\n\nCe bien rare allie modernité, confort et emplacement exceptionnel.\n\nIl se compose d'une pièce de vie lumineuse agrémentée d'une verrière et d'une cuisine toute équipée aux lignes épurées et aux couleurs tendances. Les larges baies vitrées donnent la sensation d'être au-dessus de l'eau . Dans le prolongement du salon un confortable balcon vous invite à vous prélassez tout en étant à l'abri du vent.\n\n\nCôté nuit vous saurez apprécier la grandeur et le confort des deux chambres équipées de grands placards. D'une spacieuse salle de bains contemporaine . Un cellier et un WC complète l'ensemble.\n\n\nVous profiterez d’un cadre de vie unique, au calme, tout en restant à proximité immédiate du centre-ville, des commerces et des transports.\n\nLa résidence sécurisée dispose également d’un ascenseur, d’un parking privatif avec stationnement privé sous abri, et de prestations de qualité.\n\nUne visite s'impose!"
@@ -708,8 +541,8 @@
       "dateLast": "23 septembre 2026 à 21h00",
       "dateVal": 1790190000000,
       "maluses": [
-        "Bonus qualité : coup de coeur, rare, vue mer, dalle béton (+0.8)",
-        "Pas seul à l'étage (-1.0)"
+        "Pas seul à l'étage (-0.75)",
+        "Bonus qualité : vue mer (+0.5)"
       ],
       "hasScreenshot": true,
       "description": "Rare, Siam-Triangle d'Or, superbe appartement de 126 M2 au 4ème et dernier étage avec ascenseur dans une copropriété bien tenue, très beau salon-séjour et cheminée donnant sur une belle terrasse côté mer.\n\nBonne exposition, 3 chambres et un bureau, dalle béton.\n\nDeux places de parkings privé.\n\nÀ proximité du tramway, du port, du château et des commodités du centre-ville.\n\nCoup de coeur agence henry !!!"
@@ -775,7 +608,7 @@
           "priceVal": 445000
         }
       ],
-      "score": 5.4,
+      "score": 4.8,
       "status": "Vendu ou retiré de la vente",
       "location": "Brest",
       "quartier": "Siam",
@@ -790,11 +623,12 @@
       "dateLast": "23 septembre 2026 à 21h00",
       "dateVal": 1790190000000,
       "maluses": [
-        "Pas d'ascenseur (-1.0)",
+        "Pas dernier étage (-1)",
+        "Pas seul à l'étage (-0.75)",
+        "Pas d'ascenseur (-1.5)",
         "Malus surface (> 130m²) (-1.0)",
         "Malus chambres (5 chambres) (-1.0)",
-        "Bonus qualité : coup de coeur, magnifique (+0.4)",
-        "Pas dernier ni seul à l'étage (-2.0)"
+        "Bonus qualité (+0.0)"
       ],
       "hasScreenshot": true,
       "description": "Exclusivité, BREST, centre-Siam, magnifique appartement duplex de 150 M2 avec superbe vue sur la Penfeld, petite copropriété très bien tenue, salon-séjour avec beaux parquets, 5 chambres, deux salles de bains et 2 toilettes, bonne exposition, balcon.\n\nSon grand plus, dans la cour 2 garages...\n\nCoup de coeur de l'Agence Henry !!!"
@@ -860,7 +694,7 @@
           "priceVal": 326500
         }
       ],
-      "score": 4.7,
+      "score": 5.1,
       "status": "Vendu ou retiré de la vente",
       "location": "Brest",
       "quartier": "Gare",
@@ -875,10 +709,11 @@
       "dateLast": "30 septembre 2026 à 21h34",
       "dateVal": 1790796840000,
       "maluses": [
-        "Pas de parking/garage (-1.5)",
+        "Pas dernier étage (-1)",
+        "Pas seul à l'étage (-0.75)",
+        "Pas de parking/garage (-1.13)",
         "Malus chambres (4 pièces, 2 chambres) (-2.0)",
-        "Bonus qualité : rare (+0.2)",
-        "Pas dernier ni seul à l'étage (-2.0)"
+        "Bonus qualité (+0.0)"
       ],
       "hasScreenshot": true,
       "description": "BREST HYPER CENTRE- ST MICHEL, PROCHE GARE , dans une résidence très bien tenue, avec ascenseur, très bel appartement de 105 M2 en parfait état, il se compose d'une pièce de vie de m2, très lumineuse aves ses larges ouvertures donnant sur un balcon , une cuisine contemporaine équipée et aménagée, une loggia, 2 chambres avec placard, une salle de bains + douche, toilette, menuiseries en double vitrage, volets motorisés, volets motorisés, chaudière gaz de ville neuve, une cave. RARE SUR LE SECTEUR!"
@@ -944,7 +779,7 @@
           "priceVal": 294000
         }
       ],
-      "score": 5.6,
+      "score": 5.5,
       "status": "Vendu ou retiré de la vente",
       "location": "Brest",
       "quartier": "Siam",
@@ -959,10 +794,11 @@
       "dateLast": "21 juin 2026 à 23h52",
       "dateVal": 1782078720000,
       "maluses": [
+        "Pas dernier étage (-0.75)",
+        "Pas seul à l'étage (-0.75)",
         "Malus surface (< 95m²) (-1.0)",
         "Malus chambres (4 pièces, 2 chambres) (-2.0)",
-        "Bonus qualité : standing, privilégié, bien exposé (+0.6)",
-        "Pas dernier ni seul à l'étage (-2.0)"
+        "Bonus qualité (+0.0)"
       ],
       "hasScreenshot": true,
       "description": "Brest centre Siam, bel appartement T4 de 86 M2 dans une résidence récente de 2004 avec ascenseur.\n\nBeau salon-séjour donnant sur terrasse bien exposé.\n\nUn garage sécurisé en sous-sol\n\nImmeuble de très bon standing.\n\nEmplacement privilégié.\n\nProximité Hôpital, hall St Louis et téléphérique\n\nA visiter rapidement."
@@ -1028,7 +864,7 @@
           "priceVal": 319900
         }
       ],
-      "score": 6.4,
+      "score": 6.3,
       "status": "Vendu ou retiré de la vente",
       "location": "Brest",
       "quartier": "Saint-Martin",
@@ -1044,9 +880,9 @@
       "dateVal": 1790796840000,
       "maluses": [
         "Localisation : -2.0 Tiers 2",
-        "Pas d'ascenseur (-1.0)",
-        "Bonus qualité : dalle béton, environnement calme (+0.4)",
-        "Pas dernier étage (-1.0)"
+        "Pas dernier étage (-1)",
+        "Pas d'ascenseur (-0.75)",
+        "Bonus qualité (+0.0)"
       ],
       "hasScreenshot": true,
       "description": "BREST, secteur St MARTIN - JEAN JAURES, dans une petite rue au calme, seul à l'étage, cet appartement de 122 m2 en dalle béton, se compose d'une belle pièce de vie bien orientée avec un accès à une terrasse pour profiter pleinement des belles journées, 3 chambres, une cuisine équipée et aménagée, une salle de bains, une buanderie, une seconde de terrasse à l'arrière , menuiseries en pvc , chauffage individuel au gaz, son plus : un garage au pied de l'immeuble, faibles charges de copropriété.\n\nPROCHE TOUTES COMMODITÉS"
@@ -1118,8 +954,8 @@
           "priceVal": 427000
         }
       ],
-      "score": 6.4,
-      "status": "Actif",
+      "score": 7.5,
+      "status": "Vendu ou retiré de la vente",
       "location": "Brest",
       "quartier": "Capucins",
       "tier": 2,
@@ -1130,105 +966,16 @@
       "pieces": "5 pièces",
       "prestations": "Double vitrage Fenêtre aluminium Volets roulants électriques Abri de voiture Accès PMR Ascenseur Fibre optique Vidéo surveillance Vidéophone",
       "dateFirst": "21 juin 2026 à 23h52",
-      "dateLast": "29 octobre 2026 à 12h42",
-      "dateVal": 1793274120000,
+      "dateLast": "30 octobre 2026 à 12h34",
+      "dateVal": 1793360040000,
       "maluses": [
         "Localisation : -2.0 Tiers 2",
-        "Bonus qualité : vue mer, magnifique (+0.4)",
-        "Pas dernier ni seul à l'étage (-2.0)"
+        "Pas dernier étage (-0.75)",
+        "Pas seul à l'étage (-0.75)",
+        "Bonus qualité : neuf, vue mer (+1.0)"
       ],
       "hasScreenshot": true,
       "description": "BREST - Capucins - Appartement T5 - À Vendre avec parking et VUE MER\n\nIdéalement situé en plein cœur du quartier des Capucins, au sein d'une résidence récente de 2024, avec ascenseur, ce magnifique appartement aux prestations soignées n'attend plus que vous.\n\nIl offre une grande pièce de vie lumineuse, un bureau, une cuisine ouverte, aménagée et équipée, prolongée par une belle terrasse à la vue dégagée, surplombant la rade et la ville , idéale pour profiter des beaux jours et de sa vue mer ex…\n\nVoir plus\nPasser la liste des médias\nListe des médias\nPhotos (12)\nLes informations clés\n\nType de bien\n\nAppartement\n\nSurface habitable\n\n97 m²\n\nNombre de pièces\n\n4\n\nNombre de chambres\n\n3 ch.\n\nNombre de salles de bain\n\n1\n\nNombre de salles d'eau\n\n1\n\nCaractéristiques\n\nAvec garage ou place de parking, Cave\n\nÉtage de votre bien\n\n10\n\nVoir les 5 critères supplémentaires\nDiagnostics\n\nClasse énergie\n\nA\nB\nC\nD\nE\nF\nG\n\nGES\n\nA\nB\nC\nD\nE\nF\nG"
-    },
-    {
-      "folder": "henry_87169071",
-      "isSas": false,
-      "source": "Agence Henry",
-      "title": "Maison 105 m² Pilier Rouge avec jardin",
-      "price": "359 900 €",
-      "priceVal": 359900,
-      "prixM2": 3428,
-      "dvfComparison": {
-        "prixM2": 3428,
-        "medianM2": 2532,
-        "diffPct": 35,
-        "sampleCount": 39,
-        "scopeLabel": "Pilier Rouge",
-        "yearsLabel": "2024–2025",
-        "comparables": [
-          {
-            "date": "2025-09-23",
-            "adresse": "8 RUE VIALA",
-            "surface": 92,
-            "prix": 270000,
-            "prixM2": 2935
-          },
-          {
-            "date": "2025-09-18",
-            "adresse": "10 RUE ROSA PARKS",
-            "surface": 108,
-            "prix": 273000,
-            "prixM2": 2528
-          },
-          {
-            "date": "2025-04-24",
-            "adresse": "66 RUE ALBERT LOUPPE",
-            "surface": 95,
-            "prix": 152000,
-            "prixM2": 1600
-          },
-          {
-            "date": "2025-01-24",
-            "adresse": "5 RUE DU PILIER ROUGE",
-            "surface": 90,
-            "prix": 222000,
-            "prixM2": 2467
-          },
-          {
-            "date": "2025-01-03",
-            "adresse": "11 B RUE MARCEAU",
-            "surface": 114,
-            "prix": 187000,
-            "prixM2": 1640
-          }
-        ]
-      },
-      "priceHistory": [
-        {
-          "date": "18 juillet 2026",
-          "dateTs": 1784401875000,
-          "price": "389 000 €",
-          "priceVal": 389000
-        },
-        {
-          "date": "7 septembre 2026",
-          "dateTs": 1788809607000,
-          "price": "359 900 €",
-          "priceVal": 359900
-        }
-      ],
-      "score": 5.7,
-      "status": "Actif",
-      "location": "Brest",
-      "quartier": "Pilier Rouge",
-      "tier": 2,
-      "url": "https://agence-henry.com/fr/propriete/vente+maison+brest+exclusivite-maison-de-charme-des-annees-30-3-chambres-jardin+87169071",
-      "type": "Maison",
-      "surface": "105 m²",
-      "surfaceVal": 105,
-      "pieces": "5 pièces",
-      "prestations": "Double vitrage Vidéophone Fenêtre PVC",
-      "dateFirst": "19 juillet 2026 à 16h15",
-      "dateLast": "29 octobre 2026 à 12h42",
-      "dateVal": 1793274120000,
-      "maluses": [
-        "Localisation : -2.0 Tiers 2",
-        "Pas de parking/garage (-1.5)",
-        "Malus chambres (2 chambres) (-1.0)",
-        "Bonus qualité : rare (+0.2)"
-      ],
-      "hasScreenshot": true,
-      "description": "EXCLUSIVITÉ, BREST, PILIER ROUGE, proche du centre ville, le charme de l'ancien associé au contemporain pour cette maison de 1930 en parfait état. Elle se compose au rez de chaussée d'une cuisine contemporaine équipée et aménagée ouverte sur le coin repas, d'un salon avec sa bibliothèque sur mesure, d'une véranda, à l'étage vous profiterez de deux chambres et d'une salle d'eau, d'un WC et au dernier étage se trouvent une grande chambre ainsi qu'un bureau ou dressing. Pour plus de rangements vous bénéficierez d'une grande cave. chaudière gaz de 2025.Joli jardin arboré et clos de murs proche du centre ville, collèges , lycées et transports en communs RARE SUR LE SECTEUR ."
     },
     {
       "folder": "henry_87184282",
@@ -1291,7 +1038,7 @@
           "priceVal": 389500
         }
       ],
-      "score": 6.8,
+      "score": 6,
       "status": "Vendu ou retiré de la vente",
       "location": "Brest",
       "quartier": "Kérinou",
@@ -1307,7 +1054,7 @@
       "dateVal": 1784572680000,
       "maluses": [
         "Localisation : -4.0 Tiers 3",
-        "Bonus qualité : rare, quartier recherché, environnement calme, confort (+0.8)"
+        "Bonus qualité (+0.0)"
       ],
       "hasScreenshot": true,
       "description": "Située dans le quartier recherché de Kérinou, cette maison de plain-pied construite en 1977 bénéficie d'un environnement calme tout en restant à proximité immédiate des commerces, des écoles et des transports. Elle se compose d'une entrée avec rangements desservant une belle pièce de vie lumineuse, d'une spacieuse cuisine aménagée et équipée, de quatre chambres, de deux salles d'eau et de WC séparés. Construite avec des matériaux de qualité, elle séduit par sa conception soignée, sa fonctionnalité et son agencement optimisé. À l'extérieur, vous profiterez d'un jardin clos, sans vis-à-vis, ainsi que d'un garage avec un coin buanderie. Fonctionnelle, bien agencée et idéalement située, cette maison offre un cadre de vie agréable pour une famille ou toute personne recherchant le confort d'un plain-pied. Rare sur le marché, à découvrir rapidement !"
@@ -1373,7 +1120,7 @@
           "priceVal": 324500
         }
       ],
-      "score": 2.9,
+      "score": 3.6,
       "status": "Actif",
       "location": "Brest",
       "quartier": "Gare",
@@ -1388,104 +1135,15 @@
       "dateLast": "22 octobre 2026 à 21h06",
       "dateVal": 1792695960000,
       "maluses": [
-        "Pas de terrasse/jardin (-2.0)",
-        "Pas d'ascenseur (-1.0)",
-        "Pas de parking/garage (-1.5)",
+        "Pas dernier étage (-1)",
+        "Pas de terrasse/jardin (-1.5)",
+        "Pas d'ascenseur (-0.75)",
+        "Pas de parking/garage (-1.13)",
         "Malus chambres (4 pièces, 2 chambres) (-2.0)",
-        "Bonus qualité : coup de coeur, cachet (+0.4)",
-        "Pas dernier étage (-1.0)"
-      ],
-      "hasScreenshot": true,
-      "description": "Brest – Saint-Michel | Appartement de charme de 107 m² à proximité du centre-ville et de la gare Coup de cœur pour cet appartement de caractère, idéalement situé dans le très recherché quartier Saint-Michel à Brest. Au sein d’un immeuble de charme, cet appartement occupe à lui seul le deuxième étage, D’une superficie de 107 m², il séduit dès l’entrée par ses volumes généreux, et son cachet Vous découvrirez une vaste pièce de vie de plus de 34 m², sublimée par de magnifiques planchers d'autrefois, offrant un espace chaleureux et convivial. La grande cuisine équipée et aménagée, avec son agréable coin séjour, constitue un véritable espace de vie. L’espace nuit se compose de deux chambres, complété par une salle de bains confortable avec baignoire et douche, ainsi qu’une buanderie L’immeuble dispose également d’une cave et d’un local à vélos. Les atouts 107 m² habitables Appartement occupant seul le 2ᵉ étage Belle pièce de vie de plus de 34 m² Beaux planchers et cachet de l’ancien Grande cuisine équipée et aménagée avec coin séjour 2 chambres Salle de bains avec baignoire et douche Buanderie Cave Local à vélos Emplacement recherché dans le quartier Saint-Michel À quelques minutes du centre-ville et de la gare de Brest À découvrir sans tarder"
-    },
-    {
-      "folder": "human_200-2734",
-      "isSas": false,
-      "source": "Human",
-      "title": "Maison 141 m² Saint-Michel avec jardin et garage",
-      "price": "359 000 €",
-      "priceVal": 359000,
-      "prixM2": 2546,
-      "dvfComparison": {
-        "prixM2": 2546,
-        "medianM2": 2838,
-        "diffPct": -10,
-        "sampleCount": 19,
-        "scopeLabel": "Saint-Michel",
-        "yearsLabel": "2024–2025",
-        "comparables": [
-          {
-            "date": "2025-10-23",
-            "adresse": "36 RUE YVES COLLET",
-            "surface": 130,
-            "prix": 355000,
-            "prixM2": 2731
-          },
-          {
-            "date": "2025-05-15",
-            "adresse": "27 RUE SULLY PRUD HOMME",
-            "surface": 138,
-            "prix": 294573.75,
-            "prixM2": 2135
-          },
-          {
-            "date": "2025-04-24",
-            "adresse": "14 VEN KERIVIN",
-            "surface": 158,
-            "prix": 452000,
-            "prixM2": 2861
-          },
-          {
-            "date": "2024-07-09",
-            "adresse": "37 RUE LEVOT",
-            "surface": 123,
-            "prix": 285000,
-            "prixM2": 2317
-          },
-          {
-            "date": "2024-02-09",
-            "adresse": "26 RUE EDOUARD CORBIERE",
-            "surface": 130,
-            "prix": 347961.12,
-            "prixM2": 2677
-          }
-        ]
-      },
-      "priceHistory": [
-        {
-          "date": "7 septembre 2026",
-          "dateTs": 1788809610000,
-          "price": "390 000 €",
-          "priceVal": 390000
-        },
-        {
-          "date": "8 octobre 2026",
-          "dateTs": 1791486316000,
-          "price": "359 000 €",
-          "priceVal": 359000
-        }
-      ],
-      "score": 7,
-      "status": "Actif",
-      "location": "Brest - Centre-ville",
-      "quartier": "Saint-Michel",
-      "tier": 2,
-      "url": "https://www.human-immobilier.fr/annonce-achat-maison-brest_200-2734",
-      "type": "Maison",
-      "surface": "141 m²",
-      "surfaceVal": 141,
-      "pieces": "5 pièces",
-      "prestations": "Chambres: 3, Exposition: Sud Est, Garage: 1",
-      "dateFirst": "7 septembre 2026 à 21h33",
-      "dateLast": "22 octobre 2026 à 21h06",
-      "dateVal": 1792695960000,
-      "maluses": [
-        "Localisation : -2.0 Tiers 2",
-        "Malus surface (> 130m²) (-1.0)",
         "Bonus qualité (+0.0)"
       ],
       "hasScreenshot": true,
-      "description": "Centre-ville, secteur Saint-Michel, charmante maison de ville pleine de caractère avec jardin. Elle offre une double pièce de vie lumineuse avec cuisine aménagée et équipée. &#xC0; l&#x2019;étage, deux chambres, un bureau et une salle d&#x2019;eau avec baignoire et douche. Combles aménagés offrant un espace supplémentaire selon vos envies."
+      "description": "Brest – Saint-Michel | Appartement de charme de 107 m² à proximité du centre-ville et de la gare Coup de cœur pour cet appartement de caractère, idéalement situé dans le très recherché quartier Saint-Michel à Brest. Au sein d’un immeuble de charme, cet appartement occupe à lui seul le deuxième étage, D’une superficie de 107 m², il séduit dès l’entrée par ses volumes généreux, et son cachet Vous découvrirez une vaste pièce de vie de plus de 34 m², sublimée par de magnifiques planchers d'autrefois, offrant un espace chaleureux et convivial. La grande cuisine équipée et aménagée, avec son agréable coin séjour, constitue un véritable espace de vie. L’espace nuit se compose de deux chambres, complété par une salle de bains confortable avec baignoire et douche, ainsi qu’une buanderie L’immeuble dispose également d’une cave et d’un local à vélos. Les atouts 107 m² habitables Appartement occupant seul le 2ᵉ étage Belle pièce de vie de plus de 34 m² Beaux planchers et cachet de l’ancien Grande cuisine équipée et aménagée avec coin séjour 2 chambres Salle de bains avec baignoire et douche Buanderie Cave Local à vélos Emplacement recherché dans le quartier Saint-Michel À quelques minutes du centre-ville et de la gare de Brest À découvrir sans tarder"
     },
     {
       "folder": "leboncoin_2977769727",
@@ -1548,7 +1206,7 @@
           "priceVal": 470000
         }
       ],
-      "score": 6.2,
+      "score": 6.8,
       "status": "Vendu ou retiré de la vente",
       "location": "Brest 29200 Centre-ville - Triangle d'Or",
       "quartier": "Siam",
@@ -1563,10 +1221,11 @@
       "dateLast": "20 juillet 2026 à 20h38",
       "dateVal": 1784572680000,
       "maluses": [
-        "Pas d'ascenseur (-1.0)",
+        "Pas dernier étage (-0.75)",
+        "Pas seul à l'étage (-0.75)",
+        "Pas d'ascenseur (-0.75)",
         "Malus surface (> 130m²) (-1.0)",
-        "Bonus qualité : magnifique (+0.2)",
-        "Pas dernier ni seul à l'étage (-2.0)"
+        "Bonus qualité (+0.0)"
       ],
       "hasScreenshot": true,
       "description": "Dpt Finistère (29), à vendre BREST Appartement 139 m² Triangle D'Or Secteur Place Wilson Balcon\n\nBrest Centre Triangle D'Or Secteur Siam Place Wilson, Appartement 139m² Balcon Garage.\nGaétan ANNE, spécialiste en immobilier Luxe & Prestige, vous présente une de ses plus belles prestations.\n\nAppartement Coup Coeur !!!\n\nCe bien d'exception jouit d'un emplacement de choix dans le très prisé Triangle d'Or.\nProche de tous commerces et écoles.\nCe magnifique appartement de 139 m² dispose d'une pièce de…\n\nVoir plus"
@@ -1632,7 +1291,7 @@
           "priceVal": 520000
         }
       ],
-      "score": 5.9,
+      "score": 7.6,
       "status": "Vendu ou retiré de la vente",
       "location": "Brest 29200 Centre-ville - Triangle d'Or",
       "quartier": "Triangle d'Or",
@@ -1647,11 +1306,10 @@
       "dateLast": "20 juillet 2026 à 20h38",
       "dateVal": 1784572680000,
       "maluses": [
-        "Pas de terrasse/jardin (-1.0)",
-        "Pas de parking/garage (-1.5)",
-        "Malus chambres (2 chambres) (-1.0)",
-        "Malus qualité (travaux à prévoir) (-1.0)",
-        "Bonus qualité : exceptionnel, vue mer (+0.4)"
+        "Pas de terrasse/jardin (-0.75)",
+        "Pas de parking/garage (-1.13)",
+        "Malus état (gros travaux) (-1.0)",
+        "Bonus qualité : vue mer (+0.5)"
       ],
       "hasScreenshot": true,
       "description": "Maison 6 pièces 130 m²\n\nREFERENCE ANNONCE : 11414 - Maison à vendre Brest CENTRE, situé dans un cadre exceptionnel avec une très jolie vue sur la rade, cette maison des années 30 vous propose un séjour double au rez-de chaussée, à l'étage, 2 chambres et une salle d'eau et 2 chambres au second et un bureau au troisième. Toiture et isolation des combles récentes, fenÂªtres PVC, Travaux à prévoir.\n\nLes informations sur les risques auxquels ce bien est expose sont disponibles sur le site Georisques €Â¦\n\nVoir plus"
@@ -1717,7 +1375,7 @@
           "priceVal": 449800
         }
       ],
-      "score": 5.9,
+      "score": 6.6,
       "status": "Vendu ou retiré de la vente",
       "location": "Brest 29200 Centre-ville - Triangle d'Or",
       "quartier": "Triangle d'Or",
@@ -1732,10 +1390,10 @@
       "dateLast": "7 août 2026 à 11h43",
       "dateVal": 1786095780000,
       "maluses": [
-        "Pas d'ascenseur (-2.0)",
-        "Pas de parking/garage (-1.5)",
-        "Bonus qualité : exceptionnel, unique (+0.4)",
-        "Pas seul à l'étage (-1.0)"
+        "Pas seul à l'étage (-0.75)",
+        "Pas d'ascenseur (-1.5)",
+        "Pas de parking/garage (-1.13)",
+        "Bonus qualité (+0.0)"
       ],
       "hasScreenshot": true,
       "description": "À Vendre Brest Saint Louis – Appartement Rooftop avec Vue, Cœur de Brest Surface : 114 m²\n\nVivez au sommet de Brest dans cet appartement rooftop unique situé en plein centre-ville, à deux pas des commerces, écoles et transports.\n\nCe bien atypique de 114 m², situé au dernier étage d'un immeuble bien entretenu, séduit par sa luminosité, son agencement fonctionnel et sa terrasse rooftop exceptionnelle d'environ 80 m², offrant une vue dégagée sur les toits de Brest.\n\nAgencement :\n• Salon-séjour spac…\n\nVoir plus\nPasser la liste des médias\nListe des médias\nPhotos (8)"
@@ -1801,7 +1459,7 @@
           "priceVal": 598000
         }
       ],
-      "score": 2.7,
+      "score": 5.4,
       "status": "Actif",
       "location": "Brest 29200 Centre-ville - Triangle d'Or",
       "quartier": "Siam",
@@ -1816,12 +1474,12 @@
       "dateLast": "24 octobre 2026 à 18h11",
       "dateVal": 1792858260000,
       "maluses": [
-        "Pas de terrasse/jardin (-2.0)",
-        "Pas de parking/garage (-1.5)",
+        "Pas dernier étage (-0.75)",
+        "Pas seul à l'étage (-0.75)",
+        "Pas de terrasse/jardin (-1.5)",
+        "Pas de parking/garage (-1.13)",
         "Malus surface (> 130m²) (-1.0)",
-        "Malus chambres (7 chambres) (-1.0)",
-        "Bonus qualité : magnifique (+0.2)",
-        "Pas dernier ni seul à l'étage (-2.0)"
+        "Bonus qualité : rénové (+0.5)"
       ],
       "hasScreenshot": true,
       "description": "Appartement 7 pièces 138 m²\n\nREFERENCE ANNONCE : 1017035 - Appartement à vendre à BREST dans le Finistère (29), SIAM : Magnifique appartement T7 avec ascenseur d'environ 140m² (Loi Carrez 138,25), lumineux et en excellent état, rénové avec goût et des matériaux de qualité, au 3ème étage d'une copropriété bien tenue (ravalement réalisé en 2023, toiture changée en 2022) située dans un quartier prisé à proximité des commerces de l'hyper centre, et du tramway, avec une jolie vue dégagée sur le parc…\n\nVoir plus\nPasser la liste des médias\nListe des médias\nPhotos (9)\nLes informations clés\n\nType de bien\n\nAppartement\n\nSurface habitable\n\n138 m²\n\nNombre de pièces\n\n7\n\nNombre de chambres\n\n4 ch.\n\nÉtage de votre bien\n\n0\n\nAscenseur\n\nNon\n\nRéférence\n\n1017035\n\nDiagnostics\n\nClasse énergie\n\nA\nB\nC\nD\nE\nF\nG\n\nGES\n\nA\nB\nC\nD\nE\nF\nG"
@@ -1887,7 +1545,7 @@
           "priceVal": 305000
         }
       ],
-      "score": 1.5,
+      "score": 3.1,
       "status": "Vendu ou retiré de la vente",
       "location": "Brest (29200) Saint-Michel",
       "quartier": "Saint-Michel",
@@ -1903,11 +1561,12 @@
       "dateVal": 1782077280000,
       "maluses": [
         "Localisation : -2.0 Tiers 2",
-        "Pas de terrasse/jardin (-2.0)",
-        "Pas d'ascenseur (-1.0)",
-        "Pas de parking/garage (-1.5)",
-        "Bonus qualité (+0.0)",
-        "Pas dernier ni seul à l'étage (-2.0)"
+        "Pas dernier étage (-0.75)",
+        "Pas seul à l'étage (-0.75)",
+        "Pas de terrasse/jardin (-1.5)",
+        "Pas d'ascenseur (-0.75)",
+        "Pas de parking/garage (-1.13)",
+        "Bonus qualité (+0.0)"
       ],
       "hasScreenshot": true,
       "description": "Leboncoin - Appartement 5 pièces · 123 m² (Saint-Michel) situé à Brest (29200) Saint-Michel. Caractéristiques : 5 pièces, 123 m². Vendeur: Professionnel (FT Breizh - Brest Linois)."
@@ -1973,7 +1632,7 @@
           "priceVal": 590000
         }
       ],
-      "score": 6.4,
+      "score": 7,
       "status": "Vendu ou retiré de la vente",
       "location": "Brest 29200 Centre-ville - Triangle d'Or",
       "quartier": "Triangle d'Or",
@@ -1988,10 +1647,11 @@
       "dateLast": "7 septembre 2026 à 10h43",
       "dateVal": 1788770580000,
       "maluses": [
+        "Pas dernier étage (-0.75)",
+        "Pas seul à l'étage (-0.75)",
         "Malus surface (< 95m²) (-1.0)",
         "Malus chambres (2 chambres) (-1.0)",
-        "Bonus qualité : haut de gamme, confort (+0.4)",
-        "Pas dernier ni seul à l'étage (-2.0)"
+        "Bonus qualité : neuf (+0.5)"
       ],
       "hasScreenshot": true,
       "description": "T3 - Résidence haut de gamme - 86,30m2 - Coeur de Brest - Ascenseur - Terrasse - Parking\n\nAu cœur de Brest, dans une résidence neuve d'exception aux prestations haut de gamme, découvrez ce superbe appartement 3 pièces situé au premier étage avec ascenseur.\n\nD'une surface de 86,30 m², il offre des volumes généreux et une conception pensée pour le confort et la qualité de vie.\nDès l'entrée, l'agencement fonctionnel se dévoile avec des espaces bien distincts et une circulation fluide.\n\nL'espace de …\n\nVoir plus\nPasser la liste des médias\nListe des médias\nPhotos (16)"
@@ -2057,7 +1717,7 @@
           "priceVal": 478000
         }
       ],
-      "score": 2.7,
+      "score": 5.1,
       "status": "Actif",
       "location": "Brest 29200 Centre-ville - Triangle d'Or",
       "quartier": "Siam",
@@ -2072,12 +1732,12 @@
       "dateLast": "25 octobre 2026 à 15h11",
       "dateVal": 1792937460000,
       "maluses": [
-        "Pas de terrasse/jardin (-2.0)",
-        "Pas d'ascenseur (-1.0)",
-        "Pas de parking/garage (-1.5)",
-        "Malus chambres (6 chambres) (-1.0)",
-        "Bonus qualité : magnifique (+0.2)",
-        "Pas dernier ni seul à l'étage (-2.0)"
+        "Pas dernier étage (-0.75)",
+        "Pas seul à l'étage (-0.75)",
+        "Pas de terrasse/jardin (-1.5)",
+        "Pas d'ascenseur (-0.75)",
+        "Pas de parking/garage (-1.13)",
+        "Bonus qualité (+0.0)"
       ],
       "hasScreenshot": true,
       "description": "A VENDRE, BREST, CENTRE SIAM / SAINT LOUIS, Appartement T6\n\nNouvelle exclusivité Agence APPERE !\n\nBREST-CENTRE SIAM ! Proximité immédiate des halles Saint Louis et de toutes les commodités avoisinantes, découvrez ce magnifique appartement T6 d'une superficie de 122m² offrant des volumes généreux et une des prestations de qualités.\nIl se compose d'une grande réception, une vaste pièce à vivre en angle bénéficiant d'une vue imprenable sur l'église St Louis, cuisine entièrement aménagée et équip…\n\nVoir plus\nPasser la liste des médias\nListe des médias\nPhotos (8)\nLes informations clés\n\nType de bien\n\nAppartement\n\nSurface habitable\n\n122 m²\n\nNombre de pièces\n\n6\n\nNombre de chambres\n\n4 ch.\n\nNombre de salles d'eau\n\n1\n\nRéférence\n\n25156\n\nDiagnostics\n\nClasse énergie\n\nA\nB\nC\nD\nE\nF\nG\n\nGES\n\nA\nB\nC\nD\nE\nF\nG"
@@ -2143,7 +1803,7 @@
           "priceVal": 335000
         }
       ],
-      "score": 4.5,
+      "score": 5.4,
       "status": "Vendu ou retiré de la vente",
       "location": "Brest (29200) Centre-ville - Triangle d'Or",
       "quartier": "Triangle d'Or",
@@ -2155,14 +1815,14 @@
       "pieces": "4 pièces",
       "prestations": "Cuisine équipée, Cave, Chauffage individuel gaz",
       "dateFirst": "21 juin 2026 à 23h28",
-      "dateLast": "21 juin 2026 à 23h28",
-      "dateVal": 1782077280000,
+      "dateLast": "29 octobre 2026 à 14h37",
+      "dateVal": 1793281020000,
       "maluses": [
-        "Pas de terrasse/jardin (-2.0)",
-        "Pas d'ascenseur (-1.0)",
-        "Pas de parking/garage (-1.5)",
-        "Bonus qualité (+0.0)",
-        "Pas dernier étage (-1.0)"
+        "Pas dernier étage (-0.75)",
+        "Pas de terrasse/jardin (-2)",
+        "Pas d'ascenseur (-0.75)",
+        "Pas de parking/garage (-1.13)",
+        "Bonus qualité (+0.0)"
       ],
       "hasScreenshot": true,
       "description": "BREST CENTRE ST LOUIS\n\nAu coeur du triangle d'or , au deuxième étage seul sur le palier d'une petite copropriété de 3 appartements, vaste appartement de 114m² en parfait état. Cet appartement se compose : d'une vaste pièce de vie de 45 m² avec cuisine ouverte aménagée et équipée (four, plaques, hotte, réfrigérateur, lave-vaisselle), d'un dégagement avec placards, de 3 chambres spacieuses de 11, 15 et 22m² (dont 2 avec placards), salle de bain, wc. Pour les amoureux du centre ville. EXCLUSIVITÉ IROISE IMMOBILIER."
@@ -2228,7 +1888,7 @@
           "priceVal": 595000
         }
       ],
-      "score": 5.6,
+      "score": 6.5,
       "status": "Actif",
       "location": "Brest 29200 Recouvrance - Capucins",
       "quartier": "Capucins",
@@ -2240,16 +1900,106 @@
       "pieces": "6 pièces",
       "prestations": "Ascenseur, parkings privatifs souterrains, cave",
       "dateFirst": "18 juillet 2026 à 21h15",
-      "dateLast": "21 octobre 2026 à 09h38",
-      "dateVal": 1792568280000,
+      "dateLast": "29 octobre 2026 à 14h37",
+      "dateVal": 1793281020000,
       "maluses": [
         "Localisation : -2.0 Tiers 2",
-        "Malus chambres (6 chambres) (-1.0)",
-        "Bonus qualité : rare, exceptionnel, privatif (+0.6)",
-        "Pas dernier ni seul à l'étage (-2.0)"
+        "Pas dernier étage (-0.75)",
+        "Pas seul à l'étage (-0.75)",
+        "Bonus qualité (+0.0)"
       ],
       "hasScreenshot": true,
       "description": "Appartement 6 pièces 124 m²\n\nBRETAGNE-FINISTÈRE-BREST-LES CAPUCINS\n\nAppartement d'exception T6 ? Terrasse panoramique de 65 m² ? Quartier des Capucins\n\nAu coeur du très recherché quartier des Capucins, découvrez ce remarquable appartement T6 situé au 5? étage d'une résidence sécurisée. Issu de la réunion de deux appartements, ce bien rare séduit par ses volumes exceptionnels, sa luminosité et son agencement parfaitement pensé.\nDès l'entrée, vous serez conquis par une vaste pièce de vie baignée d…\n\nVoir plus\nPasser la liste des médias\nListe des médias\nPhotos (15)\nLes informations clés\n\nType de bien\n\nAppartement\n\nSurface habitable\n\n124 m²\n\nNombre de pièces\n\n6\n\nNombre de chambres\n\n3 ch.\n\nNombre de salles de bain\n\n1\n\nNombre de salles d'eau\n\n1\n\nCaractéristiques\n\nAvec garage ou place de parking, Cuisine équipée, Cave, Plusieurs toilettes, Interphone\n\nType de chauffage\n\nCollectif\n\nVoir les 9 critères supplémentaires\nDiagnostics\n\nClasse énergie\n\nA\nB\nC\nD\nE\nF\nG\n\nGES\n\nA\nB\nC\nD\nE\nF\nG"
+    },
+    {
+      "folder": "leboncoin_3228643378",
+      "isSas": false,
+      "source": "Leboncoin",
+      "title": "Maison 105 m² Pilier Rouge",
+      "price": "359 900 €",
+      "priceVal": 359900,
+      "prixM2": 3428,
+      "dvfComparison": {
+        "prixM2": 3428,
+        "medianM2": 2532,
+        "diffPct": 35,
+        "sampleCount": 39,
+        "scopeLabel": "Pilier Rouge",
+        "yearsLabel": "2024–2025",
+        "comparables": [
+          {
+            "date": "2025-09-23",
+            "adresse": "8 RUE VIALA",
+            "surface": 92,
+            "prix": 270000,
+            "prixM2": 2935
+          },
+          {
+            "date": "2025-09-18",
+            "adresse": "10 RUE ROSA PARKS",
+            "surface": 108,
+            "prix": 273000,
+            "prixM2": 2528
+          },
+          {
+            "date": "2025-04-24",
+            "adresse": "66 RUE ALBERT LOUPPE",
+            "surface": 95,
+            "prix": 152000,
+            "prixM2": 1600
+          },
+          {
+            "date": "2025-01-24",
+            "adresse": "5 RUE DU PILIER ROUGE",
+            "surface": 90,
+            "prix": 222000,
+            "prixM2": 2467
+          },
+          {
+            "date": "2025-01-03",
+            "adresse": "11 B RUE MARCEAU",
+            "surface": 114,
+            "prix": 187000,
+            "prixM2": 1640
+          }
+        ]
+      },
+      "priceHistory": [
+        {
+          "date": "18 juillet 2026",
+          "dateTs": 1784401875000,
+          "price": "389 000 €",
+          "priceVal": 389000
+        },
+        {
+          "date": "7 septembre 2026",
+          "dateTs": 1788809607000,
+          "price": "359 900 €",
+          "priceVal": 359900
+        }
+      ],
+      "score": 6.1,
+      "status": "Actif",
+      "location": "Brest",
+      "quartier": "Pilier Rouge",
+      "tier": 2,
+      "url": "https://www.leboncoin.fr/ad/ventes_immobilieres/3228643378",
+      "type": "Maison",
+      "surface": "105 m²",
+      "surfaceVal": 105,
+      "pieces": "5 pièces",
+      "prestations": "Double vitrage Vidéophone Fenêtre PVC",
+      "dateFirst": "19 juillet 2026 à 16h15",
+      "dateLast": "30 octobre 2026 à 12h34",
+      "dateVal": 1793360040000,
+      "maluses": [
+        "Localisation : -2.0 Tiers 2",
+        "Pas de terrasse/jardin (-0.75)",
+        "Pas de parking/garage (-1.13)",
+        "Bonus qualité (+0.0)"
+      ],
+      "hasScreenshot": false,
+      "description": "Maison 5 pièces 105 m²\n\nEXCLUSIVITÉ, BREST, PILIER ROUGE, proche du centre ville, le charme de l'ancien associé au contemporain pour cette maison de 1930 en parfait état.\nElle se compose au rez de chaussée d'une cuisine contemporaine équipée et aménagée ouverte sur le coin repas, d'un salon avec sa bibliothèque sur mesure, d'une véranda, à l'étage vous profiterez de deux chambres et d'une salle d'eau, d'un WC et au dernier étage se trouvent une grande chambre ainsi qu'un bureau ou dressing. P…\n\nVoir plus\nPasser la liste des médias\nListe des médias\nPhotos (13)\nLes informations clés\n\nType de bien\n\nMaison\n\nSurface habitable\n\n105 m²\n\nNombre de pièces\n\n5\n\nNombre de chambres\n\n3 ch.\n\nNombre de salles d'eau\n\n1\n\nCaractéristiques\n\nCuisine équipée, Cave\n\nType de chauffage\n\nIndividuel\n\nMode de chauffage\n\nGaz\n\nVoir les 5 critères supplémentaires\nDiagnostics\n\nClasse énergie\n\nA\nB\nC\nD\nE\nF\nG\n\nGES\n\nA\nB\nC\nD\nE\nF\nG"
     },
     {
       "folder": "leboncoin_3229816247",
@@ -2312,7 +2062,7 @@
           "priceVal": 439000
         }
       ],
-      "score": 6.4,
+      "score": 7.5,
       "status": "Vendu ou retiré de la vente",
       "location": "Brest 29200 Recouvrance - Capucins",
       "quartier": "Capucins",
@@ -2328,8 +2078,9 @@
       "dateVal": 1784572620000,
       "maluses": [
         "Localisation : -2.0 Tiers 2",
-        "Bonus qualité : vue mer, magnifique (+0.4)",
-        "Pas dernier ni seul à l'étage (-2.0)"
+        "Pas dernier étage (-0.75)",
+        "Pas seul à l'étage (-0.75)",
+        "Bonus qualité : neuf, vue mer (+1.0)"
       ],
       "hasScreenshot": true,
       "description": "BREST - Capucins - Appartement T5 - À Vendre avec parking et VUE MER\n\nIdéalement situé en plein cœur du quartier des Capucins, au sein d'une résidence récente de 2024, avec ascenseur, ce magnifique appartement aux prestations soignées n'attend plus que vous.\n\nIl offre une grande pièce de vie lumineuse, un bureau, une cuisine ouverte, aménagée et équipée, prolongée par une belle terrasse à la vue dégagée, surplombant la rade et la ville , idéale pour profiter des beaux jours et de sa vue mer ex…\n\nVoir plus"
@@ -2431,28 +2182,199 @@
           "priceVal": 399000
         }
       ],
-      "score": 6,
+      "score": 6.5,
       "status": "Actif",
       "location": "BREST",
       "quartier": "Place Wilson",
       "tier": 1,
-      "url": "https://www.leboncoin.fr/ad/ventes_immobilieres/3237367418",
+      "url": "https://www.leboncoin.fr/ad/ventes_immobilieres/3230023834",
       "type": "Appartement",
       "surface": "97 m²",
       "surfaceVal": 97,
       "pieces": "4 pièces",
       "prestations": "Chambres: 2, Garage: 1, Cave: 1",
       "dateFirst": "18 juillet 2026 à 21h30",
-      "dateLast": "29 octobre 2026 à 12h42",
-      "dateVal": 1793274120000,
+      "dateLast": "30 octobre 2026 à 12h34",
+      "dateVal": 1793360040000,
       "maluses": [
-        "Pas de terrasse/jardin (-2.0)",
+        "Pas de terrasse/jardin (-2)",
         "Malus chambres (4 pièces, 2 chambres) (-2.0)",
-        "Bonus qualité : rare, vue mer, privilégié, beaux volumes, privatif, matériaux de qualité, baignée de lumière, confort (+1.0)",
-        "Pas seul à l'étage (-1.0)"
+        "Bonus qualité : vue mer (+0.5)"
       ],
       "hasScreenshot": true,
       "description": "Idéalement situé sur la très prisée Place Wilson, au coeur du Triangle d&rsquo;Or de Brest, cet élégant appartement d&rsquo;environ 97 m² occupe à lui seul le 4ème et dernier étage d&rsquo;une petite copropriété. Accessible directement par un ascenseur privatif, il offre un confort de vie rare, alliant intimité, luminosité et prestations de qualité. Dès l&rsquo;entrée, les beaux volumes, le parquet massif et la lumière traversante séduisent immédiatement. L&rsquo;appartement comprend : Une grande pièce de vie baignée de lumière bénéficiant d&rsquo;une vue dégagée sur la Place Wilson. Une grande cuisine indépendante entièrement aménagée et équipée, prolongée par une arrière-cuisine. Deux belles chambres avec parquet dont une avec placard. Une salle de bains. Un WC indépendant. Traversant, il offre également, depuis une chambre et depuis la cuisine une agréable vue sur la mer, renforçant le caractère privilégié de cette adresse. Les prestations sont complétées par : Cave accessible par ascenseur. Petite copropriété bien entretenue. Possibilité d&rsquo;acquérir un garage privatif situé à quelques pas de l&rsquo;immeuble. A deux pas des commerces, des écoles, des restaurants et du cours Dajot, cet appartement conjugue parfaitement élégance, emplacement et qualité de vie.REFERENCE LUXIOR 26609JM (5.00 % honoraires TTC à la charge de l&rsquo;acquéreur.) Copropriété de 12 lots &#8211; dont 5 lots habitation. (Pas de procédure en cours).Charges annuelles : 2305 euros."
+    },
+    {
+      "folder": "leboncoin_3241267332",
+      "isSas": false,
+      "source": "Leboncoin",
+      "title": "Appartement 133 m² Gare avec balcon",
+      "price": "304 500 €",
+      "priceVal": 304500,
+      "prixM2": 2289,
+      "dvfComparison": {
+        "prixM2": 2289,
+        "medianM2": 1582,
+        "diffPct": 45,
+        "sampleCount": 144,
+        "scopeLabel": "Gare",
+        "yearsLabel": "2024–2025",
+        "comparables": [
+          {
+            "date": "2025-11-24",
+            "adresse": "2 RUE ALAIN FOURNIER",
+            "surface": 137,
+            "prix": 125000,
+            "prixM2": 915
+          },
+          {
+            "date": "2025-07-16",
+            "adresse": "15 RUE DE LYON",
+            "surface": 137,
+            "prix": 143200,
+            "prixM2": 1042
+          },
+          {
+            "date": "2025-11-04",
+            "adresse": "20 RUE DE LA REPUBLIQUE",
+            "surface": 150,
+            "prix": 210000,
+            "prixM2": 1396
+          },
+          {
+            "date": "2025-10-30",
+            "adresse": "14 RUE BRANDA",
+            "surface": 123,
+            "prix": 177000,
+            "prixM2": 1444
+          },
+          {
+            "date": "2025-10-29",
+            "adresse": "3 RUE DES COLONIES",
+            "surface": 139,
+            "prix": 740000,
+            "prixM2": 5326
+          }
+        ]
+      },
+      "priceHistory": [
+        {
+          "date": "4 août 2026",
+          "dateTs": 1785877913000,
+          "price": "304 500 €",
+          "priceVal": 304500
+        }
+      ],
+      "score": 5.9,
+      "status": "Actif",
+      "location": "Brest - CENTRE VILLE",
+      "quartier": "Gare",
+      "tier": 1,
+      "url": "https://www.leboncoin.fr/ad/ventes_immobilieres/3241267332",
+      "type": "Appartement",
+      "surface": "133 m²",
+      "surfaceVal": 133,
+      "pieces": "5 pièces",
+      "prestations": "Chambres: 4",
+      "dateFirst": "4 août 2026 à 23h11",
+      "dateLast": "30 octobre 2026 à 12h34",
+      "dateVal": 1793360040000,
+      "maluses": [
+        "Pas dernier étage (-0.75)",
+        "Pas seul à l'étage (-0.75)",
+        "Pas de parking/garage (-1.13)",
+        "Malus surface (> 130m²) (-1.0)",
+        "Malus état (à rafraîchir) (-0.5)",
+        "Bonus qualité (+0.0)"
+      ],
+      "hasScreenshot": false,
+      "description": "Découvrez cet appartement de 133 m², situé au 1er étage d'un immeuble des années 60 avec ascenseur, en plein coeur de Brest. Il se compose d'un séjour lumineux de 35 m², exposé ouest, de quatre chambres plus un dressing, d'une cuisine aménagée et équipée, d'une salle de bains, d'un WC indépendant. Le bien dispose également d'un balcon appréciable. Une cave complète le bien et l'accès à la résidence est sécurisé par une double porte ainsi que par un digicode. L'appartement est à rafraîchir, offrant un beau potentiel pour créer un intérieur à votre goût. Ses volumes généreux et sa distribution en font un bien idéal pour une famille ou un projet de résidence principale. Le chauffage collectif est assuré par des radiateurs alimentés par un chauffage urbain et l'eau chaude par un ballon électrique. Son emplacement est un véritable atout. Vous rejoignez les stations de tramway Jean Jaurès et Liberté en seulement 5 minutes à pied. Les commerces, écoles et arrêts de bus sont accessibles en 2 minutes. Restaurants, boulangerie, pharmacie, supermarché, parc et hôpital se trouvent également à proximité. La gare se trouve à 1Km. Pour plus d'informations ou organiser une visite, contactez votre agence Barraine Immo. Les informations sur les risques auxquels ce bien est exposé sont disponibles sur le site Géorisques : http://www.georisques.gouv.fr (5.00 % honoraires TTC à la charge de l'acquéreur.) Copropriété de 42 lots – dont 29 lots habitation. (Pas de procédure en cours). Charges annuelles : 2850 euros. * 304 500 € honoraires inclus dont à la charge de l'acquéreur : 14 500 € - Prix hors honoraires : 290 000 €."
+    },
+    {
+      "folder": "leboncoin_3250257076",
+      "isSas": false,
+      "source": "Leboncoin",
+      "title": "Appartement 138 m² Branda avec garage et balcon",
+      "price": "378 000 €",
+      "priceVal": 378000,
+      "prixM2": 2739,
+      "dvfComparison": {
+        "prixM2": 2739,
+        "medianM2": 1542,
+        "diffPct": 78,
+        "sampleCount": 155,
+        "scopeLabel": "Branda",
+        "yearsLabel": "2024–2025",
+        "comparables": [
+          {
+            "date": "2025-12-09",
+            "adresse": "14 RUE DE GLASGOW",
+            "surface": 143,
+            "prix": 180000,
+            "prixM2": 1262
+          },
+          {
+            "date": "2025-11-04",
+            "adresse": "20 RUE DE LA REPUBLIQUE",
+            "surface": 150,
+            "prix": 210000,
+            "prixM2": 1396
+          },
+          {
+            "date": "2025-10-02",
+            "adresse": "4 RUE MOSTAGANEM",
+            "surface": 134,
+            "prix": 133500,
+            "prixM2": 998
+          },
+          {
+            "date": "2025-08-21",
+            "adresse": "66 RUE VICTOR HUGO",
+            "surface": 128,
+            "prix": 160000,
+            "prixM2": 1249
+          },
+          {
+            "date": "2025-08-12",
+            "adresse": "3 RUE VICTOR HUGO",
+            "surface": 137,
+            "prix": 271000,
+            "prixM2": 1982
+          }
+        ]
+      },
+      "priceHistory": [
+        {
+          "date": "22 août 2026",
+          "dateTs": 1787390931000,
+          "price": "378 000 €",
+          "priceVal": 378000
+        }
+      ],
+      "score": 4.8,
+      "status": "Actif",
+      "location": "Brest - CENTRE VILLE",
+      "quartier": "Branda",
+      "tier": 2,
+      "url": "https://www.leboncoin.fr/ad/ventes_immobilieres/3250257076",
+      "type": "Appartement",
+      "surface": "138 m²",
+      "surfaceVal": 138,
+      "pieces": "5 pièces",
+      "prestations": "Chambres: 3",
+      "dateFirst": "22 août 2026 à 11h28",
+      "dateLast": "30 octobre 2026 à 12h34",
+      "dateVal": 1793360040000,
+      "maluses": [
+        "Localisation : -2.0 Tiers 2",
+        "Pas dernier étage (-0.75)",
+        "Pas seul à l'étage (-0.75)",
+        "Pas d'ascenseur (-0.75)",
+        "Malus surface (> 130m²) (-1.0)",
+        "Bonus qualité (+0.0)"
+      ],
+      "hasScreenshot": false,
+      "description": "BREST – BRANDA – Réf: SILM5395-WS A vendre, bel appartement de 5 pièces situé au 1er étage d'un immeuble datant de 1957, en bon état général, dans le centre-ville de Brest. Ce spacieux appartement de 138 m² loi Carrez comprend un séjour lumineux de 42 m² exposé sud-ouest, une cuisine aménagée et équipée, 3 chambres, une salle de bain, une salle d'eau, et un WC séparé. Le chauffage est assuré par des radiateurs au gaz avec une chaudière pour l'eau chaude. L'appartement est calme et dispose d'un balcon, de 3 caves, ainsi que d'un garage fermé pour le stationnement. Les fenêtres sont en PVC. L'accès aux transports en commun est très pratique, avec le tramway et le bus à seulement 1 minute. Les écoles sont accessibles en 10 minutes, notamment le Groupe Scolaire Auguste Dupouy, le Groupe Scolaire Lucie et Raymond Aubrac, et l'École primaire publique Célestin Freinet. A proximité, vous trouverez également plusieurs universités telles que l'Institut d'administration des entreprises de Bretagne Occidentale, l'Institut de Géoarchitecture, et l'UBO – UFR Sciences et Techniques – Bâtiment Langevin, ainsi que le Service Universitaire de Médecine Préventive. Le quartier est bien desservi avec des commerces, pharmacies, restaurants, et parcs à proximité. L'appartement est équipé pour l'ADSL et la fibre optique est disponible. Prix de vente : 378 000 euros. Agence : Barraine IMMO (5.00 % honoraires TTC à la charge de l'acquéreur.) Copropriété de 34 lots – dont 10 lots habitation. (Pas de procédure en cours). Charges annuelles : 1880 euros. Risque sismique ou radon Les informations sur les risques auxquels ce bien est exposé sont disponibles sur le site Géorisques . * 378 000 € honoraires inclus dont à la charge de l'acquéreur : 18 000 € - Prix hors honoraires : 360 000 €."
     },
     {
       "folder": "leboncoin_3266438186",
@@ -2515,8 +2437,8 @@
           "priceVal": 420000
         }
       ],
-      "score": 5.7,
-      "status": "Actif",
+      "score": 5.9,
+      "status": "Vendu ou retiré de la vente",
       "location": "Brest 29200 Saint-Michel",
       "quartier": "Saint-Michel",
       "tier": 2,
@@ -2531,9 +2453,9 @@
       "dateVal": 1792068060000,
       "maluses": [
         "Localisation : -2.0 Tiers 2",
-        "Pas de parking/garage (-1.5)",
+        "Pas de parking/garage (-1.13)",
         "Malus surface (> 130m²) (-1.0)",
-        "Bonus qualité : privilégié (+0.2)"
+        "Bonus qualité (+0.0)"
       ],
       "hasScreenshot": true,
       "description": "29200 - BREST - ST MICHEL/GAMBETTA - MAISON 137 m² AVEC JARDIN, VÉRANDA + SOUS-SOL AMÉNAGÉ - 4 CHAMBRES\n\nUn emplacement privilégié, le charme de l'ancien et un véritable jardin en plein cœur de Brest.\n\nEfficity, l'agence qui estime votre bien en ligne, vous invite à découvrir cette charmante maison mitoyenne du début du XXᵉ siècle, idéalement située en plein centre de Brest, entre Saint-Michel et le boulevard Gambetta.\n\nDerrière sa façade discrète se dévoile une maison chaleureuse, offrant 4 cha…\n\nVoir plus\nPasser la liste des médias\nListe des médias\nPhotos (10)\nLes informations clés\n\nType de bien\n\nMaison\n\nSurface habitable\n\n137 m²\n\nSurface totale du terrain\n\n229 m²\n\nNombre de pièces\n\n8\n\nNombre de chambres\n\n4 ch.\n\nNombre de salles d'eau\n\n1\n\nCaractéristiques\n\nCave, Plusieurs toilettes\n\nType de chauffage\n\nIndividuel\n\nVoir les 6 critères supplémentaires\nDiagnostics\n\nClasse énergie\n\nA\nB\nC\nD\nE\nF\nG\n\nGES\n\nA\nB\nC\nD\nE\nF\nG"
@@ -2611,7 +2533,7 @@
           "priceVal": 445990
         }
       ],
-      "score": 3.1,
+      "score": 4.4,
       "status": "Actif",
       "location": "Brest 29200 Centre-ville - Triangle d'Or",
       "quartier": "Siam",
@@ -2626,11 +2548,12 @@
       "dateLast": "23 octobre 2026 à 14h11",
       "dateVal": 1792757460000,
       "maluses": [
-        "Pas de terrasse/jardin (-2.0)",
-        "Pas de parking/garage (-1.5)",
+        "Pas dernier étage (-0.75)",
+        "Pas seul à l'étage (-0.75)",
+        "Pas de terrasse/jardin (-1.5)",
+        "Pas de parking/garage (-1.13)",
         "Malus chambres (4 pièces, 2 chambres) (-2.0)",
-        "Bonus qualité : coup de coeur, standing, magnifique (+0.6)",
-        "Pas dernier ni seul à l'étage (-2.0)"
+        "Bonus qualité : rénové (+0.5)"
       ],
       "hasScreenshot": true,
       "description": "Appartement 4 pièces 116 m²\n\nEXCLUSIVITÉ RB IMMOBILIER – COUP DE COEUR\nBREST – HAUT DE LA RUE DE SIAM – TRIANGLE D'OR\nRB Immobilier vous présente en exclusivité ce magnifique appartement T3/T4 de 117 m², idéalement situé en haut de la rue de Siam, au coeur de l'un des secteurs les plus recherchés de Brest.\nAu 2? étage avec ascenseur d'un immeuble de standing, découvrez un appartement aux volumes généreux, ayant bénéficié d'une rénovation complète en 2025.\nLa rénovation a été réalisée avec un soi…\n\nVoir plus\nPasser la liste des médias\nListe des médias\nPhotos (13)\nLes informations clés\n\nType de bien\n\nAppartement\n\nSurface habitable\n\n116 m²\n\nNombre de pièces\n\n4\n\nNombre de chambres\n\n2 ch.\n\nNombre de salles d'eau\n\n1\n\nCaractéristiques\n\nCuisine équipée, Cave\n\nType de chauffage\n\nCollectif\n\nMode de chauffage\n\nGaz\n\nVoir les 7 critères supplémentaires\nDiagnostics\n\nClasse énergie\n\nA\nB\nC\nD\nE\nF\nG\n\nGES\n\nA\nB\nC\nD\nE\nF\nG"
@@ -2696,7 +2619,7 @@
           "priceVal": 600000
         }
       ],
-      "score": 5.9,
+      "score": 6.1,
       "status": "Actif",
       "location": "Brest 29200 Centre-ville - Triangle d'Or",
       "quartier": "Siam",
@@ -2711,13 +2634,188 @@
       "dateLast": "18 octobre 2026 à 20h51",
       "dateVal": 1792349460000,
       "maluses": [
-        "Pas de parking/garage (-1.5)",
+        "Pas seul à l'étage (-0.75)",
+        "Pas de parking/garage (-1.13)",
         "Malus chambres (4 pièces, 2 chambres) (-2.0)",
-        "Bonus qualité : rare, magnifique (+0.4)",
-        "Pas seul à l'étage (-1.0)"
+        "Bonus qualité (+0.0)"
       ],
       "hasScreenshot": true,
       "description": "Appartement 4 pièces 103 m²\n\nBrest - Bas Siam- A deux pas du Cour d'Ajot - Appartement d'exception - Dans l'un des quartiers les plus recherchés de Brest, à proximité immédiate de Cour d'Ajot. Découvrez ce magnifique appartement situé au dernier étage d'une petite copropriété avec ascenseur. Véritable bien rare, cet appartement bénéficie d'une surface parfaitement optimisée de 102.91m² habitables selon la loi Carrez, représentant environ 138m² au sol grâce à ses volumes sous combles. Une terras…\n\nVoir plus\nPasser la liste des médias\nListe des médias\nPhotos (8)\nLes informations clés\n\nType de bien\n\nAppartement\n\nSurface habitable\n\n103 m²\n\nNombre de pièces\n\n4\n\nNombre de chambres\n\n2 ch.\n\nNombre de salles d'eau\n\n2\n\nCaractéristiques\n\nCuisine équipée, Construction récente, Plusieurs toilettes, Interphone\n\nType de chauffage\n\nIndividuel\n\nMode de chauffage\n\nÉlectrique\n\nVoir les 6 critères supplémentaires\nDiagnostics\n\nClasse énergie\n\nA\nB\nC\nD\nE\nF\nG\n\nGES\n\nA\nB\nC\nD\nE\nF\nG"
+    },
+    {
+      "folder": "leboncoin_3280276566",
+      "isSas": false,
+      "source": "Leboncoin",
+      "title": "Appartement 144 m² Triangle d'Or, seul à l'étage, à rénover",
+      "price": "400 000 €",
+      "priceVal": 400000,
+      "prixM2": 2778,
+      "dvfComparison": {
+        "prixM2": 2778,
+        "medianM2": 2250,
+        "diffPct": 23,
+        "sampleCount": 229,
+        "scopeLabel": "Triangle d'Or",
+        "yearsLabel": "2024–2025",
+        "comparables": [
+          {
+            "date": "2025-12-09",
+            "adresse": "14 RUE DE GLASGOW",
+            "surface": 143,
+            "prix": 180000,
+            "prixM2": 1262
+          },
+          {
+            "date": "2025-11-24",
+            "adresse": "2 RUE ALAIN FOURNIER",
+            "surface": 137,
+            "prix": 125000,
+            "prixM2": 915
+          },
+          {
+            "date": "2025-09-30",
+            "adresse": "2 RUE VICTOR SEGALEN",
+            "surface": 142,
+            "prix": 180000,
+            "prixM2": 1267
+          },
+          {
+            "date": "2025-09-15",
+            "adresse": "12 RUE FAUTRAS",
+            "surface": 134,
+            "prix": 222500,
+            "prixM2": 1661
+          },
+          {
+            "date": "2025-05-23",
+            "adresse": "36 RUE JEAN MACE",
+            "surface": 150,
+            "prix": 233700,
+            "prixM2": 1558
+          }
+        ]
+      },
+      "priceHistory": [
+        {
+          "date": "8 octobre 2026",
+          "dateTs": 1791486316000,
+          "price": "400 000 €",
+          "priceVal": 400000
+        }
+      ],
+      "score": 4,
+      "status": "Actif",
+      "location": "BREST",
+      "quartier": "Triangle d'Or",
+      "tier": 1,
+      "url": "https://www.leboncoin.fr/ad/ventes_immobilieres/3280276566",
+      "type": "Appartement",
+      "surface": "144 m²",
+      "surfaceVal": 144,
+      "pieces": "5 pièces",
+      "prestations": "Chambres: 4, Garage: 0, Cave: 1",
+      "dateFirst": "8 octobre 2026 à 21h05",
+      "dateLast": "30 octobre 2026 à 12h34",
+      "dateVal": 1793360040000,
+      "maluses": [
+        "Pas dernier étage (-1)",
+        "Pas de terrasse/jardin (-2)",
+        "Pas de parking/garage (-1.5)",
+        "Malus surface (> 130m²) (-1.0)",
+        "Malus état (à rafraîchir) (-0.5)",
+        "Bonus qualité (+0.0)"
+      ],
+      "hasScreenshot": false,
+      "description": "Au coeur du centre-ville de Brest, dans le très recherché Triangle d&rsquo;Or de la ville du Ponant, découvrez cet élégant appartement de 144 m², situé au 2ème étage avec ascenseur d&rsquo;un immeuble bourgeois en dalle béton.A deux pas des commerces, des écoles, des restaurants et du Cours Dajot, seul appartement à l&rsquo;étage, il bénéficie d&rsquo;une configuration particulièrement privilégiée, avec une entrée principale et une entrée de service, offrant à la fois confort, intimité et fonctionnalité.Dès l&rsquo;entrée, les beaux volumes et les éléments de caractère donnent le ton. Vous serez séduit par sa belle hauteur sous plafond, son parquet à bâtons rompus, sa distribution harmonieuse et les proportions généreuses de chacune des pièces.Traversant et au calme, l&rsquo;appartement profite d&rsquo;une agréable luminosité et d&rsquo;une atmosphère sereine, tout en bénéficiant d&rsquo;un emplacement exceptionnel au coeur de la ville.L&rsquo;espace familial se compose de quatre chambres, d&rsquo;une salle de bains et d&rsquo;une salle d&rsquo;eau. Une vaste entrée avec placards assure une distribution fluide et élégante de l&rsquo;ensemble.La grande cuisine, prolongée par une loggia, complète cet espace de vie et offre de belles possibilités d&rsquo;aménagement selon vos envies.Le confort est complété par un chauffage individuel au gaz de ville ainsi qu&rsquo;une grande cave en sous-sol, apportant un espace de rangement appréciable.Nécessitant une modernisation, ce bien offre un potentiel remarquable pour qui saura révéler ses volumes, préserver ses éléments anciens et lui insuffler une nouvelle élégance. Uniquement chez Luxior Immobilier REFERENCE LUXIOR IMMOBILIER 26656oc(5.26 % honoraires TTC à la charge de l&rsquo;acquéreur.)"
+    },
+    {
+      "folder": "leboncoin_3280282904",
+      "isSas": false,
+      "source": "Leboncoin",
+      "title": "Maison 141 m² Saint-Michel avec vue mer et jardin",
+      "price": "359 000 €",
+      "priceVal": 359000,
+      "prixM2": 2546,
+      "dvfComparison": {
+        "prixM2": 2546,
+        "medianM2": 2838,
+        "diffPct": -10,
+        "sampleCount": 19,
+        "scopeLabel": "Saint-Michel",
+        "yearsLabel": "2024–2025",
+        "comparables": [
+          {
+            "date": "2025-10-23",
+            "adresse": "36 RUE YVES COLLET",
+            "surface": 130,
+            "prix": 355000,
+            "prixM2": 2731
+          },
+          {
+            "date": "2025-05-15",
+            "adresse": "27 RUE SULLY PRUD HOMME",
+            "surface": 138,
+            "prix": 294573.75,
+            "prixM2": 2135
+          },
+          {
+            "date": "2025-04-24",
+            "adresse": "14 VEN KERIVIN",
+            "surface": 158,
+            "prix": 452000,
+            "prixM2": 2861
+          },
+          {
+            "date": "2024-07-09",
+            "adresse": "37 RUE LEVOT",
+            "surface": 123,
+            "prix": 285000,
+            "prixM2": 2317
+          },
+          {
+            "date": "2024-02-09",
+            "adresse": "26 RUE EDOUARD CORBIERE",
+            "surface": 130,
+            "prix": 347961.12,
+            "prixM2": 2677
+          }
+        ]
+      },
+      "priceHistory": [
+        {
+          "date": "7 septembre 2026",
+          "dateTs": 1788809610000,
+          "price": "390 000 €",
+          "priceVal": 390000
+        },
+        {
+          "date": "8 octobre 2026",
+          "dateTs": 1791486316000,
+          "price": "359 000 €",
+          "priceVal": 359000
+        }
+      ],
+      "score": 8,
+      "status": "Actif",
+      "location": "Brest - Centre-ville",
+      "quartier": "Saint-Michel",
+      "tier": 2,
+      "url": "https://www.leboncoin.fr/ad/ventes_immobilieres/3280282904",
+      "type": "Maison",
+      "surface": "141 m²",
+      "surfaceVal": 141,
+      "pieces": "5 pièces",
+      "prestations": "Chambres: 3, Exposition: Sud Est, Garage: 1",
+      "dateFirst": "7 septembre 2026 à 21h33",
+      "dateLast": "29 octobre 2026 à 14h37",
+      "dateVal": 1793281020000,
+      "maluses": [
+        "Localisation : -2.0 Tiers 2",
+        "Malus surface (> 130m²) (-1.0)",
+        "Bonus qualité : rénové, vue mer (+1.0)"
+      ],
+      "hasScreenshot": false,
+      "description": "FINISTERE - Brest (29200) - A VENDRE - MAISON DE CHARME DES ANNEES 30 DE 150 M² AVEC JARDIN CLOS ET GARAGE - 4 CHAMBRES - RENOVATION DE 2019 - VUE MER - RARE\n\n***** VIDEO EN LIGNE SUR LE SITE ICOMI FRANCE ***** BREST - GAMBETTA/SAINT MICHEL ***** En couple ou en famille à la recherche d'une maison de charme des années 30 ? Génial ! Cette pépite possède une espace de vie comprenant un salon séjour de 35 m² et une cuisine attenante très tendance. Les volumes sont bien sur amplifiées par la haute…\n\nVoir plus\nPasser la liste des médias\nListe des médias\nPlans (3)\nPhotos (11)\nLes informations clés\n\nType de bien\n\nMaison\n\nSurface habitable\n\n141 m²\n\nSurface totale du terrain\n\n145 m²\n\nNombre de pièces\n\n5\n\nNombre de chambres\n\n4 ch.\n\nNombre de salles d'eau\n\n1\n\nCaractéristiques\n\nAvec garage ou place de parking, Plusieurs toilettes\n\nAscenseur\n\nNon\n\nVoir les 4 critères supplémentaires\nDiagnostics\n\nClasse énergie\n\nA\nB\nC\nD\nE\nF\nG\n\nGES\n\nA\nB\nC\nD\nE\nF\nG"
     },
     {
       "folder": "luxior_a-vendre-superbe-appartement-centre-ville-3-chambres-ascenseur-126m2",
@@ -2780,7 +2878,7 @@
           "priceVal": 385000
         }
       ],
-      "score": 4.1,
+      "score": 4.8,
       "status": "Vendu ou retiré de la vente",
       "location": "BREST",
       "quartier": "Liberté",
@@ -2796,98 +2894,431 @@
       "dateVal": 1790796840000,
       "maluses": [
         "Localisation : -2.0 Tiers 2",
-        "Pas de terrasse/jardin (-2.0)",
+        "Pas dernier étage (-0.75)",
+        "Pas de terrasse/jardin (-1.5)",
         "Pas de parking/garage (-1.5)",
-        "Bonus qualité : rare, dalle béton, confort (+0.6)",
-        "Pas dernier étage (-1.0)"
+        "Bonus qualité : rénové (+0.5)"
       ],
       "hasScreenshot": false,
       "description": "Nouveauté Luxior. En plein coeur de Brest, à deux pas de la place de la Liberté, découvrez ce superbe appartement de 126 m² entièrement rénové, situé au 4e étage avec ascenseur et seul sur son palier. Dès l'entrée, il séduit par ses volumes remarquables, sa luminosité et la qualité de ses prestations. La pièce maîtresse : près de 58 m² de pièce de vie, avec une cuisine ouverte entièrement équipée et parfaitement intégrée à l'ensemble. Un espace généreux et chaleureux, prolongé par une arrière-cuisine et une buanderie. La partie nuit offre trois belles chambres, de nombreux rangements et menuiseries sur mesure, ainsi qu'une salle de bains avec baignoire et douche. Décoration aboutie, belles finitions, double vitrage, dalle béton, cave : un appartement clé en main où chaque détail a été pensé pour conjuguer esthétique, confort et fonctionnalité. Un bien rare en centre-ville, aussi agréable à vivre qu'à regarder. REFERENCE LUXIOR IMMOBILIER 26657BH (4.05 % honoraires TTC à la charge de l'acquéreur.) Copropriété de 6 lots – dont 5 lots habitation. (Pas de procédure en cours).Charges annuelles : 1800 euros."
-    },
+    }
+  ],
+  "sas_listings": [
     {
-      "folder": "luxior_appartement-a-vendre-t5-4-chambres-ascenseur-brest-triangle-dor",
-      "isSas": false,
-      "source": "Luxior",
-      "title": "Appartement 144 m² Triangle d'Or, seul à l'étage",
-      "price": "400 000 €",
-      "priceVal": 400000,
-      "prixM2": 2778,
+      "folder": "leboncoin_3182036661",
+      "isSas": true,
+      "source": "Leboncoin",
+      "title": "Maison 127 m² Recouvrance avec jardin et garage",
+      "price": "379 000 €",
+      "priceVal": 379000,
+      "prixM2": 2984,
       "dvfComparison": {
-        "prixM2": 2778,
-        "medianM2": 2250,
-        "diffPct": 23,
-        "sampleCount": 229,
-        "scopeLabel": "Triangle d'Or",
+        "prixM2": 2984,
+        "medianM2": 2306,
+        "diffPct": 29,
+        "sampleCount": 18,
+        "scopeLabel": "Recouvrance",
         "yearsLabel": "2024–2025",
         "comparables": [
           {
-            "date": "2025-12-09",
-            "adresse": "14 RUE DE GLASGOW",
-            "surface": 143,
-            "prix": 180000,
-            "prixM2": 1262
+            "date": "2025-11-28",
+            "adresse": "3 RUE HENRI MOISSAN",
+            "surface": 115,
+            "prix": 248000,
+            "prixM2": 2157
           },
           {
-            "date": "2025-11-24",
-            "adresse": "2 RUE ALAIN FOURNIER",
-            "surface": 137,
-            "prix": 125000,
-            "prixM2": 915
+            "date": "2025-09-04",
+            "adresse": "6 RUE PIERRE TALCOAT",
+            "surface": 114,
+            "prix": 230000,
+            "prixM2": 2018
           },
           {
-            "date": "2025-09-30",
-            "adresse": "2 RUE VICTOR SEGALEN",
-            "surface": 142,
-            "prix": 180000,
-            "prixM2": 1267
+            "date": "2025-07-25",
+            "adresse": "33 RTE DE STANGALARD",
+            "surface": 114,
+            "prix": 315000,
+            "prixM2": 2763
           },
           {
-            "date": "2025-09-15",
-            "adresse": "12 RUE FAUTRAS",
-            "surface": 134,
-            "prix": 222500,
-            "prixM2": 1661
+            "date": "2025-09-12",
+            "adresse": "21 RUE PIERRE TALCOAT",
+            "surface": 100,
+            "prix": 279000,
+            "prixM2": 2790
           },
           {
-            "date": "2025-05-23",
-            "adresse": "36 RUE JEAN MACE",
-            "surface": 150,
-            "prix": 233700,
-            "prixM2": 1558
+            "date": "2025-01-23",
+            "adresse": "19 RUE PIERRE TALCOAT",
+            "surface": 111,
+            "prix": 276000,
+            "prixM2": 2486
           }
         ]
       },
       "priceHistory": [
         {
-          "date": "8 octobre 2026",
-          "dateTs": 1791486316000,
-          "price": "400 000 €",
-          "priceVal": 400000
+          "date": "29 octobre 2026",
+          "dateTs": 1793281067315,
+          "price": "379 000 €",
+          "priceVal": 379000
         }
       ],
-      "score": 7.5,
-      "status": "Actif",
-      "location": "BREST",
-      "quartier": "Triangle d'Or",
-      "tier": 1,
-      "url": "https://luxior-immobilier.com/bien/appartement-a-vendre-t5-4-chambres-ascenseur-brest-triangle-dor/",
-      "type": "Appartement",
-      "surface": "144 m²",
-      "surfaceVal": 144,
-      "pieces": "5 pièces",
-      "prestations": "Chambres: 4, Garage: 0, Cave: 1",
-      "dateFirst": "8 octobre 2026 à 21h05",
-      "dateLast": "29 octobre 2026 à 12h42",
-      "dateVal": 1793274120000,
+      "score": 6,
+      "status": "Sas d'attente",
+      "location": "Brest 29200 Cavale Blanche - Mesnos",
+      "quartier": "Recouvrance",
+      "tier": 3,
+      "url": "https://www.leboncoin.fr/ad/ventes_immobilieres/3182036661",
+      "type": "Maison",
+      "surface": "127 m²",
+      "surfaceVal": 127,
+      "pieces": "Non spécifié",
+      "prestations": "Aucune",
+      "dateFirst": "29 octobre 2026 à 14h37",
+      "dateLast": "29 octobre 2026 à 14h37",
+      "dateVal": 1793281020000,
       "maluses": [
-        "Pas de parking/garage (-1.5)",
-        "Malus surface (> 130m²) (-1.0)",
-        "Bonus qualité : exceptionnel, privilégié, beaux volumes, dalle béton, environnement calme, confort (+1.0)",
-        "Pas dernier étage (-1.0)"
+        "Localisation : -4.0 Tiers 3",
+        "Bonus qualité (+0.0)"
       ],
       "hasScreenshot": false,
-      "description": "Au coeur du centre-ville de Brest, dans le très recherché Triangle d&rsquo;Or de la ville du Ponant, découvrez cet élégant appartement de 144 m², situé au 2ème étage avec ascenseur d&rsquo;un immeuble bourgeois en dalle béton.A deux pas des commerces, des écoles, des restaurants et du Cours Dajot, seul appartement à l&rsquo;étage, il bénéficie d&rsquo;une configuration particulièrement privilégiée, avec une entrée principale et une entrée de service, offrant à la fois confort, intimité et fonctionnalité.Dès l&rsquo;entrée, les beaux volumes et les éléments de caractère donnent le ton. Vous serez séduit par sa belle hauteur sous plafond, son parquet à bâtons rompus, sa distribution harmonieuse et les proportions généreuses de chacune des pièces.Traversant et au calme, l&rsquo;appartement profite d&rsquo;une agréable luminosité et d&rsquo;une atmosphère sereine, tout en bénéficiant d&rsquo;un emplacement exceptionnel au coeur de la ville.L&rsquo;espace familial se compose de quatre chambres, d&rsquo;une salle de bains et d&rsquo;une salle d&rsquo;eau. Une vaste entrée avec placards assure une distribution fluide et élégante de l&rsquo;ensemble.La grande cuisine, prolongée par une loggia, complète cet espace de vie et offre de belles possibilités d&rsquo;aménagement selon vos envies.Le confort est complété par un chauffage individuel au gaz de ville ainsi qu&rsquo;une grande cave en sous-sol, apportant un espace de rangement appréciable.Nécessitant une modernisation, ce bien offre un potentiel remarquable pour qui saura révéler ses volumes, préserver ses éléments anciens et lui insuffler une nouvelle élégance. Uniquement chez Luxior Immobilier REFERENCE LUXIOR IMMOBILIER 26656oc(5.26 % honoraires TTC à la charge de l&rsquo;acquéreur.)"
+      "description": "Maison 127 m² BREST\n\nImmobilier.notaires® et l’office notarial CARADEC-VASSEUR et associée, SELARL vous proposent :\nMaison / villa à vendre - BREST (29200)\n- - - - - - - - - - - - - - - - - - - - - -\nCoup de cœur assuré pour cette jolie maison avec sous-sol, garage et jardin à 15 minutes à pied de recouvrance !\n\nSituée dans une rue calme du quartier des Quatre Moulins, elle offre à la fois la proximité de toutes les commodités (tram, bus, commerces, écoles, …) et un cadre de vie paisible en vill…\n\nVoir plus\nPasser la liste des médias\nListe des médias\nPhotos (21)\nVisite virtuelle\nLes informations clés\n\nType de bien\n\nMaison\n\nSurface habitable\n\n127 m²\n\nSurface totale du terrain\n\n211 m²\n\nExtérieur\n\nJardin\n\nRéférence\n\nP29094-1032\n\nDiagnostics\n\nClasse énergie\n\nA\nB\nC\nD\nE\nF\nG\n\nGES\n\nA\nB\nC\nD\nE\nF\nG"
+    },
+    {
+      "folder": "leboncoin_3188337958",
+      "isSas": true,
+      "source": "Leboncoin",
+      "title": "Maison 115 m² Saint-Martin avec terrasse et jardin",
+      "price": "349 000 €",
+      "priceVal": 349000,
+      "prixM2": 3035,
+      "dvfComparison": {
+        "prixM2": 3035,
+        "medianM2": 2619,
+        "diffPct": 16,
+        "sampleCount": 47,
+        "scopeLabel": "Saint-Martin",
+        "yearsLabel": "2024–2025",
+        "comparables": [
+          {
+            "date": "2025-10-23",
+            "adresse": "36 RUE YVES COLLET",
+            "surface": 130,
+            "prix": 355000,
+            "prixM2": 2731
+          },
+          {
+            "date": "2025-07-08",
+            "adresse": "4 RUE CAMILLE DESMOULINS",
+            "surface": 112,
+            "prix": 350000,
+            "prixM2": 3125
+          },
+          {
+            "date": "2025-04-30",
+            "adresse": "7 RUE EDOUARD CORBIERE",
+            "surface": 100,
+            "prix": 263260,
+            "prixM2": 2633
+          },
+          {
+            "date": "2025-04-23",
+            "adresse": "64 RUE PAUL MASSON",
+            "surface": 100,
+            "prix": 247000,
+            "prixM2": 2470
+          },
+          {
+            "date": "2025-03-28",
+            "adresse": "15 RUE BEAUMARCHAIS",
+            "surface": 100,
+            "prix": 294500,
+            "prixM2": 2945
+          }
+        ]
+      },
+      "priceHistory": [
+        {
+          "date": "29 octobre 2026",
+          "dateTs": 1793281065574,
+          "price": "349 000 €",
+          "priceVal": 349000
+        }
+      ],
+      "score": 7.4,
+      "status": "Sas d'attente",
+      "location": "Brest 29200 Saint-Martin",
+      "quartier": "Saint-Martin",
+      "tier": 2,
+      "url": "https://www.leboncoin.fr/ad/ventes_immobilieres/3188337958",
+      "type": "Maison",
+      "surface": "115 m²",
+      "surfaceVal": 115,
+      "pieces": "5 pièces",
+      "prestations": "Chambres: 3 ch.",
+      "dateFirst": "29 octobre 2026 à 14h37",
+      "dateLast": "29 octobre 2026 à 14h37",
+      "dateVal": 1793281020000,
+      "maluses": [
+        "Localisation : -2.0 Tiers 2",
+        "Pas de parking/garage (-1.13)",
+        "Bonus qualité : rénové (+0.5)"
+      ],
+      "hasScreenshot": false,
+      "description": "Maison 5 pièces 115 m²\n\nBREST CENTRE, CLINIQUE PASTEUR / SAINT-MARTIN\n\nMaison indépendante, non mitoyenne\n115 m2 au sol, 90 m2 hab\nGrande pièce de vie lumineuse de 55 m2\n3 Chambres, 1 salle de bains avec baignoire et douche, 1 salle d'eau\nTerrasse exposée Ouest\nJardin clos\nDPE : C\n\nHISTOIRE IMMOBILIERE vous présente cette jolie maison indépendante et entièrement rénovée.\nSituée dans le centre de BREST, dans une rue calme, non passante et à proximité immédiate de la Clinique PASTEUR.\n\nElle se c…\n\nVoir plus\nPasser la liste des médias\nListe des médias\nPhotos (14)\nLes informations clés\n\nType de bien\n\nMaison\n\nSurface habitable\n\n115 m²\n\nSurface totale du terrain\n\n200 m²\n\nNombre de pièces\n\n5\n\nNombre de chambres\n\n3 ch.\n\nNombre de salles de bain\n\n1\n\nNombre de salles d'eau\n\n1\n\nCaractéristiques\n\nCuisine équipée, Cave, Plusieurs toilettes\n\nVoir les 7 critères supplémentaires\nDiagnostics\n\nClasse énergie\n\nA\nB\nC\nD\nE\nF\nG\n\nGES\n\nA\nB\nC\nD\nE\nF\nG"
+    },
+    {
+      "folder": "leboncoin_3240598864",
+      "isSas": true,
+      "source": "Leboncoin",
+      "title": "Maison 141 m² Kérinou avec jardin",
+      "price": "395 000 €",
+      "priceVal": 395000,
+      "prixM2": 2801,
+      "dvfComparison": {
+        "prixM2": 2801,
+        "medianM2": 2385,
+        "diffPct": 17,
+        "sampleCount": 57,
+        "scopeLabel": "Kérinou",
+        "yearsLabel": "2024–2025",
+        "comparables": [
+          {
+            "date": "2025-12-17",
+            "adresse": "29 RUE DANTON",
+            "surface": 147,
+            "prix": 248000,
+            "prixM2": 1687
+          },
+          {
+            "date": "2025-07-11",
+            "adresse": "6 RUE BEAUMARCHAIS",
+            "surface": 146,
+            "prix": 430000,
+            "prixM2": 2945
+          },
+          {
+            "date": "2025-07-11",
+            "adresse": "24 RUE DE SAINT-NAZAIRE",
+            "surface": 143,
+            "prix": 200000,
+            "prixM2": 1399
+          },
+          {
+            "date": "2025-11-07",
+            "adresse": "2 RUE MESSIDOU",
+            "surface": 158,
+            "prix": 305000,
+            "prixM2": 1930
+          },
+          {
+            "date": "2025-08-05",
+            "adresse": "10 RUE RACINE",
+            "surface": 164,
+            "prix": 519000,
+            "prixM2": 3165
+          }
+        ]
+      },
+      "priceHistory": [
+        {
+          "date": "29 octobre 2026",
+          "dateTs": 1793281064920,
+          "price": "395 000 €",
+          "priceVal": 395000
+        }
+      ],
+      "score": 5.9,
+      "status": "Sas d'attente",
+      "location": "Brest 29200 Kérinou - Saint-Luc",
+      "quartier": "Kérinou",
+      "tier": 2,
+      "url": "https://www.leboncoin.fr/ad/ventes_immobilieres/3240598864",
+      "type": "Maison",
+      "surface": "141 m²",
+      "surfaceVal": 141,
+      "pieces": "6 pièces",
+      "prestations": "Chambres: 4 ch.",
+      "dateFirst": "29 octobre 2026 à 14h37",
+      "dateLast": "29 octobre 2026 à 14h37",
+      "dateVal": 1793281020000,
+      "maluses": [
+        "Localisation : -2.0 Tiers 2",
+        "Pas de parking/garage (-1.13)",
+        "Malus surface (> 130m²) (-1.0)",
+        "Bonus qualité (+0.0)"
+      ],
+      "hasScreenshot": false,
+      "description": "Maison de ville 6 pièces 141 m²\n\nL'agence Commerce City a le plaisir de vous présenter en exclusivité cette superbe maison de ville de 140 m², idéalement située dans un environnement calme et résidentiel, à proximité immédiate du Lycée Sainte Anne et du centre-ville.\n\nDès l'entrée, vous découvrirez une vaste pièce de vie lumineuse, exposée plein Sud, offrant un espace convivial et chaleureux. Elle s'ouvre sur une magnifique cuisine aménagée et entièrement équipée, pensée avec goût et fonctionnal…\n\nVoir plus\nPasser la liste des médias\nListe des médias\nPhotos (12)\nLes informations clés\n\nType de bien\n\nMaison\n\nSurface habitable\n\n141 m²\n\nSurface totale du terrain\n\n200 m²\n\nNombre de pièces\n\n6\n\nNombre de chambres\n\n4 ch.\n\nÉtage de votre bien\n\n0\n\nExtérieur\n\nJardin\n\nÉtat du bien\n\nBon état\n\nVoir 1 critère supplémentaire\nDiagnostics\n\nClasse énergie\n\nA\nB\nC\nD\nE\nF\nG\n\nGES\n\nA\nB\nC\nD\nE\nF\nG"
+    },
+    {
+      "folder": "leboncoin_3289666199",
+      "isSas": true,
+      "source": "Leboncoin",
+      "title": "Maison 103 m² Saint-Michel avec jardin",
+      "price": "359 900 €",
+      "priceVal": 359900,
+      "prixM2": 3494,
+      "dvfComparison": {
+        "prixM2": 3494,
+        "medianM2": 2838,
+        "diffPct": 23,
+        "sampleCount": 19,
+        "scopeLabel": "Saint-Michel",
+        "yearsLabel": "2024–2025",
+        "comparables": [
+          {
+            "date": "2025-11-24",
+            "adresse": "9000 RUE CONSEIL",
+            "surface": 92,
+            "prix": 285000,
+            "prixM2": 3089
+          },
+          {
+            "date": "2025-04-30",
+            "adresse": "7 RUE EDOUARD CORBIERE",
+            "surface": 100,
+            "prix": 263260,
+            "prixM2": 2633
+          },
+          {
+            "date": "2025-03-21",
+            "adresse": "11 RUE MARIE LENERU",
+            "surface": 91,
+            "prix": 260000,
+            "prixM2": 2857
+          },
+          {
+            "date": "2025-02-28",
+            "adresse": "21 RUE AMIRAL COURBET",
+            "surface": 94,
+            "prix": 243000,
+            "prixM2": 2585
+          },
+          {
+            "date": "2024-09-12",
+            "adresse": "21 RUE GRAVERAN",
+            "surface": 108,
+            "prix": 250000,
+            "prixM2": 2315
+          }
+        ]
+      },
+      "priceHistory": [
+        {
+          "date": "29 octobre 2026",
+          "dateTs": 1793281066170,
+          "price": "359 900 €",
+          "priceVal": 359900
+        }
+      ],
+      "score": 6.9,
+      "status": "Sas d'attente",
+      "location": "Brest 29200 Saint-Michel",
+      "quartier": "Saint-Michel",
+      "tier": 2,
+      "url": "https://www.leboncoin.fr/ad/ventes_immobilieres/3289666199",
+      "type": "Maison",
+      "surface": "103 m²",
+      "surfaceVal": 103,
+      "pieces": "5 pièces",
+      "prestations": "Chambres: 3 ch.",
+      "dateFirst": "29 octobre 2026 à 14h37",
+      "dateLast": "29 octobre 2026 à 14h37",
+      "dateVal": 1793281020000,
+      "maluses": [
+        "Localisation : -2.0 Tiers 2",
+        "Pas de parking/garage (-1.13)",
+        "Bonus qualité (+0.0)"
+      ],
+      "hasScreenshot": false,
+      "description": "Maison T5 des années 30 à Brest Rive Gauche\n\nSituée entre St-Michel et le Pilier Rouge, cette maison T5 de 1932 est en bon état d'usage. Elevée sur cave, son rez-de-chaussée se compose d'un salon-séjour bénéficiant d'une double exposition, d'une cuisine aménagée -équipée avec coin repas, et d'une véranda. au 1er étage, le palier dessert deux chambres de belle taille ainsi qu'une salle d'eau avec wc. Enfin, au 2ème étage, vous disposerez d'une grande chambre et d'un bureau/dressing. Jardin arbor…\n\nVoir plus\nPasser la liste des médias\nListe des médias\nPhotos (17)\nLes informations clés\n\nType de bien\n\nMaison\n\nSurface habitable\n\n103 m²\n\nSurface totale du terrain\n\n152 m²\n\nNombre de pièces\n\n5\n\nNombre de chambres\n\n3 ch.\n\nNombre de salles d'eau\n\n1\n\nCaractéristiques\n\nCave\n\nType de chauffage\n\nIndividuel\n\nVoir les 8 critères supplémentaires\nDiagnostics\n\nClasse énergie\n\nA\nB\nC\nD\nE\nF\nG\n\nGES\n\nA\nB\nC\nD\nE\nF\nG"
+    },
+    {
+      "folder": "leboncoin_3295975124",
+      "isSas": true,
+      "source": "Leboncoin",
+      "title": "Maison 140 m² Triangle d'Or",
+      "price": "373 500 €",
+      "priceVal": 373500,
+      "prixM2": 2668,
+      "dvfComparison": {
+        "prixM2": 2668,
+        "medianM2": 2874,
+        "diffPct": -7,
+        "sampleCount": 17,
+        "scopeLabel": "Triangle d'Or",
+        "yearsLabel": "2024–2025",
+        "comparables": [
+          {
+            "date": "2025-10-23",
+            "adresse": "36 RUE YVES COLLET",
+            "surface": 130,
+            "prix": 355000,
+            "prixM2": 2731
+          },
+          {
+            "date": "2025-08-28",
+            "adresse": "21 RUE REMY COPPIN",
+            "surface": 113,
+            "prix": 412850,
+            "prixM2": 3654
+          },
+          {
+            "date": "2025-07-23",
+            "adresse": "11 RUE REMY COPPIN",
+            "surface": 111,
+            "prix": 348000,
+            "prixM2": 3135
+          },
+          {
+            "date": "2024-09-12",
+            "adresse": "21 RUE GRAVERAN",
+            "surface": 108,
+            "prix": 250000,
+            "prixM2": 2315
+          },
+          {
+            "date": "2024-09-06",
+            "adresse": "19 RUE GRAVERAN",
+            "surface": 102,
+            "prix": 421000,
+            "prixM2": 4127
+          }
+        ]
+      },
+      "priceHistory": [
+        {
+          "date": "29 octobre 2026",
+          "dateTs": 1793281066001,
+          "price": "373 500 €",
+          "priceVal": 373500
+        }
+      ],
+      "score": 6.9,
+      "status": "Sas d'attente",
+      "location": "Brest 29200 Centre-ville - Triangle d'Or",
+      "quartier": "Triangle d'Or",
+      "tier": 1,
+      "url": "https://www.leboncoin.fr/ad/ventes_immobilieres/3295975124",
+      "type": "Maison",
+      "surface": "140 m²",
+      "surfaceVal": 140,
+      "pieces": "7 pièces",
+      "prestations": "Chambres: 6 ch.",
+      "dateFirst": "29 octobre 2026 à 14h37",
+      "dateLast": "29 octobre 2026 à 14h37",
+      "dateVal": 1793281020000,
+      "maluses": [
+        "Pas de parking/garage (-1.13)",
+        "Malus surface (> 130m²) (-1.0)",
+        "Malus chambres (6 chambres) (-1.0)",
+        "Bonus qualité (+0.0)"
+      ],
+      "hasScreenshot": false,
+      "description": "Située dans un secteur très prisé et au calme, profitez d'une vie citadine privilégiée à seulement deux pas du centre-ville, à proximité immédiate de la place Albert 1er et de la clinique Pasteur. Toutes les commodités sont accessibles à pied ainsi que le tramway.\nCette charmante maison en excellent état se distingue par ses volumes et sa belle hauteur sous plafond. Elle se compose comme suit :\nRez-de-chaussée : Une entrée desservant un séjour lumineux exposé PLEIN SUD, une belle cuisine aménagé…\n\nVoir plus\nPasser la liste des médias\nListe des médias\nPhotos (10)\nLes informations clés\n\nType de bien\n\nMaison\n\nSurface habitable\n\n140 m²\n\nSurface totale du terrain\n\n171 m²\n\nNombre de pièces\n\n7\n\nNombre de chambres\n\n6 ch.\n\nCaractéristiques\n\nCuisine équipée\n\nMode de chauffage\n\nGaz\n\nÉtage de votre bien\n\n0\n\nVoir les 8 critères supplémentaires\nDiagnostics\n\nClasse énergie\n\nA\nB\nC\nD\nE\nF\nG\n\nGES\n\nA\nB\nC\nD\nE\nF\nG"
     }
-  ],
-  "sas_listings": []
+  ]
 }

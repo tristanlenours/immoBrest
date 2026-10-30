@@ -13,7 +13,7 @@ outline: deep
   </div>
   <div class="detail-header-right">
     <div class="detail-score-circle score-low">
-      4.1<span>/10</span>
+      4.8<span>/10</span>
     </div>
   </div>
 </div>
@@ -89,14 +89,14 @@ outline: deep
 
 ## Critères de Scoring et Correspondance
 
-- **Score de correspondance** : 4.1/10
+- **Score de correspondance** : 4.8/10 (analyse IA)
   - [ ] Siam / Triangle d'Or / Place Wilson / Saint-Louis / Gare / Cours Dajot / Château / Jardin des Explorateurs (Tiers 1) (-2.0 pour Tiers 2)
-  - [ ] Dernier étage (ou Maison) (-1.0)
+  - [ ] Dernier étage (ou Maison) (non précisé) (-0.75)
   - [x] Seul à l'étage (ou Maison)
-  - [ ] Terrasse (ou Jardin pour une Maison) (-2.0)
+  - [ ] Terrasse (ou Jardin pour une Maison) (non précisé) (-1.5)
   - [x] Ascenseur (ou Maison)
   - [ ] Parking / Garage (-1.5)
-  - [x] Bonus qualité : rare, dalle béton, confort (+0.6)
+  - [x] Bonus qualité : rénové (+0.5)
 
 ---
 
