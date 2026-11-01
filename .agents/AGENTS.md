@@ -67,7 +67,7 @@ Les annonces vivent dans le projet **Supabase partagé** (avec DraftMaster et Qu
   - `ai_analysis` : analyse Gemini de la description (caractéristiques oui/non/inconnu, état, DPE, complément de titre, points forts/faibles), utilisée par le scoring.
 - `immo_price_history` : historique des prix par annonce.
 - `immo_dvf_sales` : transactions réelles DGFiP sur Brest.
-- `immo_run_log` : journal des exécutions du fetch (date de dernière recherche, statistiques, erreurs).
+- `immo_run_log` : journal des exécutions du fetch (date de dernière recherche, statistiques, erreurs). `stats.sourceRuns` donne le résultat par source et `stats.events` la piste d'audit annonce par annonce (nouvelle, prix, vendue, écartée, filtrée et pourquoi...), affichés sur les pages **Relevés** de l'app.
 - `immo_allowed_emails` : e-mails autorisés à consulter et modérer.
 - `leboncoin_searches/<id>/latest_screenshot.png` : captures d'écran des annonces à fort score (les anciens dossiers `.md` sont conservés comme archive historique, plus lus par les scripts).
 - `dvf_data/` et `docs/public/dvf/` : données DVF brutes et parsées ; `docs/` : site statique VitePress (`docs/biens/`, `docs/public/listings_data.json`), généré depuis la base.
@@ -93,7 +93,7 @@ flowchart TD
 ```
 
 1. **Ingestion (Fetch & Multi-dédoublonnage)** :
-   - Scan Chrome Debugging sur Leboncoin + requêtes HTTP sur agences partenaires.
+   - Scan Chrome Debugging sur Leboncoin + requêtes HTTP sur agences partenaires. Leboncoin utilise une recherche fixe alignée sur les critères (`LEBONCOIN_SEARCH_URL`, toutes les pages à chaque passage, jusqu'à `LEBONCOIN_MAX_PAGES`) : la dernière vue de chaque annonce, donc la détection des ventes, en dépend.
    - Contrôle anti-doublon global (toutes les annonces de `immo_listings`, quel que soit leur `review_status`).
 2. **Sas d'attente (Staging)** :
    - Toute nouvelle propriété entre dans `immo_listings` avec `review_status = 'sas'`.

@@ -19,6 +19,7 @@ async function rejectListing(store, row, reason) {
     reject_reason: reason
   });
   store.stats.rejected++;
+  store.audit({ type: 'rejected', source: row.source, id: row.id, url: row.url, title: row.title, price: row.price, detail: reason });
 }
 
 // Note les annonces du sas et de la base active, et rejette automatiquement
@@ -90,7 +91,12 @@ async function scoreAll(store) {
       market_status: updatedStatus
     };
     const changed = Object.keys(patch).some(k => JSON.stringify(patch[k]) !== JSON.stringify(row[k] ?? null));
-    if (changed) await store.update(row.id, patch);
+    if (changed) {
+      if (row.score !== null && row.score !== undefined && Number(row.score) !== score) {
+        store.audit({ type: 'score', source: row.source, id: row.id, url: row.url, title: row.title, price: row.price, detail: `note ${row.score} → ${score}` });
+      }
+      await store.update(row.id, patch);
+    }
 
     console.log(`Scored [${row.source}] ${title} (${row.id}) -> ${score}/10`);
 

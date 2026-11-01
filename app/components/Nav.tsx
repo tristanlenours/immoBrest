@@ -5,7 +5,8 @@ const LINKS = [
   { href: '/annonces', label: 'Annonces' },
   { href: '/sas', label: 'Sas', withCount: true },
   { href: '/archives', label: 'Archives' },
-  { href: '/corbeille', label: 'Corbeille' }
+  { href: '/corbeille', label: 'Corbeille' },
+  { href: '/releves', label: 'Relevés' }
 ];
 
 export default async function Nav({ current }: { current: string }) {

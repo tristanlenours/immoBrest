@@ -20,6 +20,10 @@ const { analyzeListing, needsAnalysis } = require('../../shared/listing_ai');
 const FETCHABLE_PHOTO_SOURCES = ['henry', 'luxior', 'barraine'];
 const AI_CONCURRENCY = 2;
 
+function audit(store, row, type, detail) {
+  store.audit({ type, source: row.source, id: row.id, url: row.url, title: row.title, price: row.price, detail });
+}
+
 function headlineOf(row) {
   const quartier = row.quartier || detectQuartier(row.title, row.description || '', row.location || '', row.url || '')?.name || '';
   const complement = row.ai_analysis
@@ -36,11 +40,12 @@ async function fillPhotos(store, rows) {
     const links = linksFromRow(row);
 
     // Leboncoin : la fiche ouverte dans Chrome donne les photos et la date de création de l'annonce.
-    if (chrome && links.leboncoin && (!hasPhotos || !row.published_at)) {
+    if (chrome && links.leboncoin && row.market_status !== SOLD_STATUS && (!hasPhotos || !row.published_at)) {
       try {
         const ad = await readLeboncoinAd(links.leboncoin);
         if (!ad) {
           console.log(`[PHOTOS] ${row.id} : annonce Leboncoin introuvable (${links.leboncoin})`);
+          audit(store, row, 'warning', 'fiche Leboncoin introuvable, photos non relevées');
         } else {
           const patch = {};
           if (!hasPhotos && ad.photos.length > 0) patch.photos = ad.photos;
@@ -49,11 +54,13 @@ async function fillPhotos(store, rows) {
             await store.update(row.id, patch);
             if (patch.photos) filled++;
             console.log(`[PHOTOS] ${row.id} : ${patch.photos ? patch.photos.length : 0} photo(s), publiée le ${ad.publishedAt || '?'} (Leboncoin)`);
+            audit(store, row, 'enriched', [patch.photos && `${patch.photos.length} photo(s) relevée(s)`, patch.published_at && 'date de publication relevée'].filter(Boolean).join(', '));
           }
           if (patch.photos) continue;
         }
       } catch (err) {
         console.error(`[PHOTOS] ${row.id} : lecture Leboncoin en échec : ${err.message}`);
+        audit(store, row, 'warning', `lecture de la fiche Leboncoin en échec : ${err.message}`);
       }
     }
 
@@ -65,6 +72,7 @@ async function fillPhotos(store, rows) {
         await store.update(row.id, { photos });
         filled++;
         console.log(`[PHOTOS] ${row.id} : ${photos.length} photo(s) depuis ${key}`);
+        audit(store, row, 'enriched', `${photos.length} photo(s) relevée(s) sur ${key}`);
         break;
       }
     }
@@ -92,9 +100,11 @@ async function analyzeAll(store, rows, { force = false } = {}) {
         await store.update(row.id, { ai_analysis });
         analyzed++;
         console.log(`[IA] ${row.id} : ${ai_analysis.complement_titre || '(pas de complément)'} | état ${ai_analysis.etat}`);
+        audit(store, row, 'enriched', 'analyse IA de la description');
       } catch (err) {
         failed++;
         console.error(`[IA] ${row.id} en échec : ${err.message}`);
+        audit(store, row, 'warning', `analyse IA en échec : ${err.message}`);
       }
     }
   }
@@ -137,6 +147,7 @@ async function detectSoldBanners(store, rows) {
       res = await gemini.generateJson([{ text: BANNER_PROMPT }, image], BANNER_SCHEMA, { maxOutputTokens: 200 });
     } catch (err) {
       console.error(`[BANDEAU] ${row.id} en échec : ${err.message}`);
+      audit(store, row, 'warning', `lecture du bandeau de la photo Henry en échec : ${err.message}`);
       continue;
     }
     if (row.ai_analysis) {
@@ -146,6 +157,7 @@ async function detectSoldBanners(store, rows) {
       await store.update(row.id, { market_status: SOLD_STATUS });
       marked++;
       console.log(`[BANDEAU] ${row.id} : « ${res.texte} » sur la photo Henry, annonce passée en vendue.`);
+      audit(store, row, 'sold', `bandeau « ${res.texte} » sur la première photo Henry`);
     }
   }
   return marked;
@@ -173,6 +185,7 @@ async function enrichAll(store, { ai = true, photos = true, force = false, only 
     const title = headlineOf(row);
     if (title && title !== row.title) {
       console.log(`[TITRE] ${row.id} : « ${row.title} » -> « ${title} »`);
+      audit(store, row, 'enriched', `titre : « ${row.title} » → « ${title} »`);
       await store.update(row.id, { title });
       stats.retitled++;
     }

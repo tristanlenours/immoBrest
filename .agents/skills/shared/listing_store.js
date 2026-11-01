@@ -181,6 +181,8 @@ function rowToParsed(row, now = Date.now()) {
 // Store
 // ---------------------------------------------------------------------------
 
+const MAX_AUDIT_EVENTS = 2000;
+
 class ListingStore {
   constructor({ dryRun = false, db = null } = {}) {
     this.dryRun = dryRun;
@@ -189,6 +191,7 @@ class ListingStore {
     this.runId = null;
     this.stats = { new: 0, priceChanged: 0, unchanged: 0, skippedTrashed: 0, markedSold: 0, rejected: 0 };
     this.createdIds = [];
+    this.events = [];
   }
 
   async load() {
@@ -303,12 +306,17 @@ class ListingStore {
     return row.id;
   }
 
+  // Piste d'audit : ce qui est arrivé à une annonce pendant ce relevé, rangé dans stats.events.
+  audit(event) {
+    if (this.events.length < MAX_AUDIT_EVENTS) this.events.push({ at: new Date().toISOString(), ...event });
+  }
+
   async finishRun(status, extraStats = {}, error = null) {
     if (this.dryRun || !this.runId) return;
     await this.db.patch('immo_run_log', `id=eq.${this.runId}`, {
       status,
       finished_at: new Date().toISOString(),
-      stats: { ...this.stats, ...extraStats },
+      stats: { ...this.stats, ...extraStats, events: this.events },
       error
     });
   }
@@ -317,9 +325,11 @@ class ListingStore {
   async lastLeboncoinSearch() {
     const rows = await this.db.select(
       'immo_run_log',
-      'select=finished_at&status=eq.success&pipeline=in.(fetch-all,fetch-leboncoin)&order=finished_at.desc&limit=1'
+      'select=finished_at,found:stats->foundBySource->leboncoin&status=eq.success&pipeline=in.(fetch-all,fetch-leboncoin)&order=finished_at.desc&limit=30'
     );
-    return rows.length && rows[0].finished_at ? new Date(rows[0].finished_at).getTime() : 0;
+    // Un relevé revenu vide n'a rien vu : il ne compte pas comme dernière recherche.
+    const last = rows.find(r => r.finished_at && Number(r.found) > 0);
+    return last ? new Date(last.finished_at).getTime() : 0;
   }
 
   async lastSuccessfulRun() {

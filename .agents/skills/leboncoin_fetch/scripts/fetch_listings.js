@@ -47,6 +47,12 @@ function formatLeboncoinDate(dateStr) {
 
 const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
+// Annonce lue sur une source mais refusée par les filtres : tracée pour la piste d'audit.
+function logFiltered(source, url, title, price, reason) {
+  console.log(`[SKIPPED - FILTER] ${title} : ${reason}`);
+  store.audit({ type: 'filtered', source, url, title, price: typeof price === 'number' ? price : null, detail: reason });
+}
+
 const { exec } = require('child_process');
 
 async function waitForPort(port, maxRetries = 15, delay = 1000) {
@@ -353,15 +359,15 @@ function isExcluded(title, description, location) {
   for (const town of nearbyTowns) {
     if (fullText.includes(town)) {
       const startDesc = description.substring(0, 150).toLowerCase();
-      if (startDesc.includes(town)) return true;
-      if (location.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(town)) return true;
-      if (title.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(town)) return true;
+      if (startDesc.includes(town)) return `hors Brest (${town})`;
+      if (location.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(town)) return `hors Brest (${town})`;
+      if (title.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").includes(town)) return `hors Brest (${town})`;
       
       if (description.toLowerCase().includes('située à ' + town) || 
           description.toLowerCase().includes('situé à ' + town) ||
           description.toLowerCase().includes('située sur la commune de ' + town) ||
           description.toLowerCase().includes('situé sur la commune de ' + town)) {
-        return true;
+        return `hors Brest (${town})`;
       }
     }
   }
@@ -387,7 +393,7 @@ function isExcluded(title, description, location) {
   for (const exc of specificExclusions) {
     const cleanExc = normalizeString(exc);
     if (normLoc.includes(cleanExc) || normTitle.includes(cleanExc) || normDescStart.includes(cleanExc)) {
-      return true;
+      return `secteur exclu (${exc})`;
     }
     
     // Check for explicit location phrases in the description
@@ -400,7 +406,7 @@ function isExcluded(title, description, location) {
       normDesc.includes('secteur ' + cleanExc) ||
       normDesc.includes('sur ' + cleanExc)
     ) {
-      return true;
+      return `secteur exclu (${exc})`;
     }
   }
   
@@ -408,16 +414,16 @@ function isExcluded(title, description, location) {
   const normFull = normTitle + ' ' + normDesc + ' ' + normLoc;
   if (normFull.includes('rive droite') || normFull.includes('rive-droite')) {
     if (!normFull.includes('capucins') && !normFull.includes('recouvrance')) {
-      return true;
+      return 'rive droite hors Capucins et Recouvrance';
     }
   }
   
   // Strict check: must have an identified recognized quartier
   if (!hasIdentifiedQuartier(title, description, location)) {
-    return true;
+    return 'aucun quartier reconnu';
   }
   
-  return false;
+  return null;
 }
 
 // Quick in-memory scorer delegating to unified scoreProperty from listing_utils.js
@@ -491,21 +497,22 @@ async function scrapeHenry() {
       const surface = surfaceMatch ? surfaceMatch[1].trim() : '';
       
       // Strict filters and Exclusions
-      if (isExcluded(title, description, 'Brest')) {
-        console.log(`[SKIPPED - EXCLUSION] ${title} matches exclusions`);
+      const excluded = isExcluded(title, description, 'Brest');
+      if (excluded) {
+        logFiltered('Agence Henry', item.url, title, parsedPrice, excluded);
         continue;
       }
       
       // 2. Surface filter: [85, 150] m²
       const surfaceNum = extractSurface(title, description, surface);
       if (surfaceNum === null || surfaceNum < 85 || surfaceNum > 150) {
-        console.log(`[SKIPPED - SURFACE] ${title} (${surfaceNum} m²) is outside [85, 150]`);
+        logFiltered('Agence Henry', item.url, title, parsedPrice, `surface ${surfaceNum === null ? 'inconnue' : surfaceNum + ' m²'} hors 85-150 m²`);
         continue;
       }
       
       // 3. Price filter: [300k, 600k] or Prix sur demande
       if (typeof parsedPrice === 'number' && (parsedPrice < 300000 || parsedPrice > 600000)) {
-        console.log(`[SKIPPED - PRICE] ${title} (${parsedPrice} €) is outside [300k, 600k]`);
+        logFiltered('Agence Henry', item.url, title, parsedPrice, `prix ${parsedPrice} € hors 300-600 k€`);
         continue;
       }
       
@@ -547,11 +554,17 @@ async function scrapeHenry() {
   return results;
 }
 
-async function scrapeLeboncoin(pagesToScan = 3, lastSearchTime = 0) {
+// Recherche fixe, alignée sur les critères du projet : la dernière vue de chaque annonce en dépend,
+// elle ne doit varier ni selon l'onglet ouvert ni selon une recherche enregistrée.
+const LEBONCOIN_SEARCH_URL = 'https://www.leboncoin.fr/recherche?category=9&locations=Brest_29200__48.39043_-4.48658_5000&price=300000-600000&square=85-150&immo_sell_type=old&real_estate_type=1%2C2&owner_type=all&sort=time&order=desc';
+const LEBONCOIN_MAX_PAGES = 10;
+
+async function scrapeLeboncoin(lastSearchTime = 0) {
   console.log('--- SCRAPING LEBONCOIN ---');
   let targets = await waitForPort(9222);
-  let target = targets.find(t => t.type === 'page' && t.url.includes('leboncoin.fr'));
-  
+  // Seul un onglet de recherche convient : une fiche ouverte à la main ne donne aucun résultat.
+  let target = targets.find(t => t.type === 'page' && /leboncoin\.fr\/(my-searches|recherches?\b)/.test(t.url));
+
   if (!target) {
     console.log('No active Leboncoin tab found. Opening a new one at saved searches...');
     const res = await fetch('http://127.0.0.1:9222/json/new?https://www.leboncoin.fr/my-searches', { method: 'PUT' });
@@ -590,66 +603,12 @@ async function scrapeLeboncoin(pagesToScan = 3, lastSearchTime = 0) {
   
   await sendCommand('Runtime.enable');
   
-  const currentUrl = target.url;
-  let cleanUrl = currentUrl
-    .replace(/([&?])sa=[^&]*/g, '')
-    .replace(/([&?])saved_id_view=[^&]*/g, '')
-    .replace(/([&?])page=[^&]*/g, '')
-    .replace(/\?&/, '?')
-    .replace(/&&+/g, '&')
-    .replace(/[&?]$/, '');
-  
-  if (currentUrl.includes('/recherches') || currentUrl.includes('/my-searches')) {
-    if (currentUrl.includes('/recherches')) {
-      console.log('Old saved searches URL detected. Navigating to /my-searches...');
-      await sendCommand('Page.enable');
-      await sendCommand('Page.navigate', { url: 'https://www.leboncoin.fr/my-searches' });
-      console.log('Waiting 6 seconds for page load...');
-      await sleep(6000);
-    }
-    
-    console.log('On saved searches page. Selecting "brest cher" saved search...');
-    const navUrl = await sendCommand('Runtime.evaluate', {
-      expression: `(() => {
-        const titleEl = Array.from(document.querySelectorAll('*'))
-          .find(el => el.children.length === 0 && el.textContent.trim().toLowerCase() === 'brest cher');
-        if (!titleEl) return '';
-        
-        let current = titleEl;
-        while (current && current !== document.body) {
-          const link = current.querySelector('a');
-          if (link) return link.href;
-          current = current.parentElement;
-        }
-        return '';
-      })()`,
-      returnByValue: true
-    });
-    
-    if (navUrl.result.value) {
-      cleanUrl = navUrl.result.value
-        .replace(/([&?])sa=[^&]*/g, '')
-        .replace(/([&?])saved_id_view=[^&]*/g, '')
-        .replace(/([&?])page=[^&]*/g, '')
-        .replace(/\?&/, '?')
-        .replace(/&&+/g, '&')
-        .replace(/[&?]$/, '');
-    } else {
-      console.log('Could not find a saved search named "brest cher" on the page. Using direct search fallback...');
-      cleanUrl = 'https://www.leboncoin.fr/recherche?category=9&locations=Brest_29200&price=300000-600000&square=85-150';
-    }
-  }
-
-  if (cleanUrl.includes('/my-searches') || cleanUrl.includes('/recherches')) {
-    cleanUrl = 'https://www.leboncoin.fr/recherche?category=9&locations=Brest_29200&price=300000-600000&square=85-150';
-  }
-  
   // Extract listing URLs and ads from all requested pages
   const allAds = [];
   const seenUrls = new Set();
   
-  for (let pageNum = 1; pageNum <= pagesToScan; pageNum++) {
-    let pageUrl = cleanUrl;
+  for (let pageNum = 1; pageNum <= LEBONCOIN_MAX_PAGES; pageNum++) {
+    let pageUrl = LEBONCOIN_SEARCH_URL;
     if (pageNum > 1) {
       if (pageUrl.includes('?')) {
         pageUrl += `&page=${pageNum}`;
@@ -812,8 +771,9 @@ async function scrapeLeboncoin(pagesToScan = 3, lastSearchTime = 0) {
         }
         
         // Strict exclusions
-        if (isExcluded(title, description, location)) {
-          console.log(`[SKIPPED - EXCLUSION] ${title} matches exclusions`);
+        const excluded = isExcluded(title, description, location);
+        if (excluded) {
+          logFiltered('Leboncoin', url, title, parsedPrice, excluded);
           continue;
         }
         
@@ -822,13 +782,13 @@ async function scrapeLeboncoin(pagesToScan = 3, lastSearchTime = 0) {
         const surfaceStr = surfaceAttr ? surfaceAttr.value_label : '';
         const surfaceNum = extractSurface(title, description, surfaceStr);
         if (surfaceNum === null || surfaceNum < 85 || surfaceNum > 150) {
-          console.log(`[SKIPPED - SURFACE] ${title} (${surfaceNum} m²) is outside [85, 150]`);
+          logFiltered('Leboncoin', url, title, parsedPrice, `surface ${surfaceNum === null ? 'inconnue' : surfaceNum + ' m²'} hors 85-150 m²`);
           continue;
         }
         
         // 3. Price filter: [300k, 600k] or Prix sur demande
         if (typeof parsedPrice === 'number' && (parsedPrice < 300000 || parsedPrice > 600000)) {
-          console.log(`[SKIPPED - PRICE] ${title} (${parsedPrice} €) is outside [300k, 600k]`);
+          logFiltered('Leboncoin', url, title, parsedPrice, `prix ${parsedPrice} € hors 300-600 k€`);
           continue;
         }
         
@@ -970,18 +930,19 @@ async function scrapeLuxior() {
       const description = sortedDescs[0] || '';
       
       // Strict filters and Exclusions
-      if (isExcluded(title, description, location)) {
-        console.log(`[SKIPPED - EXCLUSION] ${title} matches exclusions`);
+      const excluded = isExcluded(title, description, location);
+      if (excluded) {
+        logFiltered('Luxior', url, title, parsedPrice, excluded);
         continue;
       }
       
       if (surfaceNum === null || surfaceNum < 85 || surfaceNum > 150) {
-        console.log(`[SKIPPED - SURFACE] ${title} (${surfaceNum} m²) is outside [85, 150]`);
+        logFiltered('Luxior', url, title, parsedPrice, `surface ${surfaceNum === null ? 'inconnue' : surfaceNum + ' m²'} hors 85-150 m²`);
         continue;
       }
       
       if (typeof parsedPrice === 'number' && (parsedPrice < 300000 || parsedPrice > 600000)) {
-        console.log(`[SKIPPED - PRICE] ${title} (${parsedPrice} €) is outside [300k, 600k]`);
+        logFiltered('Luxior', url, title, parsedPrice, `prix ${parsedPrice} € hors 300-600 k€`);
         continue;
       }
       
@@ -1098,20 +1059,21 @@ async function scrapeBarraine() {
       }
       
       // --- Exclusions ---
-      if (isExcluded(title, description, location)) {
-        console.log(`[SKIPPED - EXCLUSION] ${title} matches exclusions`);
+      const excluded = isExcluded(title, description, location);
+      if (excluded) {
+        logFiltered('Barraine', url, title, parsedPrice, excluded);
         continue;
       }
       
       // --- Surface filter ---
       if (surfaceNum === null || surfaceNum < 85 || surfaceNum > 150) {
-        console.log(`[SKIPPED - SURFACE] ${title} (${surfaceNum} m²) is outside [85, 150]`);
+        logFiltered('Barraine', url, title, parsedPrice, `surface ${surfaceNum === null ? 'inconnue' : surfaceNum + ' m²'} hors 85-150 m²`);
         continue;
       }
       
       // --- Price filter ---
       if (typeof parsedPrice === 'number' && (parsedPrice < 300000 || parsedPrice > 600000)) {
-        console.log(`[SKIPPED - PRICE] ${title} (${parsedPrice} €) is outside [300k, 600k]`);
+        logFiltered('Barraine', url, title, parsedPrice, `prix ${parsedPrice} € hors 300-600 k€`);
         continue;
       }
       
@@ -1267,18 +1229,19 @@ async function scrapeHuman() {
       const prestations = prestParts.join(', ');
       
       // Strict filters and Exclusions
-      if (isExcluded(title, description, location)) {
-        console.log(`[SKIPPED - EXCLUSION] ${title} matches exclusions`);
+      const excluded = isExcluded(title, description, location);
+      if (excluded) {
+        logFiltered('Human', url, title, parsedPrice, excluded);
         continue;
       }
       
       if (surfaceNum === null || surfaceNum < 85 || surfaceNum > 150) {
-        console.log(`[SKIPPED - SURFACE] ${title} (${surfaceNum} m²) is outside [85, 150]`);
+        logFiltered('Human', url, title, parsedPrice, `surface ${surfaceNum === null ? 'inconnue' : surfaceNum + ' m²'} hors 85-150 m²`);
         continue;
       }
       
       if (typeof parsedPrice === 'number' && (parsedPrice < 300000 || parsedPrice > 600000)) {
-        console.log(`[SKIPPED - PRICE] ${title} (${parsedPrice} €) is outside [300k, 600k]`);
+        logFiltered('Human', url, title, parsedPrice, `prix ${parsedPrice} € hors 300-600 k€`);
         continue;
       }
       
@@ -1384,6 +1347,7 @@ async function checkUrlIs404(url) {
 // Annonce de la corbeille revue en ligne : on ne l'ingère pas, mais on note qu'elle est toujours là.
 async function touchRejected(row) {
   store.stats.skippedTrashed++;
+  store.audit({ type: 'trashed', source: row.source, id: row.id, url: row.url, title: row.title, price: row.price, detail: row.reject_reason || 'rejetée à la main' });
   await store.update(row.id, { last_seen_at: new Date().toISOString() });
 }
 
@@ -1398,6 +1362,7 @@ async function purgeLowScoreRejects(sourcesRun) {
     if (lastSeenMs >= fourteenDaysAgo) continue;
     await store.remove(row.id);
     store.stats.purged = (store.stats.purged || 0) + 1;
+    store.audit({ type: 'purged', source: row.source, url: row.url, title: row.title, price: row.price, detail: `${row.reject_reason}, non revue depuis plus de 14 jours` });
     console.log(`[PURGED] ${row.id} (${row.reject_reason}) non revue depuis plus de 14 jours : supprimée.`);
   }
 }
@@ -1436,7 +1401,10 @@ async function markSoldProperties(seenIds, sourcesRun) {
     if (reason) {
       await store.update(row.id, { market_status: SOLD_STATUS });
       store.stats.markedSold++;
+      store.audit({ type: 'sold', source: row.source, id: row.id, url: row.url, title: row.title, price: row.price, detail: reason });
       console.log(`[MARKED SOLD] Property ${row.id} marked as sold/removed (${reason}).`);
+    } else {
+      store.audit({ type: 'missing', source: row.source, id: row.id, url: row.url, title: row.title, price: row.price, detail: `absente de ce relevé, vue pour la dernière fois le ${formatFrenchDateTime(row.last_seen_at)}` });
     }
   }
 }
@@ -1536,6 +1504,12 @@ async function saveOrUpdateProperty(p) {
     }
     await store.update(targetId, patch);
     store.stats.unchanged++;
+    const refreshed = [patch.description && 'description', patch.photos && 'photos'].filter(Boolean);
+    store.audit({
+      type: refreshed.length > 0 ? 'updated' : 'unchanged',
+      source: p.source, id: targetId, url: p.url, title: existing.title, price: priceNum,
+      detail: refreshed.length > 0 ? `mise à jour : ${refreshed.join(', ')}` : 'revue en ligne, rien de changé'
+    });
     console.log(`[UPDATED LAST SEEN & LINKS] ${p.title} (${p.price}) | Updated listing ${targetId}`);
     return targetId;
   }
@@ -1588,6 +1562,7 @@ async function saveOrUpdateProperty(p) {
     await store.update(targetId, fields);
     await store.addHistory(historyEntry);
     store.stats.priceChanged++;
+    store.audit({ type: 'price', source: p.source, id: targetId, url: p.url, title: existing.title, price: priceNum, detail: `${oldPrice === null ? 'sur demande' : oldPrice + ' €'} → ${priceNum === null ? 'sur demande' : priceNum + ' €'}` });
     console.log(`[PRICE CHANGED] ${p.title} (New Price: ${p.price}, Old Price: ${oldPrice === null ? 'sur_demande' : oldPrice}) -> Updated listing ${targetId}`);
   } else {
     await store.insert({
@@ -1600,6 +1575,7 @@ async function saveOrUpdateProperty(p) {
       ...fields
     }, historyEntry);
     store.stats.new++;
+    store.audit({ type: 'new', source: p.source, id: targetId, url: p.url, title: p.title, price: priceNum, detail: 'nouvelle annonce, placée dans le sas' });
     console.log(`[NEW PROPERTY - SAS STAGING] Property "${p.title}" (${p.price}) placed in SAS: ${targetId}`);
   }
 
@@ -1645,24 +1621,13 @@ async function run() {
   await store.startRun(pipelineName(sources));
 
   const failures = [];
+  const sourceRuns = {};
   try {
-    let lastSearchTime = 0;
-    let pagesToScan = 3;
-    if (sources.has('leboncoin')) {
-      lastSearchTime = await store.lastLeboncoinSearch();
-      if (lastSearchTime > 0) {
-        const diffDays = (Date.now() - lastSearchTime) / (24 * 60 * 60 * 1000);
-        pagesToScan = diffDays <= 2 ? 1 : diffDays <= 7 ? 2 : 3;
-        console.log(`Dernière recherche effectuée le : ${formatFrenchDateTime(new Date(lastSearchTime).toISOString())} (il y a ${diffDays.toFixed(1)} jour(s)).`);
-        console.log(`Adaptation de la profondeur temporelle : scan de ${pagesToScan} page(s) sur Leboncoin.`);
-      } else {
-        console.log('Aucune recherche précédente enregistrée. Scan de profondeur maximale (3 pages) sur Leboncoin.');
-      }
-    }
+    const lastSearchTime = sources.has('leboncoin') ? await store.lastLeboncoinSearch() : 0;
 
     const scrapers = [
       ['henry', () => scrapeHenry()],
-      ['leboncoin', () => scrapeLeboncoin(pagesToScan, lastSearchTime)],
+      ['leboncoin', () => scrapeLeboncoin(lastSearchTime)],
       ['luxior', () => scrapeLuxior()],
       ['barraine', () => scrapeBarraine()],
       ['human', () => scrapeHuman()]
@@ -1673,10 +1638,12 @@ async function run() {
     const foundBySource = {};
     for (const [key, scrape] of scrapers) {
       if (!sources.has(key)) continue;
+      const started_at = new Date().toISOString();
       try {
         const results = await scrape();
         allResults.push(...results);
         foundBySource[key] = results.length;
+        sourceRuns[key] = { started_at, finished_at: new Date().toISOString(), found: results.length, status: results.length === 0 ? 'empty' : 'ok' };
         if (results.length === 0) {
           // Une source muette (blocage, page vide) ne doit pas servir à déclarer des annonces vendues.
           console.warn(`[WARNING] Aucune annonce récupérée sur ${key} : source ignorée pour la détection des ventes.`);
@@ -1685,6 +1652,7 @@ async function run() {
         }
       } catch (err) {
         failures.push(`${key}: ${err.message}`);
+        sourceRuns[key] = { started_at, finished_at: new Date().toISOString(), found: 0, status: 'error', error: err.message };
         console.error(`[ERROR] Scraper ${key} en échec :`, err.message);
       }
     }
@@ -1696,6 +1664,7 @@ async function run() {
       for (const u of uniqueResults) {
         if (areDuplicates(p, u)) {
           isDup = true;
+          store.audit({ type: 'duplicate', source: p.source, url: p.url, title: p.title, price: priceNumberOf(p.price), detail: `même bien que « ${u.title} » (${u.source})` });
           console.log(`[DEDUPLICATED] Skipped ${p.source} listing: "${p.title}" (${p.price}) as duplicate of "${u.title}" (${u.price})`);
 
           // Merge links
@@ -1752,11 +1721,11 @@ async function run() {
     }
 
     printNewListings();
-    await store.finishRun(failures.length > 0 ? 'error' : 'success', { sources: [...sources], foundBySource, failures }, failures.join(' | ') || null);
+    await store.finishRun(failures.length > 0 ? 'error' : 'success', { sources: [...sources], foundBySource, sourceRuns, failures }, failures.join(' | ') || null);
     console.log(failures.length > 0 ? `\nFetch completed with ${failures.length} error(s).` : '\nFetch completed successfully.');
     if (failures.length > 0) process.exitCode = 1;
   } catch (err) {
-    await store.finishRun('error', { failures }, err.message).catch(() => {});
+    await store.finishRun('error', { sourceRuns, failures }, err.message).catch(() => {});
     throw err;
   }
 }
