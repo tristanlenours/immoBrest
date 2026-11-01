@@ -93,7 +93,7 @@ flowchart TD
 ```
 
 1. **Ingestion (Fetch & Multi-dédoublonnage)** :
-   - Scan Chrome Debugging sur Leboncoin + requêtes HTTP sur agences partenaires. Leboncoin utilise une recherche fixe alignée sur les critères (`LEBONCOIN_SEARCH_URL`, toutes les pages à chaque passage, jusqu'à `LEBONCOIN_MAX_PAGES`) : la dernière vue de chaque annonce, donc la détection des ventes, en dépend.
+   - Scan Chrome Debugging sur Leboncoin + requêtes HTTP sur agences partenaires. Leboncoin utilise une recherche fixe alignée sur les critères (`LEBONCOIN_SEARCH_URL`, toutes les pages à chaque passage, jusqu'à `LEBONCOIN_MAX_PAGES`) : la dernière vue de chaque annonce, donc la détection des ventes, en dépend. Le minimum de 300 k€ ne vaut que pour les nouvelles annonces : un bien déjà suivi le reste s'il passe dessous (recherche Leboncoin à partir de 250 k€ pour cela).
    - Contrôle anti-doublon global (toutes les annonces de `immo_listings`, quel que soit leur `review_status`).
 2. **Sas d'attente (Staging)** :
    - Toute nouvelle propriété entre dans `immo_listings` avec `review_status = 'sas'`.

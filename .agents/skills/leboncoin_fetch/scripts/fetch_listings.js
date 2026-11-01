@@ -47,6 +47,15 @@ function formatLeboncoinDate(dateStr) {
 
 const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
+// Budget 300-600 k€ pour une nouvelle annonce. Un bien déjà suivi le reste sous 300 k€ : sinon sa
+// baisse de prix le ferait disparaître des relevés, puis passer pour vendu.
+function isOutOfBudget(price, url) {
+  if (typeof price !== 'number') return false;
+  if (price > 600000) return true;
+  if (price >= 300000) return false;
+  return !store.all().some(row => row.review_status !== 'rejected' && Object.values(linksFromRow(row)).includes(url));
+}
+
 // Annonce lue sur une source mais refusée par les filtres : tracée pour la piste d'audit.
 function logFiltered(source, url, title, price, reason) {
   console.log(`[SKIPPED - FILTER] ${title} : ${reason}`);
@@ -511,7 +520,7 @@ async function scrapeHenry() {
       }
       
       // 3. Price filter: [300k, 600k] or Prix sur demande
-      if (typeof parsedPrice === 'number' && (parsedPrice < 300000 || parsedPrice > 600000)) {
+      if (isOutOfBudget(parsedPrice, item.url)) {
         logFiltered('Agence Henry', item.url, title, parsedPrice, `prix ${parsedPrice} € hors 300-600 k€`);
         continue;
       }
@@ -555,8 +564,9 @@ async function scrapeHenry() {
 }
 
 // Recherche fixe, alignée sur les critères du projet : la dernière vue de chaque annonce en dépend,
-// elle ne doit varier ni selon l'onglet ouvert ni selon une recherche enregistrée.
-const LEBONCOIN_SEARCH_URL = 'https://www.leboncoin.fr/recherche?category=9&locations=Brest_29200__48.39043_-4.48658_5000&price=300000-600000&square=85-150&immo_sell_type=old&real_estate_type=1%2C2&owner_type=all&sort=time&order=desc';
+// elle ne doit varier ni selon l'onglet ouvert ni selon une recherche enregistrée. Elle part de
+// 250 k€ pour revoir les biens suivis passés sous le budget ; les autres sont filtrés sans ouvrir leur fiche.
+const LEBONCOIN_SEARCH_URL = 'https://www.leboncoin.fr/recherche?category=9&locations=Brest_29200__48.39043_-4.48658_5000&price=250000-600000&square=85-150&immo_sell_type=old&real_estate_type=1%2C2&owner_type=all&sort=time&order=desc';
 const LEBONCOIN_MAX_PAGES = 10;
 
 async function scrapeLeboncoin(lastSearchTime = 0) {
@@ -674,6 +684,11 @@ async function scrapeLeboncoin(lastSearchTime = 0) {
       continue;
     }
 
+    if (isOutOfBudget(adPrice, url)) {
+      logFiltered('Leboncoin', url, ad.subject, adPrice, `prix ${adPrice} € hors 300-600 k€`);
+      continue;
+    }
+
     const priceMatches = !!known && known.price === (adPrice !== null ? Number(adPrice) : null);
     let indexTime = 0;
     if (ad.index_date) {
@@ -787,7 +802,7 @@ async function scrapeLeboncoin(lastSearchTime = 0) {
         }
         
         // 3. Price filter: [300k, 600k] or Prix sur demande
-        if (typeof parsedPrice === 'number' && (parsedPrice < 300000 || parsedPrice > 600000)) {
+        if (isOutOfBudget(parsedPrice, url)) {
           logFiltered('Leboncoin', url, title, parsedPrice, `prix ${parsedPrice} € hors 300-600 k€`);
           continue;
         }
@@ -941,7 +956,7 @@ async function scrapeLuxior() {
         continue;
       }
       
-      if (typeof parsedPrice === 'number' && (parsedPrice < 300000 || parsedPrice > 600000)) {
+      if (isOutOfBudget(parsedPrice, url)) {
         logFiltered('Luxior', url, title, parsedPrice, `prix ${parsedPrice} € hors 300-600 k€`);
         continue;
       }
@@ -1072,7 +1087,7 @@ async function scrapeBarraine() {
       }
       
       // --- Price filter ---
-      if (typeof parsedPrice === 'number' && (parsedPrice < 300000 || parsedPrice > 600000)) {
+      if (isOutOfBudget(parsedPrice, url)) {
         logFiltered('Barraine', url, title, parsedPrice, `prix ${parsedPrice} € hors 300-600 k€`);
         continue;
       }
@@ -1240,7 +1255,7 @@ async function scrapeHuman() {
         continue;
       }
       
-      if (typeof parsedPrice === 'number' && (parsedPrice < 300000 || parsedPrice > 600000)) {
+      if (isOutOfBudget(parsedPrice, url)) {
         logFiltered('Human', url, title, parsedPrice, `prix ${parsedPrice} € hors 300-600 k€`);
         continue;
       }
