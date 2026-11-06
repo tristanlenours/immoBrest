@@ -1,5 +1,5 @@
 {
-  "last_update": "5 novembre 2026 à 14h28",
+  "last_update": "6 novembre 2026 à 14h11",
   "listings": [
     {
       "folder": "barraine_58615772",
@@ -74,8 +74,8 @@
       "pieces": "5 pièces",
       "prestations": "Non spécifiées",
       "dateFirst": "18 juillet 2026 à 23h57",
-      "dateLast": "5 novembre 2026 à 14h28",
-      "dateVal": 1793885280000,
+      "dateLast": "6 novembre 2026 à 14h11",
+      "dateVal": 1793970660000,
       "maluses": [
         "Localisation : -2.0 Tiers 2",
         "Pas dernier étage (-0.75)",
@@ -798,8 +798,8 @@
       "pieces": "5 pièces",
       "prestations": "Double vitrage Fenêtre aluminium Volets roulants électriques Abri de voiture Accès PMR Ascenseur Fibre optique Vidéo surveillance Vidéophone",
       "dateFirst": "21 juin 2026 à 23h52",
-      "dateLast": "5 novembre 2026 à 14h28",
-      "dateVal": 1793885280000,
+      "dateLast": "6 novembre 2026 à 14h10",
+      "dateVal": 1793970600000,
       "maluses": [
         "Localisation : -2.0 Tiers 2",
         "Pas dernier étage (-0.75)",
@@ -970,8 +970,8 @@
       "pieces": "4 pièces",
       "prestations": "Double vitrage Internet Digicode Fibre optique Local à vélo",
       "dateFirst": "14 octobre 2026 à 22h17",
-      "dateLast": "5 novembre 2026 à 14h28",
-      "dateVal": 1793885280000,
+      "dateLast": "6 novembre 2026 à 14h10",
+      "dateVal": 1793970600000,
       "maluses": [
         "Pas dernier étage (-1)",
         "Pas de terrasse/jardin (-1.5)",
@@ -1317,8 +1317,8 @@
       "pieces": "5 pièces",
       "prestations": "Double vitrage Accès PMR Ascenseur Interphone Digicode",
       "dateFirst": "22 juin 2026 à 00h03",
-      "dateLast": "5 novembre 2026 à 14h28",
-      "dateVal": 1793885280000,
+      "dateLast": "6 novembre 2026 à 14h11",
+      "dateVal": 1793970660000,
       "maluses": [
         "Pas dernier étage (-0.75)",
         "Pas de parking/garage (-1.13)",
@@ -2100,6 +2100,91 @@
       "description": "BREST CENTRE ST LOUIS\n\nAu coeur du triangle d'or , au deuxième étage seul sur le palier d'une petite copropriété de 3 appartements, vaste appartement de 114m² en parfait état. Cet appartement se compose : d'une vaste pièce de vie de 45 m² avec cuisine ouverte aménagée et équipée (four, plaques, hotte, réfrigérateur, lave-vaisselle), d'un dégagement avec placards, de 3 chambres spacieuses de 11, 15 et 22m² (dont 2 avec placards), salle de bain, wc. Pour les amoureux du centre ville. EXCLUSIVIT…\n\nVoir plus\nPasser la liste des médias\nListe des médias\nPhotos (11)\nLes informations clés\n\nType de bien\n\nAppartement\n\nSurface habitable\n\n114 m²\n\nNombre de pièces\n\n4\n\nNombre de chambres\n\n3 ch.\n\nNombre de salles de bain\n\n1\n\nCaractéristiques\n\nCuisine équipée, Cave\n\nType de chauffage\n\nIndividuel\n\nMode de chauffage\n\nGaz\n\nVoir les 6 critères supplémentaires\nDiagnostics\n\nClasse énergie\n\nA\nB\nC\nD\nE\nF\nG\n\nGES\n\nA\nB\nC\nD\nE\nF\nG"
     },
     {
+      "folder": "leboncoin_3206752663",
+      "isSas": false,
+      "source": "Leboncoin",
+      "title": "Appartement 94 m² Triangle d'Or avec terrasse et parking",
+      "price": "380 000 €",
+      "priceVal": 380000,
+      "prixM2": 4043,
+      "dvfComparison": {
+        "prixM2": 4043,
+        "medianM2": 2250,
+        "diffPct": 80,
+        "sampleCount": 229,
+        "scopeLabel": "Triangle d'Or",
+        "yearsLabel": "2024–2025",
+        "comparables": [
+          {
+            "date": "2025-12-23",
+            "adresse": "27 RUE JEAN MACE",
+            "surface": 90,
+            "prix": 177000,
+            "prixM2": 1967
+          },
+          {
+            "date": "2025-12-17",
+            "adresse": "46 RUE D AIGUILLON",
+            "surface": 99,
+            "prix": 114200,
+            "prixM2": 1150
+          },
+          {
+            "date": "2025-11-27",
+            "adresse": "5 PL DE LA LIBERTE",
+            "surface": 109,
+            "prix": 309964,
+            "prixM2": 2844
+          },
+          {
+            "date": "2025-11-17",
+            "adresse": "7 RUE DOCTEUR LENOBLE",
+            "surface": 104,
+            "prix": 260000,
+            "prixM2": 2500
+          },
+          {
+            "date": "2025-11-13",
+            "adresse": "18 RUE BRANDA",
+            "surface": 100,
+            "prix": 260000,
+            "prixM2": 2600
+          }
+        ]
+      },
+      "priceHistory": [
+        {
+          "date": "4 novembre 2026",
+          "dateTs": 1793787538716,
+          "price": "380 000 €",
+          "priceVal": 380000
+        }
+      ],
+      "score": 7,
+      "status": "Actif",
+      "location": "Brest 29200 Centre-ville - Triangle d'Or",
+      "quartier": "Triangle d'Or",
+      "tier": 1,
+      "url": "https://www.leboncoin.fr/ad/ventes_immobilieres/3206752663",
+      "type": "Appartement",
+      "surface": "94 m²",
+      "surfaceVal": 94,
+      "pieces": "5 pièces",
+      "prestations": "Chambres: 3 ch.",
+      "dateFirst": "4 novembre 2026 à 11h18",
+      "dateLast": "4 novembre 2026 à 11h18",
+      "dateVal": 1793787480000,
+      "maluses": [
+        "Pas dernier étage (-1)",
+        "Pas seul à l'étage (-0.75)",
+        "Pas d'ascenseur (-0.75)",
+        "Malus surface (< 95m²) (-1.0)",
+        "Bonus qualité : neuf (+0.5)"
+      ],
+      "hasScreenshot": false,
+      "description": "T5 st Louis copropriete de 2024\n\nA vendre chez Blot Immobilier - Brest Saint Louis Appartement de type 5 de 94m² Cet appartement situé dans une magnifique copropriété dispose d'une superbe pièce de vie lumineuse avec terrasse. Un espace cuisine est prévu pour que vous puissiez créer la cuisine ouverte de vos rêves ! Trois chambres dont une suite parentale avec salle d'eau et dressing composent cet appartement familial. La visite se poursuit par une salle de bains, deux WC séparés et de nombre…\n\nVoir plus\nPasser la liste des médias\nListe des médias\nPhotos (13)\nLes informations clés\n\nType de bien\n\nAppartement\n\nSurface habitable\n\n94 m²\n\nNombre de pièces\n\n5\n\nNombre de chambres\n\n3 ch.\n\nNombre de salles de bain\n\n1\n\nCaractéristiques\n\nAvec garage ou place de parking, Construction récente, Plusieurs toilettes\n\nType de chauffage\n\nCollectif\n\nMode de chauffage\n\nGaz\n\nVoir les 8 critères supplémentaires\nDiagnostics\n\nClasse énergie\n\nA\nB\nC\nD\nE\nF\nG\n\nGES\n\nA\nB\nC\nD\nE\nF\nG"
+    },
+    {
       "folder": "leboncoin_3225954101",
       "isSas": false,
       "source": "Leboncoin",
@@ -2262,8 +2347,8 @@
       "pieces": "5 pièces",
       "prestations": "Double vitrage Vidéophone Fenêtre PVC",
       "dateFirst": "19 juillet 2026 à 16h15",
-      "dateLast": "5 novembre 2026 à 14h28",
-      "dateVal": 1793885280000,
+      "dateLast": "6 novembre 2026 à 14h10",
+      "dateVal": 1793970600000,
       "maluses": [
         "Localisation : -2.0 Tiers 2",
         "Pas de terrasse/jardin (-0.75)",
@@ -2478,8 +2563,8 @@
       "pieces": "4 pièces",
       "prestations": "Chambres: 2, Garage: 1, Cave: 1",
       "dateFirst": "18 juillet 2026 à 21h30",
-      "dateLast": "5 novembre 2026 à 14h28",
-      "dateVal": 1793885280000,
+      "dateLast": "6 novembre 2026 à 14h11",
+      "dateVal": 1793970660000,
       "maluses": [
         "Pas de terrasse/jardin (-2)",
         "Malus chambres (4 pièces, 2 chambres) (-2.0)",
@@ -2645,8 +2730,8 @@
       "pieces": "5 pièces",
       "prestations": "Chambres: 4",
       "dateFirst": "4 août 2026 à 23h11",
-      "dateLast": "5 novembre 2026 à 14h28",
-      "dateVal": 1793885280000,
+      "dateLast": "6 novembre 2026 à 14h11",
+      "dateVal": 1793970660000,
       "maluses": [
         "Pas dernier étage (-0.75)",
         "Pas seul à l'étage (-0.75)",
@@ -2817,8 +2902,8 @@
       "pieces": "5 pièces",
       "prestations": "Chambres: 3",
       "dateFirst": "22 août 2026 à 11h28",
-      "dateLast": "5 novembre 2026 à 14h28",
-      "dateVal": 1793885280000,
+      "dateLast": "6 novembre 2026 à 14h11",
+      "dateVal": 1793970660000,
       "maluses": [
         "Localisation : -2.0 Tiers 2",
         "Pas dernier étage (-0.75)",
@@ -2829,6 +2914,91 @@
       ],
       "hasScreenshot": true,
       "description": "BREST – BRANDA – Réf: SILM5395-WS A vendre, bel appartement de 5 pièces situé au 1er étage d'un immeuble datant de 1957, en bon état général, dans le centre-ville de Brest. Ce spacieux appartement de 138 m² loi Carrez comprend un séjour lumineux de 42 m² exposé sud-ouest, une cuisine aménagée et équipée, 3 chambres, une salle de bain, une salle d'eau, et un WC séparé. Le chauffage est assuré par des radiateurs au gaz avec une chaudière pour l'eau chaude. L'appartement est calme et dispose d'un balcon, de 3 caves, ainsi que d'un garage fermé pour le stationnement. Les fenêtres sont en PVC. L'accès aux transports en commun est très pratique, avec le tramway et le bus à seulement 1 minute. Les écoles sont accessibles en 10 minutes, notamment le Groupe Scolaire Auguste Dupouy, le Groupe Scolaire Lucie et Raymond Aubrac, et l'École primaire publique Célestin Freinet. A proximité, vous trouverez également plusieurs universités telles que l'Institut d'administration des entreprises de Bretagne Occidentale, l'Institut de Géoarchitecture, et l'UBO – UFR Sciences et Techniques – Bâtiment Langevin, ainsi que le Service Universitaire de Médecine Préventive. Le quartier est bien desservi avec des commerces, pharmacies, restaurants, et parcs à proximité. L'appartement est équipé pour l'ADSL et la fibre optique est disponible. Prix de vente : 378 000 euros. Agence : Barraine IMMO (5.00 % honoraires TTC à la charge de l'acquéreur.) Copropriété de 34 lots – dont 10 lots habitation. (Pas de procédure en cours). Charges annuelles : 1880 euros. Risque sismique ou radon Les informations sur les risques auxquels ce bien est exposé sont disponibles sur le site Géorisques . * 378 000 € honoraires inclus dont à la charge de l'acquéreur : 18 000 € - Prix hors honoraires : 360 000 €."
+    },
+    {
+      "folder": "leboncoin_3250336371",
+      "isSas": false,
+      "source": "Leboncoin",
+      "title": "Appartement 116 m² Triangle d'Or avec vue mer, dernier étage",
+      "price": "375 000 €",
+      "priceVal": 375000,
+      "prixM2": 3233,
+      "dvfComparison": {
+        "prixM2": 3233,
+        "medianM2": 2250,
+        "diffPct": 44,
+        "sampleCount": 229,
+        "scopeLabel": "Triangle d'Or",
+        "yearsLabel": "2024–2025",
+        "comparables": [
+          {
+            "date": "2025-01-14",
+            "adresse": "53 RUE D AIGUILLON",
+            "surface": 115,
+            "prix": 270000,
+            "prixM2": 2348
+          },
+          {
+            "date": "2025-01-10",
+            "adresse": "76 RUE DE SIAM",
+            "surface": 120,
+            "prix": 200000,
+            "prixM2": 1667
+          },
+          {
+            "date": "2025-01-06",
+            "adresse": "45 RUE LOUIS PASTEUR",
+            "surface": 116,
+            "prix": 338000,
+            "prixM2": 2914
+          },
+          {
+            "date": "2024-12-24",
+            "adresse": "20 RUE JULES MICHELET",
+            "surface": 117,
+            "prix": 413800,
+            "prixM2": 3537
+          },
+          {
+            "date": "2024-12-23",
+            "adresse": "20 RUE VOLTAIRE",
+            "surface": 105,
+            "prix": 175290,
+            "prixM2": 1673
+          }
+        ]
+      },
+      "priceHistory": [
+        {
+          "date": "4 novembre 2026",
+          "dateTs": 1793787536353,
+          "price": "375 000 €",
+          "priceVal": 375000
+        }
+      ],
+      "score": 5.6,
+      "status": "Actif",
+      "location": "Brest 29200 Centre-ville - Triangle d'Or",
+      "quartier": "Triangle d'Or",
+      "tier": 1,
+      "url": "https://www.leboncoin.fr/ad/ventes_immobilieres/3250336371",
+      "type": "Appartement",
+      "surface": "116 m²",
+      "surfaceVal": 116,
+      "pieces": "5 pièces",
+      "prestations": "Chambres: 3 ch.",
+      "dateFirst": "4 novembre 2026 à 11h18",
+      "dateLast": "4 novembre 2026 à 11h18",
+      "dateVal": 1793787480000,
+      "maluses": [
+        "Pas seul à l'étage (-0.75)",
+        "Pas de terrasse/jardin (-1.5)",
+        "Pas d'ascenseur (-1.5)",
+        "Pas de parking/garage (-1.13)",
+        "Bonus qualité : vue mer (+0.5)"
+      ],
+      "hasScreenshot": false,
+      "description": "A Brest sur les quais, un appartement au 3e et dernier étage d'une petite copropriété.\n\nIl est composé de ;\n\n3chambre\nun salon séjours ouvert sur la cuisine\nune salle de bain\n1WC\n\nQuelles sont ses avantages ?\n\n- Une vue mer imprenable !\n- Ses volumes, un emplacement rare pour un appartement de cette taille ( il ne reste que peu/pas de grands appartements sur les quais).\n- Sa situation géo : le charme du port... Le meilleur quartier pour vivre à brest... les cafés, les restos, l'ambiance, un quar…\n\nVoir plus\nPasser la liste des médias\nListe des médias\nPhotos (3)\nLes informations clés\n\nType de vente\n\nAncien\n\nType de bien\n\nAppartement\n\nSurface habitable\n\n116 m²\n\nNombre de pièces\n\n5\n\nNombre de chambres\n\n3 ch.\n\nNombre de salles de bain\n\n1\n\nCaractéristiques\n\nInterphone, Cuisine ouverte\n\nType de chauffage\n\nIndividuel\n\nVoir les 8 critères supplémentaires\nDiagnostics\n\nClasse énergie\n\nA\nB\nC\nD\nE\nF\nG\n\nGES\n\nA\nB\nC\nD\nE\nF\nG"
     },
     {
       "folder": "leboncoin_3266438186",
@@ -3510,8 +3680,8 @@
       "pieces": "5 pièces",
       "prestations": "Chambres: 4, Garage: 0, Cave: 1",
       "dateFirst": "8 octobre 2026 à 21h05",
-      "dateLast": "5 novembre 2026 à 14h28",
-      "dateVal": 1793885280000,
+      "dateLast": "6 novembre 2026 à 14h11",
+      "dateVal": 1793970660000,
       "maluses": [
         "Pas dernier étage (-1)",
         "Pas de terrasse/jardin (-2)",
@@ -4127,262 +4297,5 @@
       "description": "Nouveauté Luxior. En plein coeur de Brest, à deux pas de la place de la Liberté, découvrez ce superbe appartement de 126 m² entièrement rénové, situé au 4e étage avec ascenseur et seul sur son palier. Dès l'entrée, il séduit par ses volumes remarquables, sa luminosité et la qualité de ses prestations. La pièce maîtresse : près de 58 m² de pièce de vie, avec une cuisine ouverte entièrement équipée et parfaitement intégrée à l'ensemble. Un espace généreux et chaleureux, prolongé par une arrière-cuisine et une buanderie. La partie nuit offre trois belles chambres, de nombreux rangements et menuiseries sur mesure, ainsi qu'une salle de bains avec baignoire et douche. Décoration aboutie, belles finitions, double vitrage, dalle béton, cave : un appartement clé en main où chaque détail a été pensé pour conjuguer esthétique, confort et fonctionnalité. Un bien rare en centre-ville, aussi agréable à vivre qu'à regarder. REFERENCE LUXIOR IMMOBILIER 26657BH (4.05 % honoraires TTC à la charge de l'acquéreur.) Copropriété de 6 lots – dont 5 lots habitation. (Pas de procédure en cours).Charges annuelles : 1800 euros."
     }
   ],
-  "sas_listings": [
-    {
-      "folder": "leboncoin_3206752663",
-      "isSas": true,
-      "source": "Leboncoin",
-      "title": "Appartement 94 m² Triangle d'Or avec terrasse et parking",
-      "price": "380 000 €",
-      "priceVal": 380000,
-      "prixM2": 4043,
-      "dvfComparison": {
-        "prixM2": 4043,
-        "medianM2": 2250,
-        "diffPct": 80,
-        "sampleCount": 229,
-        "scopeLabel": "Triangle d'Or",
-        "yearsLabel": "2024–2025",
-        "comparables": [
-          {
-            "date": "2025-12-23",
-            "adresse": "27 RUE JEAN MACE",
-            "surface": 90,
-            "prix": 177000,
-            "prixM2": 1967
-          },
-          {
-            "date": "2025-12-17",
-            "adresse": "46 RUE D AIGUILLON",
-            "surface": 99,
-            "prix": 114200,
-            "prixM2": 1150
-          },
-          {
-            "date": "2025-11-27",
-            "adresse": "5 PL DE LA LIBERTE",
-            "surface": 109,
-            "prix": 309964,
-            "prixM2": 2844
-          },
-          {
-            "date": "2025-11-17",
-            "adresse": "7 RUE DOCTEUR LENOBLE",
-            "surface": 104,
-            "prix": 260000,
-            "prixM2": 2500
-          },
-          {
-            "date": "2025-11-13",
-            "adresse": "18 RUE BRANDA",
-            "surface": 100,
-            "prix": 260000,
-            "prixM2": 2600
-          }
-        ]
-      },
-      "priceHistory": [
-        {
-          "date": "4 novembre 2026",
-          "dateTs": 1793787538716,
-          "price": "380 000 €",
-          "priceVal": 380000
-        }
-      ],
-      "score": 7,
-      "status": "Sas d'attente",
-      "location": "Brest 29200 Centre-ville - Triangle d'Or",
-      "quartier": "Triangle d'Or",
-      "tier": 1,
-      "url": "https://www.leboncoin.fr/ad/ventes_immobilieres/3206752663",
-      "type": "Appartement",
-      "surface": "94 m²",
-      "surfaceVal": 94,
-      "pieces": "5 pièces",
-      "prestations": "Chambres: 3 ch.",
-      "dateFirst": "4 novembre 2026 à 11h18",
-      "dateLast": "4 novembre 2026 à 11h18",
-      "dateVal": 1793787480000,
-      "maluses": [
-        "Pas dernier étage (-1)",
-        "Pas seul à l'étage (-0.75)",
-        "Pas d'ascenseur (-0.75)",
-        "Malus surface (< 95m²) (-1.0)",
-        "Bonus qualité : neuf (+0.5)"
-      ],
-      "hasScreenshot": false,
-      "description": "T5 st Louis copropriete de 2024\n\nA vendre chez Blot Immobilier - Brest Saint Louis Appartement de type 5 de 94m² Cet appartement situé dans une magnifique copropriété dispose d'une superbe pièce de vie lumineuse avec terrasse. Un espace cuisine est prévu pour que vous puissiez créer la cuisine ouverte de vos rêves ! Trois chambres dont une suite parentale avec salle d'eau et dressing composent cet appartement familial. La visite se poursuit par une salle de bains, deux WC séparés et de nombre…\n\nVoir plus\nPasser la liste des médias\nListe des médias\nPhotos (13)\nLes informations clés\n\nType de bien\n\nAppartement\n\nSurface habitable\n\n94 m²\n\nNombre de pièces\n\n5\n\nNombre de chambres\n\n3 ch.\n\nNombre de salles de bain\n\n1\n\nCaractéristiques\n\nAvec garage ou place de parking, Construction récente, Plusieurs toilettes\n\nType de chauffage\n\nCollectif\n\nMode de chauffage\n\nGaz\n\nVoir les 8 critères supplémentaires\nDiagnostics\n\nClasse énergie\n\nA\nB\nC\nD\nE\nF\nG\n\nGES\n\nA\nB\nC\nD\nE\nF\nG"
-    },
-    {
-      "folder": "leboncoin_3250336371",
-      "isSas": true,
-      "source": "Leboncoin",
-      "title": "Appartement 116 m² Triangle d'Or avec vue mer, dernier étage",
-      "price": "375 000 €",
-      "priceVal": 375000,
-      "prixM2": 3233,
-      "dvfComparison": {
-        "prixM2": 3233,
-        "medianM2": 2250,
-        "diffPct": 44,
-        "sampleCount": 229,
-        "scopeLabel": "Triangle d'Or",
-        "yearsLabel": "2024–2025",
-        "comparables": [
-          {
-            "date": "2025-01-14",
-            "adresse": "53 RUE D AIGUILLON",
-            "surface": 115,
-            "prix": 270000,
-            "prixM2": 2348
-          },
-          {
-            "date": "2025-01-10",
-            "adresse": "76 RUE DE SIAM",
-            "surface": 120,
-            "prix": 200000,
-            "prixM2": 1667
-          },
-          {
-            "date": "2025-01-06",
-            "adresse": "45 RUE LOUIS PASTEUR",
-            "surface": 116,
-            "prix": 338000,
-            "prixM2": 2914
-          },
-          {
-            "date": "2024-12-24",
-            "adresse": "20 RUE JULES MICHELET",
-            "surface": 117,
-            "prix": 413800,
-            "prixM2": 3537
-          },
-          {
-            "date": "2024-12-23",
-            "adresse": "20 RUE VOLTAIRE",
-            "surface": 105,
-            "prix": 175290,
-            "prixM2": 1673
-          }
-        ]
-      },
-      "priceHistory": [
-        {
-          "date": "4 novembre 2026",
-          "dateTs": 1793787536353,
-          "price": "375 000 €",
-          "priceVal": 375000
-        }
-      ],
-      "score": 5.6,
-      "status": "Sas d'attente",
-      "location": "Brest 29200 Centre-ville - Triangle d'Or",
-      "quartier": "Triangle d'Or",
-      "tier": 1,
-      "url": "https://www.leboncoin.fr/ad/ventes_immobilieres/3250336371",
-      "type": "Appartement",
-      "surface": "116 m²",
-      "surfaceVal": 116,
-      "pieces": "5 pièces",
-      "prestations": "Chambres: 3 ch.",
-      "dateFirst": "4 novembre 2026 à 11h18",
-      "dateLast": "4 novembre 2026 à 11h18",
-      "dateVal": 1793787480000,
-      "maluses": [
-        "Pas seul à l'étage (-0.75)",
-        "Pas de terrasse/jardin (-1.5)",
-        "Pas d'ascenseur (-1.5)",
-        "Pas de parking/garage (-1.13)",
-        "Bonus qualité : vue mer (+0.5)"
-      ],
-      "hasScreenshot": false,
-      "description": "A Brest sur les quais, un appartement au 3e et dernier étage d'une petite copropriété.\n\nIl est composé de ;\n\n3chambre\nun salon séjours ouvert sur la cuisine\nune salle de bain\n1WC\n\nQuelles sont ses avantages ?\n\n- Une vue mer imprenable !\n- Ses volumes, un emplacement rare pour un appartement de cette taille ( il ne reste que peu/pas de grands appartements sur les quais).\n- Sa situation géo : le charme du port... Le meilleur quartier pour vivre à brest... les cafés, les restos, l'ambiance, un quar…\n\nVoir plus\nPasser la liste des médias\nListe des médias\nPhotos (3)\nLes informations clés\n\nType de vente\n\nAncien\n\nType de bien\n\nAppartement\n\nSurface habitable\n\n116 m²\n\nNombre de pièces\n\n5\n\nNombre de chambres\n\n3 ch.\n\nNombre de salles de bain\n\n1\n\nCaractéristiques\n\nInterphone, Cuisine ouverte\n\nType de chauffage\n\nIndividuel\n\nVoir les 8 critères supplémentaires\nDiagnostics\n\nClasse énergie\n\nA\nB\nC\nD\nE\nF\nG\n\nGES\n\nA\nB\nC\nD\nE\nF\nG"
-    },
-    {
-      "folder": "leboncoin_3291264235",
-      "isSas": true,
-      "source": "Leboncoin",
-      "title": "Appartement 86 m² Triangle d'Or avec vue mer et balcon",
-      "price": "355 242 €",
-      "priceVal": 355242,
-      "prixM2": 4131,
-      "dvfComparison": {
-        "prixM2": 4131,
-        "medianM2": 2250,
-        "diffPct": 84,
-        "sampleCount": 229,
-        "scopeLabel": "Triangle d'Or",
-        "yearsLabel": "2024–2025",
-        "comparables": [
-          {
-            "date": "2025-12-31",
-            "adresse": "4 RUE FOY",
-            "surface": 80,
-            "prix": 237800,
-            "prixM2": 2973
-          },
-          {
-            "date": "2025-12-30",
-            "adresse": "6 PL DE LA LIBERTE",
-            "surface": 78,
-            "prix": 207000,
-            "prixM2": 2654
-          },
-          {
-            "date": "2025-12-23",
-            "adresse": "6 RUE JEAN MACE",
-            "surface": 74,
-            "prix": 224000,
-            "prixM2": 3027
-          },
-          {
-            "date": "2025-12-23",
-            "adresse": "27 RUE JEAN MACE",
-            "surface": 90,
-            "prix": 177000,
-            "prixM2": 1967
-          },
-          {
-            "date": "2025-12-18",
-            "adresse": "17 RUE DU 2EME RIC",
-            "surface": 75,
-            "prix": 120000,
-            "prixM2": 1591
-          }
-        ]
-      },
-      "priceHistory": [
-        {
-          "date": "4 novembre 2026",
-          "dateTs": 1793787539504,
-          "price": "355 242 €",
-          "priceVal": 355242
-        }
-      ],
-      "score": 5.1,
-      "status": "Sas d'attente",
-      "location": "Brest 29200 Centre-ville - Triangle d'Or",
-      "quartier": "Triangle d'Or",
-      "tier": 1,
-      "url": "https://www.leboncoin.fr/ad/ventes_immobilieres/3291264235",
-      "type": "Appartement",
-      "surface": "86 m²",
-      "surfaceVal": 86,
-      "pieces": "3 pièces",
-      "prestations": "Chambres: 3 ch.",
-      "dateFirst": "4 novembre 2026 à 11h18",
-      "dateLast": "4 novembre 2026 à 11h18",
-      "dateVal": 1793787480000,
-      "maluses": [
-        "Pas dernier étage (-1)",
-        "Pas seul à l'étage (-0.75)",
-        "Pas d'ascenseur (-1.5)",
-        "Pas de parking/garage (-1.13)",
-        "Malus surface (< 95m²) (-1.0)",
-        "Bonus qualité : vue mer (+0.5)"
-      ],
-      "hasScreenshot": false,
-      "description": "Appartement 3 pièces 86 m²\n\nRB IMMO vous propose ce bel appartement T4 de 85,68 m² avec vue mer, idéalement situé rue Jules Guesde, au coeur de Brest, à proximité immédiate du quartier Saint-Martin.\nSitué au 3? étage d'une résidence contemporaine de quatre étages, cet appartement offre un cadre de vie agréable, alliant confort, luminosité et prestations modernes.\nIl se compose d'une entrée, d'une belle pièce de vie lumineuse comprenant un séjour avec cuisine ouverte donnant accès à un balcon, de…\n\nVoir plus\nPasser la liste des médias\nListe des médias\nPhotos (5)\nLes informations clés\n\nType de bien\n\nAppartement\n\nSurface habitable\n\n86 m²\n\nNombre de pièces\n\n3\n\nNombre de chambres\n\n3 ch.\n\nNombre de salles d'eau\n\n1\n\nCaractéristiques\n\nCuisine équipée, Construction récente\n\nType de chauffage\n\nIndividuel\n\nMode de chauffage\n\nÉlectrique\n\nVoir les 8 critères supplémentaires"
-    }
-  ]
+  "sas_listings": []
 }
