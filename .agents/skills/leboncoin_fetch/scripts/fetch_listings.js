@@ -569,8 +569,35 @@ async function scrapeHenry() {
 const LEBONCOIN_SEARCH_URL = 'https://www.leboncoin.fr/recherche?category=9&locations=Brest_29200__48.39043_-4.48658_5000&price=250000-600000&square=85-150&immo_sell_type=old&real_estate_type=1%2C2&owner_type=all&sort=time&order=desc';
 const LEBONCOIN_MAX_PAGES = 10;
 
-async function scrapeLeboncoin(lastSearchTime = 0) {
+// Annonces Leboncoin écartées après ouverture de leur fiche (secteur exclu, quartier non reconnu,
+// surface) : mémorisées localement pour ne pas rouvrir la fiche à chaque passage, ce qui multiplie
+// les pages chargées et déclenche le contrôle anti-robot. Une annonce est réexaminée si son prix ou
+// sa date d'indexation change (modification, remontée), ou après FILTERED_RECHECK_DAYS.
+const FILTERED_CACHE_FILE = path.resolve(__dirname, '../../../../.cache/leboncoin_filtered.json');
+const FILTERED_RECHECK_DAYS = 30;
+
+function loadFilteredCache() {
+  try {
+    return JSON.parse(fs.readFileSync(FILTERED_CACHE_FILE, 'utf8'));
+  } catch {
+    return {};
+  }
+}
+
+function saveFilteredCache(cache, dryRun) {
+  if (dryRun) return;
+  const cutoff = Date.now() - FILTERED_RECHECK_DAYS * 86400000;
+  const kept = Object.fromEntries(Object.entries(cache).filter(([, e]) => Date.parse(e.checked_at) >= cutoff));
+  fs.mkdirSync(path.dirname(FILTERED_CACHE_FILE), { recursive: true });
+  fs.writeFileSync(FILTERED_CACHE_FILE, JSON.stringify(kept, null, 1));
+}
+
+async function scrapeLeboncoin(lastSearchTime = 0, dryRun = false) {
   console.log('--- SCRAPING LEBONCOIN ---');
+  const filteredCache = loadFilteredCache();
+  const recheckCutoff = Date.now() - FILTERED_RECHECK_DAYS * 86400000;
+  let detailOpened = 0;
+  let filteredFromCache = 0;
   let targets = await waitForPort(9222);
   // Seul un onglet de recherche convient : une fiche ouverte à la main ne donne aucun résultat.
   let target = targets.find(t => t.type === 'page' && /leboncoin\.fr\/(my-searches|recherches?\b)/.test(t.url));
@@ -723,7 +750,19 @@ async function scrapeLeboncoin(lastSearchTime = 0) {
       });
       continue;
     }
-    
+
+    // Déjà écartée sur sa fiche, et inchangée depuis : inutile de la rouvrir.
+    const cachedFilter = known ? null : filteredCache[listingId];
+    if (cachedFilter && cachedFilter.index_date === (ad.index_date || null) && cachedFilter.price === priceKey
+        && Date.parse(cachedFilter.checked_at) >= recheckCutoff) {
+      filteredFromCache++;
+      logFiltered('Leboncoin', url, ad.subject, adPrice, `${cachedFilter.reason} (mémorisé)`);
+      continue;
+    }
+    const rememberFilter = (reason) => {
+      filteredCache[listingId] = { index_date: ad.index_date || null, price: priceKey, reason, checked_at: new Date().toISOString() };
+    };
+
     try {
       const delayBeforeOpen = Math.floor(Math.random() * 3000) + 3000;
       console.log(`Waiting ${delayBeforeOpen}ms to mimic human delay...`);
@@ -732,7 +771,8 @@ async function scrapeLeboncoin(lastSearchTime = 0) {
       console.log(`Opening Leboncoin ad: ${url}`);
       const openRes = await fetch('http://127.0.0.1:9222/json/new?' + encodeURIComponent(url), { method: 'PUT' });
       const tab = await openRes.json();
-      
+      detailOpened++;
+
       try {
         const adData = await evaluateInTab(tab.webSocketDebuggerUrl, `(() => {
           try {
@@ -789,6 +829,7 @@ async function scrapeLeboncoin(lastSearchTime = 0) {
         const excluded = isExcluded(title, description, location);
         if (excluded) {
           logFiltered('Leboncoin', url, title, parsedPrice, excluded);
+          rememberFilter(excluded);
           continue;
         }
         
@@ -797,7 +838,9 @@ async function scrapeLeboncoin(lastSearchTime = 0) {
         const surfaceStr = surfaceAttr ? surfaceAttr.value_label : '';
         const surfaceNum = extractSurface(title, description, surfaceStr);
         if (surfaceNum === null || surfaceNum < 85 || surfaceNum > 150) {
-          logFiltered('Leboncoin', url, title, parsedPrice, `surface ${surfaceNum === null ? 'inconnue' : surfaceNum + ' m²'} hors 85-150 m²`);
+          const reason = `surface ${surfaceNum === null ? 'inconnue' : surfaceNum + ' m²'} hors 85-150 m²`;
+          logFiltered('Leboncoin', url, title, parsedPrice, reason);
+          rememberFilter(reason);
           continue;
         }
         
@@ -857,7 +900,9 @@ async function scrapeLeboncoin(lastSearchTime = 0) {
       console.error(`Error opening tab for ${url}:`, e.message);
     }
   }
-  
+
+  saveFilteredCache(filteredCache, dryRun);
+  console.log(`Leboncoin : ${detailOpened} fiche(s) ouverte(s), ${filteredFromCache} écartée(s) d'après le cache sans ouverture.`);
   return results;
 }
 
@@ -1642,7 +1687,7 @@ async function run() {
 
     const scrapers = [
       ['henry', () => scrapeHenry()],
-      ['leboncoin', () => scrapeLeboncoin(lastSearchTime)],
+      ['leboncoin', () => scrapeLeboncoin(lastSearchTime, dryRun)],
       ['luxior', () => scrapeLuxior()],
       ['barraine', () => scrapeBarraine()],
       ['human', () => scrapeHuman()]

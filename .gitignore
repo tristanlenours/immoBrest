@@ -20,3 +20,6 @@ yarn-error.log*
 
 # Journaux du fetch local
 logs/
+
+# Cache local du fetch (annonces Leboncoin déjà écartées)
+.cache/
