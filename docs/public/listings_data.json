@@ -1,5 +1,5 @@
 {
-  "last_update": "6 novembre 2026 à 14h11",
+  "last_update": "7 novembre 2026 à 11h44",
   "listings": [
     {
       "folder": "barraine_58615772",
@@ -798,8 +798,8 @@
       "pieces": "5 pièces",
       "prestations": "Double vitrage Fenêtre aluminium Volets roulants électriques Abri de voiture Accès PMR Ascenseur Fibre optique Vidéo surveillance Vidéophone",
       "dateFirst": "21 juin 2026 à 23h52",
-      "dateLast": "6 novembre 2026 à 14h10",
-      "dateVal": 1793970600000,
+      "dateLast": "7 novembre 2026 à 11h44",
+      "dateVal": 1794048240000,
       "maluses": [
         "Localisation : -2.0 Tiers 2",
         "Pas dernier étage (-0.75)",
@@ -1141,8 +1141,8 @@
       "pieces": "6 pièces",
       "prestations": "Non spécifiées",
       "dateFirst": "18 juillet 2026 à 21h54",
-      "dateLast": "4 novembre 2026 à 11h18",
-      "dateVal": 1793787480000,
+      "dateLast": "7 novembre 2026 à 11h44",
+      "dateVal": 1794048240000,
       "maluses": [
         "Pas de terrasse/jardin (-0.75)",
         "Pas de parking/garage (-1.13)",
@@ -1231,8 +1231,8 @@
       "pieces": "6 pièces",
       "prestations": "Chambres: 4 ch.",
       "dateFirst": "1 novembre 2026 à 10h53",
-      "dateLast": "4 novembre 2026 à 11h18",
-      "dateVal": 1793787480000,
+      "dateLast": "7 novembre 2026 à 11h44",
+      "dateVal": 1794048240000,
       "maluses": [
         "Pas dernier étage (-0.75)",
         "Pas seul à l'étage (-0.75)",
@@ -1317,8 +1317,8 @@
       "pieces": "5 pièces",
       "prestations": "Double vitrage Accès PMR Ascenseur Interphone Digicode",
       "dateFirst": "22 juin 2026 à 00h03",
-      "dateLast": "6 novembre 2026 à 14h11",
-      "dateVal": 1793970660000,
+      "dateLast": "7 novembre 2026 à 11h44",
+      "dateVal": 1794048240000,
       "maluses": [
         "Pas dernier étage (-0.75)",
         "Pas de parking/garage (-1.13)",
@@ -1401,8 +1401,8 @@
       "pieces": "4 pièces",
       "prestations": "Chambres: 3 ch.",
       "dateFirst": "1 novembre 2026 à 10h53",
-      "dateLast": "4 novembre 2026 à 11h18",
-      "dateVal": 1793787480000,
+      "dateLast": "7 novembre 2026 à 11h44",
+      "dateVal": 1794048240000,
       "maluses": [
         "Pas dernier étage (-0.75)",
         "Pas seul à l'étage (-0.75)",
@@ -1571,8 +1571,8 @@
       "pieces": "7 pièces",
       "prestations": "Non spécifiées",
       "dateFirst": "18 juillet 2026 à 21h54",
-      "dateLast": "4 novembre 2026 à 11h18",
-      "dateVal": 1793787480000,
+      "dateLast": "7 novembre 2026 à 11h44",
+      "dateVal": 1794048240000,
       "maluses": [
         "Pas dernier étage (-0.75)",
         "Pas seul à l'étage (-0.75)",
@@ -1663,8 +1663,8 @@
       "pieces": "5 pièces",
       "prestations": "Chambres: 3 ch.",
       "dateFirst": "21 juin 2026 à 23h28",
-      "dateLast": "4 novembre 2026 à 11h18",
-      "dateVal": 1793787480000,
+      "dateLast": "7 novembre 2026 à 11h44",
+      "dateVal": 1794048240000,
       "maluses": [
         "Localisation : -2.0 Tiers 2",
         "Pas dernier étage (-0.75)",
@@ -1832,8 +1832,8 @@
       "pieces": "5 pièces",
       "prestations": "Chambres: 3 ch.",
       "dateFirst": "1 novembre 2026 à 10h53",
-      "dateLast": "4 novembre 2026 à 11h18",
-      "dateVal": 1793787480000,
+      "dateLast": "7 novembre 2026 à 11h44",
+      "dateVal": 1794048240000,
       "maluses": [
         "Pas dernier étage (-0.75)",
         "Pas seul à l'étage (-0.75)",
@@ -1918,8 +1918,8 @@
       "pieces": "5 pièces",
       "prestations": "Chambres: 3 ch.",
       "dateFirst": "29 octobre 2026 à 14h37",
-      "dateLast": "4 novembre 2026 à 11h18",
-      "dateVal": 1793787480000,
+      "dateLast": "7 novembre 2026 à 11h44",
+      "dateVal": 1794048240000,
       "maluses": [
         "Localisation : -2.0 Tiers 2",
         "Pas de parking/garage (-1.13)",
@@ -2087,8 +2087,8 @@
       "pieces": "4 pièces",
       "prestations": "Cuisine équipée, Cave, Chauffage individuel gaz",
       "dateFirst": "21 juin 2026 à 23h28",
-      "dateLast": "4 novembre 2026 à 11h18",
-      "dateVal": 1793787480000,
+      "dateLast": "7 novembre 2026 à 11h44",
+      "dateVal": 1794048240000,
       "maluses": [
         "Pas dernier étage (-0.75)",
         "Pas de terrasse/jardin (-2)",
@@ -2103,14 +2103,14 @@
       "folder": "leboncoin_3206752663",
       "isSas": false,
       "source": "Leboncoin",
-      "title": "Appartement 94 m² Triangle d'Or avec terrasse et parking",
-      "price": "380 000 €",
-      "priceVal": 380000,
-      "prixM2": 4043,
+      "title": "Appartement 95 m² Triangle d'Or avec terrasse et parking",
+      "price": "379 600 €",
+      "priceVal": 379600,
+      "prixM2": 3996,
       "dvfComparison": {
-        "prixM2": 4043,
+        "prixM2": 3996,
         "medianM2": 2250,
-        "diffPct": 80,
+        "diffPct": 78,
         "sampleCount": 229,
         "scopeLabel": "Triangle d'Or",
         "yearsLabel": "2024–2025",
@@ -2158,31 +2158,37 @@
           "dateTs": 1793787538716,
           "price": "380 000 €",
           "priceVal": 380000
+        },
+        {
+          "date": "7 novembre 2026",
+          "dateTs": 1794048246682,
+          "price": "379 600 €",
+          "priceVal": 379600
         }
       ],
-      "score": 7,
+      "score": 6,
       "status": "Actif",
       "location": "Brest 29200 Centre-ville - Triangle d'Or",
       "quartier": "Triangle d'Or",
       "tier": 1,
-      "url": "https://www.leboncoin.fr/ad/ventes_immobilieres/3206752663",
+      "url": "https://www.leboncoin.fr/ad/ventes_immobilieres/3267589727",
       "type": "Appartement",
-      "surface": "94 m²",
-      "surfaceVal": 94,
-      "pieces": "5 pièces",
-      "prestations": "Chambres: 3 ch.",
+      "surface": "95 m²",
+      "surfaceVal": 95,
+      "pieces": "4 pièces",
+      "prestations": "Chambres: 2 ch.",
       "dateFirst": "4 novembre 2026 à 11h18",
-      "dateLast": "4 novembre 2026 à 11h18",
-      "dateVal": 1793787480000,
+      "dateLast": "7 novembre 2026 à 11h44",
+      "dateVal": 1794048240000,
       "maluses": [
         "Pas dernier étage (-1)",
         "Pas seul à l'étage (-0.75)",
         "Pas d'ascenseur (-0.75)",
-        "Malus surface (< 95m²) (-1.0)",
+        "Malus chambres (4 pièces, 2 chambres) (-2.0)",
         "Bonus qualité : neuf (+0.5)"
       ],
       "hasScreenshot": false,
-      "description": "T5 st Louis copropriete de 2024\n\nA vendre chez Blot Immobilier - Brest Saint Louis Appartement de type 5 de 94m² Cet appartement situé dans une magnifique copropriété dispose d'une superbe pièce de vie lumineuse avec terrasse. Un espace cuisine est prévu pour que vous puissiez créer la cuisine ouverte de vos rêves ! Trois chambres dont une suite parentale avec salle d'eau et dressing composent cet appartement familial. La visite se poursuit par une salle de bains, deux WC séparés et de nombre…\n\nVoir plus\nPasser la liste des médias\nListe des médias\nPhotos (13)\nLes informations clés\n\nType de bien\n\nAppartement\n\nSurface habitable\n\n94 m²\n\nNombre de pièces\n\n5\n\nNombre de chambres\n\n3 ch.\n\nNombre de salles de bain\n\n1\n\nCaractéristiques\n\nAvec garage ou place de parking, Construction récente, Plusieurs toilettes\n\nType de chauffage\n\nCollectif\n\nMode de chauffage\n\nGaz\n\nVoir les 8 critères supplémentaires\nDiagnostics\n\nClasse énergie\n\nA\nB\nC\nD\nE\nF\nG\n\nGES\n\nA\nB\nC\nD\nE\nF\nG"
+      "description": ""
     },
     {
       "folder": "leboncoin_3225954101",
@@ -2257,8 +2263,8 @@
       "pieces": "6 pièces",
       "prestations": "Ascenseur, parkings privatifs souterrains, cave",
       "dateFirst": "18 juillet 2026 à 21h15",
-      "dateLast": "4 novembre 2026 à 11h18",
-      "dateVal": 1793787480000,
+      "dateLast": "7 novembre 2026 à 11h44",
+      "dateVal": 1794048240000,
       "maluses": [
         "Localisation : -2.0 Tiers 2",
         "Pas dernier étage (-0.75)",
@@ -2347,8 +2353,8 @@
       "pieces": "5 pièces",
       "prestations": "Double vitrage Vidéophone Fenêtre PVC",
       "dateFirst": "19 juillet 2026 à 16h15",
-      "dateLast": "6 novembre 2026 à 14h10",
-      "dateVal": 1793970600000,
+      "dateLast": "7 novembre 2026 à 11h44",
+      "dateVal": 1794048240000,
       "maluses": [
         "Localisation : -2.0 Tiers 2",
         "Pas de terrasse/jardin (-0.75)",
@@ -2563,8 +2569,8 @@
       "pieces": "4 pièces",
       "prestations": "Chambres: 2, Garage: 1, Cave: 1",
       "dateFirst": "18 juillet 2026 à 21h30",
-      "dateLast": "6 novembre 2026 à 14h11",
-      "dateVal": 1793970660000,
+      "dateLast": "7 novembre 2026 à 11h44",
+      "dateVal": 1794048240000,
       "maluses": [
         "Pas de terrasse/jardin (-2)",
         "Malus chambres (4 pièces, 2 chambres) (-2.0)",
@@ -2646,8 +2652,8 @@
       "pieces": "6 pièces",
       "prestations": "Chambres: 4 ch.",
       "dateFirst": "29 octobre 2026 à 14h37",
-      "dateLast": "4 novembre 2026 à 11h18",
-      "dateVal": 1793787480000,
+      "dateLast": "7 novembre 2026 à 11h44",
+      "dateVal": 1794048240000,
       "maluses": [
         "Localisation : -2.0 Tiers 2",
         "Pas de parking/garage (-1.13)",
@@ -2816,8 +2822,8 @@
       "pieces": "Non spécifié",
       "prestations": "Aucune",
       "dateFirst": "1 novembre 2026 à 10h53",
-      "dateLast": "4 novembre 2026 à 11h18",
-      "dateVal": 1793787480000,
+      "dateLast": "7 novembre 2026 à 11h44",
+      "dateVal": 1794048240000,
       "maluses": [
         "Pas dernier étage (-0.75)",
         "Pas seul à l'étage (-0.75)",
@@ -2902,8 +2908,8 @@
       "pieces": "5 pièces",
       "prestations": "Chambres: 3",
       "dateFirst": "22 août 2026 à 11h28",
-      "dateLast": "6 novembre 2026 à 14h11",
-      "dateVal": 1793970660000,
+      "dateLast": "7 novembre 2026 à 11h44",
+      "dateVal": 1794048240000,
       "maluses": [
         "Localisation : -2.0 Tiers 2",
         "Pas dernier étage (-0.75)",
@@ -2988,8 +2994,8 @@
       "pieces": "5 pièces",
       "prestations": "Chambres: 3 ch.",
       "dateFirst": "4 novembre 2026 à 11h18",
-      "dateLast": "4 novembre 2026 à 11h18",
-      "dateVal": 1793787480000,
+      "dateLast": "7 novembre 2026 à 11h44",
+      "dateVal": 1794048240000,
       "maluses": [
         "Pas seul à l'étage (-0.75)",
         "Pas de terrasse/jardin (-1.5)",
@@ -3175,8 +3181,8 @@
       "pieces": "4 pièces",
       "prestations": "Chambres: 2 ch.",
       "dateFirst": "23 septembre 2026 à 21h00",
-      "dateLast": "4 novembre 2026 à 11h18",
-      "dateVal": 1793787480000,
+      "dateLast": "7 novembre 2026 à 11h44",
+      "dateVal": 1794048240000,
       "maluses": [
         "Pas dernier étage (-0.75)",
         "Pas seul à l'étage (-0.75)",
@@ -3261,8 +3267,8 @@
       "pieces": "5 pièces",
       "prestations": "Chambres: 4 ch.",
       "dateFirst": "1 novembre 2026 à 10h53",
-      "dateLast": "4 novembre 2026 à 11h18",
-      "dateVal": 1793787480000,
+      "dateLast": "7 novembre 2026 à 11h44",
+      "dateVal": 1794048240000,
       "maluses": [
         "Pas de parking/garage (-1.13)",
         "Bonus qualité (+0.0)"
@@ -3343,8 +3349,8 @@
       "pieces": "4 pièces",
       "prestations": "Chambres: 2 ch.",
       "dateFirst": "30 septembre 2026 à 21h34",
-      "dateLast": "4 novembre 2026 à 11h18",
-      "dateVal": 1793787480000,
+      "dateLast": "7 novembre 2026 à 11h44",
+      "dateVal": 1794048240000,
       "maluses": [
         "Pas seul à l'étage (-0.75)",
         "Pas de parking/garage (-1.13)",
@@ -3427,8 +3433,8 @@
       "pieces": "4 pièces",
       "prestations": "Chambres: 3",
       "dateFirst": "18 juillet 2026 à 23h57",
-      "dateLast": "4 novembre 2026 à 11h18",
-      "dateVal": 1793787480000,
+      "dateLast": "7 novembre 2026 à 11h44",
+      "dateVal": 1794048240000,
       "maluses": [
         "Localisation : -4.0 Tiers 3",
         "Pas dernier étage (-0.75)",
@@ -3511,8 +3517,8 @@
       "pieces": "5 pièces",
       "prestations": "Chambres: 3 ch.",
       "dateFirst": "1 novembre 2026 à 10h53",
-      "dateLast": "4 novembre 2026 à 11h18",
-      "dateVal": 1793787480000,
+      "dateLast": "7 novembre 2026 à 11h44",
+      "dateVal": 1794048240000,
       "maluses": [
         "Pas dernier étage (-0.75)",
         "Pas seul à l'étage (-0.75)",
@@ -3596,8 +3602,8 @@
       "pieces": "5 pièces",
       "prestations": "Chambres: 4 ch.",
       "dateFirst": "1 novembre 2026 à 10h53",
-      "dateLast": "4 novembre 2026 à 11h18",
-      "dateVal": 1793787480000,
+      "dateLast": "7 novembre 2026 à 11h44",
+      "dateVal": 1794048240000,
       "maluses": [
         "Localisation : -2.0 Tiers 2",
         "Pas dernier étage (-0.75)",
@@ -3680,8 +3686,8 @@
       "pieces": "5 pièces",
       "prestations": "Chambres: 4, Garage: 0, Cave: 1",
       "dateFirst": "8 octobre 2026 à 21h05",
-      "dateLast": "6 novembre 2026 à 14h11",
-      "dateVal": 1793970660000,
+      "dateLast": "7 novembre 2026 à 11h44",
+      "dateVal": 1794048240000,
       "maluses": [
         "Pas dernier étage (-1)",
         "Pas de terrasse/jardin (-2)",
@@ -3772,8 +3778,8 @@
       "pieces": "5 pièces",
       "prestations": "Chambres: 3, Exposition: Sud Est, Garage: 1",
       "dateFirst": "7 septembre 2026 à 21h33",
-      "dateLast": "4 novembre 2026 à 11h18",
-      "dateVal": 1793787480000,
+      "dateLast": "7 novembre 2026 à 11h44",
+      "dateVal": 1794048240000,
       "maluses": [
         "Localisation : -2.0 Tiers 2",
         "Malus surface (> 130m²) (-1.0)",
@@ -3855,8 +3861,8 @@
       "pieces": "6 pièces",
       "prestations": "Chambres: 4 ch.",
       "dateFirst": "1 novembre 2026 à 10h53",
-      "dateLast": "4 novembre 2026 à 11h18",
-      "dateVal": 1793787480000,
+      "dateLast": "7 novembre 2026 à 11h44",
+      "dateVal": 1794048240000,
       "maluses": [
         "Pas dernier étage (-0.75)",
         "Pas seul à l'étage (-0.75)",
@@ -3941,8 +3947,8 @@
       "pieces": "5 pièces",
       "prestations": "Chambres: 4 ch.",
       "dateFirst": "1 novembre 2026 à 10h53",
-      "dateLast": "4 novembre 2026 à 11h18",
-      "dateVal": 1793787480000,
+      "dateLast": "7 novembre 2026 à 11h44",
+      "dateVal": 1794048240000,
       "maluses": [
         "Pas dernier étage (-0.75)",
         "Pas seul à l'étage (-0.75)",
@@ -4026,8 +4032,8 @@
       "pieces": "5 pièces",
       "prestations": "Chambres: 3 ch.",
       "dateFirst": "1 novembre 2026 à 10h53",
-      "dateLast": "4 novembre 2026 à 11h18",
-      "dateVal": 1793787480000,
+      "dateLast": "7 novembre 2026 à 11h44",
+      "dateVal": 1794048240000,
       "maluses": [
         "Pas dernier étage (-0.75)",
         "Pas seul à l'étage (-0.75)",
@@ -4111,8 +4117,8 @@
       "pieces": "5 pièces",
       "prestations": "Chambres: 3 ch.",
       "dateFirst": "29 octobre 2026 à 14h37",
-      "dateLast": "1 novembre 2026 à 10h53",
-      "dateVal": 1793526780000,
+      "dateLast": "7 novembre 2026 à 11h44",
+      "dateVal": 1794048240000,
       "maluses": [
         "Localisation : -2.0 Tiers 2",
         "Pas de parking/garage (-1.13)",
@@ -4200,8 +4206,8 @@
       "pieces": "7 pièces",
       "prestations": "Chambres: 6 ch.",
       "dateFirst": "29 octobre 2026 à 14h37",
-      "dateLast": "4 novembre 2026 à 11h18",
-      "dateVal": 1793787480000,
+      "dateLast": "7 novembre 2026 à 11h44",
+      "dateVal": 1794048240000,
       "maluses": [
         "Pas de parking/garage (-1.13)",
         "Malus surface (> 130m²) (-1.0)",
@@ -4297,5 +4303,93 @@
       "description": "Nouveauté Luxior. En plein coeur de Brest, à deux pas de la place de la Liberté, découvrez ce superbe appartement de 126 m² entièrement rénové, situé au 4e étage avec ascenseur et seul sur son palier. Dès l'entrée, il séduit par ses volumes remarquables, sa luminosité et la qualité de ses prestations. La pièce maîtresse : près de 58 m² de pièce de vie, avec une cuisine ouverte entièrement équipée et parfaitement intégrée à l'ensemble. Un espace généreux et chaleureux, prolongé par une arrière-cuisine et une buanderie. La partie nuit offre trois belles chambres, de nombreux rangements et menuiseries sur mesure, ainsi qu'une salle de bains avec baignoire et douche. Décoration aboutie, belles finitions, double vitrage, dalle béton, cave : un appartement clé en main où chaque détail a été pensé pour conjuguer esthétique, confort et fonctionnalité. Un bien rare en centre-ville, aussi agréable à vivre qu'à regarder. REFERENCE LUXIOR IMMOBILIER 26657BH (4.05 % honoraires TTC à la charge de l'acquéreur.) Copropriété de 6 lots – dont 5 lots habitation. (Pas de procédure en cours).Charges annuelles : 1800 euros."
     }
   ],
-  "sas_listings": []
+  "sas_listings": [
+    {
+      "folder": "leboncoin_3132273923",
+      "isSas": true,
+      "source": "Leboncoin",
+      "title": "Appartement 89 m² Triangle d'Or avec vue mer et terrasse",
+      "price": "351 000 €",
+      "priceVal": 351000,
+      "prixM2": 3944,
+      "dvfComparison": {
+        "prixM2": 3944,
+        "medianM2": 2250,
+        "diffPct": 75,
+        "sampleCount": 229,
+        "scopeLabel": "Triangle d'Or",
+        "yearsLabel": "2024–2025",
+        "comparables": [
+          {
+            "date": "2025-12-31",
+            "adresse": "4 RUE FOY",
+            "surface": 80,
+            "prix": 237800,
+            "prixM2": 2973
+          },
+          {
+            "date": "2025-12-30",
+            "adresse": "6 PL DE LA LIBERTE",
+            "surface": 78,
+            "prix": 207000,
+            "prixM2": 2654
+          },
+          {
+            "date": "2025-12-23",
+            "adresse": "27 RUE JEAN MACE",
+            "surface": 90,
+            "prix": 177000,
+            "prixM2": 1967
+          },
+          {
+            "date": "2024-12-17",
+            "adresse": "8 RUE YVES COLLET",
+            "surface": 102,
+            "prix": 318800,
+            "prixM2": 3125
+          },
+          {
+            "date": "2024-12-17",
+            "adresse": "38 RUE DE SIAM",
+            "surface": 88,
+            "prix": 165000,
+            "prixM2": 1875
+          }
+        ]
+      },
+      "priceHistory": [
+        {
+          "date": "7 novembre 2026",
+          "dateTs": 1794048245914,
+          "price": "351 000 €",
+          "priceVal": 351000
+        }
+      ],
+      "score": 5.1,
+      "status": "Sas d'attente",
+      "location": "Brest 29200 Centre-ville - Triangle d'Or",
+      "quartier": "Triangle d'Or",
+      "tier": 1,
+      "url": "https://www.leboncoin.fr/ad/ventes_immobilieres/3132273923",
+      "type": "Appartement",
+      "surface": "89 m²",
+      "surfaceVal": 89,
+      "pieces": "3 pièces",
+      "prestations": "Chambres: 2 ch.",
+      "dateFirst": "7 novembre 2026 à 11h44",
+      "dateLast": "7 novembre 2026 à 11h44",
+      "dateVal": 1794048240000,
+      "maluses": [
+        "Pas dernier étage (-0.75)",
+        "Pas seul à l'étage (-0.75)",
+        "Pas d'ascenseur (-0.75)",
+        "Pas de parking/garage (-1.13)",
+        "Malus surface (< 95m²) (-1.0)",
+        "Malus chambres (2 chambres) (-1.0)",
+        "Bonus qualité : vue mer (+0.5)"
+      ],
+      "hasScreenshot": true,
+      "description": "Splendide Appartement Contemporain vue Mer avec Terrasse à Brest\n\nDécouvrez ce superbe appartement de 89 m² situé dans un quartier prisé de Brest, alliant confort moderne et ambiance conviviale. Construit en 2017, ce bien offre des prestations de qualité dans un environnement accueillant.\n\nComposé de 3 pièces, dont 2 chambres spacieuses, cet appartement, vue mer, est idéal pour une vie de famille ou pour ceux qui recherchent davantage d'espace. Son séjour lumineux s'ouvre sur une magnifique terr…\n\nVoir plus\nPasser la liste des médias\nListe des médias\nPhotos (11)\nLes informations clés\n\nType de bien\n\nAppartement\n\nSurface habitable\n\n89 m²\n\nNombre de pièces\n\n3\n\nNombre de chambres\n\n2 ch.\n\nNombre de salles de bain\n\n1\n\nAnnée de construction\n\n2017\n\nRéférence\n\nGUSTAV-202"
+    }
+  ]
 }
