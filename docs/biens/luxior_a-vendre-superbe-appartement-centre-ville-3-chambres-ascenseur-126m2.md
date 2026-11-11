@@ -7,6 +7,7 @@ outline: deep
 
 <div class="detail-header-panel">
   <div class="detail-header-left">
+    <span class="detail-source-badge" style="font-family: monospace; margin-right: 8px;" title="Référence">A20260923-2</span>
     <span class="detail-source-badge">Luxior</span>
     <span class="detail-status-badge status-vendu-ou-retiré-de-la-vente" style="margin-left: 8px;">Vendu ou retiré de la vente</span>
     <span class="detail-quartier-badge" style="margin-left: 8px;">📍 Liberté (Tiers 2)</span>

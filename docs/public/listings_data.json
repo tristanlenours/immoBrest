@@ -1,8 +1,9 @@
 {
-  "last_update": "11 novembre 2026 à 11h06",
+  "last_update": "11 novembre 2026 à 11h35",
   "listings": [
     {
       "folder": "barraine_58615772",
+      "ref": "A20260718-13",
       "isSas": false,
       "source": "Barraine",
       "title": "Appartement 132 m² Kérinou avec garage, seul à l'étage",
@@ -88,6 +89,7 @@
     },
     {
       "folder": "henry_85852014",
+      "ref": "A20260621-5",
       "isSas": false,
       "source": "Agence Henry",
       "title": "Appartement 124 m² Siam, dernier étage",
@@ -172,6 +174,7 @@
     },
     {
       "folder": "henry_86332541",
+      "ref": "A20260622-2",
       "isSas": false,
       "source": "Agence Henry",
       "title": "Appartement 116 m² Liberté avec vue mer et parking",
@@ -258,6 +261,7 @@
     },
     {
       "folder": "henry_86434785",
+      "ref": "A20260719",
       "isSas": false,
       "source": "Agence Henry",
       "title": "Appartement 87 m² Château avec vue mer et parking",
@@ -343,6 +347,7 @@
     },
     {
       "folder": "henry_86476595",
+      "ref": "A20260621-7",
       "isSas": false,
       "source": "Agence Henry",
       "title": "Appartement 126 m² Siam avec vue mer et terrasse",
@@ -381,6 +386,7 @@
     },
     {
       "folder": "henry_86500613",
+      "ref": "A20260719-2",
       "isSas": false,
       "source": "Agence Henry",
       "title": "Appartement 150 m² Siam avec garage et balcon",
@@ -467,6 +473,7 @@
     },
     {
       "folder": "henry_86652246",
+      "ref": "A20260718-11",
       "isSas": false,
       "source": "Agence Henry",
       "title": "Appartement 105 m² Gare avec balcon",
@@ -552,6 +559,7 @@
     },
     {
       "folder": "henry_86753814",
+      "ref": "A20260621-9",
       "isSas": false,
       "source": "Agence Henry",
       "title": "Appartement 86 m² Siam avec terrasse et garage",
@@ -637,6 +645,7 @@
     },
     {
       "folder": "henry_87102226",
+      "ref": "A20260621-15",
       "isSas": false,
       "source": "Leboncoin",
       "title": "Appartement 97 m² Capucins avec vue mer et terrasse",
@@ -714,8 +723,8 @@
       "pieces": "5 pièces",
       "prestations": "Double vitrage Fenêtre aluminium Volets roulants électriques Abri de voiture Accès PMR Ascenseur Fibre optique Vidéo surveillance Vidéophone",
       "dateFirst": "21 juin 2026 à 23h52",
-      "dateLast": "11 novembre 2026 à 11h06",
-      "dateVal": 1794391560000,
+      "dateLast": "11 novembre 2026 à 11h35",
+      "dateVal": 1794393300000,
       "maluses": [
         "Localisation : -2.0 Tiers 2",
         "Pas dernier étage (-0.75)",
@@ -727,6 +736,7 @@
     },
     {
       "folder": "henry_87184282",
+      "ref": "M20260719-5",
       "isSas": false,
       "source": "Agence Henry",
       "title": "Maison 124 m² Kérinou avec jardin et garage",
@@ -809,6 +819,7 @@
     },
     {
       "folder": "henry_87461572",
+      "ref": "A20261014",
       "isSas": false,
       "source": "Agence Henry",
       "title": "Appartement 107 m² Gare, seul à l'étage",
@@ -901,6 +912,7 @@
     },
     {
       "folder": "leboncoin_2977769727",
+      "ref": "A20260718-9",
       "isSas": false,
       "source": "Leboncoin",
       "title": "Appartement 139 m² Siam avec garage et balcon",
@@ -986,6 +998,7 @@
     },
     {
       "folder": "leboncoin_3005528482",
+      "ref": "M20260718-6",
       "isSas": false,
       "source": "Leboncoin",
       "title": "Maison 130 m² Triangle d'Or avec vue mer, à rénover",
@@ -1057,8 +1070,8 @@
       "pieces": "6 pièces",
       "prestations": "Non spécifiées",
       "dateFirst": "18 juillet 2026 à 21h54",
-      "dateLast": "11 novembre 2026 à 11h06",
-      "dateVal": 1794391560000,
+      "dateLast": "11 novembre 2026 à 11h35",
+      "dateVal": 1794393300000,
       "maluses": [
         "Pas de terrasse/jardin (-0.75)",
         "Pas de parking/garage (-1.13)",
@@ -1070,6 +1083,7 @@
     },
     {
       "folder": "leboncoin_3060135944",
+      "ref": "A20261101-2",
       "isSas": false,
       "source": "Leboncoin",
       "title": "Appartement 138 m² Triangle d'Or avec parking",
@@ -1147,8 +1161,8 @@
       "pieces": "6 pièces",
       "prestations": "Chambres: 4 ch.",
       "dateFirst": "1 novembre 2026 à 10h53",
-      "dateLast": "11 novembre 2026 à 11h06",
-      "dateVal": 1794391560000,
+      "dateLast": "11 novembre 2026 à 11h35",
+      "dateVal": 1794393300000,
       "maluses": [
         "Pas dernier étage (-0.75)",
         "Pas seul à l'étage (-0.75)",
@@ -1162,6 +1176,7 @@
     },
     {
       "folder": "leboncoin_3086540995",
+      "ref": "A20260622-4",
       "isSas": false,
       "source": "Leboncoin",
       "title": "Appartement 120 m² Gare avec balcon, seul à l'étage",
@@ -1246,6 +1261,7 @@
     },
     {
       "folder": "leboncoin_3119799071",
+      "ref": "A20261101",
       "isSas": false,
       "source": "Leboncoin",
       "title": "Appartement 140 m² Triangle d'Or avec garage",
@@ -1317,8 +1333,8 @@
       "pieces": "4 pièces",
       "prestations": "Chambres: 3 ch.",
       "dateFirst": "1 novembre 2026 à 10h53",
-      "dateLast": "11 novembre 2026 à 11h06",
-      "dateVal": 1794391560000,
+      "dateLast": "11 novembre 2026 à 11h35",
+      "dateVal": 1794393300000,
       "maluses": [
         "Pas dernier étage (-0.75)",
         "Pas seul à l'étage (-0.75)",
@@ -1332,6 +1348,7 @@
     },
     {
       "folder": "leboncoin_3126890775",
+      "ref": "A20260718",
       "isSas": false,
       "source": "Leboncoin",
       "title": "Appartement 114 m² Triangle d'Or avec terrasse, dernier étage",
@@ -1416,6 +1433,7 @@
     },
     {
       "folder": "leboncoin_3140665078",
+      "ref": "A20260718-10",
       "isSas": false,
       "source": "Leboncoin",
       "title": "Appartement 138 m² Siam",
@@ -1487,8 +1505,8 @@
       "pieces": "7 pièces",
       "prestations": "Non spécifiées",
       "dateFirst": "18 juillet 2026 à 21h54",
-      "dateLast": "11 novembre 2026 à 11h06",
-      "dateVal": 1794391560000,
+      "dateLast": "11 novembre 2026 à 11h35",
+      "dateVal": 1794393300000,
       "maluses": [
         "Pas dernier étage (-0.75)",
         "Pas seul à l'étage (-0.75)",
@@ -1502,6 +1520,7 @@
     },
     {
       "folder": "leboncoin_3150523582",
+      "ref": "A20260622",
       "isSas": false,
       "source": "Leboncoin",
       "title": "Appartement 122 m² Saint-Martin avec terrasse et garage",
@@ -1573,8 +1592,8 @@
       "pieces": "5 pièces",
       "prestations": "Double vitrage Fenêtre PVC Fenêtres coulissantes Abri de voiture",
       "dateFirst": "22 juin 2026 à 00h02",
-      "dateLast": "11 novembre 2026 à 11h06",
-      "dateVal": 1794391560000,
+      "dateLast": "11 novembre 2026 à 11h35",
+      "dateVal": 1794393300000,
       "maluses": [
         "Localisation : -2.0 Tiers 2",
         "Pas dernier étage (-1)",
@@ -1586,6 +1605,7 @@
     },
     {
       "folder": "leboncoin_3172038629",
+      "ref": "A20260621-2",
       "isSas": false,
       "source": "Leboncoin",
       "title": "Appartement 123 m² Saint-Michel avec parking et balcon",
@@ -1676,6 +1696,7 @@
     },
     {
       "folder": "leboncoin_3181077504",
+      "ref": "A20260719-3",
       "isSas": false,
       "source": "Leboncoin",
       "title": "Appartement 86 m² Triangle d'Or avec terrasse et parking",
@@ -1761,6 +1782,7 @@
     },
     {
       "folder": "leboncoin_3184384560",
+      "ref": "A20261101-10",
       "isSas": false,
       "source": "Leboncoin",
       "title": "Appartement 103 m² Triangle d'Or",
@@ -1832,8 +1854,8 @@
       "pieces": "5 pièces",
       "prestations": "Chambres: 3 ch.",
       "dateFirst": "1 novembre 2026 à 10h53",
-      "dateLast": "11 novembre 2026 à 11h06",
-      "dateVal": 1794391560000,
+      "dateLast": "11 novembre 2026 à 11h35",
+      "dateVal": 1794393300000,
       "maluses": [
         "Pas dernier étage (-0.75)",
         "Pas seul à l'étage (-0.75)",
@@ -1847,6 +1869,7 @@
     },
     {
       "folder": "leboncoin_3188337958",
+      "ref": "M20261029-2",
       "isSas": false,
       "source": "Leboncoin",
       "title": "Maison 115 m² Saint-Martin avec terrasse et jardin",
@@ -1930,6 +1953,7 @@
     },
     {
       "folder": "leboncoin_3188608567",
+      "ref": "A20260718-8",
       "isSas": false,
       "source": "Leboncoin",
       "title": "Appartement 122 m² Siam",
@@ -2001,8 +2025,8 @@
       "pieces": "6 pièces",
       "prestations": "Non spécifiées",
       "dateFirst": "18 juillet 2026 à 21h46",
-      "dateLast": "11 novembre 2026 à 11h06",
-      "dateVal": 1794391560000,
+      "dateLast": "11 novembre 2026 à 11h35",
+      "dateVal": 1794393300000,
       "maluses": [
         "Pas dernier étage (-0.75)",
         "Pas seul à l'étage (-0.75)",
@@ -2016,6 +2040,7 @@
     },
     {
       "folder": "leboncoin_3193625225",
+      "ref": "A20260621-4",
       "isSas": false,
       "source": "Leboncoin",
       "title": "Appartement 114 m² Triangle d'Or, seul à l'étage",
@@ -2087,8 +2112,8 @@
       "pieces": "4 pièces",
       "prestations": "Cuisine équipée, Cave, Chauffage individuel gaz",
       "dateFirst": "21 juin 2026 à 23h28",
-      "dateLast": "11 novembre 2026 à 11h06",
-      "dateVal": 1794391560000,
+      "dateLast": "11 novembre 2026 à 11h35",
+      "dateVal": 1794393300000,
       "maluses": [
         "Pas dernier étage (-0.75)",
         "Pas de terrasse/jardin (-2)",
@@ -2101,6 +2126,7 @@
     },
     {
       "folder": "leboncoin_3206752663",
+      "ref": "A20261104-2",
       "isSas": false,
       "source": "Leboncoin",
       "title": "Appartement 94 m² Triangle d'Or avec terrasse et parking",
@@ -2184,8 +2210,8 @@
       "pieces": "5 pièces",
       "prestations": "Chambres: 3 ch.",
       "dateFirst": "4 novembre 2026 à 11h18",
-      "dateLast": "11 novembre 2026 à 11h06",
-      "dateVal": 1794391560000,
+      "dateLast": "11 novembre 2026 à 11h35",
+      "dateVal": 1794393300000,
       "maluses": [
         "Pas dernier étage (-1)",
         "Pas seul à l'étage (-0.75)",
@@ -2197,7 +2223,93 @@
       "description": "T5 st Louis copropriete de 2024\n\nA vendre chez Blot Immobilier - Brest Saint Louis Appartement de type 5 de 94m² Cet appartement situé dans une magnifique copropriété dispose d'une superbe pièce de vie lumineuse avec terrasse. Un espace cuisine est prévu pour que vous puissiez créer la cuisine ouverte de vos rêves ! Trois chambres dont une suite parentale avec salle d'eau et dressing composent cet appartement familial. La visite se poursuit par une salle de bains, deux WC séparés et de nombre…\n\nVoir plus\nPasser la liste des médias\nListe des médias\nPhotos (13)\nLes informations clés\n\nType de bien\n\nAppartement\n\nSurface habitable\n\n94 m²\n\nNombre de pièces\n\n5\n\nNombre de chambres\n\n3 ch.\n\nNombre de salles de bain\n\n1\n\nCaractéristiques\n\nAvec garage ou place de parking, Construction récente, Plusieurs toilettes\n\nType de chauffage\n\nCollectif\n\nMode de chauffage\n\nGaz\n\nVoir les 8 critères supplémentaires\nDiagnostics\n\nClasse énergie\n\nA\nB\nC\nD\nE\nF\nG\n\nGES\n\nA\nB\nC\nD\nE\nF\nG"
     },
     {
+      "folder": "leboncoin_3218890657",
+      "ref": "A20261111-2",
+      "isSas": false,
+      "source": "Leboncoin",
+      "title": "Appartement 119 m² Triangle d'Or, seul à l'étage",
+      "price": "311 410 €",
+      "priceVal": 311410,
+      "prixM2": 2617,
+      "dvfComparison": {
+        "prixM2": 2617,
+        "medianM2": 2250,
+        "diffPct": 16,
+        "sampleCount": 229,
+        "scopeLabel": "Triangle d'Or",
+        "yearsLabel": "2024–2025",
+        "comparables": [
+          {
+            "date": "2025-11-27",
+            "adresse": "5 PL DE LA LIBERTE",
+            "surface": 109,
+            "prix": 309964,
+            "prixM2": 2844
+          },
+          {
+            "date": "2025-11-07",
+            "adresse": "2 SQ CDT L HERMINIER",
+            "surface": 114,
+            "prix": 405000,
+            "prixM2": 3553
+          },
+          {
+            "date": "2025-10-30",
+            "adresse": "14 RUE BRANDA",
+            "surface": 123,
+            "prix": 177000,
+            "prixM2": 1444
+          },
+          {
+            "date": "2025-09-24",
+            "adresse": "24 RUE BRANDA",
+            "surface": 117,
+            "prix": 160000,
+            "prixM2": 1365
+          },
+          {
+            "date": "2025-12-17",
+            "adresse": "46 RUE D AIGUILLON",
+            "surface": 99,
+            "prix": 114200,
+            "prixM2": 1150
+          }
+        ]
+      },
+      "priceHistory": [
+        {
+          "date": "11 novembre 2026",
+          "dateTs": 1794389678300,
+          "price": "311 410 €",
+          "priceVal": 311410
+        }
+      ],
+      "score": 6.6,
+      "status": "Actif",
+      "location": "Brest 29200 Centre-ville - Triangle d'Or",
+      "quartier": "Triangle d'Or",
+      "tier": 1,
+      "url": "https://www.leboncoin.fr/ad/ventes_immobilieres/3218890657",
+      "type": "Appartement",
+      "surface": "119 m²",
+      "surfaceVal": 119,
+      "pieces": "5 pièces",
+      "prestations": "Chambres: 3 ch.",
+      "dateFirst": "11 novembre 2026 à 10h34",
+      "dateLast": "11 novembre 2026 à 11h35",
+      "dateVal": 1794393300000,
+      "maluses": [
+        "Pas dernier étage (-0.75)",
+        "Pas de terrasse/jardin (-1.5)",
+        "Pas de parking/garage (-1.13)",
+        "Bonus qualité (+0.0)"
+      ],
+      "hasScreenshot": true,
+      "description": "Appartement 5 pièces 119 m²\n\nIdéalement situé en plein coeur de Brest, dans le secteur très recherché du Quartz découvrez ce spacieux appartement de type 5 de 119 m2 habitables, niché au 4ème étage d'une copropriété de standing parfaitement entretenue avec ascenseur et accès PMR. Seul appartement sur son palier, il offre un cadre de vie privilégié alliant calme, confort et intimité. Baigné de lumière grâce à son exposition sud-ouest, il bénéficie également d'une agréable vue dégagée sur la ville…\n\nVoir plus\nPasser la liste des médias\nListe des médias\nPhotos (21)\nLes informations clés\n\nType de bien\n\nAppartement\n\nSurface habitable\n\n119 m²\n\nNombre de pièces\n\n5\n\nNombre de chambres\n\n3 ch.\n\nNombre de salles de bain\n\n1\n\nNombre de salles d'eau\n\n1\n\nCaractéristiques\n\nCuisine séparée, Cave, Plusieurs toilettes\n\nÉtage de votre bien\n\n4\n\nVoir les 8 critères supplémentaires\nDiagnostics\n\nClasse énergie\n\nA\nB\nC\nD\nE\nF\nG\n\nGES\n\nA\nB\nC\nD\nE\nF\nG"
+    },
+    {
       "folder": "leboncoin_3225954101",
+      "ref": "A20260718-3",
       "isSas": false,
       "source": "Leboncoin",
       "title": "Appartement 124 m² Capucins avec terrasse et parking",
@@ -2269,8 +2381,8 @@
       "pieces": "6 pièces",
       "prestations": "Ascenseur, parkings privatifs souterrains, cave",
       "dateFirst": "18 juillet 2026 à 21h15",
-      "dateLast": "11 novembre 2026 à 11h06",
-      "dateVal": 1794391560000,
+      "dateLast": "11 novembre 2026 à 11h35",
+      "dateVal": 1794393300000,
       "maluses": [
         "Localisation : -2.0 Tiers 2",
         "Pas dernier étage (-0.75)",
@@ -2282,6 +2394,7 @@
     },
     {
       "folder": "leboncoin_3228643378",
+      "ref": "M20260719-4",
       "isSas": false,
       "source": "Leboncoin",
       "title": "Maison 105 m² Saint-Michel",
@@ -2365,8 +2478,8 @@
       "pieces": "5 pièces",
       "prestations": "Chambres: 3 ch.",
       "dateFirst": "19 juillet 2026 à 16h15",
-      "dateLast": "11 novembre 2026 à 11h06",
-      "dateVal": 1794391560000,
+      "dateLast": "11 novembre 2026 à 11h35",
+      "dateVal": 1794393300000,
       "maluses": [
         "Localisation : -2.0 Tiers 2",
         "Pas de terrasse/jardin (-0.75)",
@@ -2378,6 +2491,7 @@
     },
     {
       "folder": "leboncoin_3229816247",
+      "ref": "A20260718-4",
       "isSas": false,
       "source": "Leboncoin",
       "title": "Appartement 97 m² Capucins avec vue mer et terrasse",
@@ -2462,6 +2576,7 @@
     },
     {
       "folder": "leboncoin_3230023834",
+      "ref": "A20260718-5",
       "isSas": false,
       "source": "Leboncoin",
       "title": "Appartement 97 m² Triangle d'Or avec vue mer et garage",
@@ -2581,8 +2696,8 @@
       "pieces": "4 pièces",
       "prestations": "Chambres: 2, Garage: 1, Cave: 1",
       "dateFirst": "18 juillet 2026 à 21h30",
-      "dateLast": "11 novembre 2026 à 11h06",
-      "dateVal": 1794391560000,
+      "dateLast": "11 novembre 2026 à 11h35",
+      "dateVal": 1794393300000,
       "maluses": [
         "Pas de terrasse/jardin (-2)",
         "Malus chambres (4 pièces, 2 chambres) (-2.0)",
@@ -2593,6 +2708,7 @@
     },
     {
       "folder": "leboncoin_3240598864",
+      "ref": "M20261029",
       "isSas": false,
       "source": "Leboncoin",
       "title": "Maison 141 m² Kérinou avec jardin",
@@ -2664,8 +2780,8 @@
       "pieces": "6 pièces",
       "prestations": "Chambres: 4 ch.",
       "dateFirst": "29 octobre 2026 à 14h37",
-      "dateLast": "11 novembre 2026 à 11h06",
-      "dateVal": 1794391560000,
+      "dateLast": "11 novembre 2026 à 11h35",
+      "dateVal": 1794393300000,
       "maluses": [
         "Localisation : -2.0 Tiers 2",
         "Pas de parking/garage (-1.13)",
@@ -2677,6 +2793,7 @@
     },
     {
       "folder": "leboncoin_3241267332",
+      "ref": "A20260804",
       "isSas": false,
       "source": "Leboncoin",
       "title": "Appartement 133 m² Gare avec balcon",
@@ -2763,6 +2880,7 @@
     },
     {
       "folder": "leboncoin_3241525554",
+      "ref": "A20261101-12",
       "isSas": false,
       "source": "Leboncoin",
       "title": "Appartement 116 m² Triangle d'Or",
@@ -2834,8 +2952,8 @@
       "pieces": "Non spécifié",
       "prestations": "Aucune",
       "dateFirst": "1 novembre 2026 à 10h53",
-      "dateLast": "11 novembre 2026 à 11h06",
-      "dateVal": 1794391560000,
+      "dateLast": "11 novembre 2026 à 11h35",
+      "dateVal": 1794393300000,
       "maluses": [
         "Pas dernier étage (-0.75)",
         "Pas seul à l'étage (-0.75)",
@@ -2849,6 +2967,7 @@
     },
     {
       "folder": "leboncoin_3250257076",
+      "ref": "A20260822",
       "isSas": false,
       "source": "Leboncoin",
       "title": "Appartement 138 m² Branda avec garage et balcon",
@@ -2920,8 +3039,8 @@
       "pieces": "5 pièces",
       "prestations": "Chambres: 3",
       "dateFirst": "22 août 2026 à 11h28",
-      "dateLast": "11 novembre 2026 à 11h06",
-      "dateVal": 1794391560000,
+      "dateLast": "11 novembre 2026 à 11h35",
+      "dateVal": 1794393300000,
       "maluses": [
         "Localisation : -2.0 Tiers 2",
         "Pas dernier étage (-0.75)",
@@ -2935,6 +3054,7 @@
     },
     {
       "folder": "leboncoin_3250336371",
+      "ref": "A20261104",
       "isSas": false,
       "source": "Leboncoin",
       "title": "Appartement 116 m² Triangle d'Or avec vue mer, dernier étage",
@@ -3006,8 +3126,8 @@
       "pieces": "5 pièces",
       "prestations": "Chambres: 3 ch.",
       "dateFirst": "4 novembre 2026 à 11h18",
-      "dateLast": "11 novembre 2026 à 11h06",
-      "dateVal": 1794391560000,
+      "dateLast": "11 novembre 2026 à 11h35",
+      "dateVal": 1794393300000,
       "maluses": [
         "Pas seul à l'étage (-0.75)",
         "Pas de terrasse/jardin (-1.5)",
@@ -3020,6 +3140,7 @@
     },
     {
       "folder": "leboncoin_3266438186",
+      "ref": "M20260909",
       "isSas": false,
       "source": "Leboncoin",
       "title": "Maison 137 m² Saint-Michel avec jardin",
@@ -3104,6 +3225,7 @@
     },
     {
       "folder": "leboncoin_3270344557",
+      "ref": "A20260923",
       "isSas": false,
       "source": "Leboncoin",
       "title": "Appartement 116 m² Siam",
@@ -3193,8 +3315,8 @@
       "pieces": "4 pièces",
       "prestations": "Chambres: 2 ch.",
       "dateFirst": "23 septembre 2026 à 21h00",
-      "dateLast": "11 novembre 2026 à 11h06",
-      "dateVal": 1794391560000,
+      "dateLast": "11 novembre 2026 à 11h35",
+      "dateVal": 1794393300000,
       "maluses": [
         "Pas dernier étage (-0.75)",
         "Pas seul à l'étage (-0.75)",
@@ -3208,6 +3330,7 @@
     },
     {
       "folder": "leboncoin_3270497302",
+      "ref": "M20261101",
       "isSas": false,
       "source": "Leboncoin",
       "title": "Maison 106 m² Triangle d'Or",
@@ -3279,8 +3402,8 @@
       "pieces": "5 pièces",
       "prestations": "Chambres: 4 ch.",
       "dateFirst": "1 novembre 2026 à 10h53",
-      "dateLast": "11 novembre 2026 à 11h06",
-      "dateVal": 1794391560000,
+      "dateLast": "11 novembre 2026 à 11h35",
+      "dateVal": 1794393300000,
       "maluses": [
         "Pas de parking/garage (-1.13)",
         "Bonus qualité (+0.0)"
@@ -3290,6 +3413,7 @@
     },
     {
       "folder": "leboncoin_3278891735",
+      "ref": "A20260930",
       "isSas": false,
       "source": "Leboncoin",
       "title": "Appartement 103 m² Siam avec terrasse, dernier étage",
@@ -3361,8 +3485,8 @@
       "pieces": "4 pièces",
       "prestations": "Chambres: 2 ch.",
       "dateFirst": "30 septembre 2026 à 21h34",
-      "dateLast": "11 novembre 2026 à 11h06",
-      "dateVal": 1794391560000,
+      "dateLast": "11 novembre 2026 à 11h35",
+      "dateVal": 1794393300000,
       "maluses": [
         "Pas seul à l'étage (-0.75)",
         "Pas de parking/garage (-1.13)",
@@ -3374,6 +3498,7 @@
     },
     {
       "folder": "leboncoin_3279111570",
+      "ref": "A20260718-15",
       "isSas": false,
       "source": "Leboncoin",
       "title": "Appartement 121 m² Kérinou avec garage et balcon",
@@ -3445,8 +3570,8 @@
       "pieces": "4 pièces",
       "prestations": "Chambres: 3",
       "dateFirst": "18 juillet 2026 à 23h57",
-      "dateLast": "11 novembre 2026 à 11h06",
-      "dateVal": 1794391560000,
+      "dateLast": "11 novembre 2026 à 11h35",
+      "dateVal": 1794393300000,
       "maluses": [
         "Localisation : -4.0 Tiers 3",
         "Pas dernier étage (-0.75)",
@@ -3458,6 +3583,7 @@
     },
     {
       "folder": "leboncoin_3280180237",
+      "ref": "A20261101-5",
       "isSas": false,
       "source": "Leboncoin",
       "title": "Appartement 106 m² Triangle d'Or",
@@ -3535,8 +3661,8 @@
       "pieces": "5 pièces",
       "prestations": "Chambres: 3 ch.",
       "dateFirst": "1 novembre 2026 à 10h53",
-      "dateLast": "11 novembre 2026 à 11h06",
-      "dateVal": 1794391560000,
+      "dateLast": "11 novembre 2026 à 11h35",
+      "dateVal": 1794393300000,
       "maluses": [
         "Pas dernier étage (-0.75)",
         "Pas seul à l'étage (-0.75)",
@@ -3548,6 +3674,7 @@
     },
     {
       "folder": "leboncoin_3280242565",
+      "ref": "A20261101-4",
       "isSas": false,
       "source": "Leboncoin",
       "title": "Appartement 101 m² Saint-Martin avec terrasse et garage",
@@ -3619,8 +3746,8 @@
       "pieces": "5 pièces",
       "prestations": "Chambres: 4 ch.",
       "dateFirst": "1 novembre 2026 à 10h53",
-      "dateLast": "11 novembre 2026 à 11h06",
-      "dateVal": 1794391560000,
+      "dateLast": "11 novembre 2026 à 11h35",
+      "dateVal": 1794393300000,
       "maluses": [
         "Localisation : -2.0 Tiers 2",
         "Pas dernier étage (-0.75)",
@@ -3632,6 +3759,7 @@
     },
     {
       "folder": "leboncoin_3280276566",
+      "ref": "A20261008",
       "isSas": false,
       "source": "Leboncoin",
       "title": "Appartement 144 m² Triangle d'Or, seul à l'étage, à rénover",
@@ -3703,8 +3831,8 @@
       "pieces": "5 pièces",
       "prestations": "Chambres: 4, Garage: 0, Cave: 1",
       "dateFirst": "8 octobre 2026 à 21h05",
-      "dateLast": "11 novembre 2026 à 11h06",
-      "dateVal": 1794391560000,
+      "dateLast": "11 novembre 2026 à 11h35",
+      "dateVal": 1794393300000,
       "maluses": [
         "Pas dernier étage (-1)",
         "Pas de terrasse/jardin (-2)",
@@ -3718,6 +3846,7 @@
     },
     {
       "folder": "leboncoin_3280282904",
+      "ref": "M20260907",
       "isSas": false,
       "source": "Leboncoin",
       "title": "Maison 141 m² Saint-Michel avec vue mer et jardin",
@@ -3795,8 +3924,8 @@
       "pieces": "5 pièces",
       "prestations": "Chambres: 3, Exposition: Sud Est, Garage: 1",
       "dateFirst": "7 septembre 2026 à 21h33",
-      "dateLast": "11 novembre 2026 à 11h06",
-      "dateVal": 1794391560000,
+      "dateLast": "11 novembre 2026 à 11h35",
+      "dateVal": 1794393300000,
       "maluses": [
         "Localisation : -2.0 Tiers 2",
         "Malus surface (> 130m²) (-1.0)",
@@ -3807,6 +3936,7 @@
     },
     {
       "folder": "leboncoin_3284208141",
+      "ref": "A20261101-18",
       "isSas": false,
       "source": "Leboncoin",
       "title": "Appartement 127 m² Siam",
@@ -3878,8 +4008,8 @@
       "pieces": "6 pièces",
       "prestations": "Chambres: 4 ch.",
       "dateFirst": "1 novembre 2026 à 10h53",
-      "dateLast": "11 novembre 2026 à 11h06",
-      "dateVal": 1794391560000,
+      "dateLast": "11 novembre 2026 à 11h35",
+      "dateVal": 1794393300000,
       "maluses": [
         "Pas dernier étage (-0.75)",
         "Pas seul à l'étage (-0.75)",
@@ -3893,6 +4023,7 @@
     },
     {
       "folder": "leboncoin_3286077428",
+      "ref": "A20261101-15",
       "isSas": false,
       "source": "Leboncoin",
       "title": "Appartement 132 m² Triangle d'Or avec balcon",
@@ -3964,8 +4095,8 @@
       "pieces": "5 pièces",
       "prestations": "Chambres: 4 ch.",
       "dateFirst": "1 novembre 2026 à 10h53",
-      "dateLast": "11 novembre 2026 à 11h06",
-      "dateVal": 1794391560000,
+      "dateLast": "11 novembre 2026 à 11h35",
+      "dateVal": 1794393300000,
       "maluses": [
         "Pas dernier étage (-0.75)",
         "Pas seul à l'étage (-0.75)",
@@ -3978,6 +4109,7 @@
     },
     {
       "folder": "leboncoin_3288716735",
+      "ref": "A20261101-7",
       "isSas": false,
       "source": "Leboncoin",
       "title": "Appartement 110 m² Triangle d'Or",
@@ -4049,8 +4181,8 @@
       "pieces": "5 pièces",
       "prestations": "Chambres: 3 ch.",
       "dateFirst": "1 novembre 2026 à 10h53",
-      "dateLast": "11 novembre 2026 à 11h06",
-      "dateVal": 1794391560000,
+      "dateLast": "11 novembre 2026 à 11h35",
+      "dateVal": 1794393300000,
       "maluses": [
         "Pas dernier étage (-0.75)",
         "Pas seul à l'étage (-0.75)",
@@ -4063,6 +4195,7 @@
     },
     {
       "folder": "leboncoin_3289666199",
+      "ref": "M20261029-4",
       "isSas": false,
       "source": "Leboncoin",
       "title": "Maison 103 m² Saint-Michel avec jardin",
@@ -4134,8 +4267,8 @@
       "pieces": "5 pièces",
       "prestations": "Chambres: 3 ch.",
       "dateFirst": "29 octobre 2026 à 14h37",
-      "dateLast": "11 novembre 2026 à 11h06",
-      "dateVal": 1794391560000,
+      "dateLast": "11 novembre 2026 à 11h35",
+      "dateVal": 1794393300000,
       "maluses": [
         "Localisation : -2.0 Tiers 2",
         "Pas de parking/garage (-1.13)",
@@ -4146,6 +4279,7 @@
     },
     {
       "folder": "leboncoin_3295975124",
+      "ref": "M20261029-3",
       "isSas": false,
       "source": "Leboncoin",
       "title": "Maison 140 m² Triangle d'Or",
@@ -4223,8 +4357,8 @@
       "pieces": "7 pièces",
       "prestations": "Chambres: 6 ch.",
       "dateFirst": "29 octobre 2026 à 14h37",
-      "dateLast": "11 novembre 2026 à 11h06",
-      "dateVal": 1794391560000,
+      "dateLast": "11 novembre 2026 à 11h35",
+      "dateVal": 1794393300000,
       "maluses": [
         "Pas de parking/garage (-1.13)",
         "Malus surface (> 130m²) (-1.0)",
@@ -4236,6 +4370,7 @@
     },
     {
       "folder": "leboncoin_3301219475",
+      "ref": "A20261108",
       "isSas": false,
       "source": "Leboncoin",
       "title": "Appartement 119 m² Gare avec vue mer",
@@ -4325,7 +4460,93 @@
       "description": "Appartement 5 pièces 119 m²\n\nBREST Centre Gare\n500m de la Gare\nDans une copropriété avec ascenseur\nAu 5è étage\nBel appartement de 120m2 avec hauts plafonds et beaux parquets sur Dalle béton\n\nComposé d'un bel espace hall d'entrée, des rangements\nUn spacieux séjour et salon de 36m2 avec portes fenêtres exposés Sud-Ouest et une vue mer\nune cuisine avec loggia\n3 grandes chambres : 11 / 14 et 17m2\nsalle d'eau (douche) avec fenêtre\n\nChauffage Gaz individuel (2005) - Fenêtres PVC\nAccès immeuble : vigik…\n\nVoir plus\nPasser la liste des médias\nListe des médias\nPhotos (10)\nLes informations clés\n\nType de vente\n\nAncien\n\nType de bien\n\nAppartement\n\nSurface habitable\n\n119 m²\n\nNombre de pièces\n\n5\n\nNombre de chambres\n\n3 ch.\n\nNombre de salles d'eau\n\n1\n\nCaractéristiques\n\nCuisine séparée, Cave\n\nType de chauffage\n\nIndividuel\n\nVoir les 10 critères supplémentaires\nDiagnostics\n\nClasse énergie\n\nA\nB\nC\nD\nE\nF\nG\n\nGES\n\nA\nB\nC\nD\nE\nF\nG"
     },
     {
+      "folder": "leboncoin_3305872370",
+      "ref": "A20261111",
+      "isSas": false,
+      "source": "Leboncoin",
+      "title": "Appartement 100 m² Saint-Michel avec vue mer et garage",
+      "price": "329 900 €",
+      "priceVal": 329900,
+      "prixM2": 3299,
+      "dvfComparison": {
+        "prixM2": 3299,
+        "medianM2": 1686,
+        "diffPct": 96,
+        "sampleCount": 240,
+        "scopeLabel": "Saint-Michel",
+        "yearsLabel": "2024–2025",
+        "comparables": [
+          {
+            "date": "2025-11-27",
+            "adresse": "5 PL DE LA LIBERTE",
+            "surface": 109,
+            "prix": 309964,
+            "prixM2": 2844
+          },
+          {
+            "date": "2025-11-13",
+            "adresse": "18 RUE BRANDA",
+            "surface": 100,
+            "prix": 260000,
+            "prixM2": 2600
+          },
+          {
+            "date": "2025-11-03",
+            "adresse": "13 RUE D ABOVILLE",
+            "surface": 105,
+            "prix": 103000,
+            "prixM2": 982
+          },
+          {
+            "date": "2025-10-28",
+            "adresse": "125 RUE JEAN JAURES",
+            "surface": 90,
+            "prix": 250000,
+            "prixM2": 2778
+          },
+          {
+            "date": "2025-09-29",
+            "adresse": "1 RUE DE KERSAINT",
+            "surface": 98,
+            "prix": 151000,
+            "prixM2": 1534
+          }
+        ]
+      },
+      "priceHistory": [
+        {
+          "date": "11 novembre 2026",
+          "dateTs": 1794389677824,
+          "price": "329 900 €",
+          "priceVal": 329900
+        }
+      ],
+      "score": 7,
+      "status": "Actif",
+      "location": "Brest 29200 Saint-Michel",
+      "quartier": "Saint-Michel",
+      "tier": 2,
+      "url": "https://www.leboncoin.fr/ad/ventes_immobilieres/3305872370",
+      "type": "Appartement",
+      "surface": "100 m²",
+      "surfaceVal": 100,
+      "pieces": "4 pièces",
+      "prestations": "Chambres: 3 ch.",
+      "dateFirst": "11 novembre 2026 à 10h34",
+      "dateLast": "11 novembre 2026 à 11h35",
+      "dateVal": 1794393300000,
+      "maluses": [
+        "Localisation : -2.0 Tiers 2",
+        "Pas dernier étage (-0.75)",
+        "Pas seul à l'étage (-0.75)",
+        "Bonus qualité : vue mer (+0.5)"
+      ],
+      "hasScreenshot": true,
+      "description": "FINISTERE - Brest (29200) - APPARTEMENT 98M² - GRANDE PIECE DE VIE - ASCENSEUR - AUCUNS TRAVAUX - RARE - VUE MER PANORAMIQUE - 3 CHAMBRES - GARAGE\n\n***** VIDEO EN LIGNE *** BREST - ST MICHEL ***** En couple ou en famille, actif ou retraité à la recherche de d'un appartement avec vue mer et balcon ? Dans un secteur prisé, à seulement 10 minutes de la gare et du centre-ville, découvrez ce superbe appartement de 100 m² avec vue mer. Il offre une grande pièce de vie lumineuse grâce à ses trois bai…\n\nVoir plus\nPasser la liste des médias\nListe des médias\nPhotos (11)\nLes informations clés\n\nType de vente\n\nAncien\n\nType de bien\n\nAppartement\n\nSurface habitable\n\n100 m²\n\nNombre de pièces\n\n4\n\nNombre de chambres\n\n3 ch.\n\nNombre de salles de bain\n\n1\n\nNombre de salles d'eau\n\n1\n\nCaractéristiques\n\nAvec garage ou place de parking\n\nVoir les 7 critères supplémentaires\nDiagnostics\n\nClasse énergie\n\nA\nB\nC\nD\nE\nF\nG\n\nGES\n\nA\nB\nC\nD\nE\nF\nG"
+    },
+    {
       "folder": "luxior_a-vendre-superbe-appartement-centre-ville-3-chambres-ascenseur-126m2",
+      "ref": "A20260923-2",
       "isSas": false,
       "source": "Luxior",
       "title": "Appartement 126 m² Liberté, seul à l'étage",
@@ -4410,257 +4631,5 @@
       "description": "Nouveauté Luxior. En plein coeur de Brest, à deux pas de la place de la Liberté, découvrez ce superbe appartement de 126 m² entièrement rénové, situé au 4e étage avec ascenseur et seul sur son palier. Dès l'entrée, il séduit par ses volumes remarquables, sa luminosité et la qualité de ses prestations. La pièce maîtresse : près de 58 m² de pièce de vie, avec une cuisine ouverte entièrement équipée et parfaitement intégrée à l'ensemble. Un espace généreux et chaleureux, prolongé par une arrière-cuisine et une buanderie. La partie nuit offre trois belles chambres, de nombreux rangements et menuiseries sur mesure, ainsi qu'une salle de bains avec baignoire et douche. Décoration aboutie, belles finitions, double vitrage, dalle béton, cave : un appartement clé en main où chaque détail a été pensé pour conjuguer esthétique, confort et fonctionnalité. Un bien rare en centre-ville, aussi agréable à vivre qu'à regarder. REFERENCE LUXIOR IMMOBILIER 26657BH (4.05 % honoraires TTC à la charge de l'acquéreur.) Copropriété de 6 lots – dont 5 lots habitation. (Pas de procédure en cours).Charges annuelles : 1800 euros."
     }
   ],
-  "sas_listings": [
-    {
-      "folder": "leboncoin_3218890657",
-      "isSas": true,
-      "source": "Leboncoin",
-      "title": "Appartement 119 m² Triangle d'Or, seul à l'étage",
-      "price": "311 410 €",
-      "priceVal": 311410,
-      "prixM2": 2617,
-      "dvfComparison": {
-        "prixM2": 2617,
-        "medianM2": 2250,
-        "diffPct": 16,
-        "sampleCount": 229,
-        "scopeLabel": "Triangle d'Or",
-        "yearsLabel": "2024–2025",
-        "comparables": [
-          {
-            "date": "2025-11-27",
-            "adresse": "5 PL DE LA LIBERTE",
-            "surface": 109,
-            "prix": 309964,
-            "prixM2": 2844
-          },
-          {
-            "date": "2025-11-07",
-            "adresse": "2 SQ CDT L HERMINIER",
-            "surface": 114,
-            "prix": 405000,
-            "prixM2": 3553
-          },
-          {
-            "date": "2025-10-30",
-            "adresse": "14 RUE BRANDA",
-            "surface": 123,
-            "prix": 177000,
-            "prixM2": 1444
-          },
-          {
-            "date": "2025-09-24",
-            "adresse": "24 RUE BRANDA",
-            "surface": 117,
-            "prix": 160000,
-            "prixM2": 1365
-          },
-          {
-            "date": "2025-12-17",
-            "adresse": "46 RUE D AIGUILLON",
-            "surface": 99,
-            "prix": 114200,
-            "prixM2": 1150
-          }
-        ]
-      },
-      "priceHistory": [
-        {
-          "date": "11 novembre 2026",
-          "dateTs": 1794389678300,
-          "price": "311 410 €",
-          "priceVal": 311410
-        }
-      ],
-      "score": 6.6,
-      "status": "Sas d'attente",
-      "location": "Brest 29200 Centre-ville - Triangle d'Or",
-      "quartier": "Triangle d'Or",
-      "tier": 1,
-      "url": "https://www.leboncoin.fr/ad/ventes_immobilieres/3218890657",
-      "type": "Appartement",
-      "surface": "119 m²",
-      "surfaceVal": 119,
-      "pieces": "5 pièces",
-      "prestations": "Chambres: 3 ch.",
-      "dateFirst": "11 novembre 2026 à 10h34",
-      "dateLast": "11 novembre 2026 à 11h06",
-      "dateVal": 1794391560000,
-      "maluses": [
-        "Pas dernier étage (-0.75)",
-        "Pas de terrasse/jardin (-1.5)",
-        "Pas de parking/garage (-1.13)",
-        "Bonus qualité (+0.0)"
-      ],
-      "hasScreenshot": true,
-      "description": "Appartement 5 pièces 119 m²\n\nIdéalement situé en plein coeur de Brest, dans le secteur très recherché du Quartz découvrez ce spacieux appartement de type 5 de 119 m2 habitables, niché au 4ème étage d'une copropriété de standing parfaitement entretenue avec ascenseur et accès PMR. Seul appartement sur son palier, il offre un cadre de vie privilégié alliant calme, confort et intimité. Baigné de lumière grâce à son exposition sud-ouest, il bénéficie également d'une agréable vue dégagée sur la ville…\n\nVoir plus\nPasser la liste des médias\nListe des médias\nPhotos (21)\nLes informations clés\n\nType de bien\n\nAppartement\n\nSurface habitable\n\n119 m²\n\nNombre de pièces\n\n5\n\nNombre de chambres\n\n3 ch.\n\nNombre de salles de bain\n\n1\n\nNombre de salles d'eau\n\n1\n\nCaractéristiques\n\nCuisine séparée, Cave, Plusieurs toilettes\n\nÉtage de votre bien\n\n4\n\nVoir les 8 critères supplémentaires\nDiagnostics\n\nClasse énergie\n\nA\nB\nC\nD\nE\nF\nG\n\nGES\n\nA\nB\nC\nD\nE\nF\nG"
-    },
-    {
-      "folder": "leboncoin_3305872370",
-      "isSas": true,
-      "source": "Leboncoin",
-      "title": "Appartement 100 m² Saint-Michel avec vue mer et garage",
-      "price": "329 900 €",
-      "priceVal": 329900,
-      "prixM2": 3299,
-      "dvfComparison": {
-        "prixM2": 3299,
-        "medianM2": 1686,
-        "diffPct": 96,
-        "sampleCount": 240,
-        "scopeLabel": "Saint-Michel",
-        "yearsLabel": "2024–2025",
-        "comparables": [
-          {
-            "date": "2025-11-27",
-            "adresse": "5 PL DE LA LIBERTE",
-            "surface": 109,
-            "prix": 309964,
-            "prixM2": 2844
-          },
-          {
-            "date": "2025-11-13",
-            "adresse": "18 RUE BRANDA",
-            "surface": 100,
-            "prix": 260000,
-            "prixM2": 2600
-          },
-          {
-            "date": "2025-11-03",
-            "adresse": "13 RUE D ABOVILLE",
-            "surface": 105,
-            "prix": 103000,
-            "prixM2": 982
-          },
-          {
-            "date": "2025-10-28",
-            "adresse": "125 RUE JEAN JAURES",
-            "surface": 90,
-            "prix": 250000,
-            "prixM2": 2778
-          },
-          {
-            "date": "2025-09-29",
-            "adresse": "1 RUE DE KERSAINT",
-            "surface": 98,
-            "prix": 151000,
-            "prixM2": 1534
-          }
-        ]
-      },
-      "priceHistory": [
-        {
-          "date": "11 novembre 2026",
-          "dateTs": 1794389677824,
-          "price": "329 900 €",
-          "priceVal": 329900
-        }
-      ],
-      "score": 7,
-      "status": "Sas d'attente",
-      "location": "Brest 29200 Saint-Michel",
-      "quartier": "Saint-Michel",
-      "tier": 2,
-      "url": "https://www.leboncoin.fr/ad/ventes_immobilieres/3305872370",
-      "type": "Appartement",
-      "surface": "100 m²",
-      "surfaceVal": 100,
-      "pieces": "4 pièces",
-      "prestations": "Chambres: 3 ch.",
-      "dateFirst": "11 novembre 2026 à 10h34",
-      "dateLast": "11 novembre 2026 à 11h06",
-      "dateVal": 1794391560000,
-      "maluses": [
-        "Localisation : -2.0 Tiers 2",
-        "Pas dernier étage (-0.75)",
-        "Pas seul à l'étage (-0.75)",
-        "Bonus qualité : vue mer (+0.5)"
-      ],
-      "hasScreenshot": true,
-      "description": "FINISTERE - Brest (29200) - APPARTEMENT 98M² - GRANDE PIECE DE VIE - ASCENSEUR - AUCUNS TRAVAUX - RARE - VUE MER PANORAMIQUE - 3 CHAMBRES - GARAGE\n\n***** VIDEO EN LIGNE *** BREST - ST MICHEL ***** En couple ou en famille, actif ou retraité à la recherche de d'un appartement avec vue mer et balcon ? Dans un secteur prisé, à seulement 10 minutes de la gare et du centre-ville, découvrez ce superbe appartement de 100 m² avec vue mer. Il offre une grande pièce de vie lumineuse grâce à ses trois bai…\n\nVoir plus\nPasser la liste des médias\nListe des médias\nPhotos (11)\nLes informations clés\n\nType de vente\n\nAncien\n\nType de bien\n\nAppartement\n\nSurface habitable\n\n100 m²\n\nNombre de pièces\n\n4\n\nNombre de chambres\n\n3 ch.\n\nNombre de salles de bain\n\n1\n\nNombre de salles d'eau\n\n1\n\nCaractéristiques\n\nAvec garage ou place de parking\n\nVoir les 7 critères supplémentaires\nDiagnostics\n\nClasse énergie\n\nA\nB\nC\nD\nE\nF\nG\n\nGES\n\nA\nB\nC\nD\nE\nF\nG"
-    },
-    {
-      "folder": "leboncoin_3306373769",
-      "isSas": true,
-      "source": "Leboncoin",
-      "title": "Maison 98 m² Saint-Michel avec jardin",
-      "price": "358 325 €",
-      "priceVal": 358325,
-      "prixM2": 3656,
-      "dvfComparison": {
-        "prixM2": 3656,
-        "medianM2": 2838,
-        "diffPct": 29,
-        "sampleCount": 19,
-        "scopeLabel": "Saint-Michel",
-        "yearsLabel": "2024–2025",
-        "comparables": [
-          {
-            "date": "2025-11-24",
-            "adresse": "9000 RUE CONSEIL",
-            "surface": 92,
-            "prix": 285000,
-            "prixM2": 3089
-          },
-          {
-            "date": "2025-04-30",
-            "adresse": "7 RUE EDOUARD CORBIERE",
-            "surface": 100,
-            "prix": 263260,
-            "prixM2": 2633
-          },
-          {
-            "date": "2025-03-21",
-            "adresse": "11 RUE MARIE LENERU",
-            "surface": 91,
-            "prix": 260000,
-            "prixM2": 2857
-          },
-          {
-            "date": "2025-02-28",
-            "adresse": "21 RUE AMIRAL COURBET",
-            "surface": 94,
-            "prix": 243000,
-            "prixM2": 2585
-          },
-          {
-            "date": "2024-09-30",
-            "adresse": "47 RUE LEVOT",
-            "surface": 87,
-            "prix": 298500,
-            "prixM2": 3431
-          }
-        ]
-      },
-      "priceHistory": [
-        {
-          "date": "11 novembre 2026",
-          "dateTs": 1794389677656,
-          "price": "358 325 €",
-          "priceVal": 358325
-        }
-      ],
-      "score": 6.9,
-      "status": "Sas d'attente",
-      "location": "Brest 29200",
-      "quartier": "Saint-Michel",
-      "tier": 2,
-      "url": "https://www.leboncoin.fr/ad/ventes_immobilieres/3306373769",
-      "type": "Maison",
-      "surface": "98 m²",
-      "surfaceVal": 98,
-      "pieces": "Non spécifié",
-      "prestations": "Chambres: 3 ch.",
-      "dateFirst": "11 novembre 2026 à 10h34",
-      "dateLast": "11 novembre 2026 à 11h06",
-      "dateVal": 1794391560000,
-      "maluses": [
-        "Localisation : -2.0 Tiers 2",
-        "Pas de parking/garage (-1.13)",
-        "Bonus qualité (+0.0)"
-      ],
-      "hasScreenshot": true,
-      "description": "SAINT-MICHEL / PILIER ROUGE - MAISON DE VILLE AVEC JARDIN CLOS\nAu coeur du centre-ville de Brest, dans une petite rue à sens unique, découvrez cette charmante maison de ville qui conjugue avec élégance le confort d'un aménagement contemporain et le cachet de l'architecture des années 30\nDès l'entrée, vous serez séduits par une cuisine aménagée et équipée, prolongée par un agréable espace salle à manger. Son agencement sur mesure offre de nombreux rangements et optimise parfaitement les volumes. …\n\nVoir plus\nPasser la liste des médias\nListe des médias\nPhotos (12)\nLes informations clés\n\nType de vente\n\nAncien\n\nType de bien\n\nMaison\n\nSurface habitable\n\n98 m²\n\nSurface totale du terrain\n\n152 m²\n\nNombre de chambres\n\n3 ch.\n\nType de chauffage\n\nIndividuel\n\nMode de chauffage\n\nGaz\n\nNombre d’étages dans l’immeuble\n\n2\n\nVoir les 5 critères supplémentaires\nDiagnostics\n\nClasse énergie\n\nA\nB\nC\nD\nE\nF\nG\n\nGES\n\nA\nB\nC\nD\nE\nF\nG"
-    }
-  ]
+  "sas_listings": []
 }
