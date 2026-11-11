@@ -236,10 +236,14 @@ class ListingStore {
         type: row.type || '',
         location: row.location || '',
         description: row.description || '',
+        url: row.url || '',
         price: row.price ? String(row.price) : '',
+        chambres: row.chambres ?? null,
         specs: {
           surface: row.surface ? `${row.surface} m²` : '',
-          pieces: row.pieces ? String(row.pieces) : ''
+          pieces: row.pieces ? String(row.pieces) : '',
+          floor: row.floor || '',
+          prestations: row.prestations || ''
         }
       };
       if (areDuplicates(p, existing)) return row;

@@ -94,7 +94,7 @@ flowchart TD
 
 1. **Ingestion (Fetch & Multi-dédoublonnage)** :
    - Scan Chrome Debugging sur Leboncoin + requêtes HTTP sur agences partenaires. Leboncoin utilise une recherche fixe alignée sur les critères (`LEBONCOIN_SEARCH_URL`, toutes les pages à chaque passage, jusqu'à `LEBONCOIN_MAX_PAGES`) : la dernière vue de chaque annonce, donc la détection des ventes, en dépend. Le minimum de 300 k€ ne vaut que pour les nouvelles annonces : un bien déjà suivi le reste s'il passe dessous (recherche Leboncoin à partir de 250 k€ pour cela). Pour limiter les pages chargées (et le contrôle anti-robot), une annonce Leboncoin écartée après ouverture de sa fiche (secteur exclu, quartier non reconnu, surface) est mémorisée dans `.cache/leboncoin_filtered.json` (local, non versionné) : sa fiche n'est rouverte que si son prix ou sa date d'indexation change, ou après 30 jours.
-   - Contrôle anti-doublon global (toutes les annonces de `immo_listings`, quel que soit leur `review_status`).
+   - Contrôle anti-doublon global (toutes les annonces de `immo_listings`, quel que soit leur `review_status`), par `areDuplicates` (`fetch_listings.js`). Même type de bien, puis : même texte d'annonce (surfaces à 10 %), ou prix à 3 % et même terrain, ou prix à 3 % dans un même secteur avec la même surface au m² près, ou une surface à 6 % et deux indices concordants (chambres, pièces, année de construction, étage). Les agences mesurent souvent différemment (98 / 103 m²). Un étage, un terrain ou un nombre de chambres incompatibles excluent le doublon.
 2. **Sas d'attente (Staging)** :
    - Toute nouvelle propriété entre dans `immo_listings` avec `review_status = 'sas'`.
    - Le scoring est immédiatement calculé pour faciliter la décision.

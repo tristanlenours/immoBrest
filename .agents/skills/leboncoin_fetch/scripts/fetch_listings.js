@@ -1332,9 +1332,20 @@ async function scrapeHuman() {
 }
 
 
-// Surface du terrain relevée dans la fiche Leboncoin (« Surface totale du terrain 152 m² »).
+// ---------------------------------------------------------------------------
+// Dédoublonnage : un même bien est souvent publié par plusieurs agences, avec des textes et des
+// surfaces qui diffèrent (98 / 103 m² pour la même maison). On compare des caractéristiques
+// extraites de chaque annonce ; une contradiction franche (étage, terrain, chambres) l'emporte.
+// ---------------------------------------------------------------------------
+
+// Lieux assez précis pour rapprocher deux annonces (texte normalisé par normalizeString).
+const DUP_PLACES = ['siam', 'triangle', 'wilson', 'saint louis', 'saint michel', 'gambetta', 'pasteur', 'saint martin',
+  'linois', 'saint marc', 'guelmeur', 'capucin', 'branda', 'liberte', 'kerinou', 'lanredec', 'harteloire', 'pilier rouge',
+  'port de commerce', 'recouvrance', 'quartz', 'morvan'];
+
+// Surface du terrain (« Surface totale du terrain 152 m² » sur Leboncoin, « terrain de 152 m² » ailleurs).
 function landSurfaceOf(description) {
-  const m = (description || '').match(/Surface totale du terrain\s*([\d\s ]+)\s*m/i);
+  const m = (description || '').match(/(?:Surface totale du terrain|terrain(?: clos)?(?: de| d'environ| d'une surface de)?)\s*:?\s*(\d[\d   ]{0,5})\s*m/i);
   return m ? parseInt(m[1].replace(/\D/g, ''), 10) || null : null;
 }
 
@@ -1342,71 +1353,109 @@ function priceNumberOfDup(p) {
   return p.price ? parseInt(String(p.price).replace(/[^\d]/g, ''), 10) || null : null;
 }
 
+function intOrNull(value) {
+  const n = parseInt(String(value ?? ''), 10);
+  return Number.isFinite(n) ? n : null;
+}
+
+// Étage d'un appartement : champ structuré, sinon « au 4ème étage » dans le texte. 0 = rez-de-chaussée.
+function floorOfDup(p) {
+  if (/maison/i.test(p.type || '')) return null;
+  const raw = String(p.specs?.floor ?? p.floor ?? '');
+  if (/rez|rdc/i.test(raw)) return 0;
+  const fromField = raw.match(/\d+/);
+  if (fromField) return parseInt(fromField[0], 10);
+  const text = p.description || '';
+  if (/\bau rez[- ]de[- ]chauss[ée]e\b/i.test(text)) return 0;
+  const m = text.match(/\b(\d{1,2})\s*(?:er|e|è|ème|eme|ième|ieme)\s+(?:et dernier\s+)?[ée]tage\b/i);
+  return m ? parseInt(m[1], 10) : null;
+}
+
+function bedroomsOfDup(p) {
+  const direct = intOrNull(p.chambres);
+  if (direct) return direct;
+  const m = String(p.specs?.prestations || p.prestations || '').match(/Chambres?\s*:\s*(\d+)/i);
+  return m ? parseInt(m[1], 10) : null;
+}
+
+// Année de construction citée dans le texte (« maison de 1932 », « construite en 1930 »).
+function buildYearOfDup(description) {
+  const m = (description || '').match(/\b(?:de|construite?s? en|datant de|bâtie? en)\s+((?:18|19)\d\d)\b/i);
+  return m ? parseInt(m[1], 10) : null;
+}
+
+function dupFeatures(p) {
+  const text = normalizeString([p.location, p.description, p.url].filter(Boolean).join(' '));
+  return {
+    surface: parseFloat(p.specs?.surface),
+    price: priceNumberOfDup(p),
+    pieces: intOrNull(p.specs?.pieces),
+    bedrooms: bedroomsOfDup(p),
+    floor: floorOfDup(p),
+    land: landSurfaceOf(p.description),
+    year: buildYearOfDup(p.description),
+    places: new Set(DUP_PLACES.filter(place => text.includes(place)))
+  };
+}
+
+const relativeGap = (a, b) => (a && b ? Math.abs(a - b) / Math.max(a, b) : null);
+
+// Un passage de 100 caractères commun aux deux descriptions : même texte d'agence, repris ailleurs.
+function shareDescriptionText(desc1, desc2) {
+  const d1 = normalizeForDup(desc1);
+  const d2 = normalizeForDup(desc2);
+  const minLen = Math.min(d1.length, d2.length);
+  if (minLen <= 50) return false;
+  const matchSize = Math.min(100, Math.floor(minLen * 0.8));
+  const shorter = d1.length <= d2.length ? d1 : d2;
+  const longer = d1.length <= d2.length ? d2 : d1;
+  const step = Math.max(1, Math.floor((shorter.length - matchSize) / 5));
+  for (let i = 0; i <= shorter.length - matchSize; i += step) {
+    if (longer.includes(shorter.substring(i, i + matchSize))) return true;
+  }
+  return false;
+}
+
 function areDuplicates(p1, p2) {
   if (p1.type !== p2.type) return false;
+  const a = dupFeatures(p1);
+  const b = dupFeatures(p2);
+  if (isNaN(a.surface) || isNaN(b.surface)) return false;
 
-  const s1 = parseFloat(p1.specs.surface);
-  const s2 = parseFloat(p2.specs.surface);
+  // Contradictions : deux biens différents, quelles que soient les ressemblances.
+  if (a.floor !== null && b.floor !== null && a.floor !== b.floor) return false;
+  if (a.land && b.land && relativeGap(a.land, b.land) > 0.03) return false;
+  if (a.bedrooms && b.bedrooms && Math.abs(a.bedrooms - b.bedrooms) > 1) return false;
+  if (a.pieces && b.pieces && Math.abs(a.pieces - b.pieces) > 1) return false;
 
-  // Même terrain au m² près, prix à 3 % et surface habitable à 10 % : même bien publié par deux
-  // agences, qui ne mesurent pas toujours la surface habitable de la même façon (98 / 103 m²).
-  const land1 = landSurfaceOf(p1.description);
-  const land2 = landSurfaceOf(p2.description);
-  const pr1 = priceNumberOfDup(p1);
-  const pr2 = priceNumberOfDup(p2);
-  if (land1 && land1 === land2 && pr1 && pr2 && Math.abs(pr1 - pr2) / Math.max(pr1, pr2) < 0.03
-      && !isNaN(s1) && !isNaN(s2) && Math.abs(s1 - s2) / Math.max(s1, s2) <= 0.10) {
-    return true;
+  const surfaceGap = relativeGap(a.surface, b.surface);
+  const priceGap = relativeGap(a.price, b.price);
+
+  // 1. Même texte d'annonce, surfaces proches (le prix peut avoir bougé entre deux publications).
+  if (surfaceGap <= 0.10 && shareDescriptionText(p1.description, p2.description)) return true;
+
+  if (priceGap === null || priceGap >= 0.03) return false;
+
+  // 2. Même terrain au m² près : une maison est identifiée par sa parcelle.
+  if (a.land && a.land === b.land && surfaceGap <= 0.10) return true;
+
+  const sharedPlace = [...a.places].some(place => b.places.has(place));
+  if (!sharedPlace) return false;
+
+  // 3. Même surface au m² près dans le même secteur.
+  if (Math.abs(a.surface - b.surface) <= 1) return true;
+
+  // 4. Surfaces mesurées différemment (≤ 6 %) : il faut deux indices concordants de plus.
+  if (surfaceGap <= 0.06) {
+    const clues = [
+      a.bedrooms && a.bedrooms === b.bedrooms,
+      a.pieces && a.pieces === b.pieces,
+      a.year && b.year && Math.abs(a.year - b.year) <= 3,
+      a.floor !== null && a.floor === b.floor
+    ].filter(Boolean).length;
+    if (clues >= 2) return true;
   }
 
-  if (isNaN(s1) || isNaN(s2) || Math.abs(s1 - s2) > 1) return false;
-  
-  const pc1 = p1.specs.pieces ? parseInt(p1.specs.pieces, 10) : null;
-  const pc2 = p2.specs.pieces ? parseInt(p2.specs.pieces, 10) : null;
-  if (pc1 && pc2 && Math.abs(pc1 - pc2) > 1) return false;
-  
-  const d1 = normalizeForDup(p1.description);
-  const d2 = normalizeForDup(p2.description);
-  if (d1 && d2) {
-    const len1 = d1.length;
-    const len2 = d2.length;
-    const minLen = Math.min(len1, len2);
-    if (minLen > 50) {
-      const matchSize = Math.min(100, Math.floor(minLen * 0.8));
-      const shorter = len1 <= len2 ? d1 : d2;
-      const longer = len1 <= len2 ? d2 : d1;
-      
-      const step = Math.max(1, Math.floor((shorter.length - matchSize) / 5));
-      let foundMatch = false;
-      for (let i = 0; i <= shorter.length - matchSize; i += step) {
-        const sub = shorter.substring(i, i + matchSize);
-        if (longer.includes(sub)) {
-          foundMatch = true;
-          break;
-        }
-      }
-      if (foundMatch) return true;
-    }
-  }
-  
-  if (pr1 && pr2 && Math.abs(pr1 - pr2) / Math.max(pr1, pr2) < 0.03) {
-    const loc1 = normalizeString(p1.location);
-    const loc2 = normalizeString(p2.location);
-    const desc1 = normalizeString(p1.description);
-    const desc2 = normalizeString(p2.description);
-    const url1 = p1.url ? normalizeString(p1.url) : '';
-    const url2 = p2.url ? normalizeString(p2.url) : '';
-    
-    const locations = ['siam', 'triangle', 'wilson', 'saint-louis', 'saint louis', 'saint-michel', 'saint michel', 'gambetta', 'pasteur', 'saint-martin', 'saint martin', 'linois', 'saint-marc', 'saint marc', 'guelmeur', 'capucin', 'branda', 'liberte', 'liberté', 'kerinou', 'lanredec', 'harteloire', 'pilier rouge', 'port de commerce', 'recouvrance'];
-    for (const loc of locations) {
-      const p1Match = loc1.includes(loc) || desc1.includes(loc) || url1.includes(loc);
-      const p2Match = loc2.includes(loc) || desc2.includes(loc) || url2.includes(loc);
-      if (p1Match && p2Match) {
-        return true;
-      }
-    }
-  }
-  
   return false;
 }
 
