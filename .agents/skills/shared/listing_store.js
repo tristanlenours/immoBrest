@@ -101,24 +101,39 @@ function linkKeyOfUrl(url) {
   return null;
 }
 
-// { leboncoin: url, henry: url, ... } à partir d'une annonce.
+// Site d'une clé de lien : « leboncoin~1 » (deuxième annonce Leboncoin du même bien) -> « leboncoin ».
+const siteOfLinkKey = key => String(key).split('~')[0];
+
+// { leboncoin: url, henry: url, ... } à partir d'une annonce. Un même bien peut être publié deux fois
+// sur un site (deux agences sur Leboncoin) : les liens suivants prennent les clés « leboncoin~1 », « ~2 »…
 function linksFromRow(row) {
   const links = {};
-  const main = linkKeyOfUrl(row.url);
-  if (main) links[main] = row.url;
+  const add = (key, url) => {
+    if (!key || !url || Object.values(links).includes(url)) return;
+    let unique = key;
+    for (let i = 1; links[unique]; i++) unique = `${key}~${i}`;
+    links[unique] = url;
+  };
+  add(linkKeyOfUrl(row.url), row.url);
   for (const extra of row.additional_links || []) {
-    const key = SOURCE_KEY_BY_NAME[extra.source] || linkKeyOfUrl(extra.url);
-    if (key) links[key] = extra.url;
+    add(SOURCE_KEY_BY_NAME[extra.source] || linkKeyOfUrl(extra.url), extra.url);
   }
   return links;
 }
 
-// Inverse de linksFromRow : choisit le lien principal (Leboncoin en priorité).
+// Inverse de linksFromRow : choisit le lien principal (Leboncoin en priorité), garde tous les autres.
 function buildLinkFields(allLinks) {
   const primaryKey = LINK_ORDER.find(k => allLinks[k]);
-  const additional = LINK_ORDER
-    .filter(k => allLinks[k] && k !== primaryKey)
-    .map(k => ({ source: LINK_LABELS[k], url: allLinks[k] }));
+  const seen = new Set(primaryKey ? [allLinks[primaryKey]] : []);
+  const additional = [];
+  for (const site of LINK_ORDER) {
+    const keys = Object.keys(allLinks).filter(k => siteOfLinkKey(k) === site && k !== primaryKey).sort();
+    for (const k of keys) {
+      if (!allLinks[k] || seen.has(allLinks[k])) continue;
+      seen.add(allLinks[k]);
+      additional.push({ source: LINK_LABELS[site], url: allLinks[k] });
+    }
+  }
   return { url: primaryKey ? allLinks[primaryKey] : null, additional_links: additional, primaryKey };
 }
 
@@ -177,6 +192,39 @@ function rowToParsed(row, now = Date.now()) {
   };
 }
 
+// Annonce de la base -> objet attendu par areDuplicates / duplicateSuspicion (comme une annonce relevée).
+function rowToDupInput(row) {
+  return {
+    title: row.title,
+    type: row.type || '',
+    location: row.location || '',
+    description: row.description || '',
+    url: row.url || '',
+    price: row.price ? String(row.price) : '',
+    chambres: row.chambres ?? null,
+    specs: {
+      surface: row.surface ? `${row.surface} m²` : '',
+      pieces: row.pieces ? String(row.pieces) : '',
+      floor: row.floor || '',
+      prestations: row.prestations || ''
+    }
+  };
+}
+
+// Ajoute à `keeper` les liens (principal et additionnels) de `duplicate` : champs url / additional_links à écrire.
+function mergeLinkFields(keeper, duplicate) {
+  const merged = linksFromRow({
+    url: keeper.url,
+    additional_links: [
+      ...(keeper.additional_links || []),
+      ...(duplicate.url ? [{ source: '', url: duplicate.url }] : []),
+      ...(duplicate.additional_links || [])
+    ]
+  });
+  const { url, additional_links } = buildLinkFields(merged);
+  return { url, additional_links };
+}
+
 // ---------------------------------------------------------------------------
 // Store
 // ---------------------------------------------------------------------------
@@ -228,27 +276,13 @@ class ListingStore {
     const priority = { approved: 0, sas: 1, rejected: 2 };
     const candidates = this.all().sort((a, b) => priority[a.review_status] - priority[b.review_status]);
 
-    for (const row of candidates) {
-      if (p.url && Object.values(linksFromRow(row)).includes(p.url)) return row;
-
-      const existing = {
-        title: row.title,
-        type: row.type || '',
-        location: row.location || '',
-        description: row.description || '',
-        url: row.url || '',
-        price: row.price ? String(row.price) : '',
-        chambres: row.chambres ?? null,
-        specs: {
-          surface: row.surface ? `${row.surface} m²` : '',
-          pieces: row.pieces ? String(row.pieces) : '',
-          floor: row.floor || '',
-          prestations: row.prestations || ''
-        }
-      };
-      if (areDuplicates(p, existing)) return row;
+    // Le lien d'abord, sur toutes les annonces : il est sûr, et l'annonce gardée d'un doublon confirmé
+    // (base active) passe avant la fiche d'origine du lien (corbeille).
+    if (p.url) {
+      const byLink = candidates.find(row => Object.values(linksFromRow(row)).includes(p.url));
+      if (byLink) return byLink;
     }
-    return null;
+    return candidates.find(row => areDuplicates(p, rowToDupInput(row))) || null;
   }
 
   async insert(row, historyEntry = null) {
@@ -347,6 +381,9 @@ module.exports = {
   rowToParsed,
   linksFromRow,
   buildLinkFields,
+  mergeLinkFields,
+  siteOfLinkKey,
+  rowToDupInput,
   linkKeyOfUrl,
   sourceKeyOf,
   parisToIso,

@@ -3,10 +3,13 @@ import { formatEuro, formatShortDate, daysAgo, headline, pricePerM2, seenInfo, s
 import { CriteriaPills, PriceDrop, ScoreBadge, SourceBadge } from './Ui';
 import DecisionButtons from './DecisionButtons';
 import ListingPhoto from './ListingPhoto';
+import DuplicateSuspects, { type SuspectView } from './DuplicateSuspects';
+import { siteLabel } from '@/lib/links';
 
 type Props = {
   listing: Listing;
   change?: { first: number; last: number };
+  suspects?: SuspectView[];
   // 'sas' : boutons Accepter/Rejeter et description ; 'trash' : bouton de remise dans le sas ; 'none' : lecture seule
   actions?: 'sas' | 'trash' | 'none';
   detailed?: boolean;
@@ -17,7 +20,7 @@ const TIER_STYLES: Record<number, string> = {
   2: 'text-amber-700 dark:text-amber-300'
 };
 
-export default function ListingCard({ listing: l, change, actions = 'none', detailed = false }: Props) {
+export default function ListingCard({ listing: l, change, suspects = [], actions = 'none', detailed = false }: Props) {
   const href = `/annonces/${encodeURIComponent(l.id)}`;
   const m2 = pricePerM2(l);
   const criteria = summarizeCriteria(l.score_criteria, (l.type || '').toLowerCase().includes('maison'));
@@ -90,7 +93,7 @@ export default function ListingCard({ listing: l, change, actions = 'none', deta
           <div className="mt-3 flex flex-wrap items-center gap-x-4 gap-y-2 text-sm">
             {l.url && (
               <a href={l.url} target="_blank" rel="noopener noreferrer" className="font-medium text-brand-700 hover:underline dark:text-brand-100">
-                Voir l&apos;annonce ↗
+                {siteLabel(l.url)} ↗
               </a>
             )}
             {l.additional_links.map(link => (
@@ -103,6 +106,12 @@ export default function ListingCard({ listing: l, change, actions = 'none', deta
             </Link>
           </div>
         </div>
+
+        {actions === 'sas' && suspects.length > 0 && (
+          <div className="mt-4">
+            <DuplicateSuspects key={l.id} id={l.id} suspects={suspects} />
+          </div>
+        )}
 
         {actions !== 'none' && (
           <div className="mt-4 border-t border-slate-100 pt-4 dark:border-slate-800">

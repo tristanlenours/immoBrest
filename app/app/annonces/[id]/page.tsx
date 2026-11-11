@@ -3,6 +3,8 @@ import { notFound } from 'next/navigation';
 import Nav from '@/components/Nav';
 import PriceChart from '@/components/PriceChart';
 import DecisionButtons from '@/components/DecisionButtons';
+import DuplicateSuspects from '@/components/DuplicateSuspects';
+import { siteLabel } from '@/lib/links';
 import ListingPhoto from '@/components/ListingPhoto';
 import { CriteriaPills, QuartierBadge, ScoreBadge, SourceBadge } from '@/components/Ui';
 import { compareWithDvf } from '@/lib/dvf';
@@ -11,6 +13,7 @@ import {
   formatDate,
   formatDateTime,
   formatEuro,
+  getDuplicateSuspects,
   getHistory,
   getListing,
   headline,
@@ -18,6 +21,7 @@ import {
   pricePerM2,
   seenInfo,
   summarizeCriteria,
+  suspectViews,
   type AiAnalysis
 } from '@/lib/listings';
 
@@ -33,7 +37,12 @@ export default async function ListingPage({ params }: { params: { id: string } }
   const listing = await getListing(id);
   if (!listing) notFound();
 
-  const [history, dvf] = await Promise.all([getHistory(listing.id), compareWithDvf(listing)]);
+  const [history, dvf, suspects] = await Promise.all([
+    getHistory(listing.id),
+    compareWithDvf(listing),
+    listing.review_status === 'sas' ? getDuplicateSuspects([listing]) : Promise.resolve(undefined)
+  ]);
+  const duplicateSuspects = suspectViews(suspects?.get(listing.id));
   const criteria = summarizeCriteria(listing.score_criteria, (listing.type || '').toLowerCase().includes('maison'));
   const m2 = pricePerM2(listing);
   const title = headline(listing);
@@ -110,7 +119,7 @@ export default async function ListingPage({ params }: { params: { id: string } }
           <div className="mt-4 flex flex-wrap gap-x-4 gap-y-2 text-sm">
             {listing.url && (
               <a href={listing.url} target="_blank" rel="noopener noreferrer" className="font-medium text-brand-700 hover:underline dark:text-brand-100">
-                Voir l&apos;annonce ↗
+                {siteLabel(listing.url)} ↗
               </a>
             )}
             {listing.additional_links.map(link => (
@@ -122,6 +131,11 @@ export default async function ListingPage({ params }: { params: { id: string } }
 
           {listing.review_status === 'sas' && (
             <div className="mt-4 border-t border-slate-100 pt-4 dark:border-slate-800">
+              {duplicateSuspects.length > 0 && (
+                <div className="mb-4">
+                  <DuplicateSuspects id={listing.id} suspects={duplicateSuspects} />
+                </div>
+              )}
               <DecisionButtons id={listing.id} />
             </div>
           )}

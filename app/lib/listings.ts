@@ -59,7 +59,43 @@ export type Listing = {
   decided_at: string | null;
   decided_by: string | null;
   reject_reason: string | null;
+  // Doublons possibles signalés par le relevé (annonces du sas), et ceux jugés « pas un doublon ».
+  duplicate_suspects?: { id: string; reason: string }[] | null;
+  duplicate_dismissed?: string[] | null;
 };
+
+export type DuplicateSuspect = { listing: Listing; reason: string };
+
+// Annonces signalées comme doublons possibles, chargées en une requête : id de l'annonce -> suspects.
+export async function getDuplicateSuspects(listings: Listing[]): Promise<Map<string, DuplicateSuspect[]>> {
+  const ids = [...new Set(listings.flatMap(l => (l.duplicate_suspects ?? []).map(s => s.id)))];
+  const result = new Map<string, DuplicateSuspect[]>();
+  if (ids.length === 0) return result;
+  const { data, error } = await db().from('immo_listings').select('*').in('id', ids);
+  if (error) throw new Error(`Lecture des doublons possibles impossible : ${error.message}`);
+  const byId = new Map(((data ?? []) as Listing[]).map(l => [l.id, l]));
+  for (const l of listings) {
+    const suspects = (l.duplicate_suspects ?? [])
+      .filter(s => byId.has(s.id))
+      .map(s => ({ listing: byId.get(s.id)!, reason: s.reason }));
+    if (suspects.length) result.set(l.id, suspects);
+  }
+  return result;
+}
+
+// Données affichées dans l'encart « Doublon possible » (composant client : objets simples).
+export function suspectViews(suspects: DuplicateSuspect[] | undefined) {
+  return (suspects ?? []).map(({ listing, reason }) => {
+    const title = headline(listing);
+    return {
+      id: listing.id,
+      ref: listing.ref ?? null,
+      title: [title.main, title.place].filter(Boolean).join(' ') + ` · ${formatEuro(listing.price)}`,
+      status: listing.review_status,
+      reason
+    };
+  });
+}
 
 export type HistoryPoint = { seen_at: string; price: number | null };
 

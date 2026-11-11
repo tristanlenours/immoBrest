@@ -20,6 +20,8 @@ const {
   rowToParsed,
   linksFromRow,
   buildLinkFields,
+  siteOfLinkKey,
+  rowToDupInput,
   sourceKeyOf,
   parseFrenchDateToIso,
   formatFrenchDateTime,
@@ -1459,6 +1461,81 @@ function areDuplicates(p1, p2) {
   return false;
 }
 
+// Ressemblance trop forte pour être ignorée mais pas assez pour fusionner d'office : on la signale
+// dans le sas et l'utilisateur tranche. Renvoie la liste des ressemblances, ou null.
+function duplicateSuspicion(p1, p2) {
+  if (p1.type !== p2.type) return null;
+  const a = dupFeatures(p1);
+  const b = dupFeatures(p2);
+  if (isNaN(a.surface) || isNaN(b.surface) || !a.price || !b.price) return null;
+  if (a.land && b.land && relativeGap(a.land, b.land) > 0.03) return null;
+  if (a.bedrooms && b.bedrooms && Math.abs(a.bedrooms - b.bedrooms) > 1) return null;
+
+  const surfaceGap = relativeGap(a.surface, b.surface);
+  const priceGap = relativeGap(a.price, b.price);
+  if (surfaceGap > 0.10 || priceGap > 0.06) return null;
+
+  const sameText = shareDescriptionText(p1.description, p2.description);
+  const sameLand = a.land && a.land === b.land;
+  const places = [...a.places].filter(place => b.places.has(place));
+  // Deux étages différents : ce n'est le même bien que si le texte est le même (étage mal renseigné).
+  if (a.floor !== null && b.floor !== null && a.floor !== b.floor && !sameText) return null;
+  const sameBedrooms = a.bedrooms && a.bedrooms === b.bedrooms;
+  const samePieces = a.pieces && a.pieces === b.pieces;
+  const sameFloor = a.floor !== null && a.floor === b.floor;
+  const closeYear = a.year && b.year && Math.abs(a.year - b.year) <= 3;
+  // Un secteur commun ne suffit pas (le Triangle d'Or compte beaucoup de T5 de 110 m²) :
+  // il faut des mesures proches et au moins un indice concordant.
+  if (!sameText && !sameLand) {
+    if (places.length === 0 || surfaceGap > 0.06 || priceGap > 0.05) return null;
+    if (!sameBedrooms && !samePieces && !sameFloor && !closeYear) return null;
+  }
+
+  const fmtEuro = n => `${Math.round(n / 1000)} k€`;
+  const reasons = [
+    a.price === b.price ? `même prix (${fmtEuro(a.price)})` : `prix ${fmtEuro(a.price)} / ${fmtEuro(b.price)}`,
+    a.surface === b.surface ? `même surface (${a.surface} m²)` : `${a.surface} / ${b.surface} m²`
+  ];
+  if (sameText) reasons.push('même texte d\'annonce');
+  if (sameLand) reasons.push(`même terrain (${a.land} m²)`);
+  if (places.length) reasons.push(`secteur ${places.join(', ')}`);
+  if (sameBedrooms) reasons.push(`${a.bedrooms} chambres`);
+  else if (samePieces) reasons.push(`${a.pieces} pièces`);
+  if (sameFloor) reasons.push(a.floor === 0 ? 'rez-de-chaussée' : `étage ${a.floor}`);
+  if (closeYear) reasons.push(`construit en ${a.year === b.year ? a.year : `${a.year} / ${b.year}`}`);
+  return reasons.join(', ');
+}
+
+// Après le relevé : pour chaque annonce du sas, liste les annonces connues qui lui ressemblent
+// (base active, sas, corbeille sauf rejets automatiques), hors celles déjà jugées différentes.
+async function flagDuplicateSuspects() {
+  const sample = store.all()[0];
+  if (sample && !('duplicate_suspects' in sample)) {
+    console.warn('[DOUBLONS] Colonne duplicate_suspects absente : exécuter la migration 20261111150000 dans Supabase.');
+    return;
+  }
+  // Les fiches Castorus sont un ancien import, archivé en corbeille : on ne s'y compare pas.
+  const candidates = store.all().filter(r => !r.id.startsWith('castorus_') && (r.review_status !== 'rejected' || r.decided_by !== 'auto'));
+  let flagged = 0;
+  for (const row of store.byReviewStatus('sas')) {
+    const dismissed = new Set(row.duplicate_dismissed || []);
+    const suspects = [];
+    for (const other of candidates) {
+      if (other.id === row.id || dismissed.has(other.id)) continue;
+      const reason = duplicateSuspicion(rowToDupInput(row), rowToDupInput(other));
+      if (reason) suspects.push({ id: other.id, reason });
+    }
+    if (JSON.stringify(suspects) !== JSON.stringify(row.duplicate_suspects || [])) {
+      await store.update(row.id, { duplicate_suspects: suspects });
+    }
+    if (suspects.length) {
+      flagged++;
+      console.log(`[DOUBLON POSSIBLE] ${row.id} ~ ${suspects.map(s => `${s.id} (${s.reason})`).join(' ; ')}`);
+    }
+  }
+  console.log(`[DOUBLONS] ${flagged} annonce(s) du sas avec un doublon possible.`);
+}
+
 async function checkUrlIs404(url) {
   if (!url || url.includes('leboncoin.fr')) return false;
   try {
@@ -1486,7 +1563,7 @@ async function purgeLowScoreRejects(sourcesRun) {
   const fourteenDaysAgo = Date.now() - 14 * 24 * 60 * 60 * 1000;
   for (const row of store.byReviewStatus('rejected')) {
     if (row.decided_by !== 'auto' || !(row.reject_reason || '').startsWith(LOW_SCORE_REASON)) continue;
-    if (!Object.keys(linksFromRow(row)).some(key => sourcesRun.has(key))) continue;
+    if (!Object.keys(linksFromRow(row)).some(key => sourcesRun.has(siteOfLinkKey(key)))) continue;
     const lastSeenMs = row.last_seen_at ? new Date(row.last_seen_at).getTime() : 0;
     if (lastSeenMs >= fourteenDaysAgo) continue;
     await store.remove(row.id);
@@ -1506,7 +1583,7 @@ async function markSoldProperties(seenIds, sourcesRun) {
 
     // Une annonce n'est jugée que si l'une de ses sources a été interrogée avec succès dans cette exécution.
     const links = linksFromRow(row);
-    if (!Object.keys(links).some(key => sourcesRun.has(key))) continue;
+    if (!Object.keys(links).some(key => sourcesRun.has(siteOfLinkKey(key)))) continue;
 
     let reason = '';
 
@@ -1579,7 +1656,10 @@ async function saveOrUpdateProperty(p) {
     await touchRejected(existing);
     return null;
   }
-  for (const key of Object.keys(LINK_LABELS)) {
+  // Lien rattaché à une annonce gardée (doublon confirmé) : c'est elle qu'on met à jour, même si
+  // la fiche d'origine de ce lien est en corbeille.
+  const linkedToExisting = existing && Object.values(linksFromRow(existing)).includes(p.url);
+  for (const key of linkedToExisting ? [] : Object.keys(LINK_LABELS)) {
     const sameId = store.get(`${key}_${id}`);
     if (sameId && sameId.review_status === 'rejected') {
       console.log(`[SKIPPED - TRASHED] Property is in corbeille (${sameId.id})`);
@@ -1592,7 +1672,8 @@ async function saveOrUpdateProperty(p) {
   let targetId = existing ? existing.id : `${sourceKey}_${id}`;
 
   // Leboncoin devient la référence d'une annonce publiée sur plusieurs portails.
-  if (existing && p.source === 'Leboncoin' && !targetId.startsWith('leboncoin_')) {
+  // Sauf si cet identifiant est déjà pris (annonce Leboncoin mise en corbeille comme doublon de celle-ci).
+  if (existing && p.source === 'Leboncoin' && !targetId.startsWith('leboncoin_') && !store.get(`leboncoin_${id}`)) {
     const newId = `leboncoin_${id}`;
     console.log(`Migrating duplicate listing from ${targetId} to ${newId} (Leboncoin is primary)`);
     try {
@@ -1605,7 +1686,12 @@ async function saveOrUpdateProperty(p) {
     }
   }
 
-  const allLinks = { ...(existing ? linksFromRow(existing) : {}), ...p.otherLinks, [sourceKey]: p.url };
+  // Tous les liens sont gardés : ceux déjà connus, celui de l'annonce relevée, ceux de ses doublons du relevé.
+  // Un second lien du même site prend la clé « leboncoin~1 » au lieu de remplacer le premier.
+  const extraLinks = Object.values(p.otherLinks || {}).map(url => ({ source: '', url }));
+  const allLinks = existing
+    ? linksFromRow({ url: existing.url, additional_links: [...(existing.additional_links || []), { source: '', url: p.url }, ...extraLinks] })
+    : linksFromRow({ url: p.url, additional_links: extraLinks });
   const linkFields = buildLinkFields(allLinks);
   // last_seen_at = dernier relevé où l'annonce était en ligne ; published_at = date de publication annoncée par la source.
   const publishedIso = parseFrenchDateToIso(p.publicationDate) || (existing ? existing.published_at : null) || null;
@@ -1797,10 +1883,15 @@ async function run() {
           console.log(`[DEDUPLICATED] Skipped ${p.source} listing: "${p.title}" (${p.price}) as duplicate of "${u.title}" (${u.price})`);
 
           // Merge links
+          // Deux annonces du même site pour un même bien : la seconde prend la clé « leboncoin~1 ».
           if (!u.otherLinks) u.otherLinks = {};
-          u.otherLinks[sourceKeyOf(p.source)] = p.url;
-          if (p.otherLinks) {
-            u.otherLinks = { ...u.otherLinks, ...p.otherLinks };
+          const known = new Set([u.url, ...Object.values(u.otherLinks)]);
+          for (const [key, url] of Object.entries({ [sourceKeyOf(p.source)]: p.url, ...(p.otherLinks || {}) })) {
+            if (!url || known.has(url)) continue;
+            let unique = key;
+            for (let i = 1; u.otherLinks[unique] || (unique === sourceKeyOf(u.source)); i++) unique = `${siteOfLinkKey(key)}~${i}`;
+            u.otherLinks[unique] = url;
+            known.add(url);
           }
           break;
         }
@@ -1849,6 +1940,14 @@ async function run() {
       console.error('Error running automated scoring:', err.message);
     }
 
+    // Après le scoring : les annonces écartées d'office ont quitté le sas et ne sont pas signalées.
+    try {
+      await flagDuplicateSuspects();
+    } catch (err) {
+      failures.push(`doublons: ${err.message}`);
+      console.error('Error flagging duplicate suspects:', err.message);
+    }
+
     printNewListings();
     await store.finishRun(failures.length > 0 ? 'error' : 'success', { sources: [...sources], foundBySource, sourceRuns, failures }, failures.join(' | ') || null);
     console.log(failures.length > 0 ? `\nFetch completed with ${failures.length} error(s).` : '\nFetch completed successfully.');
@@ -1867,6 +1966,8 @@ if (require.main === module) {
 
 module.exports = {
   areDuplicates,
+  duplicateSuspicion,
+  flagDuplicateSuspects,
   saveOrUpdateProperty,
   useStore(nextStore) {
     store = nextStore;

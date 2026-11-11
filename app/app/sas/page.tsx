@@ -1,13 +1,14 @@
 import Nav from '@/components/Nav';
 import ListingCard from '@/components/ListingCard';
 import { EmptyState } from '@/components/Ui';
-import { getLastRun, getListings, getPriceChanges, daysAgo } from '@/lib/listings';
+import { getDuplicateSuspects, getLastRun, getListings, getPriceChanges, daysAgo, suspectViews } from '@/lib/listings';
 
 export const dynamic = 'force-dynamic';
 export const metadata = { title: "Sas d'attente · ImmoBrest" };
 
 export default async function SasPage() {
   const [sas, changes, lastRun] = await Promise.all([getListings('sas'), getPriceChanges(), getLastRun()]);
+  const suspects = await getDuplicateSuspects(sas);
   // Les mieux notées d'abord : ce sont celles qu'on veut trancher en premier.
   sas.sort((a, b) => Number(b.score ?? 0) - Number(a.score ?? 0));
 
@@ -25,7 +26,16 @@ export default async function SasPage() {
         {sas.length === 0 ? (
           <EmptyState title="Rien à valider pour le moment" hint="Les nouvelles annonces apparaissent ici après chaque relevé quotidien." />
         ) : (
-          sas.map(listing => <ListingCard key={listing.id} listing={listing} change={changes.get(listing.id)} actions="sas" detailed />)
+          sas.map(listing => (
+            <ListingCard
+              key={listing.id}
+              listing={listing}
+              change={changes.get(listing.id)}
+              suspects={suspectViews(suspects.get(listing.id))}
+              actions="sas"
+              detailed
+            />
+          ))
         )}
       </main>
     </>
