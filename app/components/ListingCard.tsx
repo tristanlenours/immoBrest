@@ -36,6 +36,7 @@ export default function ListingCard({ listing: l, change, actions = 'none', deta
       <Link href={href} className="relative block aspect-[16/9] bg-slate-100 dark:bg-slate-800" aria-label={`Voir la fiche : ${l.title}`}>
         <ListingPhoto src={photos[0]} alt={l.title} isHouse={isHouse} className="h-full w-full" />
         <div className="absolute left-3 top-3 flex flex-wrap gap-1.5">
+          {l.ref && <span className="chip bg-slate-900/80 font-mono text-white" title="Référence de l'annonce">{l.ref}</span>}
           <SourceBadge source={l.source} />
           {!isOnline(l) && <span className="chip bg-slate-900/80 text-white">{l.market_status}</span>}
         </div>

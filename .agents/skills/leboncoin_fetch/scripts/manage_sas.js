@@ -9,6 +9,7 @@ function getStagedListings(store) {
     const parsed = rowToParsed(row);
     return {
       id: row.id,
+      ref: row.ref || '',
       source: row.source,
       title: row.title,
       price: parsed.priceClean,
@@ -29,6 +30,7 @@ function listSas(store) {
 
   console.log(`\n================ SAS D'ATTENTE (${listings.length} annonce(s) en attente) ================`);
   console.table(listings.map(l => ({
+    Ref: l.ref,
     Identifiant: l.id,
     Source: l.source,
     Titre: l.title.length > 40 ? l.title.substring(0, 37) + '...' : l.title,
@@ -39,8 +41,8 @@ function listSas(store) {
   })));
   console.log('==================================================================================');
   console.log('\nCommandes disponibles :');
-  console.log('  node --env-file=.env .agents/skills/leboncoin_fetch/scripts/manage_sas.js approve <id|all>');
-  console.log('  node --env-file=.env .agents/skills/leboncoin_fetch/scripts/manage_sas.js reject <id|all> [motif]');
+  console.log('  node --env-file=.env .agents/skills/leboncoin_fetch/scripts/manage_sas.js approve <ref|id|all>');
+  console.log('  node --env-file=.env .agents/skills/leboncoin_fetch/scripts/manage_sas.js reject <ref|id|all> [motif]');
 }
 
 function refreshSite() {
@@ -63,7 +65,7 @@ async function decide(store, target, decision, reason = null) {
 
   const selected = target === 'all'
     ? listings
-    : listings.filter(l => l.id === target || l.id.includes(target));
+    : listings.filter(l => l.id === target || l.ref === target || l.id.includes(target));
 
   if (selected.length === 0) {
     console.error(`Aucune annonce ne correspond au terme "${target}" dans le sas.`);

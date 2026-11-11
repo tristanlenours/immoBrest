@@ -61,7 +61,7 @@ ImmoBrest est une plateforme automatisée de recherche, d'évaluation et de cons
 
 Les annonces vivent dans le projet **Supabase partagé** (avec DraftMaster et Quiz), tables préfixées `immo_`. Les scripts utilisent la clé `service_role` lue dans `.env` (voir `.env.example`) : lancer avec `node --env-file=.env <script>`. Le schéma est dans `supabase/migrations/`.
 
-- `immo_listings` : une ligne par annonce. `review_status` vaut `sas` (**sas d'attente**, nouvelles annonces à valider), `approved` (**base active** publiée sur le site) ou `rejected` (**corbeille**, sert aussi d'anti-doublon pour ne jamais ré-ingérer une annonce rejetée). `market_status` porte l'état sur le marché (Actif, Vendu ou retiré de la vente...).
+- `immo_listings` : une ligne par annonce. `ref` est sa référence lisible, attribuée une fois pour toutes par un trigger à l'insertion : `A` (appartement) ou `M` (maison), date d'arrivée dans la base `AAAAMMJJ`, puis `-2`, `-3`… si plusieurs annonces du même type arrivent le même jour (ex. `M20261029`, `A20261111-2`). L'app accepte `/annonces/<ref>` et `manage_sas.js` accepte une ref. `review_status` vaut `sas` (**sas d'attente**, nouvelles annonces à valider), `approved` (**base active** publiée sur le site) ou `rejected` (**corbeille**, sert aussi d'anti-doublon pour ne jamais ré-ingérer une annonce rejetée). `market_status` porte l'état sur le marché (Actif, Vendu ou retiré de la vente...).
   - Dates : `first_seen_at` = première fois que les relevés ont vu l'annonce (entrée dans le référentiel), `last_seen_at` = dernier relevé où elle était en ligne, `published_at` = date de publication indiquée par la source (Leboncoin).
   - `photos` : URLs des photos (la première sert de vignette), relevées par le fetch ou par l'enrichissement.
   - `ai_analysis` : analyse Gemini de la description (caractéristiques oui/non/inconnu, état, DPE, complément de titre, points forts/faibles), utilisée par le scoring.
@@ -116,7 +116,7 @@ flowchart TD
 
 ### 🔍 `leboncoin_fetch` (Ingestion & Gestion du Sas)
 - **Scraper d'annonces** : `node --env-file=.env .agents/skills/leboncoin_fetch/scripts/fetch_listings.js`
-  - `--sources=leboncoin,henry,luxior,barraine,human` : limite les sources interrogées (toutes par défaut). Leboncoin s'exécute sur le PC (Chrome en debug, tâche planifiée `scripts/run_local_fetch.ps1`), Henry, Barraine et Luxior tournent dans le cloud (`.github/workflows/fetch-cloud.yml`, cron quotidien). **Human est en pause** : son site répond 403 aux scrapers (cloud comme PC), ne pas chercher à contourner cette protection.
+  - `--sources=leboncoin,henry,luxior,barraine,human` : limite les sources interrogées (toutes par défaut). Leboncoin s'exécute sur le PC RAFIKII uniquement (Chrome en debug, `scripts/run_local_fetch.ps1` ; le dossier étant synchronisé entre PC, le script ne fait rien sur un autre poste, sauf variable `IMMO_FETCH_HOST`), Henry, Barraine et Luxior tournent dans le cloud (`.github/workflows/fetch-cloud.yml`, cron quotidien). **Human est en pause** : son site répond 403 aux scrapers (cloud comme PC), ne pas chercher à contourner cette protection.
   - `--dry-run` : exécute tout le pipeline sans rien écrire dans la base.
   - Le scoring est lancé automatiquement à la fin, et chaque exécution est tracée dans `immo_run_log`.
 - **Lister le Sas d'attente** : `node --env-file=.env .agents/skills/leboncoin_fetch/scripts/manage_sas.js list`

@@ -325,6 +325,7 @@ function processListings(rows, historyByListing, dvfContext, isSas = false) {
 
     listings.push({
       folder,
+      ref: row.ref || null,
       isSas,
       source,
       title,
@@ -371,6 +372,7 @@ outline: deep
 
 <div class="detail-header-panel">
   <div class="detail-header-left">
+    ${row.ref ? `<span class="detail-source-badge" style="font-family: monospace; margin-right: 8px;" title="Référence">${row.ref}</span>` : ''}
     <span class="detail-source-badge">${source}</span>
     <span class="detail-status-badge status-${status.toLowerCase().replace(/\s+/g, '-')}" style="margin-left: 8px;">${displayStatus}</span>
     ${quartier ? `<span class="detail-quartier-badge" style="margin-left: 8px;">📍 ${quartier} (Tiers ${tier})</span>` : ''}

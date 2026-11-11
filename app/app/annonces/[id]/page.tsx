@@ -33,7 +33,7 @@ export default async function ListingPage({ params }: { params: { id: string } }
   const listing = await getListing(id);
   if (!listing) notFound();
 
-  const [history, dvf] = await Promise.all([getHistory(id), compareWithDvf(listing)]);
+  const [history, dvf] = await Promise.all([getHistory(listing.id), compareWithDvf(listing)]);
   const criteria = summarizeCriteria(listing.score_criteria, (listing.type || '').toLowerCase().includes('maison'));
   const m2 = pricePerM2(listing);
   const title = headline(listing);
@@ -81,6 +81,11 @@ export default async function ListingPage({ params }: { params: { id: string } }
           <div className="flex items-start gap-4">
             <div className="min-w-0 flex-1">
               <div className="flex flex-wrap items-center gap-1.5">
+                {listing.ref && (
+                  <span className="chip bg-slate-900 font-mono text-white dark:bg-slate-100 dark:text-slate-900" title="Référence de l'annonce">
+                    {listing.ref}
+                  </span>
+                )}
                 <SourceBadge source={listing.source} />
                 <QuartierBadge quartier={listing.quartier} tier={listing.tier} />
                 <span className="chip bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-200">{listing.market_status}</span>

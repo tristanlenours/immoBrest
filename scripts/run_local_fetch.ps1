@@ -14,6 +14,15 @@ $ErrorActionPreference = 'Continue'
 $root = Split-Path -Parent $PSScriptRoot
 Set-Location $root
 
+# Le dépôt est synchronisé entre plusieurs PC : seul le PC désigné fait le relevé, pour ne pas
+# doubler les passages sur Leboncoin (contrôle anti-robot) ni se disputer les commits.
+# Autre PC : définir la variable d'environnement IMMO_FETCH_HOST, ou modifier la valeur ci-dessous.
+$fetchHost = if ($env:IMMO_FETCH_HOST) { $env:IMMO_FETCH_HOST } else { 'RAFIKII' }
+if ($env:COMPUTERNAME -ne $fetchHost) {
+  Write-Host "Relevé réservé au PC $fetchHost (ce PC : $env:COMPUTERNAME). Rien à faire."
+  exit 0
+}
+
 $logDir = Join-Path $root 'logs'
 New-Item -ItemType Directory -Force $logDir | Out-Null
 Get-ChildItem $logDir -Filter 'local_fetch_*.log' | Where-Object { $_.LastWriteTime -lt (Get-Date).AddDays(-30) } | Remove-Item -Force

@@ -1332,11 +1332,33 @@ async function scrapeHuman() {
 }
 
 
+// Surface du terrain relevée dans la fiche Leboncoin (« Surface totale du terrain 152 m² »).
+function landSurfaceOf(description) {
+  const m = (description || '').match(/Surface totale du terrain\s*([\d\s ]+)\s*m/i);
+  return m ? parseInt(m[1].replace(/\D/g, ''), 10) || null : null;
+}
+
+function priceNumberOfDup(p) {
+  return p.price ? parseInt(String(p.price).replace(/[^\d]/g, ''), 10) || null : null;
+}
+
 function areDuplicates(p1, p2) {
   if (p1.type !== p2.type) return false;
-  
+
   const s1 = parseFloat(p1.specs.surface);
   const s2 = parseFloat(p2.specs.surface);
+
+  // Même terrain au m² près, prix à 3 % et surface habitable à 10 % : même bien publié par deux
+  // agences, qui ne mesurent pas toujours la surface habitable de la même façon (98 / 103 m²).
+  const land1 = landSurfaceOf(p1.description);
+  const land2 = landSurfaceOf(p2.description);
+  const pr1 = priceNumberOfDup(p1);
+  const pr2 = priceNumberOfDup(p2);
+  if (land1 && land1 === land2 && pr1 && pr2 && Math.abs(pr1 - pr2) / Math.max(pr1, pr2) < 0.03
+      && !isNaN(s1) && !isNaN(s2) && Math.abs(s1 - s2) / Math.max(s1, s2) <= 0.10) {
+    return true;
+  }
+
   if (isNaN(s1) || isNaN(s2) || Math.abs(s1 - s2) > 1) return false;
   
   const pc1 = p1.specs.pieces ? parseInt(p1.specs.pieces, 10) : null;
@@ -1367,8 +1389,6 @@ function areDuplicates(p1, p2) {
     }
   }
   
-  const pr1 = p1.price ? parseInt(p1.price.replace(/[^\d]/g, ''), 10) : null;
-  const pr2 = p2.price ? parseInt(p2.price.replace(/[^\d]/g, ''), 10) : null;
   if (pr1 && pr2 && Math.abs(pr1 - pr2) / Math.max(pr1, pr2) < 0.03) {
     const loc1 = normalizeString(p1.location);
     const loc2 = normalizeString(p2.location);
@@ -1797,6 +1817,7 @@ if (require.main === module) {
 }
 
 module.exports = {
+  areDuplicates,
   saveOrUpdateProperty,
   useStore(nextStore) {
     store = nextStore;

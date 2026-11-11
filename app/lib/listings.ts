@@ -29,6 +29,8 @@ export type AiAnalysis = {
 
 export type Listing = {
   id: string;
+  // Référence lisible (A = appartement, M = maison, date d'arrivée AAAAMMJJ, « -2 »… si besoin), attribuée par la base.
+  ref?: string | null;
   source: string;
   review_status: ReviewStatus;
   market_status: string;
@@ -67,8 +69,12 @@ export async function getListings(...statuses: ReviewStatus[]): Promise<Listing[
   return (data ?? []) as Listing[];
 }
 
+export const LISTING_REF_PATTERN = /^[AM]\d{8}(-\d+)?$/;
+
+// Accepte l'identifiant technique (leboncoin_3289666199) ou la référence lisible (M20261029).
 export async function getListing(id: string): Promise<Listing | null> {
-  const { data, error } = await db().from('immo_listings').select('*').eq('id', id).maybeSingle();
+  const column = LISTING_REF_PATTERN.test(id) ? 'ref' : 'id';
+  const { data, error } = await db().from('immo_listings').select('*').eq(column, id).maybeSingle();
   if (error) throw new Error(`Lecture de l'annonce impossible : ${error.message}`);
   return (data as Listing | null) ?? null;
 }
