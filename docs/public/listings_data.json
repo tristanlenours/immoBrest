@@ -1,5 +1,5 @@
 {
-  "last_update": "14 novembre 2026 à 10h26",
+  "last_update": "14 novembre 2026 à 13h28",
   "listings": [
     {
       "folder": "barraine_58615772",
@@ -75,8 +75,8 @@
       "pieces": "5 pièces",
       "prestations": "Non spécifiées",
       "dateFirst": "18 juillet 2026 à 23h57",
-      "dateLast": "13 novembre 2026 à 14h23",
-      "dateVal": 1794576180000,
+      "dateLast": "14 novembre 2026 à 13h27",
+      "dateVal": 1794659220000,
       "maluses": [
         "Localisation : -2.0 Tiers 2",
         "Pas dernier étage (-0.75)",
@@ -723,8 +723,8 @@
       "pieces": "5 pièces",
       "prestations": "Double vitrage Fenêtre aluminium Volets roulants électriques Abri de voiture Accès PMR Ascenseur Fibre optique Vidéo surveillance Vidéophone",
       "dateFirst": "21 juin 2026 à 23h52",
-      "dateLast": "13 novembre 2026 à 14h23",
-      "dateVal": 1794576180000,
+      "dateLast": "14 novembre 2026 à 13h27",
+      "dateVal": 1794659220000,
       "maluses": [
         "Localisation : -2.0 Tiers 2",
         "Pas dernier étage (-0.75)",
@@ -897,8 +897,8 @@
       "pieces": "4 pièces",
       "prestations": "Double vitrage Internet Digicode Fibre optique Local à vélo",
       "dateFirst": "14 octobre 2026 à 22h17",
-      "dateLast": "13 novembre 2026 à 14h23",
-      "dateVal": 1794576180000,
+      "dateLast": "14 novembre 2026 à 13h27",
+      "dateVal": 1794659220000,
       "maluses": [
         "Pas dernier étage (-1)",
         "Pas de terrasse/jardin (-1.5)",
@@ -1183,14 +1183,14 @@
       "ref": "A20260622-4",
       "isSas": false,
       "source": "Leboncoin",
-      "title": "Appartement 119 m² Gare, seul à l'étage",
-      "price": "309 900 €",
-      "priceVal": 309900,
-      "prixM2": 2604,
+      "title": "Appartement 119 m² Triangle d'Or avec balcon, seul à l'étage",
+      "price": "336 900 €",
+      "priceVal": 336900,
+      "prixM2": 2832,
       "dvfComparison": {
-        "prixM2": 2604,
+        "prixM2": 2832,
         "medianM2": 2250,
-        "diffPct": 16,
+        "diffPct": 26,
         "sampleCount": 229,
         "scopeLabel": "Triangle d'Or",
         "yearsLabel": "2024–2025",
@@ -1262,30 +1262,35 @@
           "dateTs": 1794648296309,
           "price": "309 900 €",
           "priceVal": 309900
+        },
+        {
+          "date": "14 novembre 2026",
+          "dateTs": 1794659260388,
+          "price": "336 900 €",
+          "priceVal": 336900
         }
       ],
-      "score": 6.6,
+      "score": 8.1,
       "status": "Actif",
-      "location": "Brest 29200 Centre-ville - Triangle d'Or",
+      "location": "Brest - BRANDA",
       "quartier": "Triangle d'Or",
       "tier": 1,
       "url": "https://www.leboncoin.fr/ad/ventes_immobilieres/3167557505",
       "type": "Appartement",
-      "surface": "119 m²",
-      "surfaceVal": 119,
+      "surface": "118.95 m²",
+      "surfaceVal": 118.95,
       "pieces": "5 pièces",
-      "prestations": "Chambres: 3 ch.",
+      "prestations": "Chambres: 3",
       "dateFirst": "22 juin 2026 à 00h03",
-      "dateLast": "14 novembre 2026 à 10h24",
-      "dateVal": 1794648240000,
+      "dateLast": "14 novembre 2026 à 13h27",
+      "dateVal": 1794659220000,
       "maluses": [
         "Pas dernier étage (-0.75)",
-        "Pas de terrasse/jardin (-1.5)",
         "Pas de parking/garage (-1.13)",
         "Bonus qualité (+0.0)"
       ],
       "hasScreenshot": true,
-      "description": "Appartement 5 pièces 119 m²\n\nEt si vous profitiez d'un appartement lumineux, au coeur de la ville, avec une vue dégagée et une vraie sensation d'espace ?\n\nSitué en hyper-centre, dans le secteur recherché Quartz / Branda, cet appartement de type 5 prend place au 4? étage avec ascenseur d'une petite copropriété bien entretenue. Seul sur son palier, il offre un cadre de vie calme et privilégié.\n\nDès l'entrée, vous découvrez un vaste salon-séjour d'environ 40 m², baigné de lumière grâce à son exposi…\n\nVoir plus\nPasser la liste des médias\nListe des médias\nPhotos (13)\nLes informations clés\n\nType de bien\n\nAppartement\n\nSurface habitable\n\n119 m²\n\nNombre de pièces\n\n5\n\nNombre de chambres\n\n3 ch.\n\nNombre de salles d'eau\n\n2\n\nCaractéristiques\n\nCuisine équipée, Cave, Plusieurs toilettes, Interphone\n\nType de chauffage\n\nIndividuel\n\nMode de chauffage\n\nÉlectrique\n\nVoir les 7 critères supplémentaires\nDiagnostics\n\nClasse énergie\n\nA\nB\nC\nD\nE\nF\nG\n\nGES\n\nA\nB\nC\nD\nE\nF\nG"
+      "description": "BREST – BRANDA. Réf : SI00487-PDM Situé dans secteur Branda, à proximité immédiate de la gare de Brest (29200), venez découvrir cet appartement T5 de 118,95 m² habitables situé au quatrième étage d'une résidence avec ascenseur des années 1990. Seul sur pallier, il se compose d'une large entrée avec rangement, salon-séjour de 38,90 m² baigné de lumière et cuisine attenante de 13,40 m². Côté nuit, 3 chambres allants de 13,70 à 17 m² dont 2 avec balcons, 2 salle d'eaux dont une avec WC, WC indépendants. Les menuiseries sont en aluminium double vitrage et le chauffage est individuel électrique. Sur le plan énergétique, l'appartement présente une consommation énergétique de 147,4 kWh/m²/an, correspondant à une classe énergétique C. Les émissions de gaz à effet de serre sont classées A, avec une valeur de 5 kg CO?/m²/an. Idéalement situé, cet appartement se trouve à seulement 3 minutes à pied de l'arrêt de tramway 'Liberté' et à moins d'un km des commerces. Les écoles sont accessibles en 5 minutes, et vous trouverez également plusieurs restaurants et boulangeries à proximité. Ne manquez pas cette opportunité rare sur le marché ! Contactez Barraine IMMO – Brest pour plus d'informations. (5.28 % honoraires TTC à la charge de l'acquéreur.) Copropriété de 14 lots – dont 14 lots habitation. (Pas de procédure en cours). Charges annuelles : 2399.76 euros. Risque sismique ou radon Les informations sur les risques auxquels ce bien est exposé sont disponibles sur le site Géorisques . * 336 900 € honoraires inclus dont à la charge de l'acquéreur : 16 900 € - Prix hors honoraires : 320 000 €."
     },
     {
       "folder": "leboncoin_3119799071",
@@ -1620,8 +1625,8 @@
       "pieces": "5 pièces",
       "prestations": "Double vitrage Fenêtre PVC Fenêtres coulissantes Abri de voiture",
       "dateFirst": "22 juin 2026 à 00h02",
-      "dateLast": "14 novembre 2026 à 10h24",
-      "dateVal": 1794648240000,
+      "dateLast": "14 novembre 2026 à 13h27",
+      "dateVal": 1794659220000,
       "maluses": [
         "Localisation : -2.0 Tiers 2",
         "Pas dernier étage (-1)",
@@ -2345,14 +2350,14 @@
       "ref": "A20260718-5",
       "isSas": false,
       "source": "Leboncoin",
-      "title": "Appartement 97 m² Triangle d'Or avec vue mer, dernier étage",
-      "price": "395 200 €",
-      "priceVal": 395200,
-      "prixM2": 4074,
+      "title": "Appartement 97 m² Triangle d'Or avec vue mer et garage",
+      "price": "399 000 €",
+      "priceVal": 399000,
+      "prixM2": 4113,
       "dvfComparison": {
-        "prixM2": 4074,
+        "prixM2": 4113,
         "medianM2": 2250,
-        "diffPct": 81,
+        "diffPct": 83,
         "sampleCount": 229,
         "scopeLabel": "Triangle d'Or",
         "yearsLabel": "2024–2025",
@@ -2454,30 +2459,35 @@
           "dateTs": 1794648294784,
           "price": "395 200 €",
           "priceVal": 395200
+        },
+        {
+          "date": "14 novembre 2026",
+          "dateTs": 1794659260106,
+          "price": "399 000 €",
+          "priceVal": 399000
         }
       ],
-      "score": 6.9,
+      "score": 6.5,
       "status": "Actif",
-      "location": "Brest 29200 Centre-ville - Triangle d'Or",
+      "location": "BREST",
       "quartier": "Triangle d'Or",
       "tier": 1,
       "url": "https://www.leboncoin.fr/ad/ventes_immobilieres/3230023834",
       "type": "Appartement",
       "surface": "97 m²",
       "surfaceVal": 97,
-      "pieces": "3 pièces",
-      "prestations": "Chambres: 2 ch.",
+      "pieces": "4 pièces",
+      "prestations": "Chambres: 2, Garage: 1, Cave: 1",
       "dateFirst": "18 juillet 2026 à 21h30",
-      "dateLast": "14 novembre 2026 à 10h24",
-      "dateVal": 1794648240000,
+      "dateLast": "14 novembre 2026 à 13h27",
+      "dateVal": 1794659220000,
       "maluses": [
-        "Pas de terrasse/jardin (-1.5)",
-        "Pas de parking/garage (-1.13)",
-        "Malus chambres (2 chambres) (-1.0)",
+        "Pas de terrasse/jardin (-2)",
+        "Malus chambres (4 pièces, 2 chambres) (-2.0)",
         "Bonus qualité : vue mer (+0.5)"
       ],
       "hasScreenshot": true,
-      "description": "BREST - SIAM - Au coeur du très recherché triangle d'or brestois, sur la place Wilson, découvrez cet appartement d'exception aux prestations recherchées. Situé au dernier étage d'un petite copropriété de standing, seul sur le palier et desservi par un ascenseur privatif, ce bien de 97 m² séduit immédiatement par son caractère bourgeois chic et son parfait état d'entretien. Traversant et baigné de lumière avec une vue panoramique et mer appréciable, il propose un vaste espace de vie ouvrant sur u…\n\nVoir plus\nPasser la liste des médias\nListe des médias\nPhotos (13)\nLes informations clés\n\nType de vente\n\nAncien\n\nType de bien\n\nAppartement\n\nSurface habitable\n\n97 m²\n\nSurface totale du terrain\n\n527 m²\n\nNombre de pièces\n\n3\n\nNombre de chambres\n\n2 ch.\n\nType de chauffage\n\nIndividuel\n\nMode de chauffage\n\nGaz\n\nVoir les 2 critères supplémentaires\nDiagnostics\n\nClasse énergie\n\nA\nB\nC\nD\nE\nF\nG\n\nGES\n\nA\nB\nC\nD\nE\nF\nG"
+      "description": "Idéalement situé sur la très prisée Place Wilson, au coeur du Triangle d&rsquo;Or de Brest, cet élégant appartement d&rsquo;environ 97 m² occupe à lui seul le 4ème et dernier étage d&rsquo;une petite copropriété. Accessible directement par un ascenseur privatif, il offre un confort de vie rare, alliant intimité, luminosité et prestations de qualité. Dès l&rsquo;entrée, les beaux volumes, le parquet massif et la lumière traversante séduisent immédiatement. L&rsquo;appartement comprend : Une grande pièce de vie baignée de lumière bénéficiant d&rsquo;une vue dégagée sur la Place Wilson. Une grande cuisine indépendante entièrement aménagée et équipée, prolongée par une arrière-cuisine. Deux belles chambres avec parquet dont une avec placard. Une salle de bains. Un WC indépendant. Traversant, il offre également, depuis une chambre et depuis la cuisine une agréable vue sur la mer, renforçant le caractère privilégié de cette adresse. Les prestations sont complétées par : Cave accessible par ascenseur. Petite copropriété bien entretenue. Possibilité d&rsquo;acquérir un garage privatif situé à quelques pas de l&rsquo;immeuble. A deux pas des commerces, des écoles, des restaurants et du cours Dajot, cet appartement conjugue parfaitement élégance, emplacement et qualité de vie.REFERENCE LUXIOR 26609JM (5.00 % honoraires TTC à la charge de l&rsquo;acquéreur.) Copropriété de 12 lots &#8211; dont 5 lots habitation. (Pas de procédure en cours).Charges annuelles : 2305 euros."
     },
     {
       "folder": "leboncoin_3240598864",
@@ -2638,8 +2648,8 @@
       "pieces": "5 pièces",
       "prestations": "Chambres: 4",
       "dateFirst": "4 août 2026 à 23h11",
-      "dateLast": "14 novembre 2026 à 10h24",
-      "dateVal": 1794648240000,
+      "dateLast": "14 novembre 2026 à 13h27",
+      "dateVal": 1794659220000,
       "maluses": [
         "Pas dernier étage (-0.75)",
         "Pas seul à l'étage (-0.75)",
@@ -2812,8 +2822,8 @@
       "pieces": "5 pièces",
       "prestations": "Chambres: 3",
       "dateFirst": "22 août 2026 à 11h28",
-      "dateLast": "14 novembre 2026 à 10h24",
-      "dateVal": 1794648240000,
+      "dateLast": "14 novembre 2026 à 13h27",
+      "dateVal": 1794659220000,
       "maluses": [
         "Localisation : -2.0 Tiers 2",
         "Pas dernier étage (-0.75)",
@@ -3610,8 +3620,8 @@
       "pieces": "5 pièces",
       "prestations": "Chambres: 4, Garage: 0, Cave: 1",
       "dateFirst": "8 octobre 2026 à 21h05",
-      "dateLast": "14 novembre 2026 à 10h24",
-      "dateVal": 1794648240000,
+      "dateLast": "14 novembre 2026 à 13h27",
+      "dateVal": 1794659220000,
       "maluses": [
         "Pas dernier étage (-1)",
         "Pas de terrasse/jardin (-2)",
@@ -3977,14 +3987,14 @@
       "ref": "M20261029-4",
       "isSas": false,
       "source": "Leboncoin",
-      "title": "Maison 103 m² Saint-Michel avec jardin et terrasse",
-      "price": "359 900 €",
-      "priceVal": 359900,
-      "prixM2": 3494,
+      "title": "Maison 105 m² Saint-Michel avec jardin",
+      "price": "358 000 €",
+      "priceVal": 358000,
+      "prixM2": 3410,
       "dvfComparison": {
-        "prixM2": 3494,
+        "prixM2": 3410,
         "medianM2": 2838,
-        "diffPct": 23,
+        "diffPct": 20,
         "sampleCount": 19,
         "scopeLabel": "Saint-Michel",
         "yearsLabel": "2024–2025",
@@ -4044,29 +4054,35 @@
           "dateTs": 1794648295125,
           "price": "359 900 €",
           "priceVal": 359900
+        },
+        {
+          "date": "14 novembre 2026",
+          "dateTs": 1794659256375,
+          "price": "358 000 €",
+          "priceVal": 358000
         }
       ],
-      "score": 6.9,
+      "score": 7.4,
       "status": "Actif",
-      "location": "Brest 29200 Saint-Michel",
+      "location": "Brest",
       "quartier": "Saint-Michel",
       "tier": 2,
       "url": "https://www.leboncoin.fr/ad/ventes_immobilieres/3289666199",
       "type": "Maison",
-      "surface": "103 m²",
-      "surfaceVal": 103,
+      "surface": "105 m²",
+      "surfaceVal": 105,
       "pieces": "5 pièces",
-      "prestations": "Chambres: 3 ch.",
+      "prestations": "Double vitrage Vidéophone Fenêtre PVC",
       "dateFirst": "29 octobre 2026 à 14h37",
-      "dateLast": "14 novembre 2026 à 10h24",
-      "dateVal": 1794648240000,
+      "dateLast": "14 novembre 2026 à 13h27",
+      "dateVal": 1794659220000,
       "maluses": [
         "Localisation : -2.0 Tiers 2",
         "Pas de parking/garage (-1.13)",
-        "Bonus qualité (+0.0)"
+        "Bonus qualité : rénové (+0.5)"
       ],
       "hasScreenshot": true,
-      "description": "Maison T5 des années 30\n\nSituée entre St-Michel et le Pilier Rouge, cette maison T5 de 1932 est en bon état d'usage. Elevée sur cave, son rez-de-chaussée se compose d'un salon-séjour bénéficiant d'une double exposition, d'une cuisine aménagée -équipée avec coin repas, et d'une véranda. au 1er étage, le palier dessert deux chambres de belle taille ainsi qu'une salle d'eau avec wc. Enfin, au 2ème étage, vous disposerez d'une grande chambre et d'un bureau/dressing. Jardin arboré avec terrasse sur …\n\nVoir plus\nPasser la liste des médias\nListe des médias\nPhotos (18)\nLes informations clés\n\nType de vente\n\nAncien\n\nType de bien\n\nMaison\n\nSurface habitable\n\n103 m²\n\nSurface totale du terrain\n\n152 m²\n\nNombre de pièces\n\n5\n\nNombre de chambres\n\n3 ch.\n\nNombre de salles d'eau\n\n1\n\nCaractéristiques\n\nCave\n\nVoir les 9 critères supplémentaires\nDiagnostics\n\nClasse énergie\n\nA\nB\nC\nD\nE\nF\nG\n\nGES\n\nA\nB\nC\nD\nE\nF\nG"
+      "description": "EXCLUSIVITÉ, BREST, PILIER ROUGE, proche du centre ville, le charme de l'ancien associé au contemporain pour cette maison de 1930 en parfait état. Elle se compose au rez de chaussée d'une cuisine contemporaine équipée et aménagée ouverte sur le coin repas, d'un salon avec sa bibliothèque sur mesure, d'une véranda, à l'étage vous profiterez de deux chambres et d'une salle d'eau, d'un WC et au dernier étage se trouvent une grande chambre ainsi qu'un bureau ou dressing. Pour plus de rangements vous bénéficierez d'une grande cave. chaudière gaz de 2025.Joli jardin arboré et clos de murs proche du centre ville, collèges , lycées et transports en communs RARE SUR LE SECTEUR ."
     },
     {
       "folder": "leboncoin_3295975124",
@@ -4423,6 +4439,47 @@
     }
   ],
   "sas_listings": [
+    {
+      "folder": "henry_87572491",
+      "ref": "A20261114-2",
+      "isSas": true,
+      "source": "Agence Henry",
+      "title": "Appartement 94 m² Saint-Michel avec vue rade et garage",
+      "price": "Prix sur demande",
+      "priceVal": 0,
+      "prixM2": 0,
+      "dvfComparison": null,
+      "priceHistory": [
+        {
+          "date": "14 novembre 2026",
+          "dateTs": 1794659252859,
+          "price": "Prix sur demande",
+          "priceVal": 0
+        }
+      ],
+      "score": 6.8,
+      "status": "Sas d'attente",
+      "location": "Brest",
+      "quartier": "Saint-Michel",
+      "tier": 2,
+      "url": "https://agence-henry.com/fr/propriete/vente+appartement+brest+brest-st-michel-t5-93-m2-ascenseur-dernier-etage-vue-mer-balcon-garage+87572491",
+      "type": "Appartement",
+      "surface": "93.57 m²",
+      "surfaceVal": 93.57,
+      "pieces": "5 pièces",
+      "prestations": "Double vitrage Fenêtre PVC Internet Digicode Gardien Interphone Ascenseur",
+      "dateFirst": "14 novembre 2026 à 13h27",
+      "dateLast": "14 novembre 2026 à 13h27",
+      "dateVal": 1794659220000,
+      "maluses": [
+        "Localisation : -2.0 Tiers 2",
+        "Pas seul à l'étage (-0.75)",
+        "Malus surface (< 95m²) (-1.0)",
+        "Bonus qualité : vue mer (+0.5)"
+      ],
+      "hasScreenshot": true,
+      "description": "BREST - ST MICHEL, situé au 7ème étage d'une copropriété bien tenue et sécurisée avec ascenseur et présence d'un gardien en journée, venez découvrir ce bel appartement de 93M2 offrant une très belle vue rade et la quiétude d'un dernier étage. Bien distribué, l'appartement profite d'une lumière traversante et d'une bonne exposition. Il se compose d'une entrée, d'une pièce de vie spacieuse de 31M2, d'une cuisine indépendante avec loggia, de 3 chambres dont deux avec accès balcon filant, une salle de bain, wc indépendant, placards et rangements. Une cave et un garage complètent cet ensemble. Accès par voie privée, à proximité immédiate des transports en commun. A découvrir absolument!"
+    },
     {
       "folder": "leboncoin_3308803311",
       "ref": "A20261114",
