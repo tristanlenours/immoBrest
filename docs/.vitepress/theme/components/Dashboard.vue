@@ -203,7 +203,7 @@
           <div class="card-image-container">
             <img 
               v-if="item.hasScreenshot" 
-              :src="`${baseUrl}screenshots/${item.folder}.png`" 
+              :src="`${baseUrl}screenshots/${item.folder}.jpg`" 
               alt="Aperçu"
               class="card-image"
               loading="lazy"

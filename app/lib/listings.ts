@@ -99,10 +99,28 @@ export function suspectViews(suspects: DuplicateSuspect[] | undefined) {
 
 export type HistoryPoint = { seen_at: string; price: number | null };
 
+// PostgREST plafonne une réponse à 1000 lignes, sans erreur : on lit page par page.
+// `page` doit trier sur une clé stable pour que les pages ne se chevauchent pas.
+const PAGE_SIZE = 1000;
+
+async function fetchAll<T>(
+  page: (from: number, to: number) => PromiseLike<{ data: unknown[] | null; error: { message: string } | null }>,
+  failure: string
+): Promise<T[]> {
+  const rows: T[] = [];
+  for (let from = 0; ; from += PAGE_SIZE) {
+    const { data, error } = await page(from, from + PAGE_SIZE - 1);
+    if (error) throw new Error(`${failure} : ${error.message}`);
+    rows.push(...((data ?? []) as T[]));
+    if (!data || data.length < PAGE_SIZE) return rows;
+  }
+}
+
 export async function getListings(...statuses: ReviewStatus[]): Promise<Listing[]> {
-  const { data, error } = await db().from('immo_listings').select('*').in('review_status', statuses);
-  if (error) throw new Error(`Lecture des annonces impossible : ${error.message}`);
-  return (data ?? []) as Listing[];
+  return fetchAll<Listing>(
+    (from, to) => db().from('immo_listings').select('*').in('review_status', statuses).order('id').range(from, to),
+    'Lecture des annonces impossible'
+  );
 }
 
 export const LISTING_REF_PATTERN = /^[AM]\d{8}(-\d+)?$/;
@@ -123,10 +141,12 @@ export async function getHistory(id: string): Promise<HistoryPoint[]> {
 
 // Variation de prix depuis le premier relevé, pour toutes les annonces.
 export async function getPriceChanges(): Promise<Map<string, { first: number; last: number }>> {
-  const { data, error } = await db().from('immo_price_history').select('listing_id, seen_at, price').order('seen_at');
-  if (error) throw new Error(`Lecture de l'historique impossible : ${error.message}`);
+  const data = await fetchAll<{ listing_id: string; seen_at: string; price: number | null }>(
+    (from, to) => db().from('immo_price_history').select('listing_id, seen_at, price').order('seen_at').order('id').range(from, to),
+    "Lecture de l'historique impossible"
+  );
   const changes = new Map<string, { first: number; last: number }>();
-  for (const row of data ?? []) {
+  for (const row of data) {
     if (!row.price) continue;
     const current = changes.get(row.listing_id);
     changes.set(row.listing_id, { first: current?.first ?? row.price, last: row.price });

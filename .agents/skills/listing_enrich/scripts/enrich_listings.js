@@ -135,6 +135,9 @@ async function detectSoldBanners(store, rows) {
   let marked = 0;
   for (const row of rows) {
     if (row.market_status === SOLD_STATUS) continue;
+    // Le résultat est mémorisé dans ai_analysis : sans analyse, la photo serait renvoyée à Gemini
+    // à chaque relevé. La vérification attend que l'annonce soit analysée.
+    if (!row.ai_analysis) continue;
     const henryUrl = linksFromRow(row).henry;
     if (!henryUrl) continue;
     const [photo] = await fetchPhotos(henryUrl);
@@ -150,9 +153,7 @@ async function detectSoldBanners(store, rows) {
       audit(store, row, 'warning', `lecture du bandeau de la photo Henry en échec : ${err.message}`);
       continue;
     }
-    if (row.ai_analysis) {
-      await store.update(row.id, { ai_analysis: { ...row.ai_analysis, photo_banner: { photo, bandeau: res.bandeau, texte: res.texte } } });
-    }
+    await store.update(row.id, { ai_analysis: { ...row.ai_analysis, photo_banner: { photo, bandeau: res.bandeau, texte: res.texte } } });
     if (res.bandeau) {
       await store.update(row.id, { market_status: SOLD_STATUS });
       marked++;

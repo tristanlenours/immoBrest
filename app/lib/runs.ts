@@ -81,14 +81,35 @@ function sourceRunOf(run: Run, key: string): SourceRun | null {
   };
 }
 
+// Champs de stats lus par les listes. La piste d'audit (stats.events, jusqu'à 2000 événements par
+// relevé) n'est chargée que par getRun, pour la page d'un relevé.
+const SUMMARY_STATS = [
+  'new', 'priceChanged', 'unchanged', 'skippedTrashed', 'markedSold', 'rejected', 'purged',
+  'sources', 'foundBySource', 'sourceRuns', 'failures'
+] as const;
+
 export async function getRuns(limit = 40): Promise<Run[]> {
   const { data, error } = await db()
     .from('immo_run_log')
-    .select('id, pipeline, started_at, finished_at, status, error, stats')
+    .select(`id, pipeline, started_at, finished_at, status, error, ${SUMMARY_STATS.map(k => `${k}:stats->${k}`).join(', ')}`)
     .order('started_at', { ascending: false })
     .limit(limit);
   if (error) throw new Error(`Lecture du journal impossible : ${error.message}`);
-  return (data ?? []) as Run[];
+  return ((data ?? []) as unknown as Record<string, unknown>[]).map(row => {
+    const stats: Record<string, unknown> = {};
+    for (const key of SUMMARY_STATS) {
+      if (row[key] !== null && row[key] !== undefined) stats[key] = row[key];
+    }
+    return {
+      id: row.id,
+      pipeline: row.pipeline,
+      started_at: row.started_at,
+      finished_at: row.finished_at,
+      status: row.status,
+      error: row.error,
+      stats
+    } as Run;
+  });
 }
 
 export async function getRun(id: number): Promise<Run | null> {

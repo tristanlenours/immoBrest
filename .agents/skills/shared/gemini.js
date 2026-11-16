@@ -32,6 +32,7 @@ async function deepseekJson(prompt, schema, { temperature, maxOutputTokens }) {
   const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${fallbackKey()}` },
+    signal: AbortSignal.timeout(90_000),
     body: JSON.stringify({
       model: process.env.FALLBACK_MODEL || FALLBACK_MODEL,
       messages: [{ role: 'user', content: `${prompt}\n\nRéponds uniquement par un objet JSON conforme à ce schéma :\n${JSON.stringify(schema)}` }],
@@ -85,6 +86,7 @@ function createGemini({ keys = geminiKeys(), model = process.env.GEMINI_MODEL ||
         const res = await fetch(`${ENDPOINT}/${model}:generateContent`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json', 'x-goog-api-key': key },
+          signal: AbortSignal.timeout(90_000),
           body
         }).catch(err => ({ ok: false, status: 0, text: async () => err.message }));
 

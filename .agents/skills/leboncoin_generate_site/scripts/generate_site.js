@@ -295,7 +295,6 @@ function processListings(rows, historyByListing, dvfContext, isSas = false) {
       dateFirst,
       dateLast,
       dateVal,
-      duration,
       priceClean,
       priceVal,
       location,
@@ -314,10 +313,10 @@ function processListings(rows, historyByListing, dvfContext, isSas = false) {
       criteriaLines
     } = parsed;
 
-    const screenshotPath = path.join(SOURCE_DIR, folder, 'latest_screenshot.png');
+    const screenshotPath = path.join(SOURCE_DIR, folder, 'latest_screenshot.jpg');
     const hasScreenshot = fs.existsSync(screenshotPath);
     if (hasScreenshot) {
-      fs.copyFileSync(screenshotPath, path.join(SCREENSHOTS_DIR, `${folder}.png`));
+      fs.copyFileSync(screenshotPath, path.join(SCREENSHOTS_DIR, `${folder}.jpg`));
     }
 
     const prixM2 = (priceVal > 0 && surfaceVal > 0) ? Math.round(priceVal / surfaceVal) : 0;
@@ -435,7 +434,6 @@ ${description}
 * **Prestations supplémentaires** : ${prestations}
 * **Date de première vue** : ${dateFirst}
 * **Dernière vue** : ${dateLast}
-* **Durée de référencement** : ${duration}
 
 ${renderPriceHistory(priceHistory)}
 ${hasScreenshot ? `
@@ -443,7 +441,7 @@ ${hasScreenshot ? `
 
 ## Capture d'Écran de l'Annonce
 
-![Capture d'Écran de l'Annonce](/screenshots/${folder}.png)
+![Capture d'Écran de l'Annonce](/screenshots/${folder}.jpg)
 ` : ''}
 
 ---

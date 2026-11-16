@@ -17,6 +17,7 @@ function createSupabaseRest({ url = process.env.SUPABASE_URL, key = process.env.
   async function request(pathAndQuery, { method = 'GET', body, prefer, extraHeaders } = {}) {
     const res = await fetch(`${base}/${pathAndQuery}`, {
       method,
+      signal: AbortSignal.timeout(60_000),
       headers: {
         ...headers,
         ...(body !== undefined ? { 'Content-Type': 'application/json' } : {}),

@@ -32,9 +32,16 @@ const { scoreAll, LOW_SCORE_REASON } = require('../../leboncoin_scoring/scripts/
 const { enrichAll } = require('../../listing_enrich/scripts/enrich_listings');
 const { extractPhotosFromHtml, photosFromLeboncoinAd } = require('../../shared/photos');
 
-// Captures d'écran des annonces à fort score : leboncoin_searches/<id>/latest_screenshot.png,
+// Captures d'écran des annonces à fort score : leboncoin_searches/<id>/latest_screenshot.jpg,
 // copiées vers docs/public/screenshots par la génération du site.
 const SCREENSHOTS_DIR = path.resolve(__dirname, '../../../../leboncoin_searches');
+const SCREENSHOT_MAX_WIDTH = 1280;
+
+// Délais maximaux : un site ou un onglet Chrome qui ne répond plus fait échouer l'étape en cours
+// (annonce ou source) au lieu de figer tout le relevé.
+const HTTP_TIMEOUT_MS = 30_000;
+const CDP_TIMEOUT_MS = 30_000;
+const fetch = (url, options = {}) => globalThis.fetch(url, { signal: AbortSignal.timeout(HTTP_TIMEOUT_MS), ...options });
 
 // Magasin d'annonces Supabase, initialisé dans run().
 let store = null;
@@ -108,6 +115,10 @@ async function evaluateInTab(webSocketDebuggerUrl, expression) {
         }
       };
       ws.addEventListener('message', handler);
+      setTimeout(() => {
+        ws.removeEventListener('message', handler);
+        reject(new Error(`Chrome ne répond pas à ${method} (${CDP_TIMEOUT_MS / 1000} s)`));
+      }, CDP_TIMEOUT_MS).unref();
       ws.send(JSON.stringify({ id, method, params }));
     });
   }
@@ -168,6 +179,10 @@ async function captureScreenshotInTab(webSocketDebuggerUrl) {
         }
       };
       ws.addEventListener('message', handler);
+      setTimeout(() => {
+        ws.removeEventListener('message', handler);
+        reject(new Error(`Chrome ne répond pas à ${method} (${CDP_TIMEOUT_MS / 1000} s)`));
+      }, CDP_TIMEOUT_MS).unref();
       ws.send(JSON.stringify({ id, method, params }));
     });
   }
@@ -309,9 +324,17 @@ async function captureScreenshotInTab(webSocketDebuggerUrl) {
     }
     
     console.log('Capturing screenshot...');
-    const captureParams = { format: 'png' };
-    if (clipParams) {
-      captureParams.clip = clipParams;
+    // JPEG de SCREENSHOT_MAX_WIDTH px de large au plus : un PNG pleine résolution pèse 3 à 4 Mo.
+    const captureParams = { format: 'jpeg', quality: 80 };
+    try {
+      const view = (await sendCommand('Runtime.evaluate', {
+        expression: '({ x: window.scrollX, y: window.scrollY, width: window.innerWidth, height: window.innerHeight, dpr: window.devicePixelRatio || 1 })',
+        returnByValue: true
+      })).result.value;
+      const clip = clipParams || { x: view.x, y: view.y, width: view.width, height: view.height };
+      captureParams.clip = { ...clip, scale: Math.min(1, SCREENSHOT_MAX_WIDTH / (clip.width * view.dpr)) };
+    } catch (e) {
+      if (clipParams) captureParams.clip = clipParams;
     }
     const result = await sendCommand('Page.captureScreenshot', captureParams);
     ws.close();
@@ -454,10 +477,12 @@ async function scrapeHenry() {
         headers: { 'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36' }
       });
       const html = await res.text();
-      
+
       const liRegex = /<li[^>]*class="[^"]*property[^"]*"[^>]*data-property-id="(\d+)"[^>]*>([\s\S]*?)<\/li>/g;
       let match;
-      
+      // Page sans aucun bien : la liste est terminée, inutile de charger les suivantes.
+      if (res.ok && !/data-property-id="\d+"/.test(html)) break;
+
       while ((match = liRegex.exec(html)) !== null) {
         const id = match[1];
         const liHtml = match[2];
@@ -621,6 +646,7 @@ async function scrapeLeboncoin(lastSearchTime = 0, dryRun = false) {
   await new Promise((resolve, reject) => {
     ws.onopen = resolve;
     ws.onerror = reject;
+    setTimeout(() => reject(new Error('WebSocket timeout connecting to Leboncoin tab')), 5000).unref();
   });
   
   let msgId = 1;
@@ -636,6 +662,10 @@ async function scrapeLeboncoin(lastSearchTime = 0, dryRun = false) {
         }
       };
       ws.addEventListener('message', handler);
+      setTimeout(() => {
+        ws.removeEventListener('message', handler);
+        reject(new Error(`Chrome ne répond pas à ${method} (${CDP_TIMEOUT_MS / 1000} s)`));
+      }, CDP_TIMEOUT_MS).unref();
       ws.send(JSON.stringify({ id, method, params }));
     });
   }
@@ -1632,7 +1662,7 @@ function saveScreenshot(id, buffer) {
   if (store.dryRun) return;
   const dir = path.join(SCREENSHOTS_DIR, id);
   fs.mkdirSync(dir, { recursive: true });
-  fs.writeFileSync(path.join(dir, 'latest_screenshot.png'), buffer);
+  fs.writeFileSync(path.join(dir, 'latest_screenshot.jpg'), buffer);
 }
 
 // Suit le changement d'identifiant d'une annonce (fusion vers Leboncoin) pour sa capture d'écran.

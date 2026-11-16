@@ -37,6 +37,7 @@ async function evaluate(wsUrl, expression) {
         if (msg.error) reject(new Error(JSON.stringify(msg.error)));
         else resolve(msg.result.result.value);
       };
+      setTimeout(() => reject(new Error('Chrome ne répond pas (30 s)')), 30_000).unref();
       ws.send(JSON.stringify({ id: 1, method: 'Runtime.evaluate', params: { expression, returnByValue: true } }));
     });
     return result;
@@ -47,7 +48,7 @@ async function evaluate(wsUrl, expression) {
 
 // Ouvre la fiche et renvoie { photos, publishedAt } ; null si l'annonce n'existe plus.
 async function readLeboncoinAd(url) {
-  const tab = await (await fetch(`${DEBUG_URL}/json/new?${encodeURIComponent(url)}`, { method: 'PUT' })).json();
+  const tab = await (await fetch(`${DEBUG_URL}/json/new?${encodeURIComponent(url)}`, { method: 'PUT', signal: AbortSignal.timeout(10_000) })).json();
   try {
     let ad;
     // Attente du chargement (et un délai « humain ») avant de lire les données de la page.

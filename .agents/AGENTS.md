@@ -69,7 +69,7 @@ Les annonces vivent dans le projet **Supabase partagé** (avec DraftMaster et Qu
 - `immo_dvf_sales` : transactions réelles DGFiP sur Brest.
 - `immo_run_log` : journal des exécutions du fetch (date de dernière recherche, statistiques, erreurs). `stats.sourceRuns` donne le résultat par source et `stats.events` la piste d'audit annonce par annonce (nouvelle, prix, vendue, écartée, filtrée et pourquoi...), affichés sur les pages **Relevés** de l'app.
 - `immo_allowed_emails` : e-mails autorisés à consulter et modérer.
-- `leboncoin_searches/<id>/latest_screenshot.png` : captures d'écran des annonces à fort score (les anciens dossiers `.md` sont conservés comme archive historique, plus lus par les scripts).
+- `leboncoin_searches/<id>/latest_screenshot.jpg` : captures d'écran des annonces à fort score (JPEG, 1280 px de large au plus).
 - `dvf_data/` et `docs/public/dvf/` : données DVF brutes et parsées ; `docs/` : site statique VitePress (`docs/biens/`, `docs/public/listings_data.json`), généré depuis la base.
 
 ---

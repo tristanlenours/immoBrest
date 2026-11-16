@@ -52,7 +52,7 @@ function photosFromLeboncoinAd(ad) {
 // Télécharge la fiche et en extrait les photos (liste vide si la page est inaccessible).
 async function fetchPhotos(url) {
   try {
-    const res = await fetch(url, { headers: { 'User-Agent': USER_AGENT } });
+    const res = await fetch(url, { headers: { 'User-Agent': USER_AGENT }, signal: AbortSignal.timeout(30_000) });
     if (!res.ok) return [];
     return extractPhotosFromHtml(await res.text());
   } catch {
@@ -63,7 +63,7 @@ async function fetchPhotos(url) {
 // Télécharge une image au format attendu par Gemini (part « inline_data »), ou null.
 async function fetchImagePart(url) {
   try {
-    const res = await fetch(url, { headers: { 'User-Agent': USER_AGENT } });
+    const res = await fetch(url, { headers: { 'User-Agent': USER_AGENT }, signal: AbortSignal.timeout(30_000) });
     if (!res.ok) return null;
     const mimeType = (res.headers.get('content-type') || 'image/jpeg').split(';')[0];
     if (!mimeType.startsWith('image/')) return null;
