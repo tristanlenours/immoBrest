@@ -1,5 +1,5 @@
 {
-  "last_update": "15 novembre 2026 à 19h31",
+  "last_update": "16 novembre 2026 à 11h05",
   "listings": [
     {
       "folder": "barraine_58615772",
@@ -909,6 +909,47 @@
       ],
       "hasScreenshot": true,
       "description": "Brest – Saint-Michel | Appartement de charme de 107 m² à proximité du centre-ville et de la gare Coup de cœur pour cet appartement de caractère, idéalement situé dans le très recherché quartier Saint-Michel à Brest. Au sein d’un immeuble de charme, cet appartement occupe à lui seul le deuxième étage, D’une superficie de 107 m², il séduit dès l’entrée par ses volumes généreux, et son cachet Vous découvrirez une vaste pièce de vie de plus de 34 m², sublimée par de magnifiques planchers d'autrefois, offrant un espace chaleureux et convivial. La grande cuisine équipée et aménagée, avec son agréable coin séjour, constitue un véritable espace de vie. L’espace nuit se compose de deux chambres, complété par une salle de bains confortable avec baignoire et douche, ainsi qu’une buanderie L’immeuble dispose également d’une cave et d’un local à vélos. Les atouts 107 m² habitables Appartement occupant seul le 2ᵉ étage Belle pièce de vie de plus de 34 m² Beaux planchers et cachet de l’ancien Grande cuisine équipée et aménagée avec coin séjour 2 chambres Salle de bains avec baignoire et douche Buanderie Cave Local à vélos Emplacement recherché dans le quartier Saint-Michel À quelques minutes du centre-ville et de la gare de Brest À découvrir sans tarder"
+    },
+    {
+      "folder": "henry_87572491",
+      "ref": "A20261114-2",
+      "isSas": false,
+      "source": "Agence Henry",
+      "title": "Appartement 94 m² Saint-Michel avec vue rade et garage",
+      "price": "Prix sur demande",
+      "priceVal": 0,
+      "prixM2": 0,
+      "dvfComparison": null,
+      "priceHistory": [
+        {
+          "date": "14 novembre 2026",
+          "dateTs": 1794659252859,
+          "price": "Prix sur demande",
+          "priceVal": 0
+        }
+      ],
+      "score": 6.8,
+      "status": "Actif",
+      "location": "Brest",
+      "quartier": "Saint-Michel",
+      "tier": 2,
+      "url": "https://agence-henry.com/fr/propriete/vente+appartement+brest+brest-st-michel-t5-93-m2-ascenseur-dernier-etage-vue-mer-balcon-garage+87572491",
+      "type": "Appartement",
+      "surface": "93.57 m²",
+      "surfaceVal": 93.57,
+      "pieces": "5 pièces",
+      "prestations": "Double vitrage Fenêtre PVC Internet Digicode Gardien Interphone Ascenseur",
+      "dateFirst": "14 novembre 2026 à 13h27",
+      "dateLast": "15 novembre 2026 à 13h56",
+      "dateVal": 1794747360000,
+      "maluses": [
+        "Localisation : -2.0 Tiers 2",
+        "Pas seul à l'étage (-0.75)",
+        "Malus surface (< 95m²) (-1.0)",
+        "Bonus qualité : vue mer (+0.5)"
+      ],
+      "hasScreenshot": true,
+      "description": "BREST - ST MICHEL, situé au 7ème étage d'une copropriété bien tenue et sécurisée avec ascenseur et présence d'un gardien en journée, venez découvrir ce bel appartement de 93M2 offrant une très belle vue rade et la quiétude d'un dernier étage. Bien distribué, l'appartement profite d'une lumière traversante et d'une bonne exposition. Il se compose d'une entrée, d'une pièce de vie spacieuse de 31M2, d'une cuisine indépendante avec loggia, de 3 chambres dont deux avec accès balcon filant, une salle de bain, wc indépendant, placards et rangements. Une cave et un garage complètent cet ensemble. Accès par voie privée, à proximité immédiate des transports en commun. A découvrir absolument!"
     },
     {
       "folder": "leboncoin_2977769727",
@@ -4397,6 +4438,92 @@
       "description": "FINISTERE - Brest (29200) - APPARTEMENT 98M² - GRANDE PIECE DE VIE - ASCENSEUR - AUCUNS TRAVAUX - RARE - VUE MER PANORAMIQUE - 3 CHAMBRES - GARAGE\n\n***** VIDEO EN LIGNE *** BREST - ST MICHEL ***** En couple ou en famille, actif ou retraité à la recherche de d'un appartement avec vue mer et balcon ? Dans un secteur prisé, à seulement 10 minutes de la gare et du centre-ville, découvrez ce superbe appartement de 100 m² avec vue mer. Il offre une grande pièce de vie lumineuse grâce à ses trois bai…\n\nVoir plus\nPasser la liste des médias\nListe des médias\nPhotos (11)\nLes informations clés\n\nType de vente\n\nAncien\n\nType de bien\n\nAppartement\n\nSurface habitable\n\n100 m²\n\nNombre de pièces\n\n4\n\nNombre de chambres\n\n3 ch.\n\nNombre de salles de bain\n\n1\n\nNombre de salles d'eau\n\n1\n\nCaractéristiques\n\nAvec garage ou place de parking\n\nVoir les 7 critères supplémentaires\nDiagnostics\n\nClasse énergie\n\nA\nB\nC\nD\nE\nF\nG\n\nGES\n\nA\nB\nC\nD\nE\nF\nG"
     },
     {
+      "folder": "leboncoin_3308803311",
+      "ref": "A20261114",
+      "isSas": false,
+      "source": "Leboncoin",
+      "title": "Appartement 125 m² Gare avec terrasse et jardin",
+      "price": "419 000 €",
+      "priceVal": 419000,
+      "prixM2": 3352,
+      "dvfComparison": {
+        "prixM2": 3352,
+        "medianM2": 1582,
+        "diffPct": 112,
+        "sampleCount": 144,
+        "scopeLabel": "Gare",
+        "yearsLabel": "2024–2025",
+        "comparables": [
+          {
+            "date": "2025-11-24",
+            "adresse": "2 RUE ALAIN FOURNIER",
+            "surface": 137,
+            "prix": 125000,
+            "prixM2": 915
+          },
+          {
+            "date": "2025-10-30",
+            "adresse": "14 RUE BRANDA",
+            "surface": 123,
+            "prix": 177000,
+            "prixM2": 1444
+          },
+          {
+            "date": "2025-11-27",
+            "adresse": "5 PL DE LA LIBERTE",
+            "surface": 109,
+            "prix": 309964,
+            "prixM2": 2844
+          },
+          {
+            "date": "2025-10-29",
+            "adresse": "3 RUE DES COLONIES",
+            "surface": 139,
+            "prix": 740000,
+            "prixM2": 5326
+          },
+          {
+            "date": "2025-10-02",
+            "adresse": "4 RUE MOSTAGANEM",
+            "surface": 134,
+            "prix": 133500,
+            "prixM2": 998
+          }
+        ]
+      },
+      "priceHistory": [
+        {
+          "date": "14 novembre 2026",
+          "dateTs": 1794648294086,
+          "price": "419 000 €",
+          "priceVal": 419000
+        }
+      ],
+      "score": 6.6,
+      "status": "Actif",
+      "location": "Brest 29200 Centre-ville - Port",
+      "quartier": "Gare",
+      "tier": 1,
+      "url": "https://www.leboncoin.fr/ad/ventes_immobilieres/3308803311",
+      "type": "Appartement",
+      "surface": "125 m²",
+      "surfaceVal": 125,
+      "pieces": "6 pièces",
+      "prestations": "Chambres: 3 ch.",
+      "dateFirst": "14 novembre 2026 à 10h24",
+      "dateLast": "15 novembre 2026 à 19h30",
+      "dateVal": 1794767400000,
+      "maluses": [
+        "Pas dernier étage (-0.75)",
+        "Pas seul à l'étage (-0.75)",
+        "Pas d'ascenseur (-0.75)",
+        "Pas de parking/garage (-1.13)",
+        "Bonus qualité (+0.0)"
+      ],
+      "hasScreenshot": true,
+      "description": "FINISTERE - Brest (29200) - A VENDRE - APPARTEMENT DUPLEX D'ARCHITECTE AVEC TERRASSE, JARDIN ET ATELIER-CAVE - PRESTATIONS HAUT DE GAMME - COUP DE COEUR GARANTI - RARE\n\n***** VIDEO EN LIGNE *** BREST - GARE/SAINT MICHEL ***** En couple ou en famille, actif ou retraité à la recherche d'un appartement en centre ville où vous ferez tout à pied ? Super ! Ce duplex est en fait une réelle alternative à une maison. Vous disposez au 1er niveau d'un espace de vie comprenant une cuisine très fonctionnelle…\n\nVoir plus\nPasser la liste des médias\nListe des médias\nPhotos (11)\nLes informations clés\n\nType de vente\n\nAncien\n\nType de bien\n\nAppartement\n\nSurface habitable\n\n125 m²\n\nSurface totale du terrain\n\n60 m²\n\nNombre de pièces\n\n6\n\nNombre de chambres\n\n3 ch.\n\nNombre de salles de bain\n\n1\n\nNombre de salles d'eau\n\n1\n\nVoir les 6 critères supplémentaires\nDiagnostics\n\nClasse énergie\n\nA\nB\nC\nD\nE\nF\nG\n\nGES\n\nA\nB\nC\nD\nE\nF\nG"
+    },
+    {
       "folder": "luxior_a-vendre-superbe-appartement-centre-ville-3-chambres-ascenseur-126m2",
       "ref": "A20260923-2",
       "isSas": false,
@@ -4483,133 +4610,5 @@
       "description": "Nouveauté Luxior. En plein coeur de Brest, à deux pas de la place de la Liberté, découvrez ce superbe appartement de 126 m² entièrement rénové, situé au 4e étage avec ascenseur et seul sur son palier. Dès l'entrée, il séduit par ses volumes remarquables, sa luminosité et la qualité de ses prestations. La pièce maîtresse : près de 58 m² de pièce de vie, avec une cuisine ouverte entièrement équipée et parfaitement intégrée à l'ensemble. Un espace généreux et chaleureux, prolongé par une arrière-cuisine et une buanderie. La partie nuit offre trois belles chambres, de nombreux rangements et menuiseries sur mesure, ainsi qu'une salle de bains avec baignoire et douche. Décoration aboutie, belles finitions, double vitrage, dalle béton, cave : un appartement clé en main où chaque détail a été pensé pour conjuguer esthétique, confort et fonctionnalité. Un bien rare en centre-ville, aussi agréable à vivre qu'à regarder. REFERENCE LUXIOR IMMOBILIER 26657BH (4.05 % honoraires TTC à la charge de l'acquéreur.) Copropriété de 6 lots – dont 5 lots habitation. (Pas de procédure en cours).Charges annuelles : 1800 euros."
     }
   ],
-  "sas_listings": [
-    {
-      "folder": "henry_87572491",
-      "ref": "A20261114-2",
-      "isSas": true,
-      "source": "Agence Henry",
-      "title": "Appartement 94 m² Saint-Michel avec vue rade et garage",
-      "price": "Prix sur demande",
-      "priceVal": 0,
-      "prixM2": 0,
-      "dvfComparison": null,
-      "priceHistory": [
-        {
-          "date": "14 novembre 2026",
-          "dateTs": 1794659252859,
-          "price": "Prix sur demande",
-          "priceVal": 0
-        }
-      ],
-      "score": 6.8,
-      "status": "Sas d'attente",
-      "location": "Brest",
-      "quartier": "Saint-Michel",
-      "tier": 2,
-      "url": "https://agence-henry.com/fr/propriete/vente+appartement+brest+brest-st-michel-t5-93-m2-ascenseur-dernier-etage-vue-mer-balcon-garage+87572491",
-      "type": "Appartement",
-      "surface": "93.57 m²",
-      "surfaceVal": 93.57,
-      "pieces": "5 pièces",
-      "prestations": "Double vitrage Fenêtre PVC Internet Digicode Gardien Interphone Ascenseur",
-      "dateFirst": "14 novembre 2026 à 13h27",
-      "dateLast": "15 novembre 2026 à 13h56",
-      "dateVal": 1794747360000,
-      "maluses": [
-        "Localisation : -2.0 Tiers 2",
-        "Pas seul à l'étage (-0.75)",
-        "Malus surface (< 95m²) (-1.0)",
-        "Bonus qualité : vue mer (+0.5)"
-      ],
-      "hasScreenshot": true,
-      "description": "BREST - ST MICHEL, situé au 7ème étage d'une copropriété bien tenue et sécurisée avec ascenseur et présence d'un gardien en journée, venez découvrir ce bel appartement de 93M2 offrant une très belle vue rade et la quiétude d'un dernier étage. Bien distribué, l'appartement profite d'une lumière traversante et d'une bonne exposition. Il se compose d'une entrée, d'une pièce de vie spacieuse de 31M2, d'une cuisine indépendante avec loggia, de 3 chambres dont deux avec accès balcon filant, une salle de bain, wc indépendant, placards et rangements. Une cave et un garage complètent cet ensemble. Accès par voie privée, à proximité immédiate des transports en commun. A découvrir absolument!"
-    },
-    {
-      "folder": "leboncoin_3308803311",
-      "ref": "A20261114",
-      "isSas": true,
-      "source": "Leboncoin",
-      "title": "Appartement 125 m² Gare avec terrasse et jardin",
-      "price": "419 000 €",
-      "priceVal": 419000,
-      "prixM2": 3352,
-      "dvfComparison": {
-        "prixM2": 3352,
-        "medianM2": 1582,
-        "diffPct": 112,
-        "sampleCount": 144,
-        "scopeLabel": "Gare",
-        "yearsLabel": "2024–2025",
-        "comparables": [
-          {
-            "date": "2025-11-24",
-            "adresse": "2 RUE ALAIN FOURNIER",
-            "surface": 137,
-            "prix": 125000,
-            "prixM2": 915
-          },
-          {
-            "date": "2025-10-30",
-            "adresse": "14 RUE BRANDA",
-            "surface": 123,
-            "prix": 177000,
-            "prixM2": 1444
-          },
-          {
-            "date": "2025-11-27",
-            "adresse": "5 PL DE LA LIBERTE",
-            "surface": 109,
-            "prix": 309964,
-            "prixM2": 2844
-          },
-          {
-            "date": "2025-10-29",
-            "adresse": "3 RUE DES COLONIES",
-            "surface": 139,
-            "prix": 740000,
-            "prixM2": 5326
-          },
-          {
-            "date": "2025-10-02",
-            "adresse": "4 RUE MOSTAGANEM",
-            "surface": 134,
-            "prix": 133500,
-            "prixM2": 998
-          }
-        ]
-      },
-      "priceHistory": [
-        {
-          "date": "14 novembre 2026",
-          "dateTs": 1794648294086,
-          "price": "419 000 €",
-          "priceVal": 419000
-        }
-      ],
-      "score": 6.6,
-      "status": "Sas d'attente",
-      "location": "Brest 29200 Centre-ville - Port",
-      "quartier": "Gare",
-      "tier": 1,
-      "url": "https://www.leboncoin.fr/ad/ventes_immobilieres/3308803311",
-      "type": "Appartement",
-      "surface": "125 m²",
-      "surfaceVal": 125,
-      "pieces": "6 pièces",
-      "prestations": "Chambres: 3 ch.",
-      "dateFirst": "14 novembre 2026 à 10h24",
-      "dateLast": "15 novembre 2026 à 19h30",
-      "dateVal": 1794767400000,
-      "maluses": [
-        "Pas dernier étage (-0.75)",
-        "Pas seul à l'étage (-0.75)",
-        "Pas d'ascenseur (-0.75)",
-        "Pas de parking/garage (-1.13)",
-        "Bonus qualité (+0.0)"
-      ],
-      "hasScreenshot": true,
-      "description": "FINISTERE - Brest (29200) - A VENDRE - APPARTEMENT DUPLEX D'ARCHITECTE AVEC TERRASSE, JARDIN ET ATELIER-CAVE - PRESTATIONS HAUT DE GAMME - COUP DE COEUR GARANTI - RARE\n\n***** VIDEO EN LIGNE *** BREST - GARE/SAINT MICHEL ***** En couple ou en famille, actif ou retraité à la recherche d'un appartement en centre ville où vous ferez tout à pied ? Super ! Ce duplex est en fait une réelle alternative à une maison. Vous disposez au 1er niveau d'un espace de vie comprenant une cuisine très fonctionnelle…\n\nVoir plus\nPasser la liste des médias\nListe des médias\nPhotos (11)\nLes informations clés\n\nType de vente\n\nAncien\n\nType de bien\n\nAppartement\n\nSurface habitable\n\n125 m²\n\nSurface totale du terrain\n\n60 m²\n\nNombre de pièces\n\n6\n\nNombre de chambres\n\n3 ch.\n\nNombre de salles de bain\n\n1\n\nNombre de salles d'eau\n\n1\n\nVoir les 6 critères supplémentaires\nDiagnostics\n\nClasse énergie\n\nA\nB\nC\nD\nE\nF\nG\n\nGES\n\nA\nB\nC\nD\nE\nF\nG"
-    }
-  ]
+  "sas_listings": []
 }
