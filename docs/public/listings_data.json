@@ -1,5 +1,5 @@
 {
-  "last_update": "19 novembre 2026 à 19h45",
+  "last_update": "20 novembre 2026 à 15h19",
   "listings": [
     {
       "folder": "barraine_58615772",
@@ -75,8 +75,8 @@
       "pieces": "5 pièces",
       "prestations": "Non spécifiées",
       "dateFirst": "18 juillet 2026 à 23h57",
-      "dateLast": "19 novembre 2026 à 15h40",
-      "dateVal": 1795099200000,
+      "dateLast": "20 novembre 2026 à 15h18",
+      "dateVal": 1795184280000,
       "maluses": [
         "Localisation : -2.0 Tiers 2",
         "Pas dernier étage (-0.75)",
@@ -723,8 +723,8 @@
       "pieces": "5 pièces",
       "prestations": "Double vitrage Fenêtre aluminium Volets roulants électriques Abri de voiture Accès PMR Ascenseur Fibre optique Vidéo surveillance Vidéophone",
       "dateFirst": "21 juin 2026 à 23h52",
-      "dateLast": "19 novembre 2026 à 15h40",
-      "dateVal": 1795099200000,
+      "dateLast": "20 novembre 2026 à 15h18",
+      "dateVal": 1795184280000,
       "maluses": [
         "Localisation : -2.0 Tiers 2",
         "Pas dernier étage (-0.75)",
@@ -903,8 +903,8 @@
       "pieces": "4 pièces",
       "prestations": "Double vitrage Internet Digicode Fibre optique Local à vélo",
       "dateFirst": "14 octobre 2026 à 22h17",
-      "dateLast": "19 novembre 2026 à 15h40",
-      "dateVal": 1795099200000,
+      "dateLast": "20 novembre 2026 à 15h18",
+      "dateVal": 1795184280000,
       "maluses": [
         "Pas dernier étage (-1)",
         "Pas de terrasse/jardin (-1.5)",
@@ -946,8 +946,8 @@
       "pieces": "5 pièces",
       "prestations": "Double vitrage Fenêtre PVC Internet Digicode Gardien Interphone Ascenseur",
       "dateFirst": "14 novembre 2026 à 13h27",
-      "dateLast": "19 novembre 2026 à 15h40",
-      "dateVal": 1795099200000,
+      "dateLast": "20 novembre 2026 à 15h18",
+      "dateVal": 1795184280000,
       "maluses": [
         "Localisation : -2.0 Tiers 2",
         "Pas seul à l'étage (-0.75)",
@@ -1375,6 +1375,18 @@
           "dateTs": 1795099219615,
           "price": "336 900 €",
           "priceVal": 336900
+        },
+        {
+          "date": "20 novembre 2026",
+          "dateTs": 1795184292102,
+          "price": "309 900 €",
+          "priceVal": 309900
+        },
+        {
+          "date": "20 novembre 2026",
+          "dateTs": 1795184295872,
+          "price": "336 900 €",
+          "priceVal": 336900
         }
       ],
       "score": 8.1,
@@ -1389,8 +1401,8 @@
       "pieces": "5 pièces",
       "prestations": "Chambres: 3",
       "dateFirst": "22 juin 2026 à 00h03",
-      "dateLast": "19 novembre 2026 à 15h40",
-      "dateVal": 1795099200000,
+      "dateLast": "20 novembre 2026 à 15h18",
+      "dateVal": 1795184280000,
       "maluses": [
         "Pas dernier étage (-0.75)",
         "Pas de parking/garage (-1.13)",
@@ -1732,8 +1744,8 @@
       "pieces": "5 pièces",
       "prestations": "Double vitrage Fenêtre PVC Fenêtres coulissantes Abri de voiture",
       "dateFirst": "22 juin 2026 à 00h02",
-      "dateLast": "19 novembre 2026 à 15h40",
-      "dateVal": 1795099200000,
+      "dateLast": "20 novembre 2026 à 15h18",
+      "dateVal": 1795184280000,
       "maluses": [
         "Localisation : -2.0 Tiers 2",
         "Pas dernier étage (-1)",
@@ -2471,7 +2483,7 @@
       "ref": "A20260718-5",
       "isSas": false,
       "source": "Leboncoin",
-      "title": "Appartement 97 m² Triangle d'Or avec vue mer et garage",
+      "title": "Appartement 97 m² Triangle d'Or avec vue mer, dernier étage",
       "price": "395 200 €",
       "priceVal": 395200,
       "prixM2": 4074,
@@ -2606,7 +2618,7 @@
           "priceVal": 395200
         }
       ],
-      "score": 8,
+      "score": 6,
       "status": "Actif",
       "location": "Brest 29200 Centre-ville - Triangle d'Or",
       "quartier": "Triangle d'Or",
@@ -2618,15 +2630,16 @@
       "pieces": "3 pièces",
       "prestations": "Chambres: 2 ch.",
       "dateFirst": "18 juillet 2026 à 21h30",
-      "dateLast": "19 novembre 2026 à 19h37",
-      "dateVal": 1795113420000,
+      "dateLast": "20 novembre 2026 à 15h18",
+      "dateVal": 1795184280000,
       "maluses": [
-        "Pas de terrasse/jardin (-1.5)",
+        "Pas de terrasse/jardin (-2)",
+        "Pas de parking/garage (-1.5)",
         "Malus chambres (2 chambres) (-1.0)",
         "Bonus qualité : vue mer (+0.5)"
       ],
       "hasScreenshot": true,
-      "description": ""
+      "description": "Idéalement situé sur la très prisée Place Wilson, au coeur du Triangle d&rsquo;Or de Brest, cet élégant appartement d&rsquo;environ 97 m² occupe à lui seul le 4ème et dernier étage d&rsquo;une petite copropriété. Accessible directement par un ascenseur privatif, il offre un confort de vie rare, alliant intimité, luminosité et prestations de qualité. Dès l&rsquo;entrée, les beaux volumes, le parquet massif et la lumière traversante séduisent immédiatement. L&rsquo;appartement comprend : Une grande pièce de vie baignée de lumière bénéficiant d&rsquo;une vue dégagée sur la Place Wilson. Une grande cuisine indépendante entièrement aménagée et équipée, prolongée par une arrière-cuisine. Deux belles chambres avec parquet dont une avec placard. Une salle de bains. Un WC indépendant. Traversant, il offre également, depuis une chambre et depuis la cuisine une agréable vue sur la mer, renforçant le caractère privilégié de cette adresse. Les prestations sont complétées par : Cave accessible par ascenseur. Petite copropriété bien entretenue. Possibilité d&rsquo;acquérir un garage privatif situé à quelques pas de l&rsquo;immeuble. A deux pas des commerces, des écoles, des restaurants et du cours Dajot, cet appartement conjugue parfaitement élégance, emplacement et qualité de vie.REFERENCE LUXIOR 26609JM (4.00 % honoraires TTC à la charge de l&rsquo;acquéreur.) Copropriété de 12 lots &#8211; dont 5 lots habitation. (Pas de procédure en cours).Charges annuelles : 2305 euros."
     },
     {
       "folder": "leboncoin_3240598864",
@@ -2787,8 +2800,8 @@
       "pieces": "5 pièces",
       "prestations": "Chambres: 4",
       "dateFirst": "4 août 2026 à 23h11",
-      "dateLast": "19 novembre 2026 à 19h37",
-      "dateVal": 1795113420000,
+      "dateLast": "20 novembre 2026 à 15h18",
+      "dateVal": 1795184280000,
       "maluses": [
         "Pas dernier étage (-0.75)",
         "Pas seul à l'étage (-0.75)",
@@ -2961,8 +2974,8 @@
       "pieces": "5 pièces",
       "prestations": "Chambres: 3",
       "dateFirst": "22 août 2026 à 11h28",
-      "dateLast": "19 novembre 2026 à 19h37",
-      "dateVal": 1795113420000,
+      "dateLast": "20 novembre 2026 à 15h18",
+      "dateVal": 1795184280000,
       "maluses": [
         "Localisation : -2.0 Tiers 2",
         "Pas dernier étage (-0.75)",
@@ -3765,8 +3778,8 @@
       "pieces": "5 pièces",
       "prestations": "Chambres: 4, Garage: 0, Cave: 1",
       "dateFirst": "8 octobre 2026 à 21h05",
-      "dateLast": "19 novembre 2026 à 19h37",
-      "dateVal": 1795113420000,
+      "dateLast": "20 novembre 2026 à 15h18",
+      "dateVal": 1795184280000,
       "maluses": [
         "Pas dernier étage (-1)",
         "Pas de terrasse/jardin (-2)",
@@ -4132,52 +4145,52 @@
       "ref": "M20261029-4",
       "isSas": false,
       "source": "Leboncoin",
-      "title": "Appartement 103 m² Saint-Michel avec jardin",
-      "price": "359 900 €",
-      "priceVal": 359900,
-      "prixM2": 3494,
+      "title": "Maison 105 m² Saint-Michel avec jardin",
+      "price": "358 000 €",
+      "priceVal": 358000,
+      "prixM2": 3410,
       "dvfComparison": {
-        "prixM2": 3494,
-        "medianM2": 1686,
-        "diffPct": 107,
-        "sampleCount": 240,
+        "prixM2": 3410,
+        "medianM2": 2838,
+        "diffPct": 20,
+        "sampleCount": 19,
         "scopeLabel": "Saint-Michel",
         "yearsLabel": "2024–2025",
         "comparables": [
           {
-            "date": "2025-11-27",
-            "adresse": "5 PL DE LA LIBERTE",
-            "surface": 109,
-            "prix": 309964,
-            "prixM2": 2844
+            "date": "2025-11-24",
+            "adresse": "9000 RUE CONSEIL",
+            "surface": 92,
+            "prix": 285000,
+            "prixM2": 3089
           },
           {
-            "date": "2025-11-13",
-            "adresse": "18 RUE BRANDA",
+            "date": "2025-04-30",
+            "adresse": "7 RUE EDOUARD CORBIERE",
             "surface": 100,
+            "prix": 263260,
+            "prixM2": 2633
+          },
+          {
+            "date": "2025-03-21",
+            "adresse": "11 RUE MARIE LENERU",
+            "surface": 91,
             "prix": 260000,
-            "prixM2": 2600
+            "prixM2": 2857
           },
           {
-            "date": "2025-11-03",
-            "adresse": "13 RUE D ABOVILLE",
-            "surface": 105,
-            "prix": 103000,
-            "prixM2": 982
+            "date": "2025-02-28",
+            "adresse": "21 RUE AMIRAL COURBET",
+            "surface": 94,
+            "prix": 243000,
+            "prixM2": 2585
           },
           {
-            "date": "2025-10-28",
-            "adresse": "125 RUE JEAN JAURES",
-            "surface": 90,
+            "date": "2024-09-12",
+            "adresse": "21 RUE GRAVERAN",
+            "surface": 108,
             "prix": 250000,
-            "prixM2": 2778
-          },
-          {
-            "date": "2025-09-29",
-            "adresse": "1 RUE DE KERSAINT",
-            "surface": 98,
-            "prix": 151000,
-            "prixM2": 1534
+            "prixM2": 2315
           }
         ]
       },
@@ -4235,29 +4248,35 @@
           "dateTs": 1795113469056,
           "price": "359 900 €",
           "priceVal": 359900
+        },
+        {
+          "date": "20 novembre 2026",
+          "dateTs": 1795184285078,
+          "price": "358 000 €",
+          "priceVal": 358000
         }
       ],
       "score": 7.4,
       "status": "Actif",
-      "location": "Brest 29200 Saint-Michel",
+      "location": "Brest",
       "quartier": "Saint-Michel",
       "tier": 2,
       "url": "https://www.leboncoin.fr/ad/ventes_immobilieres/3289666199",
-      "type": "Appartement",
-      "surface": "103 m²",
-      "surfaceVal": 103,
+      "type": "Maison",
+      "surface": "105 m²",
+      "surfaceVal": 105,
       "pieces": "5 pièces",
-      "prestations": "Chambres: 3 ch.",
+      "prestations": "Double vitrage Vidéophone Fenêtre PVC",
       "dateFirst": "29 octobre 2026 à 14h37",
-      "dateLast": "19 novembre 2026 à 19h37",
-      "dateVal": 1795113420000,
+      "dateLast": "20 novembre 2026 à 15h18",
+      "dateVal": 1795184280000,
       "maluses": [
         "Localisation : -2.0 Tiers 2",
         "Pas de parking/garage (-1.13)",
         "Bonus qualité : rénové (+0.5)"
       ],
       "hasScreenshot": true,
-      "description": ""
+      "description": "EXCLUSIVITÉ, BREST, PILIER ROUGE, proche du centre ville, le charme de l'ancien associé au contemporain pour cette maison de 1930 en parfait état. Elle se compose au rez de chaussée d'une cuisine contemporaine équipée et aménagée ouverte sur le coin repas, d'un salon avec sa bibliothèque sur mesure, d'une véranda, à l'étage vous profiterez de deux chambres et d'une salle d'eau, d'un WC et au dernier étage se trouvent une grande chambre ainsi qu'un bureau ou dressing. Pour plus de rangements vous bénéficierez d'une grande cave. chaudière gaz de 2025.Joli jardin arboré et clos de murs proche du centre ville, collèges , lycées et transports en communs RARE SUR LE SECTEUR ."
     },
     {
       "folder": "leboncoin_3295975124",
