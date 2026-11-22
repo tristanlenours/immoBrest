@@ -1,5 +1,5 @@
 {
-  "last_update": "22 novembre 2026 à 11h03",
+  "last_update": "22 novembre 2026 à 14h33",
   "listings": [
     {
       "folder": "barraine_58615772",
@@ -75,8 +75,8 @@
       "pieces": "5 pièces",
       "prestations": "Non spécifiées",
       "dateFirst": "18 juillet 2026 à 23h57",
-      "dateLast": "21 novembre 2026 à 14h42",
-      "dateVal": 1795268520000,
+      "dateLast": "22 novembre 2026 à 14h33",
+      "dateVal": 1795354380000,
       "maluses": [
         "Localisation : -2.0 Tiers 2",
         "Pas dernier étage (-0.75)",
@@ -723,8 +723,8 @@
       "pieces": "5 pièces",
       "prestations": "Double vitrage Fenêtre aluminium Volets roulants électriques Abri de voiture Accès PMR Ascenseur Fibre optique Vidéo surveillance Vidéophone",
       "dateFirst": "21 juin 2026 à 23h52",
-      "dateLast": "21 novembre 2026 à 14h41",
-      "dateVal": 1795268460000,
+      "dateLast": "22 novembre 2026 à 14h33",
+      "dateVal": 1795354380000,
       "maluses": [
         "Localisation : -2.0 Tiers 2",
         "Pas dernier étage (-0.75)",
@@ -903,8 +903,8 @@
       "pieces": "4 pièces",
       "prestations": "Double vitrage Internet Digicode Fibre optique Local à vélo",
       "dateFirst": "14 octobre 2026 à 22h17",
-      "dateLast": "21 novembre 2026 à 14h41",
-      "dateVal": 1795268460000,
+      "dateLast": "22 novembre 2026 à 14h33",
+      "dateVal": 1795354380000,
       "maluses": [
         "Pas dernier étage (-1)",
         "Pas de terrasse/jardin (-1.5)",
@@ -946,8 +946,8 @@
       "pieces": "5 pièces",
       "prestations": "Double vitrage Fenêtre PVC Internet Digicode Gardien Interphone Ascenseur",
       "dateFirst": "14 novembre 2026 à 13h27",
-      "dateLast": "21 novembre 2026 à 14h41",
-      "dateVal": 1795268460000,
+      "dateLast": "22 novembre 2026 à 14h33",
+      "dateVal": 1795354380000,
       "maluses": [
         "Localisation : -2.0 Tiers 2",
         "Pas seul à l'étage (-0.75)",
@@ -1231,13 +1231,13 @@
       "isSas": false,
       "source": "Leboncoin",
       "title": "Appartement 119 m² Triangle d'Or, seul à l'étage et balcon",
-      "price": "309 900 €",
-      "priceVal": 309900,
-      "prixM2": 2604,
+      "price": "336 900 €",
+      "priceVal": 336900,
+      "prixM2": 2832,
       "dvfComparison": {
-        "prixM2": 2604,
+        "prixM2": 2832,
         "medianM2": 2250,
-        "diffPct": 16,
+        "diffPct": 26,
         "sampleCount": 229,
         "scopeLabel": "Triangle d'Or",
         "yearsLabel": "2024–2025",
@@ -1405,29 +1405,35 @@
           "dateTs": 1795338440249,
           "price": "309 900 €",
           "priceVal": 309900
+        },
+        {
+          "date": "22 novembre 2026",
+          "dateTs": 1795354408169,
+          "price": "336 900 €",
+          "priceVal": 336900
         }
       ],
       "score": 8.1,
       "status": "Actif",
-      "location": "Brest 29200 Centre-ville - Triangle d'Or",
+      "location": "Brest - BRANDA",
       "quartier": "Triangle d'Or",
       "tier": 1,
       "url": "https://www.leboncoin.fr/ad/ventes_immobilieres/3167557505",
       "type": "Appartement",
-      "surface": "119 m²",
-      "surfaceVal": 119,
+      "surface": "118.95 m²",
+      "surfaceVal": 118.95,
       "pieces": "5 pièces",
-      "prestations": "Chambres: 3 ch.",
+      "prestations": "Chambres: 3",
       "dateFirst": "22 juin 2026 à 00h03",
-      "dateLast": "22 novembre 2026 à 10h07",
-      "dateVal": 1795338420000,
+      "dateLast": "22 novembre 2026 à 14h33",
+      "dateVal": 1795354380000,
       "maluses": [
         "Pas dernier étage (-0.75)",
         "Pas de parking/garage (-1.13)",
         "Bonus qualité (+0.0)"
       ],
       "hasScreenshot": true,
-      "description": ""
+      "description": "BREST – BRANDA. Réf : SI00487-PDM Situé dans secteur Branda, à proximité immédiate de la gare de Brest (29200), venez découvrir cet appartement T5 de 118,95 m² habitables situé au quatrième étage d'une résidence avec ascenseur des années 1990. Seul sur pallier, il se compose d'une large entrée avec rangement, salon-séjour de 38,90 m² baigné de lumière et cuisine attenante de 13,40 m². Côté nuit, 3 chambres allants de 13,70 à 17 m² dont 2 avec balcons, 2 salle d'eaux dont une avec WC, WC indépendants. Les menuiseries sont en aluminium double vitrage et le chauffage est individuel électrique. Sur le plan énergétique, l'appartement présente une consommation énergétique de 147,4 kWh/m²/an, correspondant à une classe énergétique C. Les émissions de gaz à effet de serre sont classées A, avec une valeur de 5 kg CO?/m²/an. Idéalement situé, cet appartement se trouve à seulement 3 minutes à pied de l'arrêt de tramway 'Liberté' et à moins d'un km des commerces. Les écoles sont accessibles en 5 minutes, et vous trouverez également plusieurs restaurants et boulangeries à proximité. Ne manquez pas cette opportunité rare sur le marché ! Contactez Barraine IMMO – Brest pour plus d'informations. (5.28 % honoraires TTC à la charge de l'acquéreur.) Copropriété de 14 lots – dont 14 lots habitation. (Pas de procédure en cours). Charges annuelles : 2399.76 euros. Risque sismique ou radon Les informations sur les risques auxquels ce bien est exposé sont disponibles sur le site Géorisques . * 336 900 € honoraires inclus dont à la charge de l'acquéreur : 16 900 € - Prix hors honoraires : 320 000 €."
     },
     {
       "folder": "leboncoin_3119799071",
@@ -1762,8 +1768,8 @@
       "pieces": "5 pièces",
       "prestations": "Double vitrage Fenêtre PVC Fenêtres coulissantes Abri de voiture",
       "dateFirst": "22 juin 2026 à 00h02",
-      "dateLast": "22 novembre 2026 à 10h07",
-      "dateVal": 1795338420000,
+      "dateLast": "22 novembre 2026 à 14h33",
+      "dateVal": 1795354380000,
       "maluses": [
         "Localisation : -2.0 Tiers 2",
         "Pas dernier étage (-1)",
@@ -2659,8 +2665,8 @@
       "pieces": "3 pièces",
       "prestations": "Chambres: 2 ch.",
       "dateFirst": "18 juillet 2026 à 21h30",
-      "dateLast": "22 novembre 2026 à 11h02",
-      "dateVal": 1795341720000,
+      "dateLast": "22 novembre 2026 à 14h33",
+      "dateVal": 1795354380000,
       "maluses": [
         "Pas de terrasse/jardin (-2)",
         "Pas de parking/garage (-1.5)",
@@ -2829,8 +2835,8 @@
       "pieces": "5 pièces",
       "prestations": "Chambres: 4",
       "dateFirst": "4 août 2026 à 23h11",
-      "dateLast": "22 novembre 2026 à 10h07",
-      "dateVal": 1795338420000,
+      "dateLast": "22 novembre 2026 à 14h33",
+      "dateVal": 1795354380000,
       "maluses": [
         "Pas dernier étage (-0.75)",
         "Pas seul à l'étage (-0.75)",
@@ -3003,8 +3009,8 @@
       "pieces": "5 pièces",
       "prestations": "Chambres: 3",
       "dateFirst": "22 août 2026 à 11h28",
-      "dateLast": "22 novembre 2026 à 11h02",
-      "dateVal": 1795341720000,
+      "dateLast": "22 novembre 2026 à 14h33",
+      "dateVal": 1795354380000,
       "maluses": [
         "Localisation : -2.0 Tiers 2",
         "Pas dernier étage (-0.75)",
@@ -3807,8 +3813,8 @@
       "pieces": "5 pièces",
       "prestations": "Chambres: 4, Garage: 0, Cave: 1",
       "dateFirst": "8 octobre 2026 à 21h05",
-      "dateLast": "22 novembre 2026 à 10h07",
-      "dateVal": 1795338420000,
+      "dateLast": "22 novembre 2026 à 14h33",
+      "dateVal": 1795354380000,
       "maluses": [
         "Pas dernier étage (-1)",
         "Pas de terrasse/jardin (-2)",
@@ -4174,52 +4180,52 @@
       "ref": "M20261029-4",
       "isSas": false,
       "source": "Leboncoin",
-      "title": "Appartement 103 m² Saint-Michel avec jardin",
-      "price": "359 900 €",
-      "priceVal": 359900,
-      "prixM2": 3494,
+      "title": "Maison 105 m² Saint-Michel avec jardin",
+      "price": "358 000 €",
+      "priceVal": 358000,
+      "prixM2": 3410,
       "dvfComparison": {
-        "prixM2": 3494,
-        "medianM2": 1686,
-        "diffPct": 107,
-        "sampleCount": 240,
+        "prixM2": 3410,
+        "medianM2": 2838,
+        "diffPct": 20,
+        "sampleCount": 19,
         "scopeLabel": "Saint-Michel",
         "yearsLabel": "2024–2025",
         "comparables": [
           {
-            "date": "2025-11-27",
-            "adresse": "5 PL DE LA LIBERTE",
-            "surface": 109,
-            "prix": 309964,
-            "prixM2": 2844
+            "date": "2025-11-24",
+            "adresse": "9000 RUE CONSEIL",
+            "surface": 92,
+            "prix": 285000,
+            "prixM2": 3089
           },
           {
-            "date": "2025-11-13",
-            "adresse": "18 RUE BRANDA",
+            "date": "2025-04-30",
+            "adresse": "7 RUE EDOUARD CORBIERE",
             "surface": 100,
+            "prix": 263260,
+            "prixM2": 2633
+          },
+          {
+            "date": "2025-03-21",
+            "adresse": "11 RUE MARIE LENERU",
+            "surface": 91,
             "prix": 260000,
-            "prixM2": 2600
+            "prixM2": 2857
           },
           {
-            "date": "2025-11-03",
-            "adresse": "13 RUE D ABOVILLE",
-            "surface": 105,
-            "prix": 103000,
-            "prixM2": 982
+            "date": "2025-02-28",
+            "adresse": "21 RUE AMIRAL COURBET",
+            "surface": 94,
+            "prix": 243000,
+            "prixM2": 2585
           },
           {
-            "date": "2025-10-28",
-            "adresse": "125 RUE JEAN JAURES",
-            "surface": 90,
+            "date": "2024-09-12",
+            "adresse": "21 RUE GRAVERAN",
+            "surface": 108,
             "prix": 250000,
-            "prixM2": 2778
-          },
-          {
-            "date": "2025-09-29",
-            "adresse": "1 RUE DE KERSAINT",
-            "surface": 98,
-            "prix": 151000,
-            "prixM2": 1534
+            "prixM2": 2315
           }
         ]
       },
@@ -4301,29 +4307,35 @@
           "dateTs": 1795338439988,
           "price": "359 900 €",
           "priceVal": 359900
+        },
+        {
+          "date": "22 novembre 2026",
+          "dateTs": 1795354403968,
+          "price": "358 000 €",
+          "priceVal": 358000
         }
       ],
       "score": 7.4,
       "status": "Actif",
-      "location": "Brest 29200 Saint-Michel",
+      "location": "Brest",
       "quartier": "Saint-Michel",
       "tier": 2,
       "url": "https://www.leboncoin.fr/ad/ventes_immobilieres/3289666199",
-      "type": "Appartement",
-      "surface": "103 m²",
-      "surfaceVal": 103,
+      "type": "Maison",
+      "surface": "105 m²",
+      "surfaceVal": 105,
       "pieces": "5 pièces",
-      "prestations": "Chambres: 3 ch.",
+      "prestations": "Double vitrage Vidéophone Fenêtre PVC",
       "dateFirst": "29 octobre 2026 à 14h37",
-      "dateLast": "22 novembre 2026 à 10h07",
-      "dateVal": 1795338420000,
+      "dateLast": "22 novembre 2026 à 14h33",
+      "dateVal": 1795354380000,
       "maluses": [
         "Localisation : -2.0 Tiers 2",
         "Pas de parking/garage (-1.13)",
         "Bonus qualité : rénové (+0.5)"
       ],
       "hasScreenshot": true,
-      "description": ""
+      "description": "EXCLUSIVITÉ, BREST, PILIER ROUGE, proche du centre ville, le charme de l'ancien associé au contemporain pour cette maison de 1930 en parfait état. Elle se compose au rez de chaussée d'une cuisine contemporaine équipée et aménagée ouverte sur le coin repas, d'un salon avec sa bibliothèque sur mesure, d'une véranda, à l'étage vous profiterez de deux chambres et d'une salle d'eau, d'un WC et au dernier étage se trouvent une grande chambre ainsi qu'un bureau ou dressing. Pour plus de rangements vous bénéficierez d'une grande cave. chaudière gaz de 2025.Joli jardin arboré et clos de murs proche du centre ville, collèges , lycées et transports en communs RARE SUR LE SECTEUR ."
     },
     {
       "folder": "leboncoin_3295975124",
