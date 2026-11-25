@@ -94,8 +94,7 @@ try {
       Invoke-Native 'git' @('commit', '-m', "chore: actualiser les annonces du $(Get-Date -Format 'yyyy-MM-dd') (local)")
       Invoke-Native 'git' @('pull', '--rebase', '--autostash', 'origin', 'main')
       Invoke-Native 'git' @('push', 'origin', 'HEAD:main')
-      Invoke-Native 'gh' @('workflow', 'run', 'deploy.yml', '--ref', 'main')
-      Write-Host 'Site mis à jour et déploiement lancé.'
+      Write-Host 'Site mis à jour et poussé.'
     } else {
       Write-Host 'Aucun changement à publier.'
     }

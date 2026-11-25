@@ -1,8 +1,7 @@
 name: Deploy VitePress site to Pages
 
+# Déploiement manuel uniquement (GitHub Pages désactivé au profit de l'app Railway).
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
 
 permissions:

@@ -17,7 +17,6 @@ on:
 
 permissions:
   contents: write
-  actions: write
 
 concurrency:
   group: immo-fetch
@@ -73,27 +72,17 @@ jobs:
         run: npm run generate
 
       - name: Commit generated site
-        id: commit
         if: ${{ !inputs.dry_run }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -A docs leboncoin_searches
           if git diff --cached --quiet; then
-            echo "pushed=false" >> "$GITHUB_OUTPUT"
             exit 0
           fi
           git commit -m "chore: actualiser les annonces du $(date +%F) (cloud)"
           git pull --rebase origin main
           git push origin HEAD:main
-          echo "pushed=true" >> "$GITHUB_OUTPUT"
-
-      # Un push fait avec GITHUB_TOKEN ne déclenche pas le workflow de déploiement : on le lance explicitement.
-      - name: Deploy site
-        if: ${{ steps.commit.outputs.pushed == 'true' }}
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: gh workflow run deploy.yml --ref main
 
       - name: Fail if fetch failed
         if: ${{ steps.fetch.outcome == 'failure' }}
