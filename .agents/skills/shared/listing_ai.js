@@ -94,8 +94,7 @@ function clean(list, max) {
   return (Array.isArray(list) ? list : []).map(s => String(s).trim()).filter(Boolean).slice(0, max);
 }
 
-async function analyzeListing(gemini, row) {
-  const raw = await gemini.generateJson(buildPrompt(row), SCHEMA);
+function buildAnalysisRecord(row, raw, model = 'antigravity-agent') {
   let complement = normalizeComplement(raw.complement_titre);
   if (complement.length > 60) complement = '';
   return {
@@ -104,11 +103,16 @@ async function analyzeListing(gemini, row) {
     accroche: String(raw.accroche || '').trim(),
     points_forts: clean(raw.points_forts, 4),
     points_faibles: clean(raw.points_faibles, 4),
-    model: gemini.model,
+    model,
     version: AI_VERSION,
     input_hash: analysisHash(row),
     analyzed_at: new Date().toISOString()
   };
 }
 
-module.exports = { analyzeListing, needsAnalysis, analysisHash, AI_VERSION };
+async function analyzeListing(gemini, row) {
+  const raw = await gemini.generateJson(buildPrompt(row), SCHEMA);
+  return buildAnalysisRecord(row, raw, gemini.model);
+}
+
+module.exports = { analyzeListing, buildAnalysisRecord, analysisInput, needsAnalysis, analysisHash, AI_VERSION };

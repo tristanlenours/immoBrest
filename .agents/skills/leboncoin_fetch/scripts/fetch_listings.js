@@ -94,7 +94,8 @@ async function waitForPort(port, maxRetries = 15, delay = 1000) {
   throw new Error(`Could not connect to Chrome debug port ${port}`);
 }
 
-async function evaluateInTab(webSocketDebuggerUrl, expression) {
+async function evaluateInTab(webSocketDebuggerUrl, expression, options = {}) {
+  const { waitForExpr = null, maxWaitMs = 15000 } = options;
   const ws = new global.WebSocket(webSocketDebuggerUrl);
   await new Promise((resolve, reject) => {
     ws.onopen = resolve;
@@ -126,18 +127,18 @@ async function evaluateInTab(webSocketDebuggerUrl, expression) {
   try {
     await sendCommand('Runtime.enable');
     
-    // Poll for document.readyState
-    let ready = false;
-    for (let i = 0; i < 15; i++) {
+    // Attendre que la page cible soit réellement chargée (pas about:blank ni en cours d'hydratation).
+    const deadline = Date.now() + maxWaitMs;
+    const readyCheckExpr = waitForExpr
+      ? `(() => { try { return location.href && location.href !== 'about:blank' && document.readyState === 'complete' && Boolean(${waitForExpr}); } catch { return false; } })()`
+      : `(() => { try { return location.href && location.href !== 'about:blank' && document.readyState === 'complete'; } catch { return false; } })()`;
+
+    while (Date.now() < deadline) {
       const res = await sendCommand('Runtime.evaluate', {
-        expression: 'document.readyState',
+        expression: readyCheckExpr,
         returnByValue: true
       });
-      const state = res.result.value;
-      if (state === 'complete' || state === 'interactive') {
-        ready = true;
-        break;
-      }
+      if (res?.result?.value === true) break;
       await sleep(1000);
     }
     
@@ -675,6 +676,7 @@ async function scrapeLeboncoin(lastSearchTime = 0, dryRun = false) {
   // Extract listing URLs and ads from all requested pages
   const allAds = [];
   const seenUrls = new Set();
+  await sendCommand('Page.enable');
   
   for (let pageNum = 1; pageNum <= LEBONCOIN_MAX_PAGES; pageNum++) {
     let pageUrl = LEBONCOIN_SEARCH_URL;
@@ -687,23 +689,44 @@ async function scrapeLeboncoin(lastSearchTime = 0, dryRun = false) {
     }
     
     console.log(`Navigating to Leboncoin search page ${pageNum}...`);
-    await sendCommand('Page.enable');
     await sendCommand('Page.navigate', { url: pageUrl });
-    console.log('Waiting 6 seconds for results to load...');
-    await sleep(6000);
-    
-    const nextDataRes = await sendCommand('Runtime.evaluate', {
-      expression: `(() => {
-        if (typeof window.__NEXT_DATA__ === 'undefined' || !window.__NEXT_DATA__.props.pageProps.searchData) {
-          return null;
-        }
-        return window.__NEXT_DATA__.props.pageProps.searchData.ads || [];
-      })()`,
-      returnByValue: true
-    });
-    
-    const ads = nextDataRes.result.value;
+
+    // Attente adaptative : laisse le temps à Next.js d'hydrater searchData (jusqu'à 18s en page 1, 12s ensuite).
+    await sleep(4000);
+    const maxPolls = pageNum === 1 ? 7 : 4;
+    let ads = null;
+    let diag = null;
+    for (let attempt = 0; attempt <= maxPolls; attempt++) {
+      const nextDataRes = await sendCommand('Runtime.evaluate', {
+        expression: `(() => {
+          const searchData = typeof window.__NEXT_DATA__ !== 'undefined'
+            ? window.__NEXT_DATA__?.props?.pageProps?.searchData
+            : null;
+          if (searchData && Array.isArray(searchData.ads)) {
+            return { ok: true, ads: searchData.ads };
+          }
+          return {
+            ok: false,
+            url: location.href,
+            title: document.title,
+            readyState: document.readyState
+          };
+        })()`,
+        returnByValue: true
+      });
+      const val = nextDataRes?.result?.value;
+      if (val && val.ok) {
+        ads = val.ads;
+        break;
+      }
+      diag = val;
+      if (attempt < maxPolls) await sleep(2000);
+    }
+
     if (!ads || ads.length === 0) {
+      if (ads === null && diag) {
+        console.warn(`[DIAGNOSTIC] Page ${pageNum} sans searchData (url=${diag.url}, title="${diag.title}", readyState=${diag.readyState})`);
+      }
       console.log(`No ads found on page ${pageNum}. Stopping.`);
       break;
     }
@@ -759,8 +782,13 @@ async function scrapeLeboncoin(lastSearchTime = 0, dryRun = false) {
       const pubDateStr = formatLeboncoinDate(ad.first_publication_date || ad.index_date || ad.published_date);
       console.log(`[SKIPPED DETAIL - UNCHANGED] ${ad.subject} (${priceKey} €) | Last seen updated on save.`);
 
-      const isMaison = url.includes('maison') || ad.subject.toLowerCase().includes('maison');
-      const type = isMaison ? 'Maison' : 'Appartement';
+      const realEstateTypeAttr = ad.attributes && ad.attributes.find(a => a.key === 'real_estate_type');
+      const realEstateTypeLabel = (realEstateTypeAttr?.value_label || '').toLowerCase();
+      const isMaison = realEstateTypeAttr?.value === '1'
+        || realEstateTypeLabel.includes('maison')
+        || url.includes('maison')
+        || (ad.subject || '').toLowerCase().includes('maison');
+      const type = isMaison ? 'Maison' : (known?.type || 'Appartement');
       const city = ad.location.city_label || ad.location.city || 'Brest';
 
       results.push({
@@ -816,31 +844,37 @@ async function scrapeLeboncoin(lastSearchTime = 0, dryRun = false) {
           } catch(e) {}
 
           let nextDesc = '';
+          let nextSubject = '';
           try {
             if (typeof window.__NEXT_DATA__ !== 'undefined') {
-              const adObj = window.__NEXT_DATA__.props.pageProps.ad || window.__NEXT_DATA__.props.pageProps.listingData;
-              if (adObj && adObj.description) {
-                nextDesc = adObj.description;
+              const adObj = window.__NEXT_DATA__?.props?.pageProps?.ad || window.__NEXT_DATA__?.props?.pageProps?.listingData;
+              if (adObj) {
+                nextDesc = adObj.body || adObj.description || '';
+                nextSubject = adObj.subject || '';
               }
             }
           } catch(e) {}
 
-          const h1 = document.querySelector('h1') ? document.querySelector('h1').innerText : '';
-          const text = document.body.innerText;
+          const h1 = (document.querySelector('h1') ? document.querySelector('h1').innerText : '') || nextSubject;
+          const text = document.body ? document.body.innerText : '';
           return { h1, text, nextDesc };
-        })()`);
+        })()`, {
+          waitForExpr: "Boolean(document.querySelector('h1') || window.__NEXT_DATA__?.props?.pageProps?.ad || window.__NEXT_DATA__?.props?.pageProps?.listingData)",
+          maxWaitMs: 15000
+        });
         
         if (!adData) {
           throw new Error('Failed to evaluate ad data (empty response)');
         }
         
-        const title = adData.h1;
-        const text = adData.text;
+        const rawH1 = (adData.h1 || '').trim();
+        const title = rawH1 || (ad.subject || '').trim();
+        const text = adData.text || '';
         
         const parsedPrice = adPrice ? adPrice : parsePrice(text.match(/([\d\s\u202f]+)€/)?.[1] || 'Non renseigné');
         const location = ad.location.city_label || ad.location.city || 'Brest';
         
-        let description = adData.nextDesc || '';
+        let description = (adData.nextDesc || '').trim();
         if (!description) {
           const descStartIndex = text.indexOf('\nDescription\n');
           if (descStartIndex !== -1) {
@@ -854,6 +888,20 @@ async function scrapeLeboncoin(lastSearchTime = 0, dryRun = false) {
               }
             }
             description = descText.substring(0, descEndIndex).trim();
+          }
+        }
+        if (!description && typeof ad.body === 'string' && ad.body.trim()) {
+          description = ad.body.trim();
+        }
+
+        const detailEmpty = !rawH1 && !description;
+        if (detailEmpty) {
+          if (known) {
+            description = known.description || '';
+            console.warn(`[WARNING] Fiche détail Leboncoin vide pour ${url} : conservation des données existantes (${known.id}).`);
+          } else {
+            console.warn(`[SKIPPED - DETAIL VIDE] Fiche détail Leboncoin non chargée/bloquée pour ${url} (non mise en cache).`);
+            continue;
           }
         }
         
@@ -888,8 +936,14 @@ async function scrapeLeboncoin(lastSearchTime = 0, dryRun = false) {
         const floorAttr = ad.attributes && ad.attributes.find(a => a.key === 'floor_number');
         const floor = floorAttr ? floorAttr.value_label : '';
         
-        const isMaison = url.includes('maison') || title.toLowerCase().includes('maison') || text.toLowerCase().includes('type de bien\n\nmaison');
-        const type = isMaison ? 'Maison' : 'Appartement';
+        const realEstateTypeAttr = ad.attributes && ad.attributes.find(a => a.key === 'real_estate_type');
+        const realEstateTypeLabel = (realEstateTypeAttr?.value_label || '').toLowerCase();
+        const isMaison = realEstateTypeAttr?.value === '1'
+          || realEstateTypeLabel.includes('maison')
+          || url.includes('maison')
+          || title.toLowerCase().includes('maison')
+          || text.toLowerCase().includes('type de bien\n\nmaison');
+        const type = (detailEmpty && known?.type) ? known.type : (isMaison ? 'Maison' : 'Appartement');
         
         // Quick score evaluation solely to decide on screenshot
         const score = quickScoreProperty(title, description, location, type);
@@ -1777,23 +1831,28 @@ async function saveOrUpdateProperty(p) {
 
   const surfaceNum = p.specs.surface ? parseFloat(String(p.specs.surface).replace(',', '.').replace(/[^\d.]/g, '')) : null;
   const piecesNum = p.specs.pieces ? (parseInt(String(p.specs.pieces).replace(/[^\d]/g, ''), 10) || null) : null;
+  const effectiveDescription = (p.description && p.description.trim()) ? p.description : (existing?.description || null);
+  const effectiveType = (!p.description && existing?.type) ? existing.type : p.type;
+  const effectiveSurface = Number.isFinite(surfaceNum) ? surfaceNum : (existing?.surface ?? null);
+  const effectiveQuartier = detectQuartier(p.title, effectiveDescription || '', p.location)?.name
+    || (existing ? detectQuartier(existing.title, existing.description || '', existing.location)?.name || '' : '');
   const fields = {
     source: titlePrefix,
     market_status: marketStatus,
     title: buildHeadline({
-      type: p.type,
-      surface: surfaceNum,
-      quartier: detectQuartier(p.title, p.description, p.location)?.name || '',
-      complement: existing?.ai_analysis ? existing.ai_analysis.complement_titre : keywordComplement(p.type, p.title, p.description, p.location)
+      type: effectiveType,
+      surface: effectiveSurface,
+      quartier: effectiveQuartier,
+      complement: existing?.ai_analysis ? existing.ai_analysis.complement_titre : keywordComplement(effectiveType, p.title, effectiveDescription || '', p.location)
     }),
-    type: p.type,
-    location: p.location,
+    type: effectiveType,
+    location: p.location || existing?.location || 'Brest',
     price: priceNum,
-    surface: Number.isFinite(surfaceNum) ? surfaceNum : null,
-    pieces: piecesNum,
-    floor: p.specs.floor || null,
-    prestations: p.specs.prestations || null,
-    description: p.description || null,
+    surface: effectiveSurface,
+    pieces: piecesNum ?? existing?.pieces ?? null,
+    floor: p.specs.floor || existing?.floor || null,
+    prestations: p.specs.prestations || existing?.prestations || null,
+    description: effectiveDescription,
     url: linkFields.url,
     additional_links: linkFields.additional_links,
     last_seen_at: nowIso,
@@ -1892,6 +1951,10 @@ async function run() {
         if (results.length === 0) {
           // Une source muette (blocage, page vide) ne doit pas servir à déclarer des annonces vendues.
           console.warn(`[WARNING] Aucune annonce récupérée sur ${key} : source ignorée pour la détection des ventes.`);
+          store.audit({ type: 'warning', source: key, title: key, detail: 'aucune annonce récupérée (blocage ou page vide)' });
+          if (key === 'leboncoin') {
+            failures.push(`${key}: aucune annonce récupérée (blocage anti-bot ou page vide)`);
+          }
         } else {
           succeeded.add(key);
         }
@@ -1954,9 +2017,10 @@ async function run() {
     }
 
     // Photos manquantes, analyse IA des annonces nouvelles ou modifiées, titres : avant le scoring qui s'en sert.
-    console.log('\nEnriching listings (photos, AI analysis, titles)...');
+    const aiEnabled = !process.argv.includes('--no-ai') && process.env.IMMO_NO_AI !== '1';
+    console.log(`\nEnriching listings (photos, ${aiEnabled ? 'AI analysis, ' : 'no-ai, '}titles)...`);
     try {
-      await enrichAll(store);
+      await enrichAll(store, { ai: aiEnabled });
     } catch (err) {
       failures.push(`enrichment: ${err.message}`);
       console.error('Error enriching listings:', err.message);

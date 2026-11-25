@@ -9,12 +9,13 @@
 //
 // node --env-file=.env .agents/skills/listing_enrich/scripts/enrich_listings.js [--dry-run] [--force] [--only=<id>] [--no-ai] [--no-photos]
 
+const fs = require('node:fs');
 const { buildHeadline, keywordComplement, normalizeComplement, detectQuartier } = require('../../shared/listing_utils');
 const { ListingStore, linksFromRow, SOLD_STATUS } = require('../../shared/listing_store');
 const { fetchPhotos, fetchImagePart } = require('../../shared/photos');
 const { chromeDebugAvailable, readLeboncoinAd } = require('../../shared/leboncoin_ad');
 const { createGemini, geminiKeys } = require('../../shared/gemini');
-const { analyzeListing, needsAnalysis } = require('../../shared/listing_ai');
+const { analyzeListing, buildAnalysisRecord, analysisInput, needsAnalysis } = require('../../shared/listing_ai');
 
 // Sources dont les fiches sont lisibles par une simple requête HTTP.
 const FETCHABLE_PHOTO_SOURCES = ['henry', 'luxior', 'barraine'];
@@ -195,11 +196,60 @@ async function enrichAll(store, { ai = true, photos = true, force = false, only 
   return stats;
 }
 
+async function exportPending(store, { force = false, only = null } = {}) {
+  let rows = store.byReviewStatus('approved', 'sas').filter(r => force ? Boolean(r.description) : needsAnalysis(r));
+  if (only) rows = rows.filter(r => r.id === only);
+  const items = rows.map(r => ({
+    id: r.id,
+    ref: r.ref,
+    title: r.title,
+    input: analysisInput(r)
+  }));
+  console.log(JSON.stringify(items, null, 2));
+}
+
+async function importAi(store, filePath) {
+  const rawData = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+  const entries = Array.isArray(rawData)
+    ? rawData
+    : Object.entries(rawData).map(([id, ai_analysis]) => ({ id, ai_analysis }));
+
+  let applied = 0;
+  for (const item of entries) {
+    const id = item.id;
+    const raw = item.ai_analysis || item;
+    const row = store.get(id);
+    if (!row) {
+      console.warn(`[IA] Annonce introuvable : ${id}`);
+      continue;
+    }
+    const analysis = buildAnalysisRecord(row, raw, raw.model || 'antigravity-agent');
+    const patch = { ai_analysis: analysis };
+    const nextRow = { ...row, ...patch };
+    const title = headlineOf(nextRow);
+    if (title && title !== row.title) patch.title = title;
+    await store.update(row.id, patch);
+    audit(store, row, 'enriched', 'analyse IA de la description (agent)');
+    console.log(`[IA] ${row.id} : ${analysis.complement_titre || '(pas de complément)'} | état ${analysis.etat}`);
+    applied++;
+  }
+  console.log(`[ENRICHISSEMENT AGENT] ${applied} analyse(s) IA enregistrée(s).`);
+}
+
 async function run() {
   const argv = process.argv.slice(2);
   const only = argv.find(a => a.startsWith('--only='))?.slice('--only='.length) || null;
+  const importPath = argv.find(a => a.startsWith('--import-ai='))?.slice('--import-ai='.length) || null;
   const store = new ListingStore({ dryRun: argv.includes('--dry-run') });
   await store.load();
+  if (argv.includes('--export-pending')) {
+    await exportPending(store, { force: argv.includes('--force'), only });
+    return;
+  }
+  if (importPath) {
+    await importAi(store, importPath);
+    return;
+  }
   await enrichAll(store, {
     ai: !argv.includes('--no-ai'),
     photos: !argv.includes('--no-photos'),

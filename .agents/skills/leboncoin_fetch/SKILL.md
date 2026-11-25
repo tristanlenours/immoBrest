@@ -1,3 +1,4 @@
+---
 name: Leboncoin, Agence Henry, Luxior & Human Real Estate Fetch
 description: Scrapes Brest real estate listings on Leboncoin, Agence Henry, Luxior, and Human Immobilier (published <= 30 days), filtering them strictly based on surface (85-150m²), price (300k-600k€), and Brest boundaries, excluding Lambezellec, Kervao, Bohars, Saint-Pierre, Quatre Moulins, Kerbonne, Bellevue, Saint-Marc, La Croix-Rouge, and Fontaine Margot.
 ---
