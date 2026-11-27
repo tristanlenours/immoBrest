@@ -1,5 +1,5 @@
 {
-  "last_update": "26 novembre 2026 à 16h48",
+  "last_update": "27 novembre 2026 à 16h33",
   "listings": [
     {
       "folder": "barraine_58615772",
@@ -75,8 +75,8 @@
       "pieces": "5 pièces",
       "prestations": "Non spécifiées",
       "dateFirst": "18 juillet 2026 à 23h57",
-      "dateLast": "26 novembre 2026 à 16h39",
-      "dateVal": 1795707540000,
+      "dateLast": "27 novembre 2026 à 16h31",
+      "dateVal": 1795793460000,
       "maluses": [
         "Localisation : -2.0 Tiers 2",
         "Pas dernier étage (-0.75)",
@@ -723,8 +723,8 @@
       "pieces": "5 pièces",
       "prestations": "Double vitrage Fenêtre aluminium Volets roulants électriques Abri de voiture Accès PMR Ascenseur Fibre optique Vidéo surveillance Vidéophone",
       "dateFirst": "21 juin 2026 à 23h52",
-      "dateLast": "26 novembre 2026 à 16h39",
-      "dateVal": 1795707540000,
+      "dateLast": "27 novembre 2026 à 16h30",
+      "dateVal": 1795793400000,
       "maluses": [
         "Localisation : -2.0 Tiers 2",
         "Pas dernier étage (-0.75)",
@@ -903,8 +903,8 @@
       "pieces": "4 pièces",
       "prestations": "Double vitrage Internet Digicode Fibre optique Local à vélo",
       "dateFirst": "14 octobre 2026 à 22h17",
-      "dateLast": "26 novembre 2026 à 16h39",
-      "dateVal": 1795707540000,
+      "dateLast": "27 novembre 2026 à 16h30",
+      "dateVal": 1795793400000,
       "maluses": [
         "Pas dernier étage (-1)",
         "Pas de terrasse/jardin (-1.5)",
@@ -946,8 +946,8 @@
       "pieces": "5 pièces",
       "prestations": "Double vitrage Fenêtre PVC Internet Digicode Gardien Interphone Ascenseur",
       "dateFirst": "14 novembre 2026 à 13h27",
-      "dateLast": "26 novembre 2026 à 16h39",
-      "dateVal": 1795707540000,
+      "dateLast": "27 novembre 2026 à 16h30",
+      "dateVal": 1795793400000,
       "maluses": [
         "Localisation : -2.0 Tiers 2",
         "Pas seul à l'étage (-0.75)",
@@ -1465,6 +1465,18 @@
           "dateTs": 1795707566070,
           "price": "336 900 €",
           "priceVal": 336900
+        },
+        {
+          "date": "27 novembre 2026",
+          "dateTs": 1795793455637,
+          "price": "309 900 €",
+          "priceVal": 309900
+        },
+        {
+          "date": "27 novembre 2026",
+          "dateTs": 1795793461846,
+          "price": "336 900 €",
+          "priceVal": 336900
         }
       ],
       "score": 7.9,
@@ -1479,8 +1491,8 @@
       "pieces": "5 pièces",
       "prestations": "Chambres: 3",
       "dateFirst": "22 juin 2026 à 00h03",
-      "dateLast": "26 novembre 2026 à 16h39",
-      "dateVal": 1795707540000,
+      "dateLast": "27 novembre 2026 à 16h31",
+      "dateVal": 1795793460000,
       "maluses": [
         "Pas dernier étage (-1)",
         "Pas de parking/garage (-1.13)",
@@ -1822,8 +1834,8 @@
       "pieces": "5 pièces",
       "prestations": "Double vitrage Fenêtre PVC Fenêtres coulissantes Abri de voiture",
       "dateFirst": "22 juin 2026 à 00h02",
-      "dateLast": "26 novembre 2026 à 16h39",
-      "dateVal": 1795707540000,
+      "dateLast": "27 novembre 2026 à 16h30",
+      "dateVal": 1795793400000,
       "maluses": [
         "Localisation : -2.0 Tiers 2",
         "Pas dernier étage (-1)",
@@ -2719,8 +2731,8 @@
       "pieces": "3 pièces",
       "prestations": "Chambres: 2 ch.",
       "dateFirst": "18 juillet 2026 à 21h30",
-      "dateLast": "26 novembre 2026 à 16h39",
-      "dateVal": 1795707540000,
+      "dateLast": "27 novembre 2026 à 16h30",
+      "dateVal": 1795793400000,
       "maluses": [
         "Pas de terrasse/jardin (-2)",
         "Pas de parking/garage (-1.5)",
@@ -2889,8 +2901,8 @@
       "pieces": "5 pièces",
       "prestations": "Chambres: 4",
       "dateFirst": "4 août 2026 à 23h11",
-      "dateLast": "26 novembre 2026 à 16h39",
-      "dateVal": 1795707540000,
+      "dateLast": "27 novembre 2026 à 16h31",
+      "dateVal": 1795793460000,
       "maluses": [
         "Pas dernier étage (-0.75)",
         "Pas seul à l'étage (-0.75)",
@@ -2907,14 +2919,14 @@
       "ref": "A20261101-12",
       "isSas": false,
       "source": "Leboncoin",
-      "title": "Appartement 116 m² Triangle d'Or",
-      "price": "329 900 €",
-      "priceVal": 329900,
-      "prixM2": 2844,
+      "title": "Appartement 116 m² Triangle d'Or avec vue rade et garage",
+      "price": "323 300 €",
+      "priceVal": 323300,
+      "prixM2": 2796,
       "dvfComparison": {
-        "prixM2": 2844,
+        "prixM2": 2796,
         "medianM2": 2250,
-        "diffPct": 26,
+        "diffPct": 24,
         "sampleCount": 229,
         "scopeLabel": "Triangle d'Or",
         "yearsLabel": "2024–2025",
@@ -2927,32 +2939,32 @@
             "prixM2": 2348
           },
           {
-            "date": "2025-01-10",
-            "adresse": "76 RUE DE SIAM",
-            "surface": 120,
-            "prix": 200000,
-            "prixM2": 1667
+            "date": "2025-12-17",
+            "adresse": "46 RUE D AIGUILLON",
+            "surface": 99,
+            "prix": 114200,
+            "prixM2": 1150
           },
           {
-            "date": "2025-01-06",
-            "adresse": "45 RUE LOUIS PASTEUR",
-            "surface": 116,
-            "prix": 338000,
-            "prixM2": 2914
+            "date": "2025-11-27",
+            "adresse": "5 PL DE LA LIBERTE",
+            "surface": 109,
+            "prix": 309964,
+            "prixM2": 2844
           },
           {
-            "date": "2024-12-24",
-            "adresse": "20 RUE JULES MICHELET",
-            "surface": 117,
-            "prix": 413800,
-            "prixM2": 3537
+            "date": "2025-11-17",
+            "adresse": "7 RUE DOCTEUR LENOBLE",
+            "surface": 104,
+            "prix": 260000,
+            "prixM2": 2500
           },
           {
-            "date": "2024-12-23",
-            "adresse": "20 RUE VOLTAIRE",
-            "surface": 105,
-            "prix": 175290,
-            "prixM2": 1673
+            "date": "2025-11-07",
+            "adresse": "2 SQ CDT L HERMINIER",
+            "surface": 114,
+            "prix": 405000,
+            "prixM2": 3553
           }
         ]
       },
@@ -2962,32 +2974,36 @@
           "dateTs": 1793526821773,
           "price": "329 900 €",
           "priceVal": 329900
+        },
+        {
+          "date": "27 novembre 2026",
+          "dateTs": 1795793458837,
+          "price": "323 300 €",
+          "priceVal": 323300
         }
       ],
-      "score": 5.1,
+      "score": 8.5,
       "status": "Actif",
-      "location": "Brest 29200 Centre-ville - Triangle d'Or",
+      "location": "Brest - BRANDA",
       "quartier": "Triangle d'Or",
       "tier": 1,
       "url": "https://www.leboncoin.fr/ad/ventes_immobilieres/3241525554",
       "type": "Appartement",
-      "surface": "116 m²",
-      "surfaceVal": 116,
-      "pieces": "Non spécifié",
-      "prestations": "Aucune",
+      "surface": "115.61 m²",
+      "surfaceVal": 115.61,
+      "pieces": "5 pièces",
+      "prestations": "Chambres: 3",
       "dateFirst": "1 novembre 2026 à 10h53",
-      "dateLast": "22 novembre 2026 à 10h07",
-      "dateVal": 1795338420000,
+      "dateLast": "27 novembre 2026 à 16h30",
+      "dateVal": 1795793400000,
       "maluses": [
         "Pas dernier étage (-0.75)",
         "Pas seul à l'étage (-0.75)",
-        "Pas de terrasse/jardin (-1.5)",
-        "Pas d'ascenseur (-0.75)",
-        "Pas de parking/garage (-1.13)",
-        "Bonus qualité (+0.0)"
+        "Malus état (à rafraîchir) (-0.5)",
+        "Bonus qualité : vue mer (+0.5)"
       ],
-      "hasScreenshot": false,
-      "description": "En plein coeur de Brest, sur la très recherchée Place de la Liberté, découvrez ce superbe appartement T5 de 116 m² habitables, offrant de beaux volumes, une excellente luminosité et un état d'entretien irréprochable.\n\nDès l'entrée, vous serez séduits par ses généreux espaces de vie et par son séjour baigné de lumière, bénéficiant d'une vue particulièrement agréable et dégagée sur les arbres, un véritable privilège en plein centre-ville.\n\nL'un de ses principaux atouts est qu'il ne nécessite aucun…\n\nVoir plus\nPasser la liste des médias\nListe des médias\nPlan\nPhotos (14)\nLes informations clés\n\nType de bien\n\nAppartement\n\nSurface habitable\n\n116 m²\n\nÉtat du bien\n\nBon état\n\nRéférence\n\n224651MJ-2000022174\n\nDiagnostics\n\nClasse énergie\n\nA\nB\nC\nD\nE\nF\nG\n\nGES\n\nA\nB\nC\nD\nE\nF\nG"
+      "hasScreenshot": true,
+      "description": "Référence : SI00707-WS. Prenez de la hauteur et redécouvrez Brest sous un autre angle ! Barraine Immo vous propose de découvrir ce spacieux appartement de 115,61 m², situé au 6ème étage d'un immeuble des années 50 avec ascenseur, dans le quartier prisé de Branda, à deux pas de la place de la Liberté. Dès l'entrée, vous apprécierez les volumes généreux de cet appartement et sa luminosité naturelle. Véritable pièce maîtresse du bien, le salon-séjour de plus de 38 m², exposé sud-est et largement ouvert sur l'extérieur, bénéficie d'un balcon offrant une superbe vue dégagée sur la ville et la rade de Brest. La cuisine, indépendante, aménagée et équipée, dispose d'un accès à un autre balcon fermé et filant. L'espace nuit se compose de trois chambres confortables, d'un bureau idéal pour le télétravail, de deux salles d'eau et deux WC. Un garage rue des onze martyrs ainsi deux caves viennent compléter l'ensemble. Si l'appartement offre aujourd'hui un état convenable, quelques aménagements décoratifs vous permettront de le moderniser selon vos envies et d'en révéler tout le potentiel. A seulement quelques pas des commerces, des restaurants, des écoles et des transports en commun, cet appartement vous permettra de profiter pleinement de la vie brestoise, sans dépendre de votre voiture. Une belle opportunité pour les amateurs de grands volumes, de lumière et de vie citadine, avec la rade de Brest pour horizon. A découvrir avec votre agence Barraine Immo Brest Siam. Prix : 323 300 euros honoraires d'agence inclus, dont 6 % TTC à la charge de l'acquéreur, soit 305 000 euros net vendeur. Copropriété comprenant 18 lots d'habitation. Charges courantes : 1 660,56 euros par an. Taxe foncière : 1 235 euros. Les informations sur les risques auxquels ce bien est exposé sont disponibles sur le site www.georisques.gouv.fr. (6.00 % honoraires TTC à la charge de l'acquéreur.) Copropriété de 27 lots – dont 18 lots habitation. (Pas de procédure en cours). Charges annuelles : 1660.67 euros. Risque sismique ou radon Les informations sur les risques auxquels ce bien est exposé sont disponibles sur le site Géorisques . * 323 300 € honoraires inclus dont à la charge de l'acquéreur : 18 300 € - Prix hors honoraires : 305 000 €."
     },
     {
       "folder": "leboncoin_3250257076",
@@ -3063,8 +3079,8 @@
       "pieces": "5 pièces",
       "prestations": "Chambres: 3",
       "dateFirst": "22 août 2026 à 11h28",
-      "dateLast": "26 novembre 2026 à 16h39",
-      "dateVal": 1795707540000,
+      "dateLast": "27 novembre 2026 à 16h31",
+      "dateVal": 1795793460000,
       "maluses": [
         "Localisation : -2.0 Tiers 2",
         "Pas dernier étage (-0.75)",
@@ -3873,8 +3889,8 @@
       "pieces": "5 pièces",
       "prestations": "Chambres: 4, Garage: 0, Cave: 1",
       "dateFirst": "8 octobre 2026 à 21h05",
-      "dateLast": "26 novembre 2026 à 16h39",
-      "dateVal": 1795707540000,
+      "dateLast": "27 novembre 2026 à 16h30",
+      "dateVal": 1795793400000,
       "maluses": [
         "Pas dernier étage (-1)",
         "Pas de terrasse/jardin (-2)",
@@ -4411,8 +4427,8 @@
       "pieces": "5 pièces",
       "prestations": "Double vitrage Vidéophone Fenêtre PVC",
       "dateFirst": "29 octobre 2026 à 14h37",
-      "dateLast": "26 novembre 2026 à 16h39",
-      "dateVal": 1795707540000,
+      "dateLast": "27 novembre 2026 à 16h30",
+      "dateVal": 1795793400000,
       "maluses": [
         "Localisation : -2.0 Tiers 2",
         "Pas de parking/garage (-1.13)",
