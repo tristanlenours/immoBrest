@@ -1236,7 +1236,7 @@
       "ref": "A20260622-4",
       "isSas": false,
       "source": "Leboncoin",
-      "title": "Appartement 119 m² Triangle d'Or, seul à l'étage et balcon",
+      "title": "Appartement 119 m² Triangle d'Or avec balcon, seul à l'étage",
       "price": "336 900 €",
       "priceVal": 336900,
       "prixM2": 2832,
@@ -1467,7 +1467,7 @@
           "priceVal": 336900
         }
       ],
-      "score": 8.1,
+      "score": 7.9,
       "status": "Actif",
       "location": "Brest - BRANDA",
       "quartier": "Triangle d'Or",
@@ -1482,7 +1482,7 @@
       "dateLast": "26 novembre 2026 à 16h39",
       "dateVal": 1795707540000,
       "maluses": [
-        "Pas dernier étage (-0.75)",
+        "Pas dernier étage (-1)",
         "Pas de parking/garage (-1.13)",
         "Bonus qualité (+0.0)"
       ],
