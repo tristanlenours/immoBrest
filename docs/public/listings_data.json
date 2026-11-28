@@ -1,5 +1,5 @@
 {
-  "last_update": "27 novembre 2026 à 16h33",
+  "last_update": "28 novembre 2026 à 15h29",
   "listings": [
     {
       "folder": "barraine_58615772",
@@ -75,8 +75,8 @@
       "pieces": "5 pièces",
       "prestations": "Non spécifiées",
       "dateFirst": "18 juillet 2026 à 23h57",
-      "dateLast": "27 novembre 2026 à 16h31",
-      "dateVal": 1795793460000,
+      "dateLast": "28 novembre 2026 à 15h29",
+      "dateVal": 1795876140000,
       "maluses": [
         "Localisation : -2.0 Tiers 2",
         "Pas dernier étage (-0.75)",
@@ -723,8 +723,8 @@
       "pieces": "5 pièces",
       "prestations": "Double vitrage Fenêtre aluminium Volets roulants électriques Abri de voiture Accès PMR Ascenseur Fibre optique Vidéo surveillance Vidéophone",
       "dateFirst": "21 juin 2026 à 23h52",
-      "dateLast": "27 novembre 2026 à 16h30",
-      "dateVal": 1795793400000,
+      "dateLast": "28 novembre 2026 à 15h29",
+      "dateVal": 1795876140000,
       "maluses": [
         "Localisation : -2.0 Tiers 2",
         "Pas dernier étage (-0.75)",
@@ -903,8 +903,8 @@
       "pieces": "4 pièces",
       "prestations": "Double vitrage Internet Digicode Fibre optique Local à vélo",
       "dateFirst": "14 octobre 2026 à 22h17",
-      "dateLast": "27 novembre 2026 à 16h30",
-      "dateVal": 1795793400000,
+      "dateLast": "28 novembre 2026 à 15h28",
+      "dateVal": 1795876080000,
       "maluses": [
         "Pas dernier étage (-1)",
         "Pas de terrasse/jardin (-1.5)",
@@ -946,8 +946,8 @@
       "pieces": "5 pièces",
       "prestations": "Double vitrage Fenêtre PVC Internet Digicode Gardien Interphone Ascenseur",
       "dateFirst": "14 novembre 2026 à 13h27",
-      "dateLast": "27 novembre 2026 à 16h30",
-      "dateVal": 1795793400000,
+      "dateLast": "28 novembre 2026 à 15h28",
+      "dateVal": 1795876080000,
       "maluses": [
         "Localisation : -2.0 Tiers 2",
         "Pas seul à l'étage (-0.75)",
@@ -1477,6 +1477,18 @@
           "dateTs": 1795793461846,
           "price": "336 900 €",
           "priceVal": 336900
+        },
+        {
+          "date": "28 novembre 2026",
+          "dateTs": 1795876141183,
+          "price": "309 900 €",
+          "priceVal": 309900
+        },
+        {
+          "date": "28 novembre 2026",
+          "dateTs": 1795876145519,
+          "price": "336 900 €",
+          "priceVal": 336900
         }
       ],
       "score": 7.9,
@@ -1491,8 +1503,8 @@
       "pieces": "5 pièces",
       "prestations": "Chambres: 3",
       "dateFirst": "22 juin 2026 à 00h03",
-      "dateLast": "27 novembre 2026 à 16h31",
-      "dateVal": 1795793460000,
+      "dateLast": "28 novembre 2026 à 15h29",
+      "dateVal": 1795876140000,
       "maluses": [
         "Pas dernier étage (-1)",
         "Pas de parking/garage (-1.13)",
@@ -1834,8 +1846,8 @@
       "pieces": "5 pièces",
       "prestations": "Double vitrage Fenêtre PVC Fenêtres coulissantes Abri de voiture",
       "dateFirst": "22 juin 2026 à 00h02",
-      "dateLast": "27 novembre 2026 à 16h30",
-      "dateVal": 1795793400000,
+      "dateLast": "28 novembre 2026 à 15h29",
+      "dateVal": 1795876140000,
       "maluses": [
         "Localisation : -2.0 Tiers 2",
         "Pas dernier étage (-1)",
@@ -2731,8 +2743,8 @@
       "pieces": "3 pièces",
       "prestations": "Chambres: 2 ch.",
       "dateFirst": "18 juillet 2026 à 21h30",
-      "dateLast": "27 novembre 2026 à 16h30",
-      "dateVal": 1795793400000,
+      "dateLast": "28 novembre 2026 à 15h29",
+      "dateVal": 1795876140000,
       "maluses": [
         "Pas de terrasse/jardin (-2)",
         "Pas de parking/garage (-1.5)",
@@ -2901,8 +2913,8 @@
       "pieces": "5 pièces",
       "prestations": "Chambres: 4",
       "dateFirst": "4 août 2026 à 23h11",
-      "dateLast": "27 novembre 2026 à 16h31",
-      "dateVal": 1795793460000,
+      "dateLast": "28 novembre 2026 à 15h29",
+      "dateVal": 1795876140000,
       "maluses": [
         "Pas dernier étage (-0.75)",
         "Pas seul à l'étage (-0.75)",
@@ -2994,8 +3006,8 @@
       "pieces": "5 pièces",
       "prestations": "Chambres: 3",
       "dateFirst": "1 novembre 2026 à 10h53",
-      "dateLast": "27 novembre 2026 à 16h30",
-      "dateVal": 1795793400000,
+      "dateLast": "28 novembre 2026 à 15h29",
+      "dateVal": 1795876140000,
       "maluses": [
         "Pas dernier étage (-0.75)",
         "Pas seul à l'étage (-0.75)",
@@ -3079,8 +3091,8 @@
       "pieces": "5 pièces",
       "prestations": "Chambres: 3",
       "dateFirst": "22 août 2026 à 11h28",
-      "dateLast": "27 novembre 2026 à 16h31",
-      "dateVal": 1795793460000,
+      "dateLast": "28 novembre 2026 à 15h29",
+      "dateVal": 1795876140000,
       "maluses": [
         "Localisation : -2.0 Tiers 2",
         "Pas dernier étage (-0.75)",
@@ -3889,8 +3901,8 @@
       "pieces": "5 pièces",
       "prestations": "Chambres: 4, Garage: 0, Cave: 1",
       "dateFirst": "8 octobre 2026 à 21h05",
-      "dateLast": "27 novembre 2026 à 16h30",
-      "dateVal": 1795793400000,
+      "dateLast": "28 novembre 2026 à 15h29",
+      "dateVal": 1795876140000,
       "maluses": [
         "Pas dernier étage (-1)",
         "Pas de terrasse/jardin (-2)",
@@ -4427,8 +4439,8 @@
       "pieces": "5 pièces",
       "prestations": "Double vitrage Vidéophone Fenêtre PVC",
       "dateFirst": "29 octobre 2026 à 14h37",
-      "dateLast": "27 novembre 2026 à 16h30",
-      "dateVal": 1795793400000,
+      "dateLast": "28 novembre 2026 à 15h29",
+      "dateVal": 1795876140000,
       "maluses": [
         "Localisation : -2.0 Tiers 2",
         "Pas de parking/garage (-1.13)",
